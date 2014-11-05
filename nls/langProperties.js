@@ -1,0 +1,32 @@
+﻿define({
+    "root": {
+        "metadataEditor": "METADATA EDITOR",
+        "pleaseSelect" : "Please Select",
+        "expandCollapse" : "Expand/Collapse",
+        "closed": "Close",
+        "to": "To",
+        "requiredFields": "Required fields",
+        "save": "Save",
+        "saveAs": "Save As",
+        "noRootError": "The {{currentModule}} fields have been saved temporarily, until such time the {{rootModule}} section has been completed.",
+        "noRootNotice": "Fill {{rootModule}} Section Notice",
+        "requiredFieldsNotice": "Required Fields Notice",
+        "requiredFieldsError": "Please fill all required fields:",
+        "selectFromList": "Make selections from the list",
+        "updateNotice": "Update Notice",
+        "successfulUpdate": "Metadata was updated successfully",
+        "newMetadataSuccess":  "A new metadata was successfully created",
+        "clickForCalendar" : "Click for calendar",
+        "requiredMetadataEntity" : "Required metadata entity",
+        "requiredMetadataSubEntity" : "Required metadata sub-entity",
+        "booleanTrue": "True",
+        "booleanFalse": "False",
+        "copyMetadata" : "Copy Metadata",
+        "copyMetadataOfResource" : "Copy the metadata of a resource",
+        "enterResourceIdentificationCode": "Enter Resource Identification Code",
+        "enterResourceVersion": "Enter Resource Version (if applicable)",
+        "load": "Load",
+        "saveAndClose": "Save & Close"
+    },
+    "fr": true
+});

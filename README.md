@@ -1,8 +1,23 @@
-fenix-ui-metadata-editor
+Fenix UI Metadata Editor
 ========================
+FENIX component to edit resource metadata information
 
+#Requirements
+
+* [NodeJS](http://nodejs.org/)
+* [NPM](https://npmjs.org/)
+
+#Deploy
+
+```bash
+npm install             Download source from remote repositories
+
+```
+  
+#Interact with the component
 
 Data Object produced by the Editor, when uses clicks on the ‘Save & Close’ Button in the Editor:
+
 {
   "title" : {
     "EN" : "Agriculture production. Crops, National Production ."
@@ -13,10 +28,11 @@ Data Object produced by the Editor, when uses clicks on the ‘Save & Close’ B
 
 Data Object can be accessed by the HOST page either by:
 
-1.       Setting a callback function on the Metadata Editor Configuration parameter  onFinishClick (See metadata.html)
+##Setting a callback
+Setting a callback function on the Metadata Editor Configuration parameter onFinishClick (See index.html)
 var require = {
         config: {
-            'metadata': { //This must match your module name
+            'main': { //This must match your module name
                 container: "div#metadataEditorContainer",
                 source: sourceValues,
                 resourceType: resourceTypeValue, //dataset, geographic, codelist
@@ -31,15 +47,11 @@ var require = {
         }
     };
 
+##Use events
+Use Event Listener: Where the event = ‘fx.editor.finish’ (See metadata.html)
 
-2.       Use Event Listener: Where the event = ‘fx.editor.finish’ (See metadata.html)
+document.body.addEventListener("fx.editor.finish", function (e) {
+ console.log(e.detail.data)
+ // then call your function passing the “e.detail.data”
 
-
-    document.body.addEventListener("fx.editor.finish", function (e) {
-     console.log(e.detail.data)
-     // then call your function passing the “e.detail.data”
-
-    }, false);
-
-
-
+}, false);

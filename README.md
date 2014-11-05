@@ -18,6 +18,7 @@ npm install             Download source from remote repositories
 
 Data Object produced by the Editor, when uses clicks on the ‘Save & Close’ Button in the Editor:
 
+```bash
 {
   "title" : {
     "EN" : "Agriculture production. Crops, National Production ."
@@ -25,11 +26,14 @@ Data Object produced by the Editor, when uses clicks on the ‘Save & Close’ B
   "uid" : "4",
   "rid" : "9_65"
 }
+```
 
 Data Object can be accessed by the HOST page either by:
 
 ##Setting a callback
 Setting a callback function on the Metadata Editor Configuration parameter onFinishClick (See index.html)
+
+```bash
 var require = {
         config: {
             'main': { //This must match your module name
@@ -46,12 +50,15 @@ var require = {
             }
         }
     };
+```
 
 ##Use events
 Use Event Listener: Where the event = ‘fx.editor.finish’ (See metadata.html)
 
+```bash
 document.body.addEventListener("fx.editor.finish", function (e) {
  console.log(e.detail.data)
  // then call your function passing the “e.detail.data”
 
 }, false);
+```

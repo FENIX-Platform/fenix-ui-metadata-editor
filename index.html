@@ -102,14 +102,14 @@
 
     if (getURLParameter("uid") != null && getURLParameter("version") == null) {
         sourceValues = {
-            "url": "http://faostat3.fao.org:7799/v2/msd/resources/metadata/uid/" + getURLParameter("uid") + "?full=true",
+            "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/metadata/uid/" + getURLParameter("uid") + "?full=true",
             "type": "get"
         };
     }
 
     if (getURLParameter("version") != null && getURLParameter("uid") != null) {
         sourceValues = {
-            "url": "http://faostat3.fao.org:7799/v2/msd/resources/metadata/" + getURLParameter("uid") + "/" + getURLParameter("version") + "?full=true",
+            "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/metadata/" + getURLParameter("uid") + "/" + getURLParameter("version") + "?full=true",
             "type": "get"
         };
     }

@@ -58,7 +58,7 @@
                             "system": "ISO639-2",
                             "version": "1998"
                         },
-                        "url": "http://faostat3.fao.org:7799/v2/msd/resources/ISO639-2/1998",
+                        "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/ISO639-2/1998",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -126,7 +126,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://faostat3.fao.org:7799/v2/msd/resources/uid/IANAcharacterSet",
+                        "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/uid/IANAcharacterSet",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -181,7 +181,7 @@
                             "system": "ISO639-2",
                             "version": "1998"
                         },
-                        "url": "http://faostat3.fao.org:7799/v2/msd/resources/ISO639-2/1998",
+                        "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/ISO639-2/1998",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -303,7 +303,7 @@
                                             "name": "MultipleChoice",
                                             "multipleChoice": "ResponsiblePartyRole"
                                         },
-                                        "url": "http://faostat3.fao.org:7799/v2/msd/choices/ResponsiblePartyRole",
+                                        "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/ResponsiblePartyRole",
                                         "datafields": {
                                             "code": "code",
                                             "label": "EN",
@@ -450,7 +450,7 @@
                             "name": "MultipleChoice",
                             "multipleChoice": "RepresentationType"
                         },
-                        "url": "http://faostat3.fao.org:7799/v2/msd/choices/RepresentationType",
+                        "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/RepresentationType",
                         "datafields": {
                             "defaultCode": "dataset",
                             "code": "code",
@@ -586,7 +586,7 @@
                                     "system": "FAO_Period",
                                     "version": "1.0"
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/FAO_Period/1.0",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/FAO_Period/1.0",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -617,7 +617,7 @@
                                     "system": "GAUL_ReferenceArea",
                                     "version": "1.0"
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/GAUL_ReferenceArea/1.0",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/GAUL_ReferenceArea/1.0",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -663,7 +663,7 @@
                                     "system": "CRS_purpose_codes",
                                     "version": ""
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/uid/CRS_purpose_codes",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/uid/CRS_purpose_codes",
                                 "dataroot": "data",
                                 "hierarchy": {
                                     "levels": 2,
@@ -742,7 +742,7 @@
                                     "system": "GAUL0",
                                     "version": "2014"
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/GAUL0/2014",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/GAUL0/2014",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -801,7 +801,7 @@
                                     "name": "multipleChoice",
                                     "multipleChoice": "CodeListType"
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/choices/CodeListType",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/CodeListType",
                                 "datafields": {
                                     "code": "code",
                                     "label": "EN",
@@ -1002,7 +1002,7 @@
                                                     "name": "multipleChoice",
                                                     "multipleChoice": "ResponsiblePartyRole"
                                                 },
-                                                "url": "http://faostat3.fao.org:7799/v2/msd/choices/ResponsiblePartyRole",
+                                                "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/ResponsiblePartyRole",
                                                 "datafields": {
                                                     "code": "code",
                                                     "label": "EN",
@@ -1127,7 +1127,7 @@
                                     "system": "FAOSTAT_Collection",
                                     "version": "1.0"
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/FAOSTAT_Collection/1.0",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/FAOSTAT_Collection/1.0",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -1187,7 +1187,7 @@
                                     "system": "FAO_Period",
                                     "version": "1.0"
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/FAO_Period/1.0",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/FAO_Period/1.0",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -1229,7 +1229,7 @@
                                     "system": "FAOSTAT_OriginData",
                                     "version": "1.0"
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/FAOSTAT_OriginData/1.0",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/FAOSTAT_OriginData/1.0",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -1384,7 +1384,7 @@
                                     "system": "CL_ADJUSTMENT",
                                     "version": "1.1"
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/CL_ADJUSTMENT/1.1",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/CL_ADJUSTMENT/1.1",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -1972,7 +1972,7 @@
                                             "system": "FAO_Period",
                                             "version": "1.0"
                                         },
-                                        "url": "http://faostat3.fao.org:7799/v2/msd/resources/FAO_Period/1.0",
+                                        "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/FAO_Period/1.0",
                                         "dataroot": "data",
                                         "datafields": {
                                             "code": "code",
@@ -2111,7 +2111,7 @@
                                     "system": "CL_CONF_STATUS",
                                     "version": "1.0"
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/CL_CONF_STATUS/1.0",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/CL_CONF_STATUS/1.0",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -2199,7 +2199,7 @@
                                     "system": "FAO_Period",
                                     "version": "1.0"
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/FAO_Period/1.0",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/FAO_Period/1.0",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -2334,7 +2334,7 @@
                                             "name": "MultipleChoice",
                                             "multipleChoice": "DocumentType"
                                         },
-                                        "url": "http://faostat3.fao.org:7799/v2/msd/choices/DocumentType",
+                                        "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/DocumentType",
                                         "datafields": {
                                             "code": "code",
                                             "label": "EN",
@@ -2467,7 +2467,7 @@
                                                             "name": "MultipleChoice",
                                                             "multipleChoice": "ResponsiblePartyRole"
                                                         },
-                                                        "url": "http://faostat3.fao.org:7799/v2/msd/choices/ResponsiblePartyRole",
+                                                        "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/ResponsiblePartyRole",
                                                         "datafields": {
                                                             "code": "code",
                                                             "label": "EN",
@@ -2700,7 +2700,7 @@
                             "name": "MultipleChoice",
                             "multipleChoice": "LayerType"
                         },
-                        "url": "http://faostat3.fao.org:7799/v2/msd/choices/LayerType",
+                        "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/LayerType",
                         "datafields": {
                             "code": "code",
                             "label": "EN",
@@ -2727,7 +2727,7 @@
                             "system": "MODIS_DataProductsTable",
                             "version": ""
                         },
-                        "url": "http://faostat3.fao.org:7799/v2/msd/resources/uid/MODIS_DataProductsTable",
+                        "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/uid/MODIS_DataProductsTable",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -3009,7 +3009,7 @@
                                             "name": "MultipleChoice",
                                             "multipleChoice": "CellGeometry"
                                         },
-                                        "url": "http://faostat3.fao.org:7799/v2/msd/choices/CellGeometry",
+                                        "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/CellGeometry",
                                         "datafields": {
                                             "code": "code",
                                             "label": "EN",
@@ -3034,7 +3034,7 @@
                                             "name": "MultipleChoice",
                                             "multipleChoice": "CellOfOrigin"
                                         },
-                                        "url": "http://faostat3.fao.org:7799/v2/msd/choices/CellOfOrigin",
+                                        "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/CellOfOrigin",
                                         "datafields": {
                                             "code": "code",
                                             "label": "EN",
@@ -3059,7 +3059,7 @@
                                             "name": "MultipleChoice",
                                             "multipleChoice": "XYPosition"
                                         },
-                                        "url": "http://faostat3.fao.org:7799/v2/msd/choices/XYPosition",
+                                        "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/XYPosition",
                                         "datafields": {
                                             "code": "code",
                                             "label": "EN",
@@ -3108,7 +3108,7 @@
                                             "system": "ISO19115_TopologyLevelCode",
                                             "version": ""
                                         },
-                                        "url": "http://faostat3.fao.org:7799/v2/msd/resources/uid/ISO19115_TopologyLevelCode",
+                                        "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/uid/ISO19115_TopologyLevelCode",
                                         "dataroot": "data",
                                         "datafields": {
                                             "code": "code",
@@ -3129,7 +3129,7 @@
                                             "name": "MultipleChoice",
                                             "multipleChoice": "GeometricObjects"
                                         },
-                                        "url": "http://faostat3.fao.org:7799/v2/msd/choices/GeometricObjects",
+                                        "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/GeometricObjects",
                                         "datafields": {
                                             "code": "code",
                                             "label": "EN",
@@ -3290,7 +3290,7 @@
                                             "name": "MultipleChoice",
                                             "multipleChoice": "ResponsiblePartyRole"
                                         },
-                                        "url": "http://faostat3.fao.org:7799/v2/msd/choices/ResponsiblePartyRole",
+                                        "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/ResponsiblePartyRole",
                                         "datafields": {
                                             "code": "code",
                                             "label": "EN",
@@ -3436,7 +3436,7 @@
                                     "system": "EPSG_Projection",
                                     "version": ""
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/uid/EPSG_Projection",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/uid/EPSG_Projection",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -3873,7 +3873,7 @@
                                     "system": "ESPG_ellipsoid",
                                     "version": ""
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/uid/EPSG_ellipsoid",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/uid/EPSG_ellipsoid",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",
@@ -4081,7 +4081,7 @@
                                     "system": "EPSG_datum",
                                     "version": ""
                                 },
-                                "url": "http://faostat3.fao.org:7799/v2/msd/resources/uid/EPSG_datum",
+                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/uid/EPSG_datum",
                                 "dataroot": "data",
                                 "datafields": {
                                     "code": "code",

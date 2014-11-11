@@ -1,6 +1,6 @@
 {
         "get": {
-            "url" : "http://faostat3.fao.org:7799/v2/msd/resources/metadata/uid/version?full=true",
+            "url" : "http://faostat3.fao.org/d3s2/v2/msd/resources/metadata/uid/version?full=true",
             "type" : "get",
             "response": {
                 "addedEntitites":["dsd"],
@@ -8,7 +8,7 @@
             }
         },
        "create": {
-           "url" : "http://faostat3.fao.org:7799/v2/msd/resources/metadata",
+           "url" : "http://faostat3.fao.org/d3s2/v2/msd/resources/metadata",
            "type": "post",
            "content": "json",
            "response": {
@@ -16,7 +16,7 @@
            }
         },
         "overwrite": {
-            "url" : "http://faostat3.fao.org:7799/v2/msd/resources/metadata",
+            "url" : "http://faostat3.fao.org/d3s2/v2/msd/resources/metadata",
             "type" : "put",
             "content": "json",
             "response": {

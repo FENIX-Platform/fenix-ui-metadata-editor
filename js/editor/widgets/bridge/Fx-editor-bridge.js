@@ -8,7 +8,7 @@ define([
     var o = { },
         defaultOptions = {
             error_prefix: "Fx_editor_bridge ERROR: ",
-            url: 'http://faostat3.fao.org:7799/v2/msd/resources/metadata',
+            url: 'http://faostat3.fao.org/d3s2/v2/msd/resources/metadata',
             type: 'post',
             events: {
                 END : "end.query.editor.fx",

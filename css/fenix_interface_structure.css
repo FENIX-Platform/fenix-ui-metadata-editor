@@ -1,80 +1,122 @@
-body{
-    position: relative;
-}
-
+/* FENIX DATA EDITOR CSS - TO BE REVIEWED */
 .bs-docs-sidebar.affix {
-    position: static;
-}
+  position: static; }
+
 @media (min-width: 768px) {
-    .bs-docs-sidebar {
-        padding-left: 20px;
-    }
-}
+  .bs-docs-sidebar {
+    padding-left: 20px; } }
 .bs-docs-sidenav {
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
+  margin-bottom: 20px;
+  margin-top: 20px; }
+
 .bs-docs-sidebar .nav > li > a {
-    color: #999999;
-    display: block;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 4px 20px;
-    cursor: pointer;
-}
+  color: #999999;
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px 20px;
+  cursor: pointer; }
+
 .bs-docs-sidebar .nav > li > a:hover, .bs-docs-sidebar .nav > li > a:focus {
-    background-color: rgba(0, 0, 0, 0);
-    border-left: 1px solid #007AFF;
-    color: #007AFF;
-    padding-left: 19px;
-    text-decoration: none;
-}
+  background-color: transparent;
+  border-left: 1px solid #007AFF;
+  color: #007AFF;
+  padding-left: 19px;
+  text-decoration: none; }
+
 .bs-docs-sidebar .nav > .active > a, .bs-docs-sidebar .nav > .active:hover > a, .bs-docs-sidebar .nav > .active:focus > a {
-    background-color: rgba(0, 0, 0, 0);
-    border-left: 2px solid #007AFF;
-    color: #007AFF;
-    font-weight: 700;
-    padding-left: 18px;
-}
+  background-color: transparent;
+  border-left: 2px solid #007AFF;
+  color: #007AFF;
+  font-weight: 700;
+  padding-left: 18px; }
+
 .bs-docs-sidebar .nav .nav {
-    display: none;
-    padding-bottom: 10px;
-}
+  display: none;
+  padding-bottom: 10px; }
+
 .bs-docs-sidebar .nav .nav > li > a {
-    font-size: 12px;
-    font-weight: 400;
-    padding-bottom: 1px;
-    padding-left: 30px;
-    padding-top: 1px;
-}
+  font-size: 12px;
+  font-weight: 400;
+  padding-bottom: 1px;
+  padding-left: 30px;
+  padding-top: 1px; }
+
 .bs-docs-sidebar .nav .nav > li > a:hover, .bs-docs-sidebar .nav .nav > li > a:focus {
-    padding-left: 29px;
-}
+  padding-left: 29px; }
+
 .bs-docs-sidebar .nav .nav > .active > a, .bs-docs-sidebar .nav .nav > .active:hover > a, .bs-docs-sidebar .nav .nav > .active:focus > a {
-    font-weight: 500;
-    padding-left: 28px;
-}
+  font-weight: 500;
+  padding-left: 28px; }
+
 @media (min-width: 992px) {
-    .bs-docs-sidebar .nav > .active > ul {
-        display: block;
-    }
-    .bs-docs-sidebar.affix, .bs-docs-sidebar.affix-bottom {
-        width: 213px;
-    }
-    .bs-docs-sidebar.affix {
-        position: fixed;
-        top: 80px;
-    }
-    .bs-docs-sidebar.affix-bottom {
-        position: absolute;
-    }
-    .bs-docs-sidebar.affix-bottom .bs-docs-sidenav, .bs-docs-sidebar.affix .bs-docs-sidenav {
-        margin-bottom: 0;
-        margin-top: 0;
-    }
-}
+  .bs-docs-sidebar .nav > .active > ul {
+    display: block; }
+
+  .bs-docs-sidebar.affix, .bs-docs-sidebar.affix-bottom {
+    width: 213px; }
+
+  .bs-docs-sidebar.affix {
+    position: fixed;
+    top: 80px; }
+
+  .bs-docs-sidebar.affix-bottom {
+    position: absolute; }
+
+  .bs-docs-sidebar.affix-bottom .bs-docs-sidenav, .bs-docs-sidebar.affix .bs-docs-sidenav {
+    margin-bottom: 0;
+    margin-top: 0; } }
 @media (min-width: 1200px) {
-    .bs-docs-sidebar.affix-bottom, .bs-docs-sidebar.affix {
-        width: 263px;
-    }
-}
+  .bs-docs-sidebar.affix-bottom, .bs-docs-sidebar.affix {
+    width: 263px; } }
+#metadataEditorContainer {
+  color: #666666; }
+  #metadataEditorContainer .panel-default > .panel-heading {
+    color: #666666; }
+    #metadataEditorContainer .panel-default > .panel-heading a {
+      font-weight: 400; }
+  #metadataEditorContainer .navbar-default {
+    background-color: transparent;
+    border: none; }
+  #metadataEditorContainer .panel {
+    background-color: transparent; }
+    #metadataEditorContainer .panel .btn {
+      background-color: transparent;
+      border: 0;
+      font-weight: 300; }
+  #metadataEditorContainer .fx-editor-menu-glyphicon {
+    font-size: 10px;
+    color: #999999; }
+  #metadataEditorContainer .panel-group .panel-heading + .panel-collapse > .panel-body {
+    border: 0; }
+  #metadataEditorContainer fieldset {
+    border: 0 !important;
+    color: #666666 !important; }
+    #metadataEditorContainer fieldset label {
+      color: #666666 !important;
+      font-weight: 300 !important; }
+  #metadataEditorContainer label {
+    color: #666666 !important;
+    font-weight: 300 !important; }
+  #metadataEditorContainer #fx-editor-form .panel-body {
+    padding: 0; }
+  #metadataEditorContainer #fx-editor-form .panel-heading {
+    padding: 0;
+    color: #0076ff;
+    font-size: 18px; }
+  #metadataEditorContainer #fx-editor-form .panel-default {
+    border-color: transparent; }
+  #metadataEditorContainer #fx-editor-form .panel-default > .panel-heading {
+    border: 0;
+    border-color: transparent; }
+  #metadataEditorContainer #fx-editor-form .panel {
+    border-radius: 0;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important; }
+  #metadataEditorContainer #fx-editor-form .btn-success {
+    background-color: #0076ff !important;
+    border: 1px solid #0076ff; }
+    #metadataEditorContainer #fx-editor-form .btn-success:hover {
+      border: 1px solid #0076ff;
+      background-color: transparent !important; }

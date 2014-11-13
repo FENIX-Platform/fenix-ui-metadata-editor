@@ -1,4 +1,7 @@
 /* FENIX DATA EDITOR CSS - TO BE REVIEWED */
+/* Fenix UI  DSD Editor  CSS - Colors */
+/* Fenix Colors */
+/* Specials */
 .bs-docs-sidebar.affix {
   position: static; }
 
@@ -19,15 +22,15 @@
 
 .bs-docs-sidebar .nav > li > a:hover, .bs-docs-sidebar .nav > li > a:focus {
   background-color: transparent;
-  border-left: 1px solid #007AFF;
-  color: #007AFF;
+  border-left: 1px solid #0076ff;
+  color: #0076ff;
   padding-left: 19px;
   text-decoration: none; }
 
 .bs-docs-sidebar .nav > .active > a, .bs-docs-sidebar .nav > .active:hover > a, .bs-docs-sidebar .nav > .active:focus > a {
   background-color: transparent;
-  border-left: 2px solid #007AFF;
-  color: #007AFF;
+  border-left: 2px solid #0076ff;
+  color: #0076ff;
   font-weight: 700;
   padding-left: 18px; }
 
@@ -115,8 +118,9 @@
     -moz-box-shadow: none !important;
     box-shadow: none !important; }
   #metadataEditorContainer #fx-editor-form .btn-success {
-    background-color: #0076ff !important;
-    border: 1px solid #0076ff; }
+    background-color: #0076ff;
+    border: 1px solid transparent;
+    color: white; }
     #metadataEditorContainer #fx-editor-form .btn-success:hover {
       border: 1px solid #0076ff;
       background-color: transparent !important; }

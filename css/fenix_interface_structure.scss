@@ -1,6 +1,6 @@
 /* FENIX DATA EDITOR CSS - TO BE REVIEWED */
 
-
+@import 'fx-colors';
 
 
 
@@ -26,15 +26,15 @@
 }
 .bs-docs-sidebar .nav > li > a:hover, .bs-docs-sidebar .nav > li > a:focus {
     background-color: rgba(0, 0, 0, 0);
-    border-left: 1px solid #007AFF;
-    color: #007AFF;
+    border-left: 1px solid $fx-cool-blue;
+    color: $fx-cool-blue;
     padding-left: 19px;
     text-decoration: none;
 }
 .bs-docs-sidebar .nav > .active > a, .bs-docs-sidebar .nav > .active:hover > a, .bs-docs-sidebar .nav > .active:focus > a {
     background-color: rgba(0, 0, 0, 0);
-    border-left: 2px solid #007AFF;
-    color: #007AFF;
+    border-left: 2px solid $fx-cool-blue;
+    color: $fx-cool-blue;
     font-weight: 700;
     padding-left: 18px;
 }
@@ -146,7 +146,7 @@
     .panel-heading{
       padding: 0;
 
-      color: #0076ff;
+      color: $fx-cool-blue;
       font-size: 18px;
 
     }
@@ -168,11 +168,12 @@
     }
 
     .btn-success{
-      background-color: #0076ff !important;
-      border: 1px solid #0076ff;
+      background-color: $fx-cool-blue;
+      border: 1px solid transparent;
+      color: white;
 
       &:hover{
-        border: 1px solid #0076ff;
+        border: 1px solid $fx-cool-blue;
         background-color: transparent !important;
       }
 

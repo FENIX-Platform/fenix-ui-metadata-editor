@@ -206,6 +206,13 @@
     margin-right: 0;
 }
 
+#metadataEditorContainer .fx-editor-menu-info{
+    color: #666666;
+
+}
+
+
+
 
 /** avoid dotted lines when clicking on button**/
 input[type="button"] {
@@ -351,7 +358,7 @@ input[type=text]::-ms-clear { display: none; }
     font-size: 11px;
 }    **/
 
-fx-editor-form-module {
+.fx-editor-form-module {
     width: 50%;
     background-color: white;
     border: 10px solid #E3E3E3;

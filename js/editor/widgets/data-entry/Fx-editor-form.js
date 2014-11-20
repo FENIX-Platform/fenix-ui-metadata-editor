@@ -28,7 +28,7 @@
                 lang: 'EN'
             },
             css_classes: {
-                ICON_INFO: "glyphicon fx-editor-menu-info",
+                ICON_INFO: "fx-panel-info fx-editor-menu-info",
                 ICON_EXPAND: "fa fa-caret-down fa-lg fa-fw",
                 ICON_COLLAPSE: "fa fa-caret-up fa-lg fa-fw",
                 ICON_CALENDAR: "glyphicon glyphicon-calendar"
@@ -669,7 +669,7 @@
                 if(requiredFieldsExist) {
                     var requiredCss =  bootstrapValidator_Utils.getFeedbackIconCss(bootstrapValidator_Utils.getFeedbackIconTypes().REQUIRED),
                     $requiredDiv = $('<div class="well well-sm"></div>'),
-                    $requiredStrong = $('<strong></strong>'),
+                    $requiredStrong = $(''),
 
                     $requiredImg = $('<span class="'+requiredCss+'"></span>'),
                     $requiredLabel = langProperties.requiredFields;
@@ -774,7 +774,7 @@
             $label = $('<label class="col-sm-'+div1Width+' control-label"></label>'),
             $infoContainer = $('<div class="col-sm-'+div3Width+'"></div>'),
         //$info = $('<button class="btn btn-xs btn-info" type="button"><span class="'+o.css_classes.ICON_FAMILY+' '+o.css_classes.ICON_INFO+'"></span></button>');
-            $info = $('<button class="btn btn-xs btn-info" type="button" tabindex="-1"><span class="'+o.css_classes.ICON_INFO+'"></span></button>');
+            $info = $('<button class="btn fx-button-reset" type="button" tabindex="-1"><span class="'+o.css_classes.ICON_INFO+'"></span></button>');
 
          //$inputDivId is used to determine which container the field HTML element will be appended to
         var $inputDivId = "fnx-element-"+name;

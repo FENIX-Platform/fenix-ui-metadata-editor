@@ -8,6 +8,7 @@ define([
 
     Fx_Info.prototype.createPopOverOriginal = function (item, content){
         item.popover({
+
             content: content,
             trigger: 'focus',
             placement: function(tip, ele) {
@@ -19,6 +20,7 @@ define([
     };
 
     Fx_Info.prototype.createPopOver = function (item, content){
+
         item.popover({
             content: content,
             trigger: 'focus',

@@ -1,50 +1,38 @@
 <div>
     <div class="container">
-        <!--<div class="row">-->
-            <!--<div class="col-xs-12 fx-editor-header">-->
-                <!--<em class="fx-editor-header-btn-expand">{{langProperties.expandCollapse}}</em>-->
-            <!--</div>-->
-        <!--</div>-->
+
         <div class="row fx-editor-progress-container">
                 <div class="col-xs-12 fx-editor-progress">
                     <div id="fx-editor-progress"></div>
                 </div>
         </div>
+
         <div class="row fx-editor-data-entry-container">
             <!-- Nav bar -->
-            <div class="col-xs-12 navbar navbar-default" id="fx-editor-navbar">
-                <!--<div class="navbar-header"><a class="navbar-brand">{{langProperties.metadataEditor}} {{context.resourceType}}</a>-->
-                <!--</div>-->
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="btn-toolbar">
-                                <button type="button" disabled="disabled" class="btn btn-primary fx-editor-finish-btn">
-                                    {{langProperties.saveAndClose}}
-                                </button>
-                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                                    {{langProperties.copyMetadata}} <span class="caret"></span>
-                                </button>
-                                <div class="dropdown-menu" >
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-12">
-                                            {{langProperties.copyMetadataOfResource}}
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <input type="text" placeholder="{{langProperties.enterResourceIdentificationCode}}" onclick="return false;" class="form-control input-sm" id="rUid" />
-                                        </div>
-                                        <br/>
-                                        <div class="col-sm-12">
-                                            <input type="text" placeholder="{{langProperties.enterResourceVersion}}" class="form-control input-sm" id="rVersion" />
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <button type="submit" class="btn btn-success btn-sm fx-editor-copy-btn">{{langProperties.load}}</button>
-                                        </div>
-
-                                    </div>
-                                </div>
+            <div class="col-xs-12" id="fx-editor-navbar">
+                <div class="btn-toolbar">
+                    <button type="button" disabled="disabled" class="btn btn-primary fx-editor-finish-btn">
+                        {{langProperties.saveAndClose}}
+                    </button>
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                        {{langProperties.copyMetadata}} <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu" >
+                        <div class="col-sm-12">
+                            <div class="col-sm-12">
+                                {{langProperties.copyMetadataOfResource}}
                             </div>
+                            <div class="col-sm-12">
+                                <input type="text" placeholder="{{langProperties.enterResourceIdentificationCode}}" onclick="return false;" class="form-control input-sm" id="rUid" />
+                            </div>
+                            <br/>
+                            <div class="col-sm-12">
+                                <input type="text" placeholder="{{langProperties.enterResourceVersion}}" class="form-control input-sm" id="rVersion" />
+                            </div>
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-success btn-sm fx-editor-copy-btn">{{langProperties.load}}</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>

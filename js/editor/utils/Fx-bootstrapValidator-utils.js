@@ -14,10 +14,10 @@ define(["jquery"], function () {
         defaultOptions = {
         css_classes: {
             ICON_FAMILY: "glyphicon",
-            ICON_REQUIRED: "glyphicon-asterisk",
-            ICON_VALID: "glyphicon-ok",
-            ICON_INVALID: "glyphicon-remove",
-            ICON_VALIDATING: "glyphicon-refresh"
+            ICON_REQUIRED: "fx-panel-required",
+            ICON_VALID: "fx-panel-ok",
+            ICON_INVALID: "fx-panel-remove",
+            ICON_VALIDATING: "fx-panel-refresh"
         }
     };
 

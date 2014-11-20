@@ -20,10 +20,10 @@ define([
                 ENTITY_SELECTED: "fx-editor-active-panel",
                 SUB_ENTITY_SELECTED: "fx-editor-sub-entity-active-panel",
                 ICON: "fx-editor-menu-glyphicon",
-                PLUS_ICON: "fx-editor-menu-plus",
-                MINUS_ICON: "fx-editor-menu-minus",
-                INFO_ICON: "fx-editor-menu-info",
-                REQUIRED_ICON: "fx-editor-menu-asterix"
+                PLUS_ICON: "fx-panel-plus",
+                MINUS_ICON: "fx-panel-minus",
+                INFO_ICON: "fx-panel-info",
+                REQUIRED_ICON: "fx-panel-required"
             },
             events: {
                 SELECT: 'fx.editor.menu.select',
@@ -216,7 +216,7 @@ define([
             $label = $('<h5></h5>'),
             $a = $('<a data-toggle="collapse"></a>'),
             $plus = $('<span class="'+o.css_classes.ICON+' '+o.css_classes.PLUS_ICON+'"></span>'),
-            $info = $('<button class="btn btn-default btn-xs pull-right" type="button"><span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span></button>');
+            $info = $('<span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span>');
 
         $label.addClass("panel-title");
         $label.addClass("fx-menu-entity-title");
@@ -269,7 +269,7 @@ define([
         }
 
         if(requiredEntity)  {
-            var $required = $('<span class="'+o.css_classes.ICON+' '+o.css_classes.REQUIRED_ICON+'" title="'+langProperties.requiredMetadataEntity+'"></span>');
+            var $required = $('<span class="'+o.css_classes.REQUIRED_ICON+'" title="'+langProperties.requiredMetadataEntity+'"></span>');
             $a.append($required);
         }
 
@@ -433,7 +433,7 @@ define([
     } else {
 
         var $btn = $('<button type="button" class="btn btn-default"></button>'),
-            $info = $('<button class="btn btn-default btn-xs" type="button"><span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span></button>');
+            $info = $('<span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span>');
 
 
         //Initialize Storage

@@ -29,8 +29,8 @@
             },
             css_classes: {
                 ICON_INFO: "fx-panel-info fx-editor-menu-info",
-                ICON_EXPAND: "fa fa-caret-down fa-lg fa-fw",
-                ICON_COLLAPSE: "fa fa-caret-up fa-lg fa-fw",
+                ICON_EXPAND: "fa fa-caret-down fa-fw",
+                ICON_COLLAPSE: "fa fa-caret-up fa-fw",
                 ICON_CALENDAR: "glyphicon glyphicon-calendar"
             },
             events: {
@@ -538,7 +538,7 @@
 
     Fx_Editor_Form.prototype.buildPanelHeader = function (module) {
         //Initialize header and set with the module name
-        var $panelHeader = $('<div class="panel-heading fx-editor-active-panel"></div>'),
+        var $panelHeader = $('<div class="panel-heading fx-active-panel"></div>'),
             $label = $('<h3 class="panel-title"></h3>');
 
 
@@ -981,7 +981,7 @@
 
         //Set Subtitle
         if(value.type.hasOwnProperty("subtitle")){
-            var $subtitle=  $('<div class="form-group"><div class="col-sm-12 fnx-control-subtitle"><label>'+value.type.subtitle[o.widget.lang]+'</label></div></div>');
+            var $subtitle=  $('<div class="form-group"><div class="col-sm-12 fx-fieldset-subtitle"><label>'+value.type.subtitle[o.widget.lang]+'</label></div></div>');
 
             $fieldSet.append($subtitle);
         }

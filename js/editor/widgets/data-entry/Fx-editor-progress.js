@@ -15,7 +15,7 @@ define([
                 gui: "conf/json/fx-editor-gui-config.json"
             },
             css_classes: {
-                ENTITY_SELECTED: "fx-editor-active-panel",
+                ENTITY_SELECTED: "fx-active-panel",
                 SUB_ENTITY_SELECTED: "fx-editor-sub-entity-active-panel",
                 ICON: "fx-editor-menu-glyphicon",
                 PLUS_ICON: "fx-editor-menu-plus",
@@ -76,7 +76,7 @@ define([
         $progressPanel = $('<div class="panel panel-default"></div>');
         $progressPanel.attr("id", o.progressPanelId);
 
-        var $panelHeader = $('<div class="panel-heading fx-editor-active-panel"></div>'),
+        var $panelHeader = $('<div class="panel-heading fx-active-panel"></div>'),
             $label = $('<h3 class="panel-title">Metadata Entities</h3>');
 
         $panelBody = $('<div class="panel-body fx-editor-progress"></div>');

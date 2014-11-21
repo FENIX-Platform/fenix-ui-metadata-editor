@@ -17,7 +17,7 @@ define([
             },
             resourceType : 'dataset',
             css_classes: {
-                ENTITY_SELECTED: "fx-editor-active-panel",
+                ENTITY_SELECTED: "fx-active-panel",
                 SUB_ENTITY_SELECTED: "fx-editor-sub-entity-active-panel",
                 ICON: "fx-editor-menu-glyphicon",
                 PLUS_ICON: "fx-panel-plus",

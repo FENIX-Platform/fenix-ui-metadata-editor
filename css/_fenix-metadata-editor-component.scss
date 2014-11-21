@@ -1,0 +1,91 @@
+/* Fenix - Modular Editor Component */
+
+/* Dropdown */
+
+#fx-editor-navbar .dropdown-menu .col-sm-12{
+  margin-bottom:7px;
+}
+
+/* Panel Title */
+.fx-editor-modular-form-container{
+  .panel-title{ color: $fx-cool-blue; }
+}
+
+
+/* Form */
+
+.fx-editor-modular-form-wrapper{
+  .panel{
+    background-color: transparent;
+    @include fx-border-radius(0);
+    @include fx-noshadow;
+    @include fx-obj-box-plain;
+
+      .panel-heading{
+        background-color:transparent;
+      }
+  }
+}
+
+.form-horizontal .form-group{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#fx-editor-form .form-horizontal .control-label {
+  text-align: left;
+}
+
+#fx-editor-form{
+  legend{
+    padding: 5px 0 0 10px;
+    margin-bottom: 0px;
+    background-color: $light-purple;
+  }
+
+  fieldset{
+    background-color: $light-purple;
+  }
+
+  .fnx-fieldset-2{
+    background-color: $light-brown;
+      legend{
+        background-color: $light-brown;
+      }
+    .form-group{
+      padding-left:20px;
+    }
+    .fx-fieldset-subtitle{
+      padding-left:16px;
+    }
+  }
+
+  .fnx-fieldset-1, .fnx-fieldset-2 {
+    .form-group{
+      margin-bottom: 0;
+      padding-bottom: 20px;
+
+    }
+  }
+
+}
+
+/* Icon Position */
+#fx-editor-form{
+  .fx-panel-info, .fx-panel-required, .fx-panel-ok, .fx-panel-remove, .fx-panel-refresh{
+    float: none;
+    margin:0;
+  }
+}
+
+/* Adjust feedback icon position */
+#fx-editor-form .form-control-feedback {
+  top: 7px;
+  right: -15px;
+}
+
+/* tags input picker */
+.bootstrap-tagsinput {
+  /** problem in IE, placeholder is cut
+   font-size: 11px;  **/
+}

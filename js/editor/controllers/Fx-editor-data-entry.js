@@ -55,7 +55,9 @@ define([
         CONTAINER : ".fx-editor-data-entry-container",
         TOGGLE_BTN: ".fx-editor-header-btn-expand",
         COPY_BTN: ".fx-editor-copy-btn",
-        FINISH_BTN: ".fx-editor-finish-btn"
+        FINISH_BTN: ".fx-editor-finish-btn",
+        INSTRUCTION: "#fx-editor-instruction",
+        EDITOR_HEADING: "#fx-editor-heading"
     };
 
     function DataEntryController() {
@@ -137,7 +139,9 @@ define([
     DataEntryController.prototype.renderComponents = function () {
         var self = this;
         NProgress.start();
-
+        $(".fx-header:first").hide(); // Fenix Data Editor title
+        $(selectors.EDITOR_HEADING).hide();
+        $(selectors.INSTRUCTION).hide();
 
         //Cache json configuration files: Validation and Json Mapping
         $.when($.getJSON(ajaxConf), $.getJSON(mappingConf),  $.getJSON(guiConf), $.getJSON(validationConf),  $.getJSON(datesConf))
@@ -189,6 +193,10 @@ define([
                     if (source!=null) {
                         self.populateStorageWithSpecialEntities();
                         $(selectors.FINISH_BTN).html(lang_Utils.save);
+                        $(".fx-header:first").hide();
+                        $(selectors.EDITOR_HEADING).show();
+                        $(selectors.INSTRUCTION).hide();
+
 
                         var keys =  w_Storage.getAllKeys();
 
@@ -198,6 +206,9 @@ define([
                         //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
                     } else {
                         $(selectors.FINISH_BTN).html(lang_Utils.saveAndClose);
+                        $(".fx-header:first").show();
+                        $(selectors.EDITOR_HEADING).hide();
+                        $(selectors.INSTRUCTION).show();
 
                         self.menu.setDefault();
                     }

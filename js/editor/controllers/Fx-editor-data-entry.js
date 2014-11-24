@@ -188,6 +188,7 @@ define([
                     //LOADING DATA
                     if (source!=null) {
                         self.populateStorageWithSpecialEntities();
+                        $(selectors.FINISH_BTN).html(lang_Utils.save);
 
                         var keys =  w_Storage.getAllKeys();
 
@@ -196,6 +197,8 @@ define([
                         //self.parseData();
                         //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
                     } else {
+                        $(selectors.FINISH_BTN).html(lang_Utils.saveAndClose);
+
                         self.menu.setDefault();
                     }
 
@@ -543,13 +546,20 @@ define([
     };
 
     DataEntryController.prototype.finish = function (data) {
-        console.log("Data Entry Controller: finish() DATA = "+data);
+      // console.log("Data Entry Controller: finish() DATA = "+data + " source "+source);
 
-        if(typeof o.onFinishClick === 'function')
-            o.onFinishClick(data);
+        if (source==null) {
+            if(typeof o.onFinishClick === 'function')
+                o.onFinishClick(data);
 
-        w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, {data:data, call: "DATA-ENTRY: FINISH"});
-    };
+            w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, {data:data, call: "DATA-ENTRY: FINISH"});
+        } else {
+            if (Object.keys(data).length > 0) {
+                w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
+            }
+        }
+
+      };
 
     DataEntryController.prototype.createForm = function (moduleId, module, gui) {
         // var moduleId = e.detail.module.module;

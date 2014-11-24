@@ -26,7 +26,8 @@
         "enterResourceIdentificationCode": "Enter Resource Identification Code",
         "enterResourceVersion": "Enter Resource Version (if applicable)",
         "load": "Load",
-        "saveAndClose": "Save & Close"
+        "saveAndClose": "Save & Close",
+        "instruction":"Please start by filling the required (*) metadata entities/fields, when completed click on 'Save & Close', which will then take you to the data editing section."
     },
     "fr": true
 });

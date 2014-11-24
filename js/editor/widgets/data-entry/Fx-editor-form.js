@@ -919,7 +919,7 @@
             cssStyle = "fnx-fieldset-"+idx,
             $fieldSet = $('<fieldset title="Click to Expand/Collapse" class="'+cssStyle+'"></fieldset>'),
             $legend =  $('<legend></legend>'),
-            $collapeIcon = $('<span class="'+o.css_classes.ICON_EXPAND+'"></span>');
+            $collapeIcon = $('<span class="'+o.css_classes.ICON_COLLAPSE+'"></span>');
 
 
         //fieldSetName used to determine the path to be associated with the HTML elements that will be appended to the fieldset
@@ -958,7 +958,6 @@
             //console.log("================== Toggle Legend");
             //toggle (hide/show) all HTML elements in the fieldset except for the legend, legend contents and small
             $('#'+fieldsSetId).find("*:not(legend, legend *)").toggle();
-
 
             //If the fieldset contents is visible, remove existing class and add collapse icon class
             if( $('#'+fieldsSetId).find("*:not(legend, legend *)").is(":visible"))

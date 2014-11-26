@@ -20,7 +20,7 @@ define([
     };
 
     Fx_Info.prototype.createPopOver = function (item, content){
-
+        console.log(item);
         item.popover({
             content: content,
             trigger: 'focus',

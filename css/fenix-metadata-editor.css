@@ -5,9 +5,6 @@
   margin-bottom: 7px; }
 
 /* Panel Title */
-.fx-editor-modular-form-container .panel-title {
-  color: red; }
-
 /* Form */
 .fx-editor-modular-form-wrapper .panel {
   background-color: transparent;
@@ -25,10 +22,10 @@
   background-color: white;
   border-color: #d8d8d8;
   border-image: none;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
   border-style: solid;
   border-width: 1px 1px 2px;
   padding: 0px;

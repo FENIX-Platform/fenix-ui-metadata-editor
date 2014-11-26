@@ -774,7 +774,11 @@
             $label = $('<label class="col-sm-'+div1Width+' control-label"></label>'),
             $infoContainer = $('<div class="col-sm-'+div3Width+'"></div>'),
         //$info = $('<button class="btn btn-xs btn-info" type="button"><span class="'+o.css_classes.ICON_FAMILY+' '+o.css_classes.ICON_INFO+'"></span></button>');
-            $info = $('<button class="btn fx-button-reset" type="button" tabindex="-1"><span class="'+o.css_classes.ICON_INFO+'"></span></button>');
+            //$info = $('<button class="btn fx-button-reset" type="button" tabindex="-1" data-toggle="popover" ><span class="'+o.css_classes.ICON_INFO+'"></span></button>');
+        $info = $('<button class="btn fx-button-reset" type="button" tabindex="-1" data-toggle="popover" ><span class="'+o.css_classes.ICON_INFO+'"></span></button>');
+
+
+
 
          //$inputDivId is used to determine which container the field HTML element will be appended to
         var $inputDivId = "fnx-element-"+name;

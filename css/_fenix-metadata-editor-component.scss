@@ -24,6 +24,11 @@
       .panel-heading{
         background-color:transparent;
       }
+
+
+    .fx-panel-info {
+      margin-top: 10px; // Not Expected
+    }
   }
 }
 
@@ -68,11 +73,19 @@
     }
   }
 
+  /* Icon Position */
+
+    .fx-panel-info{
+      float: right;
+      margin:0;
+    }
+
+
 }
 
 /* Icon Position */
 #fx-editor-form{
-  .fx-panel-info, .fx-panel-required, .fx-panel-ok, .fx-panel-remove, .fx-panel-refresh{
+  .fx-panel-required, .fx-panel-ok, .fx-panel-remove, .fx-panel-refresh{
     float: none;
     margin:0;
   }

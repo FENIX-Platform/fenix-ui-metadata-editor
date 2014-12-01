@@ -6,30 +6,21 @@ define([
     function Fx_Info() {
     }
 
-    Fx_Info.prototype.createPopOverOriginal = function (item, content){
-        item.popover({
 
-            content: content,
-            trigger: 'focus',
-            placement: function(tip, ele) {
-                var width = $(window).width();
-                var placementparam = width >= 975 ? 'bottom' : ( width < 800 ? 'right' : 'bottom' );
-                return placementparam;//'right';//width >= 975 ? 'bottom' : ( width < 600 ? 'right' : 'right' );
-            }
-        });
-    };
-
-    Fx_Info.prototype.createPopOver = function (item, content){
+    Fx_Info.prototype.createPopOver = function (item, content, position){
+        var direction = position == null || position == 'undefined' ? 'left' : position;
         item.popover({
             content: content,
             trigger: 'focus',
-            placement: 'left'
+            placement: direction
         });
     };
+
 
 
     Fx_Info.prototype.createModal = function (item, content, modalId){
         var url = content;
+
          item.on("click", { module: ""}, function (e) {
             e.preventDefault();
             var myModal = $(modalId),

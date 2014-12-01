@@ -216,7 +216,8 @@ define([
             $label = $('<h5></h5>'),
             $a = $('<a data-toggle="collapse"></a>'),
             $plus = $('<span class="'+o.css_classes.ICON+' '+o.css_classes.PLUS_ICON+'"></span>'),
-            $info = $('<span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span>');
+            //$info = $('<span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span>');
+            $info = $('<button class="btn fx-button-reset pull-right" type="button" tabindex="-1" data-toggle="popover" ><span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span></button>');
 
         $label.addClass("panel-title");
         $label.addClass("fx-menu-entity-title");
@@ -273,9 +274,10 @@ define([
             $a.append($required);
         }
 
-      if (panel.hasOwnProperty("info")) {
-           // console.log("ITEM IS  = "+ panel["label"][o.widget.lang] + " has INFO");
-            if(panel["info"].hasOwnProperty("popover")){
+
+
+        if(panel.hasOwnProperty("info")) {
+             if(panel["info"].hasOwnProperty("popover")){
                 ui_Info.createPopOver($info, panel["info"]["popover"][o.widget.lang]);
             }
             else if(panel["info"].hasOwnProperty("remote-html")){
@@ -433,16 +435,11 @@ define([
     } else {
 
         var $btn = $('<button type="button" class="btn btn-default"></button>'),
-            $info = $('<span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span>');
-
+            $info = $('<button class="btn fx-button-reset pull-right" type="button" tabindex="-1" data-toggle="popover" ><span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span></button>');
 
         //Initialize Storage
         w_Commons.raiseCustomEvent(o.container, o.events.INIT_STORAGE, {id: current.module, call: "MENU INIT_STORAGE"});
 
-
-        //  var $info = $('<button class="btn btn-default btn-xs pull-right" type="button"><span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span></button>');
-
-        //  var  $btn = $('<button type="button" class="btn btn-default btn-block"></button>');
 
         $btn.on('click', {module: modules[j] }, function (e) {
             var $btn = $(this);
@@ -493,23 +490,23 @@ define([
            $btn.append($required);
        }
 
-        //$buttonContainer.append($btn);
+
 
         if (current.hasOwnProperty("info")) {
             if(current["info"].hasOwnProperty("popover")){
-                ui_Info.createPopOver($info, current["info"]["popover"][o.widget.lang]);
+                ui_Info.createPopOver($info, current["info"]["popover"][o.widget.lang], 'bottom');
             }
             else if(current["info"].hasOwnProperty("remote-html")){
                 ui_Info.createModal($info, current["info"]["remote-html"][o.widget.lang], '#infoModal');
             }
 
             $module.append($btn).append($info);
-            // $infoContainer.append($info);
+           // $infoContainer.append($info);
         }  else {
             $module.append($btn);
         }
 
-        //$module.append($btn).append($infoContainer);
+       // $module.append($btn).append($infoContainer);
 
         // $module.append($btn);
         body.append($module);

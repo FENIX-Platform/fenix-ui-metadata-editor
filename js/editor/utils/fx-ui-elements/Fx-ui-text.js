@@ -13,7 +13,7 @@
     };
 
     Fx_ui_Text.prototype.render = function (e, name, key, o, callback) {
-        var validationRule, bootstrapValidator_Utils, self = this;
+        var validationRule, bootstrapValidator_Utils, self = this, defaultValue;
 
         if(o.validationUtils != undefined) {
             //console.log("VALIDATION UTILS DEFINED --------------- ");
@@ -32,6 +32,9 @@
                 if(e.value.multilingual)
                     name = name +'.'+o.lang;
             }
+             if(e.value.hasOwnProperty("default")){
+                 defaultValue = e.value["default"];
+             }
         }
 
         // create the HTML element
@@ -50,20 +53,29 @@
         //set the id
         text.attr('id', key);
 
-        //get Value
-        if(o.values!=null){
 
+        if(o.values!=null){
             var value = element_Utils.getElementValue(name, o.values, e);
 
             if(value !=null && value!= undefined){
                 text.val(value);
-                if(e.type.hasOwnProperty("disabled") && value!==""){
-                  if(e.type.disabled)
-                      text.attr('disabled','disabled');
-                }
+               // if(e.type.hasOwnProperty("disabled") && value!==""){
+                //  if(e.type.disabled)
+                 //     text.attr('disabled','disabled');
+               // }
             }
         }
 
+        if(text.val()==""){
+            //set Default Value
+            if(defaultValue !=null && defaultValue!= undefined){
+                text.val(defaultValue);
+               // if(e.type.hasOwnProperty("disabled") && defaultValue!==""){
+                  //  if(e.type.disabled)
+                  //      text.attr('disabled','disabled');
+               // }
+            }
+        }
 
         if (e.hasOwnProperty("placeholder")) {
             text.attr('placeholder', e["placeholder"][o.lang]);

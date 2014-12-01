@@ -12,7 +12,7 @@
     };
 
     Fx_ui_TextArea.prototype.render = function (e, name, key, o, callback) {
-        var validationRule, bootstrapValidator_Utils, value = null, rows = "", cols = "";
+        var validationRule, bootstrapValidator_Utils, value = null, rows = "", cols = "",defaultValue;
 
         if(o.validationUtils != undefined) {
             bootstrapValidator_Utils = o.validationUtils;
@@ -25,8 +25,12 @@
         // add any multilingual component to the path
         if(e.hasOwnProperty("value")){
             if(e.value.hasOwnProperty("multilingual")){
-                if(e.value.multilingual)
+                if(e.value.multilingual)  {
                     name = name +'.'+o.lang;
+                }
+            }
+            if(e.value.hasOwnProperty("default")){
+                defaultValue = e.value["default"];
             }
         }
 
@@ -67,7 +71,12 @@
             }
         }
 
-
+        if(textarea.val()==""){
+            //set Default Value
+            if(defaultValue !=null && defaultValue!= undefined){
+                textarea.val(defaultValue);
+            }
+        }
 
         if(validationRule &&  bootstrapValidator_Utils){
             bootstrapValidator_Utils.setValidationAttributes(textarea, validationRule, o.lang);

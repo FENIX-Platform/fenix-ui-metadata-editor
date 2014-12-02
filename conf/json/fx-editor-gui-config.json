@@ -163,6 +163,10 @@
                         "name": "text"
                     },
                     "value": {
+                        "default-dependency" : {
+                           "field": "metadataStandardName",
+                           "value": "FENIX"
+                        },
                         "default":"1.0"
                     },
                     "label": {

@@ -22,6 +22,8 @@
            // console.log("VALIDATION UTILS UNDEFINED --------------- "+key);
         }
 
+
+
         if(e.hasOwnProperty("rule")){
             validationRule = e.rule;
         }
@@ -66,7 +68,24 @@
             }
         }
 
-        if(text.val()==""){
+        // if the value is empty, display default value (if available)
+        if(text.val()=="" && defaultValue !=null && defaultValue!= undefined){
+            //check if setting the default value is dependant on another field's value e.g. if Metadata Standard has been defaulted to = FENIX then the corresponding default standard version is set to 1.0
+            if(e.value.hasOwnProperty("default-dependency")) {
+                if(e.value["default-dependency"].hasOwnProperty("field") && e.value["default-dependency"].hasOwnProperty("value")) {
+                    // get the value of the dependant field and see if it has been set to the default value
+                    if($("#"+e.value["default-dependency"]["field"]).val() == e.value["default-dependency"]["value"]){
+                        //set Default Value
+                        text.val(defaultValue);
+                    }
+                }
+            } else {
+                // just set the default value
+                text.val(defaultValue);
+            }
+        }
+
+       /** if(text.val()==""){
             //set Default Value
             if(defaultValue !=null && defaultValue!= undefined){
                 text.val(defaultValue);
@@ -75,7 +94,7 @@
                   //      text.attr('disabled','disabled');
                // }
             }
-        }
+        }  **/
 
         if (e.hasOwnProperty("placeholder")) {
             text.attr('placeholder', e["placeholder"][o.lang]);
@@ -105,6 +124,7 @@
 
 
        text.appendTo(containerId);
+
 
         callback();
 

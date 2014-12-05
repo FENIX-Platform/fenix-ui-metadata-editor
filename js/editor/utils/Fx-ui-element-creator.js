@@ -136,18 +136,20 @@ define([
 
     //Executes and tracks when functions (fn, fn2) are complete, at which point the callback function is returned
     function asyncFunctionsTracker(obj, fn, fn2, callback) {
-        var completed = 0;
+        var completed = 0, widgetBasePath = "fx-editor/utils/fx-ui-elements/Fx-ui-";
+
         if(Object.keys(obj).length === 0) {
             callback(); // done immediately
         }
         var len = Object.keys(obj).length;
+
         $.each(obj, function (ind, element) {
            // alert(ind+ '##### widgetCreator');
             //console.log(ind+ '##### widgetCreator = '+ element);
-           // console.log(element);
 
 
-            var widgetCreator = "fx-editor/utils/fx-ui-elements/Fx-ui-" + element.type.name;
+            var widgetCreator = o.readOnly == true ? widgetBasePath+"label" : widgetBasePath + element.type.name;
+          //  var widgetCreator = "fx-editor/utils/fx-ui-elements/Fx-ui-" + element.type.name;
 
            // console.log("=================== widgetCreator = "+widgetCreator);
             //console.log(ind+ '##### widgetCreator = '+widgetCreator);

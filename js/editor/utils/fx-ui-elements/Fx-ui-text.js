@@ -1,6 +1,7 @@
 ﻿define([
     "jquery",
-    "fx-editor/utils/Fx-element-utils"], function ($, Element_Utils) {
+    "fx-editor/utils/Fx-element-utils",
+    "i18n!fx-editor/conf/nls/guiLangProps"], function ($, Element_Utils, guiLangProps) {
 
     var element_Utils;
 
@@ -97,7 +98,8 @@
         }  **/
 
         if (e.hasOwnProperty("placeholder")) {
-            text.attr('placeholder', e["placeholder"][o.lang]);
+            if (e.placeholder.hasOwnProperty("langProp"))
+                text.attr('placeholder', guiLangProps[e["placeholder"]["langProp"]]); //text.attr('placeholder', e["placeholder"][o.lang]);
         }
 
         //console.log("validationRule --------------- "+validationRule + " for "+key);

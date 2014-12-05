@@ -12,7 +12,7 @@ define([
     'jQuery.XDomainRequest'
 ], function ($, Plugin, W_Commons, W_Storage, Json_Utils, LangUtils, NProgress, PNotify) {
 
-    var w_Commons, w_Storage, ajaxConf, mappingConf, guiConf, validationConf, datesConf, resourceType, resourceTypeModule, source, cache = {}, json_Utils, lang_Utils,
+    var w_Commons, w_Storage, ajaxConf, mappingConf, guiConf, validationConf, datesConf, resourceType, resourceTypeModule, source, readOnly, cache = {}, json_Utils, lang_Utils,
         o = {},
         defaultOptions = {
             name : 'fx-editor-dataentry',
@@ -21,6 +21,7 @@ define([
                 ajaxEventCalls: "conf/json/fx-editor-ajax-config.json"
             },
             source: null,
+            readOnly: false,
             widget: {
                 lang: 'EN'
             },
@@ -86,8 +87,6 @@ define([
     DataEntryController.prototype.init = function (options) {
         $.extend(o, options);
         var self = this;
-        //console.log("------------ DATA ENTRY CONTROLLER INIT () options = ");
-        //console.log(o);
 
         ajaxConf = o.config.ajaxEventCalls;
         mappingConf = o.config.jsonMapping;
@@ -96,6 +95,7 @@ define([
         datesConf = o.config.dates;
         resourceType = o.resourceType;
         source = o.source;
+        readOnly = o.readOnly;
 
      // SET SAVE ACTION: Default is Create New
         cache.saveAction = {type: o.saveTypes.CREATE};

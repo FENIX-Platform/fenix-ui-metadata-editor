@@ -4,8 +4,11 @@ define([
     "fx-editor/utils/Fx-json-utils",
     "fx-editor/utils/fx-ui-elements/Fx-ui-info",
     "i18n!fx-editor/nls/langProperties",
+    "i18n!fx-editor/conf/nls/guiLangProps",
+    "i18n!fx-editor/conf/nls/guiHtmlLinksLangProps",
+    "i18n!fx-editor/conf/nls/guiPopoverLangProps",
     "bootstrap"
-], function ($, W_Commons, Json_Utils, UI_Info, langProperties) {
+], function ($, W_Commons, Json_Utils, UI_Info, langProperties, guiLangProps, guiHtmlLinksLangProps, guiPopoverLangProps) {
 
     var o = { }, selectedModule,
         defaultOptions = {
@@ -16,6 +19,7 @@ define([
                 gui: "conf/json/fx-editor-gui-config.json"
             },
             resourceType : 'dataset',
+            readOnly: false,
             css_classes: {
                 ENTITY_SELECTED: "fx-active-panel",
                 SUB_ENTITY_SELECTED: "fx-editor-sub-entity-active-panel",
@@ -266,22 +270,34 @@ define([
         }
 
         if (panel.hasOwnProperty("label")) {
-            $a.append(panel["label"][o.widget.lang]);
+             if(panel["label"].hasOwnProperty("langProp"))
+                 $a.append(guiLangProps[panel["label"]["langProp"]]);
+
+           // $a.append(panel["label"][o.widget.lang]);
         }
 
         if(requiredEntity)  {
-            var $required = $('<span class="'+o.css_classes.REQUIRED_ICON+'" title="'+langProperties.requiredMetadataEntity+'"></span>');
-            $a.append($required);
+          var requiredCss = o.readOnly ? "" :  o.css_classes.REQUIRED_ICON;
+      //  var $required = $('<span class="'+o.css_classes.REQUIRED_ICON+'" title="'+langProperties.requiredMetadataEntity+'"></span>');
+
+          var $required = $('<span class="'+requiredCss+'" title="'+langProperties.requiredMetadataEntity+'"></span>');
+          $a.append($required);
         }
 
 
 
         if(panel.hasOwnProperty("info")) {
              if(panel["info"].hasOwnProperty("popover")){
-                ui_Info.createPopOver($info, panel["info"]["popover"][o.widget.lang]);
+                 if(panel["info"]["popover"].hasOwnProperty("langProp"))
+                     ui_Info.createPopOver($info, guiPopoverLangProps[panel["info"]["popover"]["langProp"]]);
+
+                // ui_Info.createPopOver($info, panel["info"]["popover"][o.widget.lang]);
             }
             else if(panel["info"].hasOwnProperty("remote-html")){
-                ui_Info.createModal($info, panel["info"]["remote-html"][o.widget.lang], '#infoModal');
+                 if(panel["intro"]["remote-html"].hasOwnProperty("langProp"))
+                     ui_Info.createModal($info, guiHtmlLinksLangProps[panel["info"]["remote-html"]["langProp"]], '#infoModal');
+
+                // ui_Info.createModal($info, panel["info"]["remote-html"][o.widget.lang], '#infoModal');
             }
 
             return $header.append($label.append($a).append($info));
@@ -482,7 +498,10 @@ define([
         }
 
         if (current.hasOwnProperty("label")) {
-            $btn.append(current.label[o.widget.lang]);
+            if(current["label"].hasOwnProperty("langProp"))
+                $btn.append(guiLangProps[current["label"]["langProp"]]);
+
+           // $btn.append(current.label[o.widget.lang]);
         }
 
        if(requiredSubEntity){
@@ -494,10 +513,16 @@ define([
 
         if (current.hasOwnProperty("info")) {
             if(current["info"].hasOwnProperty("popover")){
-                ui_Info.createPopOver($info, current["info"]["popover"][o.widget.lang], 'bottom');
+                if(current["info"]["popover"].hasOwnProperty("langProp"))
+                    ui_Info.createPopOver($info, guiPopoverLangProps[current["info"]["popover"]["langProp"]], 'bottom');
+
+              //  ui_Info.createPopOver($info, current["info"]["popover"][o.widget.lang], 'bottom');
             }
             else if(current["info"].hasOwnProperty("remote-html")){
-                ui_Info.createModal($info, current["info"]["remote-html"][o.widget.lang], '#infoModal');
+                if(current["info"]["remote-html"].hasOwnProperty("langProp"))
+                    ui_Info.createModal($info, guiHtmlLinksLangProps[current["info"]["remote-html"]["langProp"]], '#infoModal');
+
+                //ui_Info.createModal($info, current["info"]["remote-html"][o.widget.lang], '#infoModal');
             }
 
             $module.append($btn).append($info);

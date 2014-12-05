@@ -1,7 +1,9 @@
 ﻿define([
     "jquery",
-    "fx-editor/utils/Fx-json-utils"
-], function ($, Json_Utils) {
+    "fx-editor/utils/Fx-json-utils",
+    "i18n!fx-editor/conf/nls/guiLangProps"
+
+], function ($, Json_Utils, guiLangProps) {
 
     var json_Utils;
 
@@ -74,6 +76,22 @@
         }
 
         return codes;
+    }
+
+    Fx_Element_Utils.prototype.getValueLabels = function(value, lang) {
+        var self = this;
+        var labels = [];
+
+        var codes = self.getValueObjects(value);
+
+        for(var t = 0; t <codes.length; t++){
+            var obj = codes[t];
+            var label = obj.label[lang];
+
+            labels.push(label.trim());
+        }
+
+        return labels;
     }
 
     Fx_Element_Utils.prototype.getValues = function(value) {
@@ -237,7 +255,8 @@
 
             if(lang!=null) {
                 if (elem.hasOwnProperty("label")) {
-                    label = elem["label"][lang];
+                    if(elem["label"].hasOwnProperty("langProp"))
+                        label =  guiLangProps[elem["label"]["langProp"]]; // label = elem["label"][lang];
                 }
             }
 

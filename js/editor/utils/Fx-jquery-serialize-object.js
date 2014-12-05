@@ -11,6 +11,7 @@
             var key = pair[0],
                 value = pair[1];
 
+
             if(value === ""){
                 value = null;
             }
@@ -160,10 +161,10 @@
                     var selectCLVersionPath = $select.data("cl-version-path");
                     if(selectCLVersionPath != undefined){
                         var vPth =  selectCLVersionPath.split(".");
-                        setCodeListProps(obj[key], vPth, selectCLVersion.toString());
-                    } else {
+                         setCodeListProps(obj[key], vPth, selectCLVersion.toString());
+                     } else {
                         obj[key].version = selectCLVersion.toString();
-                    }
+                     }
                 }
             }
         }
@@ -250,7 +251,10 @@
             {
                 if(!(path[j] in obj))
                 {
-                    obj[path[j]] = value;
+                   if(value == "")
+                     obj[path[j]] = null;
+                   else
+                     obj[path[j]] = value;
                 }
 
                 obj = obj[path[j]];

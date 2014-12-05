@@ -1,5 +1,5 @@
 ﻿define([
-    "jquery",  "fx-editor/utils/Fx-date-utils", "fx-editor/utils/Fx-element-utils"], function ($, Date_Utils, Element_Utils) {
+    "jquery",  "fx-editor/utils/Fx-date-utils", "fx-editor/utils/Fx-element-utils", "i18n!fx-editor/conf/nls/guiLangProps"], function ($, Date_Utils, Element_Utils, guiLangProps) {
 
     var date_Utils, dateFormat, element_Utils;
 
@@ -65,7 +65,8 @@
 
 
         if (e.hasOwnProperty("placeholder")) {
-            text.attr('placeholder', e["placeholder"][o.lang]);
+          if (e.placeholder.hasOwnProperty("langProp"))
+             text.attr('placeholder', guiLangProps[e["placeholder"]["langProp"]]); //text.attr('placeholder', e["placeholder"][o.lang]);
         }
 
         if(validationRule &&  bootstrapValidator_Utils){

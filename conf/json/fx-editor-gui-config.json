@@ -6,6 +6,7 @@
                 "name": "label"
             },
             "label": {
+                "langProp": "meIdentification",
                 "EN": "Identification"
             },
             "properties": {
@@ -16,10 +17,12 @@
                         "copy": true
                     },
                     "label": {
+                        "langProp": "uid",
                         "EN": "Resource identification code"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "uid",
                             "EN": "It is a code that identifies the resource the metadata is associated to."
                         }
                     }
@@ -30,10 +33,12 @@
                         "disabled": true
                     },
                     "label": {
+                        "langProp": "version",
                         "EN": "Resource version"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "version",
                             "EN": "For some kinds of resources the version may be necessary to uniquely identify it."
                         }
                     }
@@ -44,10 +49,12 @@
                         "multi": true
                     },
                     "label": {
+                        "langProp": "language",
                         "EN": "Language(s)"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "language",
                             "EN": "Language used by the resource for textual information."
                         }
                     },
@@ -76,10 +83,12 @@
                         "multilingual": true
                     },
                     "label": {
+                        "langProp": "languageDetails",
                         "EN": "Language details"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "languageDetails",
                             "EN": "Comments and additional details about the language used for the textual information of the resource."
                         }
                     }
@@ -92,10 +101,12 @@
                         "multilingual": true
                     },
                     "label": {
+                        "langProp": "title",
                         "EN": "Title"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "titleResource",
                             "EN": "Label used as the resource title."
                         }
                     }
@@ -105,10 +116,12 @@
                         "name": "date"
                     },
                     "label": {
+                        "langProp": "creationDate",
                         "EN": "Creation date"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "creationDate",
                             "EN": "Creation date of the resource."
                         }
                     }
@@ -118,6 +131,7 @@
                         "name": "select"
                     },
                     "label": {
+                        "langProp": "characterSet",
                         "EN": "Character-set"
                     },
                     "source": {
@@ -138,6 +152,7 @@
                     },
                     "info": {
                         "popover": {
+                            "langProp": "characterSet",
                             "EN": "Character encoding standard used by the resource."
                         }
                     }
@@ -147,13 +162,15 @@
                         "name": "text"
                     },
                     "value": {
-                      "default":"FENIX"
+                        "default": "FENIX"
                     },
                     "label": {
+                        "langProp": "metadataStandardName",
                         "EN": "Used metadata standards"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "metadataStandardName",
                             "EN": "Name of the metadata standard specifications used."
                         }
                     }
@@ -163,17 +180,19 @@
                         "name": "text"
                     },
                     "value": {
-                        "default-dependency" : {
-                           "field": "metadataStandardName",
-                           "value": "FENIX"
+                        "default-dependency": {
+                            "field": "metadataStandardName",
+                            "value": "FENIX"
                         },
-                        "default":"1.0"
+                        "default": "1.0"
                     },
                     "label": {
+                        "langProp": "metadataStandardVersion",
                         "EN": "Version of the metadata standards"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "metadataStandardVersion",
                             "EN": "Version of the metadata standard specifications used."
                         }
                     }
@@ -184,6 +203,7 @@
                         "multi": true
                     },
                     "label": {
+                        "langProp": "metadataLanguage",
                         "EN": "Language(s) used for metadata"
                     },
                     "source": {
@@ -204,6 +224,7 @@
                     },
                     "info": {
                         "popover": {
+                            "langProp": "metadataLanguage",
                             "EN": "Language(s) used to compile the metadata record."
                         }
                     }
@@ -220,10 +241,12 @@
                         }
                     },
                     "label": {
+                        "langProp": "contacts",
                         "EN": "Contact(s)"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "contacts",
                             "EN": "Party(ies) playing different roles in respect to the resource, and in particular the party responsible for the resource."
                         }
                     },
@@ -234,6 +257,7 @@
                                 "multi": true
                             },
                             "label": {
+                                "langProp": "responsibleParty",
                                 "EN": "Responsible party"
                             },
                             "properties": {
@@ -245,10 +269,12 @@
                                         "multilingual": true
                                     },
                                     "label": {
+                                        "langProp": "organization",
                                         "EN": "Organization"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "organizationResponsible",
                                             "EN": "Name of the responsible organization."
                                         }
                                     }
@@ -261,10 +287,12 @@
                                         "multilingual": true
                                     },
                                     "label": {
+                                        "langProp": "organizationUnit",
                                         "EN": "Organization unit/division"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "organizationUnit",
                                             "EN": "Addressable subdivision of an organization."
                                         }
                                     }
@@ -274,13 +302,16 @@
                                         "name": "text"
                                     },
                                     "placeholder": {
+                                        "langProp": "titleForenameSurname",
                                         "EN": "Title forename and surname"
                                     },
                                     "label": {
+                                        "langProp": "pointOfContact",
                                         "EN": "Point of contact"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "pointOfContact",
                                             "EN": "Responsible person - title, given name and surname"
                                         }
                                     }
@@ -293,22 +324,22 @@
                                         "multilingual": true
                                     },
                                     "label": {
+                                        "langProp": "position",
                                         "EN": "Position"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "position",
                                             "EN": "Role or position of the responsible person."
                                         }
                                     }
                                 },
                                 "role": {
                                     "type": {
-                                        "name": "select",
-                                        "instruction": {
-                                            "EN": "Select a role"
-                                        }
+                                        "name": "select"
                                     },
                                     "label": {
+                                        "langProp": "role",
                                         "EN": "Role"
                                     },
                                     "source": {
@@ -325,6 +356,7 @@
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "role",
                                             "EN": "Function performed by the responsible party concerning the resource."
                                         }
                                     }
@@ -337,10 +369,12 @@
                                         "multilingual": true
                                     },
                                     "label": {
+                                        "langProp": "specify",
                                         "EN": "Specify"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "specify",
                                             "EN": "Specify the role performed by the responsible party."
                                         }
                                     }
@@ -349,10 +383,12 @@
                                     "type": {
                                         "name": "fieldset",
                                         "subtitle": {
+                                            "langProp": "provideAtLeastOne",
                                             "EN": "Must provide at least one of the following (phone, address, email)"
                                         }
                                     },
                                     "label": {
+                                        "langProp": "contactInfo",
                                         "EN": "Contact information"
                                     },
                                     "properties": {
@@ -364,6 +400,7 @@
                                                 }
                                             },
                                             "label": {
+                                                "langProp": "phone",
                                                 "EN": "Telephone number"
                                             }
                                         },
@@ -375,6 +412,7 @@
                                                 }
                                             },
                                             "label": {
+                                                "langProp": "address",
                                                 "EN": "Address"
                                             }
                                         },
@@ -386,6 +424,7 @@
                                                 }
                                             },
                                             "label": {
+                                                "langProp": "emailAddress",
                                                 "EN": "Email address"
                                             }
                                         },
@@ -397,10 +436,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "hoursOfService",
                                                 "EN": "Hours of service"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "hoursOfService",
                                                     "EN": "Time period (including time zone) when the organization/individual can be contacted."
                                                 }
                                             }
@@ -413,10 +454,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "contactInstruction",
                                                 "EN": "Instruction"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "contactInstruction",
                                                     "EN": "Supplemental instructions on how or when to contact the individual or organization."
                                                 }
                                             }
@@ -432,10 +475,12 @@
                         "name": "text"
                     },
                     "label": {
+                        "langProp": "noDataValue",
                         "EN": "Value assigned to No-data"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "noDataValue",
                             "EN": "Value assigned to the cells to represent the absence of data."
                         }
                     }
@@ -448,6 +493,7 @@
                 "name": "label"
             },
             "label": {
+                "langProp": "meContent",
                 "EN": "Content"
             },
             "properties": {
@@ -456,6 +502,7 @@
                         "name": "select"
                     },
                     "label": {
+                        "langProp": "resourceRepresentationType",
                         "EN": "Type of resource"
                     },
                     "source": {
@@ -473,6 +520,7 @@
                     },
                     "info": {
                         "popover": {
+                            "langProp": "resourceRepresentationType",
                             "EN": "Typology of the resource the metadata refers to."
                         }
                     }
@@ -482,13 +530,16 @@
                         "name": "sequence"
                     },
                     "placeholder": {
+                        "langProp": "typeThenEnter",
                         "EN": "Type then press Enter"
                     },
                     "label": {
+                        "langProp": "keywords",
                         "EN": "Keywords"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "keywords",
                             "EN": "Commonly used word(s), formalized word(s) or phrase(s) used to describe the resource."
                         }
                     }
@@ -502,10 +553,12 @@
                         "multilingual": true
                     },
                     "label": {
+                        "langProp": "description",
                         "EN": "Abstract"
                     },
                     "info": {
                         "remote-html": {
+                            "langProp": "description",
                             "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/contentDescription_EN.html"
                         }
                     }
@@ -518,10 +571,12 @@
                         "multilingual": true
                     },
                     "label": {
+                        "langProp": "statisticalConceptsDefinitions",
                         "EN": "Statistical concepts/definitions"
                     },
                     "info": {
                         "remote-html": {
+                            "langProp": "statisticalConceptsDefinitions",
                             "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/contentStatisticalConcepts_EN.html"
                         }
                     }
@@ -538,10 +593,12 @@
                         "name": "label"
                     },
                     "label": {
+                        "langProp": "seReferencePopulation",
                         "EN": "Reference Population"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "seReferencePopulation",
                             "EN": "Information on the statistical population the resource refers to."
                         }
                     },
@@ -558,10 +615,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "statisticalPopulation",
                                 "EN": "Statistical population"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "statisticalPopulation",
                                     "EN": "Target statistical population (one or more) the resource refers to."
                                 }
                             }
@@ -577,10 +636,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "statisticalUnit",
                                 "EN": "Statistical unit"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "statisticalUnit",
                                     "EN": "Simplest unit for which information is sought and for which statistics are ultimately compiled."
                                 }
                             }
@@ -590,6 +651,7 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "referencePeriod",
                                 "EN": "Period of reference"
                             },
                             "source": {
@@ -609,6 +671,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "referencePeriod",
                                     "EN": "Specific time periods the statistical variables refer to."
                                 }
                             }
@@ -621,6 +684,7 @@
                                 "dataset"
                             ],
                             "label": {
+                                "langProp": "referenceArea",
                                 "EN": "Area of reference"
                             },
                             "source": {
@@ -640,6 +704,7 @@
                             },
                             "info": {
                                 "remote-html": {
+                                    "langProp": "referenceArea",
                                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/contentReferenceArea_EN.html"
                                 }
                             }
@@ -649,11 +714,13 @@
                 {
                     "module": "seCoverage",
                     "label": {
+                        "langProp": "seCoverage",
                         "EN": "Coverage"
                     },
                     "icon": "fa fa-rss-square fa-lg fa-fw",
                     "info": {
                         "remote-html": {
+                            "langProp": "seCoverage",
                             "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/contentCoverage_EN.html"
                         }
                     },
@@ -663,10 +730,8 @@
                                 "name": "hierarchy",
                                 "multi": true
                             },
-                            "value": {
-                                "multilingual": true
-                            },
                             "label": {
+                                "langProp": "coverageSectors",
                                 "EN": "Main sector(s) (coded)"
                             },
                             "source": {
@@ -707,6 +772,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "coverageSectors",
                                     "EN": "Sector(s) the resource refers to as specified in the selected codelist."
                                 }
                             }
@@ -719,10 +785,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "coverageSectorsDetails",
                                 "EN": "Main sector(s)"
                             },
                             "info": {
                                 "remote-html": {
+                                    "langProp": "coverageSectorsDetails",
                                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/contentCoverageSectorDetails_EN.html"
                                 }
                             }
@@ -732,10 +800,12 @@
                                 "name": "period"
                             },
                             "label": {
+                                "langProp": "coverageTime",
                                 "EN": "Coverage time"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "coverageTime",
                                     "EN": "Information about the time period for which data are available."
                                 }
                             }
@@ -746,6 +816,7 @@
                                 "multi": true
                             },
                             "label": {
+                                "langProp": "coverageGeographic",
                                 "EN": "Geographic extent"
                             },
                             "source": {
@@ -765,6 +836,7 @@
                             },
                             "info": {
                                 "remote-html": {
+                                    "langProp": "coverageGeographic",
                                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/contentCoverageGeographic_EN.html"
                                 }
                             }
@@ -780,10 +852,12 @@
                         "name": "label"
                     },
                     "label": {
+                        "langProp": "seCodeList",
                         "EN": "Codelist"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "seCodeList",
                             "EN": "Information related to the resource 'codelist'."
                         }
                     },
@@ -794,10 +868,12 @@
                                 "name": "text"
                             },
                             "label": {
+                                "langProp": "numberOfLevels",
                                 "EN": "Number of levels"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "numberOfLevels",
                                     "EN": "Hierarchical codelists may have several levels, information about the number of levels must be reported in order to describe the hierarchy of the codelist."
                                 }
                             }
@@ -807,6 +883,7 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "typeOfCodeList",
                                 "EN": "Type of codelist"
                             },
                             "source": {
@@ -823,6 +900,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "typeOfCodeList",
                                     "EN": "Codelist typology."
                                 }
                             }
@@ -841,6 +919,7 @@
                 "name": "label"
             },
             "label": {
+                "langProp": "meInstitutionalMandate",
                 "EN": "Institutional Mandate"
             },
             "properties": {
@@ -853,10 +932,12 @@
                         "multilingual": true
                     },
                     "label": {
+                        "langProp": "legalActsAgreements",
                         "EN": "Legal acts/agreements"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "legalActsAgreements",
                             "EN": "Legal acts or other formal or informal agreements that assign responsibility as well as authority to an agency for the collection, processing, and dissemination of the resource."
                         }
                     }
@@ -869,10 +950,12 @@
                         "multilingual": true
                     },
                     "label": {
+                        "langProp": "institutionalMandateDataSharing",
                         "EN": "Data sharing arrangements"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "institutionalMandateDataSharing",
                             "EN": "Arrangements or procedures for data sharing and coordination."
                         }
                     }
@@ -888,10 +971,12 @@
                 "name": "label"
             },
             "label": {
+                "langProp": "meStatisticalProcessing",
                 "EN": "Statistical Processing"
             },
             "intro": {
                 "remote-html": {
+                    "langProp": "meStatisticalProcessing",
                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/intro/statisticalProcessing_EN.html"
                 }
             },
@@ -899,10 +984,12 @@
                 {
                     "module": "sePrimaryDataCollection",
                     "label": {
+                        "langProp": "sePrimaryDataCollection",
                         "EN": "Primary Data Collection"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "sePrimaryDataCollection",
                             "EN": "Describes the procedures used to collect data obtained directly from first-hand sources by means of surveys, observation or experimentation."
                         }
                     },
@@ -920,10 +1007,12 @@
                                 }
                             },
                             "label": {
+                                "langProp": "dataCollector",
                                 "EN": "Data collector"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "dataCollector",
                                     "EN": "The entity (individual, agency or institution) responsible for administering the questionnaire or interview for compiling the data."
                                 }
                             },
@@ -933,6 +1022,7 @@
                                         "name": "fieldset"
                                     },
                                     "label": {
+                                        "langProp": "responsibleParty",
                                         "EN": "Responsible party"
                                     },
                                     "properties": {
@@ -944,10 +1034,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "organization",
                                                 "EN": "Organization"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "organizationResponsible",
                                                     "EN": "Name of the responsible organization."
                                                 }
                                             }
@@ -960,10 +1052,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "organizationUnit",
                                                 "EN": "Organization unit/division"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "organizationUnit",
                                                     "EN": "Addressable subdivision of an organization."
                                                 }
                                             }
@@ -973,13 +1067,16 @@
                                                 "name": "text"
                                             },
                                             "placeholder": {
+                                                "langProp": "titleForenameSurname",
                                                 "EN": "Title forename and surname"
                                             },
                                             "label": {
+                                                "langProp": "pointOfContact",
                                                 "EN": "Point of contact"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "pointOfContact",
                                                     "EN": "Responsible person - title, given name and surname"
                                                 }
                                             }
@@ -992,22 +1089,22 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "position",
                                                 "EN": "Position"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "position",
                                                     "EN": "Role or position of the responsible person."
                                                 }
                                             }
                                         },
                                         "role": {
                                             "type": {
-                                                "name": "select",
-                                                "instruction": {
-                                                    "EN": "Select a role"
-                                                }
+                                                "name": "select"
                                             },
                                             "label": {
+                                                "langProp": "role",
                                                 "EN": "Role"
                                             },
                                             "source": {
@@ -1024,6 +1121,7 @@
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "role",
                                                     "EN": "Function performed by the responsible party concerning the resource."
                                                 }
                                             }
@@ -1036,10 +1134,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "specify",
                                                 "EN": "Specify"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "specify",
                                                     "EN": "Specify the role performed by the responsible party."
                                                 }
                                             }
@@ -1048,10 +1148,12 @@
                                             "type": {
                                                 "name": "fieldset",
                                                 "subtitle": {
+                                                    "langProp": "provideAtLeastOne",
                                                     "EN": "Must provide at least one of the following (phone, address, email)"
                                                 }
                                             },
                                             "label": {
+                                                "langProp": "contactInfo",
                                                 "EN": "Contact information"
                                             },
                                             "properties": {
@@ -1063,6 +1165,7 @@
                                                         }
                                                     },
                                                     "label": {
+                                                        "langProp": "phone",
                                                         "EN": "Telephone number"
                                                     }
                                                 },
@@ -1074,6 +1177,7 @@
                                                         }
                                                     },
                                                     "label": {
+                                                        "langProp": "address",
                                                         "EN": "Address"
                                                     }
                                                 },
@@ -1085,6 +1189,7 @@
                                                         }
                                                     },
                                                     "label": {
+                                                        "langProp": "emailAddress",
                                                         "EN": "Email address"
                                                     }
                                                 },
@@ -1096,10 +1201,12 @@
                                                         "multilingual": true
                                                     },
                                                     "label": {
+                                                        "langProp": "hoursOfService",
                                                         "EN": "Hours of service"
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "hoursOfService",
                                                             "EN": "Time period (including time zone) when the organization/individual can be contacted."
                                                         }
                                                     }
@@ -1112,10 +1219,12 @@
                                                         "multilingual": true
                                                     },
                                                     "label": {
+                                                        "langProp": "contactInstruction",
                                                         "EN": "Instruction"
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "contactInstruction",
                                                             "EN": "Supplemental instructions on how or when to contact the individual or organization."
                                                         }
                                                     }
@@ -1131,6 +1240,7 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "typeOfCollection",
                                 "EN": "Type of collection"
                             },
                             "source": {
@@ -1150,6 +1260,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "typeOfCollection",
                                     "EN": "Coded element which specifies the type of data collection method (e.g. census, random sampling, etc.)."
                                 }
                             }
@@ -1162,10 +1273,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "samplingProcedure",
                                 "EN": "Sampling procedure"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "samplingProcedure",
                                     "EN": "The type of sample design used to select the survey respondents to represent the population. It may refer to information on sample design, sample size, sample frame, sample updating etc."
                                 }
                             }
@@ -1178,10 +1291,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "dataCollection",
                                 "EN": "Data collection"
                             },
                             "info": {
                                 "remote-html": {
+                                    "langProp": "dataCollection",
                                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/statisticalProDataCollection_EN.html"
                                 }
                             }
@@ -1191,6 +1306,7 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "collectionPeriodicity",
                                 "EN": "Periodicity of data collection"
                             },
                             "source": {
@@ -1210,6 +1326,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "collectionPeriodicity",
                                     "EN": "Frequency with which the data are collected from the sources."
                                 }
                             }
@@ -1219,11 +1336,13 @@
                 {
                     "module": "seSecondaryDataCollection",
                     "label": {
+                        "langProp": "seSecondaryDataCollection",
                         "EN": "Secondary Data Collection"
                     },
                     "icon": "fa fa-database fa-lg fa-fw",
                     "info": {
                         "popover": {
+                            "langProp": "seSecondaryDataCollection",
                             "EN": "Is filled when the agency compiling and publishing data does not coincide with the entity (subject, agency or institution) who has conducted the procedure of collecting data. It reports information about the source that have already collected data."
                         }
                     },
@@ -1233,6 +1352,7 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "originOfCollectedData",
                                 "EN": "Origin of collected data"
                             },
                             "source": {
@@ -1252,6 +1372,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "originOfCollectedData",
                                     "EN": "Coded element which allows to specify in a standard way the origin of the resource."
                                 }
                             }
@@ -1264,14 +1385,17 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "organization",
                                 "EN": "Organization"
                             },
                             "disabled": true,
                             "placeholder": {
+                                "langProp": "onlyRequiredIfOtherIOsSelected",
                                 "EN": "Only required if 'Other IOs' selected above"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "seSecondaryDataCollectionOrganization",
                                     "EN": "Please specify the exact source of the resource."
                                 }
                             }
@@ -1284,10 +1408,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "rawDataDescription",
                                 "EN": "Description of raw data"
                             },
                             "info": {
                                 "remote-html": {
+                                    "langProp": "rawDataDescription",
                                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/statisticalProRawDataDesc_EN.html"
                                 }
                             }
@@ -1300,10 +1426,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "dataCollection",
                                 "EN": "Data collection"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "dataCollection",
                                     "EN": "Data collection details"
                                 }
                             }
@@ -1313,11 +1441,13 @@
                 {
                     "module": "seDataCompilation",
                     "label": {
+                        "langProp": "seDataCompilation",
                         "EN": "Data Compilation"
                     },
                     "icon": "fa fa-database fa-lg fa-fw",
                     "info": {
                         "popover": {
+                            "langProp": "seDataCompilation",
                             "EN": "Includes many aspects (e.g. data editing, imputation, weighting, adjustment for non-response, calibration, model used etc.) concerning the operations on data."
                         }
                     },
@@ -1327,6 +1457,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "missingData",
                                 "EN": "Missing data"
                             },
                             "value": {
@@ -1334,6 +1465,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "missingData",
                                     "EN": "It describes under which circumstances missing data are estimated or imputed and when the cells are left empty. It also describes the methodologies used to estimate/impute missing values."
                                 }
                             }
@@ -1343,6 +1475,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "weights",
                                 "EN": "Weights"
                             },
                             "value": {
@@ -1350,6 +1483,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "weights",
                                     "EN": "Description of weights applied to sampling procedures in order to produce accurate statistical results. This field reports the criteria for using weights in analysis of collection, the formulas and coefficients developed and how they are applied to data."
                                 }
                             }
@@ -1362,10 +1496,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "aggregationProcessing",
                                 "EN": "Process of aggregation"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "aggregationProcessing",
                                     "EN": "Information about the methodology used to aggregate data."
                                 }
                             }
@@ -1375,10 +1511,12 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "aggregationFormula",
                                 "EN": "Aggregation formula"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "aggregationFormula",
                                     "EN": "Formula used to aggregate data."
                                 }
                             }
@@ -1388,6 +1526,7 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "dataAdjustment",
                                 "EN": "Process of adjustment"
                             },
                             "source": {
@@ -1407,6 +1546,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "dataAdjustment",
                                     "EN": "Type of adjustment used represented by a code."
                                 }
                             }
@@ -1419,10 +1559,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "dataAdjustmentDetails",
                                 "EN": "Details on process of adjustment"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "dataAdjustmentDetails",
                                     "EN": "Set of procedures employed to modify statistical data to enable it to conform with national or international standards (such as seasonal adjustment methods, time series decomposition, or other similar methods)."
                                 }
                             }
@@ -1435,10 +1577,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "indexType",
                                 "EN": "Type of index"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "indexType",
                                     "EN": "Type of index number used in the statistical production process."
                                 }
                             }
@@ -1448,10 +1592,12 @@
                                 "name": "date"
                             },
                             "label": {
+                                "langProp": "basePeriod",
                                 "EN": "Base period"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "basePeriod",
                                     "EN": "Period of time used as a base of an index number or to which a time series refers (e.g. base year 2000 for certain annual data)."
                                 }
                             }
@@ -1461,11 +1607,13 @@
                 {
                     "module": "seDataValidation",
                     "label": {
+                        "langProp": "seDataValidation",
                         "EN": "Data Validation"
                     },
                     "icon": "fa fa-database fa-lg fa-fw",
                     "info": {
                         "popover": {
+                            "langProp": "seDataValidation",
                             "EN": "Methods and processes for assessing statistical data. It describes the process of monitoring data compilation progress and ensuring the quality of the statistical results."
                         }
                     },
@@ -1475,6 +1623,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "dataValidationIntermediate",
                                 "EN": "Data validation - intermediate"
                             },
                             "value": {
@@ -1482,6 +1631,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "dataValidationIntermediate",
                                     "EN": "Assessment of the quality and correctness of intermediate calculations leading to statistical outputs."
                                 }
                             }
@@ -1491,6 +1641,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "dataValidationOutput",
                                 "EN": "Data validation - output"
                             },
                             "value": {
@@ -1498,6 +1649,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "dataValidationOutput",
                                     "EN": "Assessment of discrepancies and/or inaccuracies observed in the statistical outputs."
                                 }
                             }
@@ -1510,10 +1662,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "dataValidationSource",
                                 "EN": "Data validation - source"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "dataValidationSource",
                                     "EN": "Assessment of discrepancies and/or inaccuracies inherent to the data source."
                                 }
                             }
@@ -1531,6 +1685,7 @@
                 "name": "label"
             },
             "label": {
+                "langProp": "meDataQuality",
                 "EN": "Data Quality"
             },
             "properties": {
@@ -1539,6 +1694,7 @@
                         "name": "textarea"
                     },
                     "label": {
+                        "langProp": "qualityManagement",
                         "EN": "Quality management"
                     },
                     "value": {
@@ -1546,6 +1702,7 @@
                     },
                     "info": {
                         "popover": {
+                            "langProp": "qualityManagement",
                             "EN": "Structure, responsibilities and procedures established for guaranteeing the quality of the data."
                         }
                     }
@@ -1555,6 +1712,7 @@
                         "name": "textarea"
                     },
                     "label": {
+                        "langProp": "qualityAssessment",
                         "EN": "Data quality assessment"
                     },
                     "value": {
@@ -1562,6 +1720,7 @@
                     },
                     "info": {
                         "popover": {
+                            "langProp": "qualityAssessment",
                             "EN": "Overall qualitative assessment of the quality of the statistical outputs."
                         }
                     }
@@ -1571,6 +1730,7 @@
                         "name": "textarea"
                     },
                     "label": {
+                        "langProp": "qualityAssurance",
                         "EN": "Quality assurance"
                     },
                     "value": {
@@ -1578,6 +1738,7 @@
                     },
                     "info": {
                         "popover": {
+                            "langProp": "qualityAssurance",
                             "EN": "Description of the process assuring that the data production processes conforms to the statistical quality standards."
                         }
                     }
@@ -1587,11 +1748,13 @@
                 {
                     "module": "seAccuracy",
                     "label": {
+                        "langProp": "seAccuracy",
                         "EN": "Accuracy"
                     },
                     "icon": "fa fa-database fa-lg fa-fw",
                     "info": {
                         "remote-html": {
+                            "langProp": "seAccuracy",
                             "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/dataQualityAccuracy_EN.html"
                         }
                     },
@@ -1601,6 +1764,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "accuracyNonSampling",
                                 "EN": "Accuracy - non sampling error"
                             },
                             "value": {
@@ -1608,6 +1772,7 @@
                             },
                             "info": {
                                 "remote-html": {
+                                    "langProp": "accuracyNonSampling",
                                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/dataQualityAccuracyNonSampling_EN.html"
                                 }
                             }
@@ -1617,6 +1782,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "accuracySampling",
                                 "EN": "Accuracy - sampling error"
                             },
                             "value": {
@@ -1624,6 +1790,7 @@
                             },
                             "info": {
                                 "remote-html": {
+                                    "langProp": "accuracySampling",
                                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/dataQualityAccuracySampling_EN.html"
                                 }
                             }
@@ -1633,11 +1800,13 @@
                 {
                     "module": "seDataRevision",
                     "label": {
+                        "langProp": "seDataRevision",
                         "EN": "Data Revision"
                     },
                     "icon": "fa fa-database fa-lg fa-fw",
                     "info": {
                         "popover": {
+                            "langProp": "seDataRevision",
                             "EN": "Describes the policy and practice for identifying the revision status of the data, as well as the availability of revision studies and analysis."
                         }
                     },
@@ -1647,6 +1816,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "revisionPolicy",
                                 "EN": "Revision policy"
                             },
                             "value": {
@@ -1654,6 +1824,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "revisionPolicy",
                                     "EN": "Policy concerning the periodically revision of the resource and ensuring the transparency of disseminated data."
                                 }
                             }
@@ -1663,6 +1834,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "revisionPractice",
                                 "EN": "Data revision practice"
                             },
                             "value": {
@@ -1670,6 +1842,7 @@
                             },
                             "info": {
                                 "remote-html": {
+                                    "langProp": "revisionPractice",
                                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/dataQualityRevisionPractice_EN.html"
                                 }
                             }
@@ -1679,11 +1852,13 @@
                 {
                     "module": "seRelevance",
                     "label": {
+                        "langProp": "seRelevance",
                         "EN": "Relevance"
                     },
                     "icon": "fa fa-database fa-lg fa-fw",
                     "info": {
                         "popover": {
+                            "langProp": "seRelevance",
                             "EN": "Evaluation of data-quality through user satisfaction involving also information about the resource-completeness."
                         }
                     },
@@ -1693,6 +1868,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "userNeeds",
                                 "EN": "User needs"
                             },
                             "value": {
@@ -1700,6 +1876,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "userNeeds",
                                     "EN": "Classification of user needs with some indication of their importance, the uses for which they want the statistical outputs and those given special consideration. Unmet user needs and the reasons for not meeting them should be included as well."
                                 }
                             }
@@ -1709,6 +1886,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "userSatisfaction",
                                 "EN": "User satisfaction"
                             },
                             "value": {
@@ -1716,6 +1894,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "userSatisfaction",
                                     "EN": "How the views and opinions of the users are collected. In addition, the main results regarding the user satisfaction should be shown (in the form of a user satisfaction index if available) and the date of the most recent user satisfaction survey."
                                 }
                             }
@@ -1725,6 +1904,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "completeness",
                                 "EN": "Completeness"
                             },
                             "value": {
@@ -1732,6 +1912,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "completeness",
                                     "EN": "State of completeness of the resource."
                                 }
                             }
@@ -1744,10 +1925,12 @@
                                 }
                             },
                             "label": {
+                                "langProp": "completenessPercentage",
                                 "EN": "Percentage of completeness"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "completenessPercentage",
                                     "EN": "Percentage of the state of completeness of the resource."
                                 }
                             }
@@ -1757,6 +1940,7 @@
                 {
                     "module": "seComparability",
                     "label": {
+                        "langProp": "seComparability",
                         "EN": "Comparability Coherence"
                     },
                     "icon": "fa fa-database fa-lg fa-fw",
@@ -1766,6 +1950,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "comparabilityGeographical",
                                 "EN": "Geographic comparability"
                             },
                             "value": {
@@ -1773,6 +1958,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "comparabilityGeographical",
                                     "EN": "Degree of data comparability across the geographic areas or regions referenced by the resource. Data might be derived from surveys that in general are conducted by different statistical agencies. These surveys often refer to populations of different geographical areas, sometimes based on different methodologies."
                                 }
                             }
@@ -1782,6 +1968,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "comparabilityTime",
                                 "EN": "Time comparability"
                             },
                             "value": {
@@ -1789,6 +1976,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "comparabilityTime",
                                     "EN": "Extent to which data are comparable or reconcilable over time. It refers to the degree of comparability between the measures of a time series (e.g. related to a country, a commodity and a variable) included in the resource."
                                 }
                             }
@@ -1798,6 +1986,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "coherenceIntern",
                                 "EN": "Internal coherence"
                             },
                             "value": {
@@ -1805,6 +1994,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "coherenceIntern",
                                     "EN": "General estimate of the extent to which data are consistent within the resource."
                                 }
                             }
@@ -1814,15 +2004,18 @@
                 {
                     "module": "seTimelinessPunctuality",
                     "label": {
+                        "langProp": "seTimelinessPunctuality",
                         "EN": "Timeliness and Punctuality"
                     },
                     "icon": "fa fa-database fa-lg fa-fw",
                     "properties": {
                         "timeliness": {
+
                             "type": {
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "timeliness",
                                 "EN": "Timeliness"
                             },
                             "value": {
@@ -1830,6 +2023,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "timeliness",
                                     "EN": "It refers to the speed of data availability, length of time between data availability and the event or phenomenon they describe."
                                 }
                             }
@@ -1839,6 +2033,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "punctuality",
                                 "EN": "Punctuality"
                             },
                             "value": {
@@ -1846,6 +2041,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "punctuality",
                                     "EN": "Time lag between the release date of data and the target date announced in some official release calendar."
                                 }
                             }
@@ -1860,10 +2056,12 @@
                 "name": "label"
             },
             "label": {
+                "langProp": "meAccessibility",
                 "EN": "Accessibility"
             },
             "intro": {
                 "remote-html": {
+                    "langProp": "meAccessibility",
                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/intro/accessibility_EN.html"
                 }
             },
@@ -1871,10 +2069,12 @@
                 {
                     "module": "seDataDissemination",
                     "label": {
+                        "langProp": "seDataDissemination",
                         "EN": "Data Dissemination"
                     },
                     "intro": {
                         "remote-html": {
+                            "langProp": "seDataDissemination",
                             "EN": "submodules/fenix-ui-metadata-editor/conf/html/intro/dataDissemination_EN.html"
                         }
                     },
@@ -1882,13 +2082,16 @@
                         {
                             "module": "seDistribution",
                             "label": {
+                                "langProp": "seDistribution",
                                 "EN": "Distribution"
                             },
                             "intro": {
+                                "langProp": "nonRestrictedResourcesOnly",
                                 "EN": "Can be completed for non-restricted resources only"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "seDistribution",
                                     "EN": "Provides information on how to access the resource and indicates the supported formats."
                                 }
                             },
@@ -1899,10 +2102,12 @@
                                         "name": "url"
                                     },
                                     "label": {
+                                        "langProp": "onlineResource",
                                         "EN": "Link to the on-line resource"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "onlineResource",
                                             "EN": "Link to the on-line resource."
                                         }
                                     }
@@ -1912,13 +2117,16 @@
                                         "name": "sequence"
                                     },
                                     "label": {
+                                        "langProp": "disseminationFormat",
                                         "EN": "Dissemination formats"
                                     },
                                     "placeholder": {
+                                        "langProp": "typeThenEnter",
                                         "EN": "Type then press Enter"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "disseminationFormat",
                                             "EN": "Formats available for downloading the resources (e.g. excel, csv, pdf, etc.)."
                                         }
                                     }
@@ -1928,10 +2136,12 @@
                         {
                             "module": "seReleasePolicy",
                             "label": {
+                                "langProp": "seReleasePolicy",
                                 "EN": "Release Policy"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "seReleasePolicy",
                                     "EN": "Regulations used to determine the mode of distribution of the resource."
                                 }
                             },
@@ -1942,6 +2152,7 @@
                                         "name": "textarea"
                                     },
                                     "label": {
+                                        "langProp": "releaseCalendar",
                                         "EN": "Release calendar"
                                     },
                                     "value": {
@@ -1949,6 +2160,7 @@
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "releaseCalendar",
                                             "EN": "Policy regarding the release of the resource in accordance with the pre-announced schedule. It also provides information on the availability of the release calendar."
                                         }
                                     }
@@ -1958,11 +2170,13 @@
                                         "name": "textarea"
                                     },
                                     "label": {
+                                        "langProp": "releaseCalendarAccess",
                                         "EN": "Access to the release calendar"
                                     },
                                     "info": {
                                         "popover": {
-                                            "EN": "Formats available for downloading the resources (e.g. excel, csv, pdf, etc.)."
+                                            "langProp": "releaseCalendarAccess",
+                                            "EN": "Link or references to the release calendar."
                                         }
                                     }
                                 },
@@ -1971,10 +2185,12 @@
                                         "name": "select"
                                     },
                                     "label": {
+                                        "langProp": "disseminationPeriodicity",
                                         "EN": "Dissemination periodicity"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "disseminationPeriodicity",
                                             "EN": "Frequency of data dissemination (e.g. daily, monthly, quarterly, yearly)."
                                         }
                                     },
@@ -1999,30 +2215,34 @@
                                         "name": "period"
                                     },
                                     "placeholder": {
+                                        "langProp": "clickToShowCalendar",
                                         "EN": "Click to show calendar"
                                     },
                                     "label": {
+                                        "langProp": "embargoTime",
                                         "EN": "Embargo time"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "embargoTime",
                                             "EN": "Time span between the completion of the production process of statistical data and their publication."
                                         }
                                     }
                                 }
                             }
                         }
-
                     ]
                 },
                 {
                     "module": "seClarity",
                     "label": {
+                        "langProp": "clarity",
                         "EN": "Clarity"
                     },
                     "icon": "fa fa-search fa-lg fa-fw",
                     "info": {
                         "popover": {
+                            "langProp": "seClarity",
                             "EN": "Gives information about the availability of additional information (documentation, metadata ...) linked to the resource."
                         }
                     },
@@ -2032,6 +2252,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "clarity",
                                 "EN": "Clarity"
                             },
                             "value": {
@@ -2039,6 +2260,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "clarity",
                                     "EN": "Extent to which easily comprehensible metadata are available. It indicates whether a resource is accompanied by appropriate metadata and other relevant documentation."
                                 }
                             }
@@ -2051,10 +2273,12 @@
                                 }
                             },
                             "label": {
+                                "langProp": "metadataCompletenessRate",
                                 "EN": "Metadata completeness rate"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "metadataCompletenessRate",
                                     "EN": "The percentage of completeness of metadata offers a numerical evaluation of the extent to which the resource is documented."
                                 }
                             }
@@ -2064,10 +2288,12 @@
                 {
                     "module": "seConfidentiality",
                     "label": {
+                        "langProp": "seConfidentiality",
                         "EN": "Confidentiality"
                     },
                     "info": {
                         "remote-html": {
+                            "langProp": "seConfidentiality",
                             "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/accessibilityConfidentialityDesc_EN.html"
                         }
                     },
@@ -2078,6 +2304,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "confidentialityPolicy",
                                 "EN": "Confidentiality - Policy"
                             },
                             "value": {
@@ -2085,6 +2312,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "confidentialityPolicy",
                                     "EN": "Legislative measures or other formal procedures which prevent unauthorized disclosure of data that identify a person or economic entity either directly or indirectly. It consists of a textual description and references to legislation or other rules related to statistical confidentiality."
                                 }
                             }
@@ -2094,6 +2322,7 @@
                                 "name": "textarea"
                             },
                             "label": {
+                                "langProp": "confidentialityDataTreatment",
                                 "EN": "Confidentiality - Data treatment"
                             },
                             "value": {
@@ -2101,6 +2330,7 @@
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "confidentialityDataTreatment",
                                     "EN": "Rules applied for treating the resource to ensure confidentiality and prevent unauthorized disclosure."
                                 }
                             }
@@ -2110,10 +2340,12 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "confidentialityStatus",
                                 "EN": "Status of confidentiality"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "confidentialityStatus",
                                     "EN": "Coded information describing the degree of confidentiality of the resource."
                                 }
                             },
@@ -2147,6 +2379,7 @@
                 "name": "label"
             },
             "label": {
+                "langProp": "meMaintenance",
                 "EN": "Maintenance"
             },
             "properties": {
@@ -2155,6 +2388,7 @@
                         "name": "textarea"
                     },
                     "label": {
+                        "langProp": "maintenanceAgency",
                         "EN": "Maintenance agency"
                     },
                     "value": {
@@ -2162,6 +2396,7 @@
                     },
                     "info": {
                         "popover": {
+                            "langProp": "maintenanceAgency",
                             "EN": "Organization or other expert body that maintains the resource."
                         }
                     }
@@ -2171,11 +2406,13 @@
                 {
                     "module": "seUpdate",
                     "label": {
+                        "langProp": "seUpdate",
                         "EN": "Update"
                     },
                     "icon": "fa fa-refresh fa-lg fa-fw",
                     "info": {
                         "popover": {
+                            "langProp": "seUpdate",
                             "EN": "Maintenance operations concern the periodic update of the resource."
                         }
                     },
@@ -2185,10 +2422,12 @@
                                 "name": "date"
                             },
                             "label": {
+                                "langProp": "updateDate",
                                 "EN": "Last update date"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "updateDate",
                                     "EN": "Last physical update date."
                                 }
                             }
@@ -2198,11 +2437,13 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "updatePeriodicity",
                                 "EN": "Frequency of update"
                             },
                             "info": {
                                 "popover": {
-                                    "EN": "Frequency of upgrade."
+                                    "langProp": "updatePeriodicity",
+                                    "EN": "Frequency of update."
                                 }
                             },
                             "source": {
@@ -2226,11 +2467,13 @@
                 {
                     "module": "seMetadataMaintenance",
                     "label": {
+                        "langProp": "seMetadataMaintenance",
                         "EN": "Metadata Maintenance"
                     },
                     "icon": "fa fa-wrench fa-lg fa-fw",
                     "info": {
                         "popover": {
+                            "langProp": "seMetadataMaintenance",
                             "EN": "Maintenance operations include the periodic update of metadata to ensure that the resource is properly described."
                         }
                     },
@@ -2240,10 +2483,12 @@
                                 "name": "date"
                             },
                             "label": {
+                                "langProp": "metadataLastCertified",
                                 "EN": "Metadata last certified"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "metadataLastCertified",
                                     "EN": "Latest date of certification of the metadata."
                                 }
                             }
@@ -2253,10 +2498,12 @@
                                 "name": "date"
                             },
                             "label": {
+                                "langProp": "metadataLastPosted",
                                 "EN": "Metadata last posted"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "metadataLastPosted",
                                     "EN": "Latest date of publication of the metadata. It is usually automatically updated by the metadata production system."
                                 }
                             }
@@ -2266,10 +2513,12 @@
                                 "name": "date"
                             },
                             "label": {
+                                "langProp": "metadataLastUpdate",
                                 "EN": "Metadata last update"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "metadataLastUpdate",
                                     "EN": "Most recent date of update of the metadata."
                                 }
                             }
@@ -2285,6 +2534,7 @@
                 "name": "label"
             },
             "label": {
+                "langProp": "meDocuments",
                 "EN": "Documents"
             },
             "properties": {
@@ -2300,10 +2550,12 @@
                         }
                     },
                     "label": {
+                        "langProp": "document",
                         "EN": "Documents linked to the data"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "document",
                             "EN": "Regular or ad-hoc publications linked to the resource."
                         }
                     },
@@ -2313,6 +2565,7 @@
                                 "name": "fieldset"
                             },
                             "label": {
+                                "langProp": "citationDoc",
                                 "EN": "Citation"
                             },
                             "properties": {
@@ -2324,22 +2577,22 @@
                                         "multilingual": true
                                     },
                                     "label": {
+                                        "langProp": "title",
                                         "EN": "Title"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "citationDocTitle",
                                             "EN": "Title by which the cited resource is known which offers a quick information about its content."
                                         }
                                     }
                                 },
                                 "documentKind": {
                                     "type": {
-                                        "name": "select",
-                                        "instruction": {
-                                            "EN": "Select a kind of document"
-                                        }
+                                        "name": "select"
                                     },
                                     "label": {
+                                        "langProp": "documentKind",
                                         "EN": "Kind of document"
                                     },
                                     "source": {
@@ -2356,7 +2609,8 @@
                                     },
                                     "info": {
                                         "popover": {
-                                            "EN": "Function performed by the responsible party concerning the resource."
+                                            "langProp": "documentKind",
+                                            "EN": "Kind of resource attached to data."
                                         }
                                     }
                                 },
@@ -2365,10 +2619,12 @@
                                         "name": "date"
                                     },
                                     "label": {
+                                        "langProp": "date",
                                         "EN": "Date"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "citationDate",
                                             "EN": "Reference date for the cited document."
                                         }
                                     }
@@ -2385,10 +2641,12 @@
                                         }
                                     },
                                     "label": {
+                                        "langProp": "contact",
                                         "EN": "Contact"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "contact",
                                             "EN": "Name and position information for an individual or organization that is responsible for the resource."
                                         }
                                     },
@@ -2398,6 +2656,7 @@
                                                 "name": "fieldset"
                                             },
                                             "label": {
+                                                "langProp": "responsibleParty",
                                                 "EN": "Responsible party"
                                             },
                                             "properties": {
@@ -2409,10 +2668,12 @@
                                                         "multilingual": true
                                                     },
                                                     "label": {
+                                                        "langProp": "organization",
                                                         "EN": "Organization"
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "organizationResponsible",
                                                             "EN": "Name of the responsible organization."
                                                         }
                                                     }
@@ -2425,10 +2686,12 @@
                                                         "multilingual": true
                                                     },
                                                     "label": {
+                                                        "langProp": "organizationUnit",
                                                         "EN": "Organization unit/division"
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "organizationUnit",
                                                             "EN": "Addressable subdivision of an organization."
                                                         }
                                                     }
@@ -2438,13 +2701,16 @@
                                                         "name": "text"
                                                     },
                                                     "placeholder": {
+                                                        "langProp": "titleForenameSurname",
                                                         "EN": "Title forename and surname"
                                                     },
                                                     "label": {
+                                                        "langProp": "pointOfContact",
                                                         "EN": "Point of contact"
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "pointOfContact",
                                                             "EN": "Responsible person - title, given name and surname"
                                                         }
                                                     }
@@ -2457,22 +2723,22 @@
                                                         "multilingual": true
                                                     },
                                                     "label": {
+                                                        "langProp": "position",
                                                         "EN": "Position"
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "position",
                                                             "EN": "Role or position of the responsible person."
                                                         }
                                                     }
                                                 },
                                                 "role": {
                                                     "type": {
-                                                        "name": "select",
-                                                        "instruction": {
-                                                            "EN": "Select a role"
-                                                        }
+                                                        "name": "select"
                                                     },
                                                     "label": {
+                                                        "langProp": "role",
                                                         "EN": "Role"
                                                     },
                                                     "source": {
@@ -2489,6 +2755,7 @@
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "role",
                                                             "EN": "Function performed by the responsible party concerning the resource."
                                                         }
                                                     }
@@ -2501,10 +2768,12 @@
                                                         "multilingual": true
                                                     },
                                                     "label": {
+                                                        "langProp": "specify",
                                                         "EN": "Specify"
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "specify",
                                                             "EN": "Specify the role performed by the responsible party."
                                                         }
                                                     }
@@ -2513,10 +2782,12 @@
                                                     "type": {
                                                         "name": "fieldset",
                                                         "subtitle": {
+                                                            "langProp": "provideAtLeastOne",
                                                             "EN": "Must provide at least one of the following (phone, address, email)"
                                                         }
                                                     },
                                                     "label": {
+                                                        "langProp": "contactInfo",
                                                         "EN": "Contact information"
                                                     },
                                                     "properties": {
@@ -2528,6 +2799,7 @@
                                                                 }
                                                             },
                                                             "label": {
+                                                                "langProp": "phone",
                                                                 "EN": "Telephone number"
                                                             }
                                                         },
@@ -2539,6 +2811,7 @@
                                                                 }
                                                             },
                                                             "label": {
+                                                                "langProp": "address",
                                                                 "EN": "Address"
                                                             }
                                                         },
@@ -2550,6 +2823,7 @@
                                                                 }
                                                             },
                                                             "label": {
+                                                                "langProp": "emailAddress",
                                                                 "EN": "Email address"
                                                             }
                                                         },
@@ -2561,10 +2835,12 @@
                                                                 "multilingual": true
                                                             },
                                                             "label": {
+                                                                "langProp": "hoursOfService",
                                                                 "EN": "Hours of service"
                                                             },
                                                             "info": {
                                                                 "popover": {
+                                                                    "langProp": "hoursOfService",
                                                                     "EN": "Time period (including time zone) when the organization/individual can be contacted."
                                                                 }
                                                             }
@@ -2577,10 +2853,12 @@
                                                                 "multilingual": true
                                                             },
                                                             "label": {
+                                                                "langProp": "contactInstruction",
                                                                 "EN": "Instruction"
                                                             },
                                                             "info": {
                                                                 "popover": {
+                                                                    "langProp": "contactInstruction",
                                                                     "EN": "Supplemental instructions on how or when to contact the individual or organization."
                                                                 }
                                                             }
@@ -2596,10 +2874,12 @@
                                         "name": "url"
                                     },
                                     "label": {
+                                        "langProp": "documentLink",
                                         "EN": "Document hyperlink"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "documentLink",
                                             "EN": "Web site link allowing the user access to the information resource."
                                         }
                                     }
@@ -2612,10 +2892,12 @@
                                         "multilingual": true
                                     },
                                     "label": {
+                                        "langProp": "notes",
                                         "EN": "Notes"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "notes",
                                             "EN": "Some additional details about the resource mainly concerning the domain to which the resource refers."
                                         }
                                     }
@@ -2625,10 +2907,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "isbn",
                                         "EN": "ISBN code"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "isbn",
                                             "EN": "If available, the International Standard Book Number can be reported in order to uniquely identify the resource cited."
                                         }
                                     }
@@ -2638,10 +2922,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "issn",
                                         "EN": "ISSN code"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "issn",
                                             "EN": "If available, the International Standard Serial Number (used to identify periodical publications such as reviews and scientific journals) can be reported in order to uniquely identify the resource cited."
                                         }
                                     }
@@ -2652,32 +2938,30 @@
                 },
                 "referenceEntity": {
                     "type": {
-                        "name": "entities",
-                        "instruction": {
-                            "EN": "Select a reference subject"
-                        }
+                        "name": "entities"
                     },
                     "label": {
+                        "langProp": "referenceEntity",
                         "EN": "Reference subject"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "referenceEntity",
                             "EN": "The metadata entity(ies) the document refers to. This element allows users to contextualize the document by making reference to specific metadata areas."
                         }
                     }
                 },
                 "referenceElement": {
                     "type": {
-                        "name": "subentities",
-                        "instruction": {
-                            "EN": "Select a reference element"
-                        }
+                        "name": "subentities"
                     },
                     "label": {
+                        "langProp": "referenceElement",
                         "EN": "Reference element"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "referenceElement",
                             "EN": "The metadata element(s)the document refers to. This element allows users to contextualize the document by making reference to specific metadata element(s)."
                         }
                     }
@@ -2693,6 +2977,7 @@
                 "name": "label"
             },
             "label": {
+                "langProp": "meSpatialRepresentation",
                 "EN": "Spatial Representation"
             },
             "properties": {
@@ -2701,10 +2986,12 @@
                         "name": "select"
                     },
                     "label": {
+                        "langProp": "layerType",
                         "EN": "Type of layer"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "layerType",
                             "EN": "Layer typology: vector or raster spatial representation."
                         }
                     },
@@ -2726,10 +3013,12 @@
                         "name": "select"
                     },
                     "label": {
+                        "langProp": "typeOfProduct",
                         "EN": "Type of product"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "typeOfProduct",
                             "EN": "Coded information about the product managed."
                         }
                     },
@@ -2754,10 +3043,12 @@
                         "name": "text"
                     },
                     "label": {
+                        "langProp": "noDataValue",
                         "EN": "Value assigned to No-data"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "noDataValue",
                             "EN": "Value assigned to the cells to represent the absence of data."
                         }
                     }
@@ -2770,10 +3061,12 @@
                         "name": "label"
                     },
                     "label": {
+                        "langProp": "seBoundingBox",
                         "EN": "Bounding Box"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "seBoundingBox",
                             "EN": "Includes the planar measurement units used to express the X,Y values. The bounding box indicates the smaller quadrilateral shape that includes all features of the considered resource."
                         }
                     },
@@ -2783,10 +3076,12 @@
                                 "name": "text"
                             },
                             "label": {
+                                "langProp": "xMin",
                                 "EN": "West bound longitude"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "xMin",
                                     "EN": "The smaller X coordinate value delimiting the resource"
                                 }
                             }
@@ -2796,10 +3091,12 @@
                                 "name": "text"
                             },
                             "label": {
+                                "langProp": "xMax",
                                 "EN": "East bound longitude"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "xMax",
                                     "EN": "The higher X coordinate value delimiting the resource"
                                 }
                             }
@@ -2809,10 +3106,12 @@
                                 "name": "text"
                             },
                             "label": {
+                                "langProp": "yMin",
                                 "EN": "South bound latitude"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "yMin",
                                     "EN": "The smaller Y coordinate value delimiting the resource"
                                 }
                             }
@@ -2822,10 +3121,12 @@
                                 "name": "text"
                             },
                             "label": {
+                                "langProp": "yMax",
                                 "EN": "North bound latitude"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "yMax",
                                     "EN": "The higher Y coordinate value delimiting the resource"
                                 }
                             }
@@ -2838,10 +3139,12 @@
                                 "name": "label"
                             },
                             "label": {
+                                "langProp": "seGridSpatialRepresentation",
                                 "EN": "Grid Spatial Representation"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "seGridSpatialRepresentation",
                                     "EN": "Parameters about a grid (raster) resource. The SE Grid SpatialRepresentation entity refers to a raster whose cells are regularly distributed in the space."
                                 }
                             },
@@ -2852,10 +3155,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "numberOfDimensions",
                                         "EN": "Number of dimensions"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "numberOfDimensions",
                                             "EN": "Number of independent spatial-temporal axes. For example, a grid dataset representing the topography of an area has 3 dimensions: x, y for the planar representation of the area and z reporting the elevation value of each cell."
                                         }
                                     }
@@ -2865,11 +3170,13 @@
                                         "name": "label"
                                     },
                                     "label": {
+                                        "langProp": "axisDimensionProperties",
                                         "EN": "Information about spatial-temporal axis properties"
                                     },
                                     "info": {
                                         "popover": {
-                                            "EN": "Reference to the OJ Dimensions object that reports information about spatial-temporal axis properties."
+                                            "langProp": "axisDimensionProperties",
+                                            "EN": "Information about the spatial-temporal axis properties."
                                         }
                                     },
                                     "properties": {
@@ -2878,6 +3185,7 @@
                                                 "name": "fieldset"
                                             },
                                             "label": {
+                                                "langProp": "axis",
                                                 "EN": "Axis"
                                             },
                                             "properties": {
@@ -2886,10 +3194,12 @@
                                                         "name": "text"
                                                     },
                                                     "label": {
+                                                        "langProp": "axisName",
                                                         "EN": "Name of axis"
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "axisName",
                                                             "EN": "Name of the axis."
                                                         }
                                                     }
@@ -2899,10 +3209,12 @@
                                                         "name": "text"
                                                     },
                                                     "label": {
+                                                        "langProp": "axisSize",
                                                         "EN": "Axis size"
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "axisSize",
                                                             "EN": "Number of elements along the axis."
                                                         }
                                                     }
@@ -2912,10 +3224,12 @@
                                                         "name": "fieldset"
                                                     },
                                                     "label": {
+                                                        "langProp": "resolution",
                                                         "EN": "Resolution"
                                                     },
                                                     "info": {
                                                         "popover": {
+                                                            "langProp": "resolution",
                                                             "EN": "Degree of detail in the grid dataset."
                                                         }
                                                     },
@@ -2928,10 +3242,12 @@
                                                                 "multilingual": true
                                                             },
                                                             "label": {
+                                                                "langProp": "extent",
                                                                 "EN": "Extent"
                                                             },
                                                             "info": {
                                                                 "popover": {
+                                                                    "langProp": "extent",
                                                                     "EN": "Description of the type of magnitude which has been measured (e.g. a length, an area, a volume)."
                                                                 }
                                                             }
@@ -2941,16 +3257,19 @@
                                                                 "name": "boolean"
                                                             },
                                                             "label": {
+                                                                "langProp": "composedMU",
                                                                 "EN": "Composed unit of measurement"
                                                             },
                                                             "info": {
                                                                 "popover": {
+                                                                    "langProp": "composedMU",
                                                                     "EN": "Since a wide variety of phenomenon is measured combining several simple unit of measure, it is requested a Boolean element indicating whether simple or composed unit of measure is used."
                                                                 }
                                                             },
                                                             "booleanfields": [
                                                                 {
                                                                     "true": {
+                                                                        "langProp": "composed",
                                                                         "label": {
                                                                             "EN": "Composed"
                                                                         }
@@ -2958,6 +3277,7 @@
                                                                 },
                                                                 {
                                                                     "false": {
+                                                                        "langProp": "simple",
                                                                         "label": {
                                                                             "EN": "Simple"
                                                                         }
@@ -2970,10 +3290,12 @@
                                                                 "name": "textarea"
                                                             },
                                                             "label": {
+                                                                "langProp": "measurementSystem",
                                                                 "EN": "Measurement system"
                                                             },
                                                             "info": {
                                                                 "popover": {
+                                                                    "langProp": "measurementSystem",
                                                                     "EN": "System devised to measure some physical quantity (such distance or area...). Examples are the English System of feet and inches or the metric system of millimetres, centimetres and meters, also the System International (SI) System of Units"
                                                                 }
                                                             }
@@ -2983,10 +3305,12 @@
                                                                 "name": "text"
                                                             },
                                                             "label": {
+                                                                "langProp": "nameMU",
                                                                 "EN": "Measurement unit name"
                                                             },
                                                             "info": {
                                                                 "popover": {
+                                                                    "langProp": "nameMU",
                                                                     "EN": "Name of the simple/composed unit of measure adopted."
                                                                 }
                                                             }
@@ -2996,10 +3320,12 @@
                                                                 "name": "text"
                                                             },
                                                             "label": {
+                                                                "langProp": "conversionToStandard",
                                                                 "EN": "Conversion to the standard"
                                                             },
                                                             "info": {
                                                                 "popover": {
+                                                                    "langProp": "conversionToStandard",
                                                                     "EN": "Allows to convert the unit of measure used in a standard measurement system."
                                                                 }
                                                             }
@@ -3015,6 +3341,7 @@
                                         "name": "select"
                                     },
                                     "label": {
+                                        "langProp": "cellGeometry",
                                         "EN": "Identification of grid data as point or cell"
                                     },
                                     "source": {
@@ -3031,6 +3358,7 @@
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "cellGeometry",
                                             "EN": "Specifies whether each pixel of the raster data represents a point or an area. A raster with the cell geometry as point assumes that the features to represent, or the values to report, refers to the center of the cell; cell geometry as area represents the whole area covered by the cell (e.g. averages of values falling within the cell; dominant feature of the cell, etc.)."
                                         }
                                     }
@@ -3040,6 +3368,7 @@
                                         "name": "select"
                                     },
                                     "label": {
+                                        "langProp": "cellOfOrigin",
                                         "EN": "Origin of raster cell"
                                     },
                                     "source": {
@@ -3056,6 +3385,7 @@
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "cellOfOrigin",
                                             "EN": "Origin of the raster is the lower left or the upper left cell."
                                         }
                                     }
@@ -3065,6 +3395,7 @@
                                         "name": "select"
                                     },
                                     "label": {
+                                        "langProp": "xyPosition",
                                         "EN": "Coordinate of the origin within the cell"
                                     },
                                     "source": {
@@ -3081,6 +3412,7 @@
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "xyPosition",
                                             "EN": "Whether coordinates of the origin of the raster refer to the center or the corner of the cell of origin."
                                         }
                                     }
@@ -3093,10 +3425,12 @@
                                 "name": "label"
                             },
                             "label": {
+                                "langProp": "seVectorSpatialRepresentation",
                                 "EN": "Vector Spatial Representation"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "seVectorSpatialRepresentation",
                                     "EN": "Information about the vector spatial objects in the dataset."
                                 }
                             },
@@ -3107,10 +3441,12 @@
                                         "name": "select"
                                     },
                                     "label": {
+                                        "langProp": "topologyLevel",
                                         "EN": "Degree of complexity of the spatial relationships"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "topologyLevel",
                                             "EN": "Degree of complexity of the spatial relationships expressed through a code list."
                                         }
                                     },
@@ -3135,6 +3471,7 @@
                                         "name": "select"
                                     },
                                     "label": {
+                                        "langProp": "geometricObjects",
                                         "EN": "Geometric object"
                                     },
                                     "source": {
@@ -3151,7 +3488,8 @@
                                     },
                                     "info": {
                                         "popover": {
-                                            "EN": "Information about the geometric objects used in the dataset (e.g. point, line, polygon, etc.) expressed through a multipleChoice."
+                                            "langProp": "geometricObjects",
+                                            "EN": "Information about the geometric objects used in the dataset (e.g. point, line, polygon, etc.)."
                                         }
                                     }
                                 }
@@ -3170,6 +3508,7 @@
                 "name": "label"
             },
             "label": {
+                "langProp": "meReferenceSystem",
                 "EN": "Reference System Information"
             },
             "properties": {
@@ -3178,10 +3517,12 @@
                         "name": "text"
                     },
                     "label": {
+                        "langProp": "referenceSystemIdentifier",
                         "EN": "Identifier of reference system"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "referenceSystemIdentifier",
                             "EN": "Identifier of the reference system. One of the most common standards for reference systems is the EPSG Geodetic Parameter Registry, created by the European Petroleum Survey Group."
                         }
                     }
@@ -3189,16 +3530,17 @@
                 "referenceSystemName": {
                     "type": {
                         "name": "text"
-
                     },
                     "value": {
                         "multilingual": true
                     },
                     "label": {
+                        "langProp": "referenceSystemName",
                         "EN": "Extended name of reference system"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "referenceSystemName",
                             "EN": "Alias or the name of the reference system."
                         }
                     }
@@ -3208,10 +3550,12 @@
                         "name": "label"
                     },
                     "label": {
+                        "langProp": "referenceSystemAuthority",
                         "EN": "Reference system authority"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "referenceSystemAuthority",
                             "EN": "Details on the authority linked to the reference system."
                         }
                     },
@@ -3221,6 +3565,7 @@
                                 "name": "fieldset"
                             },
                             "label": {
+                                "langProp": "responsibleParty",
                                 "EN": "Responsible party"
                             },
                             "properties": {
@@ -3232,10 +3577,12 @@
                                         "multilingual": true
                                     },
                                     "label": {
+                                        "langProp": "organization",
                                         "EN": "Organization"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "organizationResponsible",
                                             "EN": "Name of the responsible organization."
                                         }
                                     }
@@ -3248,10 +3595,12 @@
                                         "multilingual": true
                                     },
                                     "label": {
+                                        "langProp": "organizationUnit",
                                         "EN": "Organization unit/division"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "organizationUnit",
                                             "EN": "Addressable subdivision of an organization."
                                         }
                                     }
@@ -3261,13 +3610,16 @@
                                         "name": "text"
                                     },
                                     "placeholder": {
+                                        "langProp": "titleForenameSurname",
                                         "EN": "Title forename and surname"
                                     },
                                     "label": {
+                                        "langProp": "pointOfContact",
                                         "EN": "Point of contact"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "pointOfContact",
                                             "EN": "Responsible person - title, given name and surname"
                                         }
                                     }
@@ -3280,22 +3632,22 @@
                                         "multilingual": true
                                     },
                                     "label": {
+                                        "langProp": "position",
                                         "EN": "Position"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "position",
                                             "EN": "Role or position of the responsible person."
                                         }
                                     }
                                 },
                                 "role": {
                                     "type": {
-                                        "name": "select",
-                                        "instruction": {
-                                            "EN": "Select a role"
-                                        }
+                                        "name": "select"
                                     },
                                     "label": {
+                                        "langProp": "role",
                                         "EN": "Role"
                                     },
                                     "source": {
@@ -3312,6 +3664,7 @@
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "role",
                                             "EN": "Function performed by the responsible party concerning the resource."
                                         }
                                     }
@@ -3324,10 +3677,12 @@
                                         "multilingual": true
                                     },
                                     "label": {
+                                        "langProp": "specify",
                                         "EN": "Specify"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "specify",
                                             "EN": "Specify the role performed by the responsible party."
                                         }
                                     }
@@ -3336,10 +3691,12 @@
                                     "type": {
                                         "name": "fieldset",
                                         "subtitle": {
+                                            "langProp": "provideAtLeastOne",
                                             "EN": "Must provide at least one of the following (phone, address, email)"
                                         }
                                     },
                                     "label": {
+                                        "langProp": "contactInfo",
                                         "EN": "Contact information"
                                     },
                                     "properties": {
@@ -3351,6 +3708,7 @@
                                                 }
                                             },
                                             "label": {
+                                                "langProp": "phone",
                                                 "EN": "Telephone number"
                                             }
                                         },
@@ -3362,6 +3720,7 @@
                                                 }
                                             },
                                             "label": {
+                                                "langProp": "address",
                                                 "EN": "Address"
                                             }
                                         },
@@ -3373,6 +3732,7 @@
                                                 }
                                             },
                                             "label": {
+                                                "langProp": "emailAddress",
                                                 "EN": "Email address"
                                             }
                                         },
@@ -3384,10 +3744,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "hoursOfService",
                                                 "EN": "Hours of service"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "hoursOfService",
                                                     "EN": "Time period (including time zone) when the organization/individual can be contacted."
                                                 }
                                             }
@@ -3400,10 +3762,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "contactInstruction",
                                                 "EN": "Instruction"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "contactInstruction",
                                                     "EN": "Supplemental instructions on how or when to contact the individual or organization."
                                                 }
                                             }
@@ -3422,10 +3786,12 @@
                         "name": "label"
                     },
                     "label": {
+                        "langProp": "projection",
                         "EN": "Projection"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "seProjection",
                             "EN": "Provides the identifiers of the projection of the considered Coordinate Reference System (CRS)."
                         }
                     },
@@ -3435,10 +3801,12 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "projection",
                                 "EN": "Projection"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "projection",
                                     "EN": "Identifier of the projection used."
                                 }
                             },
@@ -3466,10 +3834,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "projectionName",
                                 "EN": "Name of projection"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "projectionName",
                                     "EN": "Name of the projection used."
                                 }
                             }
@@ -3482,10 +3852,12 @@
                                 "name": "label"
                             },
                             "label": {
+                                "langProp": "seProjectionParameters",
                                 "EN": "Projection Parameters"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "seProjectionParameters",
                                     "EN": "Contains the set of parameters that describe the projection."
                                 }
                             },
@@ -3495,10 +3867,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "zone",
                                         "EN": "Zone"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "zone",
                                             "EN": "Unique identifier for 100,000-meter grid zone."
                                         }
                                     }
@@ -3508,10 +3882,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "standardParallel",
                                         "EN": "Standard parallel"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "standardParallel",
                                             "EN": "Line of constant latitude where the projection surface intersects the earth."
                                         }
                                     }
@@ -3521,10 +3897,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "longitudeOfCentralMeridian",
                                         "EN": "Longitude of central meridian"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "longitudeOfCentralMeridian",
                                             "EN": "Line of longitude at the center of a map projection generally used as the basis for constructing the projection."
                                         }
                                     }
@@ -3534,10 +3912,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "latitudeOfProjectionOrigin",
                                         "EN": "Latitude of projection origin"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "latitudeOfProjectionOrigin",
                                             "EN": "Latitude chosen as the origin of the coordinates for a map projection."
                                         }
                                     }
@@ -3547,10 +3927,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "falseEasting",
                                         "EN": "False easting"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "falseEasting",
                                             "EN": "Value added to all 'x' values to the coordinates for a map projection. It is expressed in the unit of measure identified in Planar Coordinate Unit."
                                         }
                                     }
@@ -3560,10 +3942,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "falseNorthing",
                                         "EN": "False northing"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "falseNorthing",
                                             "EN": "Value added to all 'y' values to the coordinates for a map projection. This value frequently is assigned to eliminate negative numbers. It is expressed in the unit of measure identified in Planar Coordinates Units."
                                         }
                                     }
@@ -3573,10 +3957,12 @@
                                         "name": "fieldset"
                                     },
                                     "label": {
+                                        "langProp": "falseEastingNorthingUnits",
                                         "EN": "Unit of measure of false easting/northing"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "falseEastingNorthingUnits",
                                             "EN": "Unit of the false easting and false northing."
                                         }
                                     },
@@ -3589,10 +3975,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "extent",
                                                 "EN": "Extent"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "extent",
                                                     "EN": "Description of the type of magnitude which has been measured (e.g. a length, an area, a volume)."
                                                 }
                                             }
@@ -3602,16 +3990,19 @@
                                                 "name": "boolean"
                                             },
                                             "label": {
+                                                "langProp": "composedMU",
                                                 "EN": "Composed unit of measurement"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "composedMU",
                                                     "EN": "Since a wide variety of phenomenon is measured combining several simple unit of measure, it is requested a Boolean element indicating whether simple or composed unit of measure is used."
                                                 }
                                             },
                                             "booleanfields": [
                                                 {
                                                     "true": {
+                                                        "langProp": "composed",
                                                         "label": {
                                                             "EN": "Composed"
                                                         }
@@ -3619,6 +4010,7 @@
                                                 },
                                                 {
                                                     "false": {
+                                                        "langProp": "simple",
                                                         "label": {
                                                             "EN": "Simple"
                                                         }
@@ -3634,10 +4026,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "measurementSystem",
                                                 "EN": "Measurement system"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "measurementSystem",
                                                     "EN": "System devised to measure some physical quantity (such distance or area...). Examples are the English System of feet and inches or the metric system of millimetres, centimetres and meters, also the System International (SI) System of Units"
                                                 }
                                             }
@@ -3647,10 +4041,12 @@
                                                 "name": "text"
                                             },
                                             "label": {
+                                                "langProp": "nameMU",
                                                 "EN": "Measurement unit name"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "nameMU",
                                                     "EN": "Name of the simple/composed unit of measure adopted."
                                                 }
                                             }
@@ -3660,10 +4056,12 @@
                                                 "name": "text"
                                             },
                                             "label": {
+                                                "langProp": "conversionToStandard",
                                                 "EN": "Conversion to the standard"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "conversionToStandard",
                                                     "EN": "Allows to convert the unit of measure used in a standard measurement system."
                                                 }
                                             }
@@ -3675,10 +4073,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "scaleFactorAtEquator",
                                         "EN": "Scale factor at the equator"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "scaleFactorAtEquator",
                                             "EN": "Ratio between the distance on earth and the corresponding map distance, along the equator."
                                         }
                                     }
@@ -3688,10 +4088,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "heightOfProspectivePointAboveSurface",
                                         "EN": "Height of view point above the Earth (m)"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "heightOfProspectivePointAboveSurface",
                                             "EN": "Height of viewpoint above the Earth expressed in meters."
                                         }
                                     }
@@ -3701,10 +4103,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "longitudeOfProjectionCenter",
                                         "EN": "Longitude of projection centre"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "longitudeOfProjectionCenter",
                                             "EN": "Longitude of the point of projection for azimuthal projections."
                                         }
                                     }
@@ -3714,10 +4118,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "latitudeOfProjectionCenter",
                                         "EN": "Latitude of projection center"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "latitudeOfProjectionCenter",
                                             "EN": "Latitude of the point of projection for azimuthal projections."
                                         }
                                     }
@@ -3727,10 +4133,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "scaleFactorAtCenterLine",
                                         "EN": "Scale factor at center line"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "scaleFactorAtCenterLine",
                                             "EN": "Ratio between distance on earth and the corresponding map distance, along the center line."
                                         }
                                     }
@@ -3740,10 +4148,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "straightVerticalLongitudeFromPole",
                                         "EN": "Straight vertical longitude from pole"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "straightVerticalLongitudeFromPole",
                                             "EN": "Longitude to be oriented straight up from the North Pole."
                                         }
                                     }
@@ -3753,10 +4163,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "scaleFactorAtProjectionOrigin",
                                         "EN": "Scale factor at projection origin"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "scaleFactorAtProjectionOrigin",
                                             "EN": "Multiplier for reducing a distance obtained from a map by computation or scaling to the actual distance at the projection origin."
                                         }
                                     }
@@ -3769,10 +4181,12 @@
                                         "name": "label"
                                     },
                                     "label": {
+                                        "langProp": "seObliqueLineAzimuth",
                                         "EN": "Oblique Line Azimuth"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "seObliqueLineAzimuth",
                                             "EN": "Method used to describe the line along which an oblique Mercator map projection is centred using the map projection origin and an azimuth."
                                         }
                                     },
@@ -3783,10 +4197,12 @@
                                                 "name": "text"
                                             },
                                             "label": {
+                                                "langProp": "azimuthAngle",
                                                 "EN": "Azimuth angle"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "azimuthAngle",
                                                     "EN": "Measure clockwise from north and express in degree of the angle."
                                                 }
                                             }
@@ -3796,10 +4212,12 @@
                                                 "name": "text"
                                             },
                                             "label": {
+                                                "langProp": "azimuthMeasurePointLongitude",
                                                 "EN": "Longitude of the map projection origin"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "azimuthMeasurePointLongitude",
                                                     "EN": "Longitude of the origin in the map projection."
                                                 }
                                             }
@@ -3812,10 +4230,12 @@
                                         "name": "label"
                                     },
                                     "label": {
+                                        "langProp": "seObliqueLinePoint",
                                         "EN": "Oblique Line Point"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "seObliqueLinePoint",
                                             "EN": "Method used to describe the line along which an oblique mercator map projection is centred using two points near the limit of the mapped region that define the centre line."
                                         }
                                     },
@@ -3826,10 +4246,12 @@
                                                 "name": "text"
                                             },
                                             "label": {
+                                                "langProp": "obliqueLineLatitude",
                                                 "EN": "Oblique line latitude"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "obliqueLineLatitude",
                                                     "EN": "Latitude of a point defining the oblique line."
                                                 }
                                             }
@@ -3839,10 +4261,12 @@
                                                 "name": "text"
                                             },
                                             "label": {
+                                                "langProp": "obliqueLineLongitude",
                                                 "EN": "Oblique line longitude"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "obliqueLineLongitude",
                                                     "EN": "Longitude of a point defining the oblique line."
                                                 }
                                             }
@@ -3859,10 +4283,12 @@
                         "name": "label"
                     },
                     "label": {
+                        "langProp": "ellipsoid",
                         "EN": "Ellipsoid"
                     },
                     "info": {
                         "popover": {
+                            "langProp": "seEllipsoid",
                             "EN": "Provides the identififers of the ellipsoid of the considered Coordinate Reference System (CRS)."
                         }
                     },
@@ -3872,10 +4298,12 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "ellipsoid",
                                 "EN": "Ellipsoid"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "ellipsoid",
                                     "EN": "Identifier of the ellipsoid used."
                                 }
                             },
@@ -3903,10 +4331,12 @@
                                 "multilingual": true
                             },
                             "label": {
+                                "langProp": "ellipsoidName",
                                 "EN": "Name of ellipsoid"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "ellipsoidName",
                                     "EN": "Name of the ellipsoid used."
                                 }
                             }
@@ -3919,10 +4349,12 @@
                                 "name": "label"
                             },
                             "label": {
+                                "langProp": "seEllipsoidParameters",
                                 "EN": "Ellipsoid Parameters"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "seEllipsoidParameters",
                                     "EN": "Set of parameters that describe the ellipsoid."
                                 }
                             },
@@ -3933,10 +4365,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "semiMajorAxis",
                                         "EN": "Semi major axis"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "semiMajorAxis",
                                             "EN": "Measure of the equatorial axis of the ellipsoid."
                                         }
                                     }
@@ -3946,10 +4380,12 @@
                                         "name": "fieldset"
                                     },
                                     "label": {
+                                        "langProp": "axisUnits",
                                         "EN": "Semi-major axis unit of measure"
                                     },
                                     "info": {
                                         "popover": {
+                                            "langProp": "axisUnits",
                                             "EN": "Units of the semi-major axis."
                                         }
                                     },
@@ -3962,10 +4398,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "extent",
                                                 "EN": "Extent"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "extent",
                                                     "EN": "Description of the type of magnitude which has been measured (e.g. a length, an area, a volume)."
                                                 }
                                             }
@@ -3975,16 +4413,19 @@
                                                 "name": "boolean"
                                             },
                                             "label": {
+                                                "langProp": "composedMU",
                                                 "EN": "Composed unit of measurement"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "composedMU",
                                                     "EN": "Since a wide variety of phenomenon is measured combining several simple unit of measure, it is requested a Boolean element indicating whether simple or composed unit of measure is used."
                                                 }
                                             },
                                             "booleanfields": [
                                                 {
                                                     "true": {
+                                                        "langProp": "composed",
                                                         "label": {
                                                             "EN": "Composed"
                                                         }
@@ -3992,6 +4433,7 @@
                                                 },
                                                 {
                                                     "false": {
+                                                        "langProp": "simple",
                                                         "label": {
                                                             "EN": "Simple"
                                                         }
@@ -4007,10 +4449,12 @@
                                                 "multilingual": true
                                             },
                                             "label": {
+                                                "langProp": "measurementSystem",
                                                 "EN": "Measurement system"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "measurementSystem",
                                                     "EN": "System devised to measure some physical quantity (such distance or area...). Examples are the English System of feet and inches or the metric system of millimetres, centimetres and meters, also the System International (SI) System of Units"
                                                 }
                                             }
@@ -4020,10 +4464,12 @@
                                                 "name": "text"
                                             },
                                             "label": {
+                                                "langProp": "nameMU",
                                                 "EN": "Measurement unit name"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "nameMU",
                                                     "EN": "Name of the simple/composed unit of measure adopted."
                                                 }
                                             }
@@ -4033,10 +4479,12 @@
                                                 "name": "text"
                                             },
                                             "label": {
+                                                "langProp": "conversionToStandard",
                                                 "EN": "Conversion to the standard"
                                             },
                                             "info": {
                                                 "popover": {
+                                                    "langProp": "conversionToStandard",
                                                     "EN": "Allows to convert the unit of measure used in a standard measurement system."
                                                 }
                                             }
@@ -4048,10 +4496,12 @@
                                         "name": "text"
                                     },
                                     "label": {
+                                        "langProp": "denominatorOfFlatteningRatio",
                                         "EN": "Denominator of flattening rate"
                                     },
                                     "info": {
                                         "remote-html": {
+                                            "langProp": "denominatorOfFlatteningRatio",
                                             "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/referenceSystemEllipsoidDenominatorFlatteningRatio_EN.html"
                                         }
                                     }
@@ -4066,11 +4516,13 @@
                         "name": "label"
                     },
                     "label": {
+                        "langProp": "datum",
                         "EN": "Datum"
                     },
                     "info": {
                         "popover": {
-                            "EN": "Provides the identifiers of the ellipsoid of the considered Coordinate Reference System (CRS)."
+                            "langProp": "seDatum",
+                            "EN": "Provides the identifiers of the datum of the considered Coordinate Reference System (CRS)."
                         }
                     },
                     "icon": "fa fa-database fa-lg fa-fw",
@@ -4080,10 +4532,12 @@
                                 "name": "select"
                             },
                             "label": {
+                                "langProp": "datum",
                                 "EN": "Datum"
                             },
                             "info": {
                                 "remote-html": {
+                                    "langProp": "datum",
                                     "EN": "submodules/fenix-ui-metadata-editor/conf/html/info/referenceSystemDatumDesc_EN.html"
                                 }
                             },
@@ -4108,10 +4562,12 @@
                                 "name": "text"
                             },
                             "label": {
+                                "langProp": "datumName",
                                 "EN": "Name of datum"
                             },
                             "info": {
                                 "popover": {
+                                    "langProp": "datumName",
                                     "EN": "Name of the datum used."
                                 }
                             }

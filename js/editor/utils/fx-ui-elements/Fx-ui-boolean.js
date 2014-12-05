@@ -1,7 +1,8 @@
 define([
     "jquery",
     "fx-editor/utils/Fx-element-utils",
-    "i18n!fx-editor/nls/langProperties"], function ($, Element_Utils, langProperties) {
+    "i18n!fx-editor/nls/langProperties",
+    "i18n!fx-editor/conf/nls/guiLangProps"], function ($, Element_Utils, langProperties, guiLangProps) {
 
     var element_Utils;
 
@@ -42,14 +43,18 @@ define([
             for(var j = 0; j < e["booleanfields"].length; j++){
                  var item =  e["booleanfields"][j];
                  if(item.hasOwnProperty("true")){
-                     var trueItm =  item["true"];
-                     tLabel = trueItm["label"][o.lang];
+//                     var trueItm =  item["true"];
+                   if(item["true"].hasOwnProperty("langProp")) {
+                         tLabel = guiLangProps[item["true"]["langProp"]];//trueItm["label"][o.lang];
+                   }
                  }
 
                  if(item.hasOwnProperty("false")){
-                    var falseItm =  item["false"];
-                    fLabel = falseItm["label"][o.lang];
-                }
+                   // var falseItm =  item["false"];
+                    if(item["false"].hasOwnProperty("langProp")) {
+                         fLabel = guiLangProps[item["false"]["langProp"]];//falseItm["label"][o.lang];;
+                     }
+                 }
             }
           }
 

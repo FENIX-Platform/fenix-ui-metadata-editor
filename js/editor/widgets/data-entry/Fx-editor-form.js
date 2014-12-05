@@ -10,11 +10,14 @@
     "fx-editor/utils/Fx-bootstrapValidator-utils",
     "fx-editor/utils/Fx-date-utils",
     "i18n!fx-editor/nls/langProperties",
+    "i18n!fx-editor/conf/nls/guiLangProps",
+    "i18n!fx-editor/conf/nls/guiHtmlLinksLangProps",
+    "i18n!fx-editor/conf/nls/guiPopoverLangProps",
     "bootstrap",
     "fx-editor/conf/js/fx-form-validation-callback",
     "jquery-serialize-object",
     "bootstrap-datetimepicker"
-], function (require, $, bootstrapValidator, bootstrapTagsInput, W_Commons, Ui_Element_Creator, UI_Info, Json_Utils, BootstrapValidator_Utils, Date_Utils, langProperties) {
+], function (require, $, bootstrapValidator, bootstrapTagsInput, W_Commons, Ui_Element_Creator, UI_Info, Json_Utils, BootstrapValidator_Utils, Date_Utils, langProperties, guiLangProps, guiHtmlLinksLangProps, guiPopoverLangProps) {
 
     var o = { },
         defaultOptions = {
@@ -24,6 +27,7 @@
                 dates: "conf/json/fx-editor-dates-config.json"
             },
             resourceType : 'dataset',
+            readOnly: false,
             widget: {
                 lang: 'EN'
             },
@@ -344,8 +348,8 @@
         $.extend(o, defaultOptions);
         $.extend(o, options);
 
-       // console.log(" ======================== FORM: INIT::: options = "+o.widget.lang);
-       // console.log(o);
+      //  console.log(" ======================== FORM: INIT::: options = "+o.readOnly);
+      //  console.log(o);
 
         validation_conf = o.config.validation;
         json_mapping_conf =  o.config.jsonMapping;
@@ -463,6 +467,21 @@
     };
 
 
+    //This callback function is called when the form render is complete
+    Fx_Editor_Form.prototype.onRenderInitializeReadOnly = function () {
+
+        // Before the render
+      //  $(".btn-success").remove();
+       // $(".fx-panel-required").removeClass();
+
+        //On Load of the form, adjust the spacing
+        setFieldSetsFormatting();
+
+        readjustMenuFormHeights();
+
+    };
+
+
     //Function to clear the Form Panel
     Fx_Editor_Form.prototype.removeModuleForm = function (module) {
         $(o.container).find('.panel').empty();
@@ -542,9 +561,10 @@
             $label = $('<h3 class="panel-title"></h3>');
 
 
-
-        if (module.hasOwnProperty("module")) {
-            $label.append(module["label"][o.widget.lang]);
+        //if (module.hasOwnProperty("module")) {
+        if (module.hasOwnProperty("label")) {
+            if(module["label"].hasOwnProperty("langProp"))
+                $label.append(guiLangProps[module["label"]["langProp"]]);  //$label.append(module["label"][o.widget.lang]);
         } //else
             //console.log('NO module.module property ');
 
@@ -560,12 +580,19 @@
 
         //Add any introductory text
         if (module.hasOwnProperty("intro")) {
-           if(module["intro"].hasOwnProperty([o.widget.lang])){
+           /** if(module["intro"].hasOwnProperty([o.widget.lang])){
                 $panelBody.append('<div class="well well-sm">'+module["intro"][o.widget.lang]+'</div>');
+            }  **/
+             if(module["intro"].hasOwnProperty("langProp")){
+                $panelBody.append('<div class="well well-sm">'+guiLangProps[module["intro"]["langProp"]]+'</div>');
             }
+
             //the content of which will be determined by the remote html
             else if(module["intro"].hasOwnProperty("remote-html")){
-                $panelBody.load(module["intro"]["remote-html"][o.widget.lang]);
+               if(module["intro"]["remote-html"].hasOwnProperty("langProp"))
+                   $panelBody.load(guiHtmlLinksLangProps[module["intro"]["remote-html"]["langProp"]]);
+
+                //$panelBody.load(module["intro"]["remote-html"][o.widget.lang]);
             }
         }
         cache.properties = {};
@@ -696,11 +723,13 @@
             //console.log("============================================= resourceType ================== "+resourceType);
            // console.log("============================================= resourceType ================== "+resourceType);
 
+           var callbackFunc = o.readOnly ? this.onRenderInitializeReadOnly : this.onRenderInitialize;
 
            ui_Element_Creator.render({
                 cssClass: "form-control",
                 container: "fnx-element-",
                 elements: elementsJson,
+                readOnly: o.readOnly,
                 lang: o.widget.lang,
                 validationUtils: bootstrapValidator_Utils,
                 values: moduleValues,
@@ -709,29 +738,42 @@
                 mapping: cache.modulepathmapping,
                 objMapping: cache.objpathmapping,
                 resourceType: resourceType
-            }, this.onRenderInitialize);
+            }, callbackFunc);//this.onRenderInitialize);
 
         } else {
             readjustMenuFormHeights();
            //throw new Error("Fx_Editor_Form: no 'properties' attribute in config JSON.")
         }
 
+        if(!o.readOnly)
+           self.buildSaveButton();
+
+        return $form;
+    };
+
+    Fx_Editor_Form.prototype.buildSaveButton = function () {
         //Initialize Save Button
-          var $button = $('<button  class="btn btn-success">'+langProperties.save+'</button>');
+        var $button = $('<button  class="btn btn-success">'+langProperties.save+'</button>');
         $button.on('click', function (e) {
             //e.preventDefault();
             var fm = $('#fx-editor-form form');
             var bv = fm.data('bootstrapValidator');
             bv.validate();
 
-             var mapping = null, moduleLabel;
+            var mapping = null, moduleLabel;
 
             //console.log("=================== FORM SAVE fm = "+fm);
-           // form: $('#fx-editor-form')
+            // form: $('#fx-editor-form')
             if(bv.isValid()){
                 validatedModuleForm = {id: $module.module, form: fm[0], entityPath: entityPath, parent: module.parent};
-                if(module["label"].hasOwnProperty(o.widget.lang)){
-                    moduleLabel = module["label"][o.widget.lang]
+                //if(module["label"].hasOwnProperty(o.widget.lang)){
+                if(module["label"].hasOwnProperty("langProp")){
+                    if(guiLangProps[module["label"]["langProp"]] != undefined)
+                        moduleLabel = guiLangProps[module["label"]["langProp"]];
+                    else
+                        moduleLabel = module["label"]["langProp"];
+
+                    //moduleLabel = module["label"][o.widget.lang]
                 } else {
                     moduleLabel = $module.module;
                 }
@@ -746,12 +788,7 @@
             return false;
         });
 
-
-
-
         $form.append($button);
-
-        return $form;
     };
 
     //Create Form Group
@@ -805,11 +842,18 @@
         // in this case the required icon (i.e. *) would need to be indicated next to the "Contacts" label, it has no correspondence
         // with the button itself.
 
-        var requiredCss =  bootstrapValidator_Utils.getFeedbackIconCss(bootstrapValidator_Utils.getFeedbackIconTypes().REQUIRED);
+        var requiredIconCss =  bootstrapValidator_Utils.getFeedbackIconCss(bootstrapValidator_Utils.getFeedbackIconTypes().REQUIRED);
+        var requiredCss = o.readOnly ? "" : requiredIconCss;
+
 
         // Set Field Label and Required Icon
-        if (value.hasOwnProperty("label")) {
-            $label.append(value["label"][o.widget.lang]);
+        if(value.hasOwnProperty("label")) {
+            //$label.append(value["label"][o.widget.lang]);
+
+            if(value["label"].hasOwnProperty("langProp"))
+              $label.append(guiLangProps[value["label"]["langProp"]]);
+
+           // console.log("name = "+name);
 
             if (rule != null) {
                 if (value.hasOwnProperty("type")) {
@@ -845,21 +889,39 @@
         // Uses UI Info
         if (value.hasOwnProperty("info")) {
             if(value["info"].hasOwnProperty("popover")){
-                ui_Info.createPopOver($info, value["info"]["popover"][o.widget.lang]);
+                if(value["info"]["popover"].hasOwnProperty("langProp"))
+                    ui_Info.createPopOver($info, guiPopoverLangProps[value["info"]["popover"]["langProp"]]);
+
+               // ui_Info.createPopOver($info, value["info"]["popover"][o.widget.lang]);
             }
             // Uses the #infoModal already present in the HTML, opens a modal window
             //the content of which will be determined by the remote html
             else if(value["info"].hasOwnProperty("remote-html")){
-                ui_Info.createModal($info, value["info"]["remote-html"][o.widget.lang], '#infoModal');
+                if(value["info"]["remote-html"].hasOwnProperty("langProp"))
+                    ui_Info.createModal($info, guiHtmlLinksLangProps[value["info"]["remote-html"]["langProp"]], '#infoModal');
+
+               // ui_Info.createModal($info, value["info"]["remote-html"][o.widget.lang], '#infoModal');
             }
 
             $infoContainer.append($info);
         }
 
+        //Build the Input Group, if there is an icon associated with the input type 'text' or 'number'
+        if(value.hasOwnProperty("type") && !o.readOnly){
+            self.buildInputGroup(value, $inputDivId, $inputContainer);
+        }
 
-        //Set the Input Group, if there is an icon associated with the input type 'text'
-        if(value.hasOwnProperty("type")){
-            if((value.type.name == ui_Element_Creator.getTypes().TEXT || value.type.name == ui_Element_Creator.getTypes().NUMBER) && value.type.hasOwnProperty("input-group")){
+        if(value.type.name == ui_Element_Creator.getTypes().LABEL)
+            $formGroup.append($label).append($infoContainer);
+        else
+            $formGroup.append($label).append($inputContainer).append($infoContainer);
+
+        return $formGroup;
+    };
+
+    //Build the Input Group, if there is an icon associated with the input type 'text' or 'number'
+    Fx_Editor_Form.prototype.buildInputGroup = function (value, $inputDivId, $inputContainer) {
+           if((value.type.name == ui_Element_Creator.getTypes().TEXT || value.type.name == ui_Element_Creator.getTypes().NUMBER) && value.type.hasOwnProperty("input-group")){
                 var  $inputGroup = $('<div class="input-group" id="'+$inputDivId+'"></div>');
                 var  $inputGroupSpan = $('<span class="input-group-addon"></span>');
 
@@ -903,16 +965,7 @@
                 $inputContainer.append($inputSelector).append($inputGroup);
             }
 
-        }
-
-        if(value.type.name == ui_Element_Creator.getTypes().LABEL)
-            $formGroup.append($label).append($infoContainer);
-        else
-            $formGroup.append($label).append($inputContainer).append($infoContainer);
-
-        return $formGroup;
     };
-
 
     //Create FieldSet
     //Set FieldSet Label and Required Icon
@@ -940,20 +993,27 @@
 
         // Set FieldSet Label and Required Icon
         if(value.hasOwnProperty("label")){
-            $legend.append($collapeIcon);
-            $legend.append("<label>"+value["label"][o.widget.lang]+"</label>");
+            if(value["label"].hasOwnProperty("langProp")) {
+
+                if(guiLangProps[value["label"]["langProp"]] != undefined){
+                    $legend.append($collapeIcon);
+                    // $legend.append("<label>"+value["label"][o.widget.lang]+"</label>");
+                    $legend.append("<label>"+guiLangProps[value["label"]["langProp"]]+"</label>");
 
 
-
-            if(rule!= null){
-
-                if(rule.hasOwnProperty("type")){
-                    if(rule.type == bootstrapValidator_Utils.getTypes().IS_REQUIRED)
-                        var requiredIcon =  bootstrapValidator_Utils.getFeedbackIconCss(bootstrapValidator_Utils.getFeedbackIconTypes().REQUIRED);
-                        $legend.append(" "+ "<span class='"+requiredIcon+"'></span>");
+                    if(rule!= null){
+                        if(rule.hasOwnProperty("type")){
+                            if(rule.type == bootstrapValidator_Utils.getTypes().IS_REQUIRED)
+                                var requiredIcon =  bootstrapValidator_Utils.getFeedbackIconCss(bootstrapValidator_Utils.getFeedbackIconTypes().REQUIRED);
+                            $legend.append(" "+ "<span class='"+requiredIcon+"'></span>");
+                        }
+                    }
                 }
             }
         }
+
+
+
 
         //Set Collapsible/Expand Action
         $legend.click(function() {
@@ -982,11 +1042,16 @@
         //Append the legend to the fieldset
         $fieldSet.append($legend);
 
+
         //Set Subtitle
         if(value.type.hasOwnProperty("subtitle")){
-            var $subtitle=  $('<div class="form-group"><div class="col-sm-12 fx-fieldset-subtitle"><label>'+value.type.subtitle[o.widget.lang]+'</label></div></div>');
+            if(value.type.subtitle.hasOwnProperty("langProp")){
+                var $subtitle=  $('<div class="form-group"><div class="col-sm-12 fx-fieldset-subtitle"><label>'+guiLangProps[value.type.subtitle["langProp"]]+'</label></div></div>');
 
-            $fieldSet.append($subtitle);
+               // var $subtitle=  $('<div class="form-group"><div class="col-sm-12 fx-fieldset-subtitle"><label>IN '+value.type.subtitle[o.widget.lang]+'</label></div></div>');
+
+                $fieldSet.append($subtitle);
+            }
         }
 
 
@@ -1383,20 +1448,21 @@
                 var dataLangAtt = $(this).data("lang");
                 var dataCodeList = $(this).attr("data-cl-object");
 
-              if(dataCodeList != undefined && formItem.hasOwnProperty("codes")){
+
+           /**   if(dataCodeList != undefined && formItem.hasOwnProperty("codes")){
                   for(var t = 0; t <formItem.codes.length; t++){
                       var codeObj = formItem.codes[t];
                       if(codeObj.hasOwnProperty("code")){
                           var code =  codeObj.code;
                           var idx = $("#"+$(this).attr("id")+" option[value='"+code+"']").index();
                           var label = this.options[idx].innerHTML;
-                           var labelObj = {};
-                           labelObj[o.widget.lang] = label;
-                           codeObj["label"] = labelObj;
+                          var labelObj = {};
+                          labelObj[o.widget.lang] = label;
+                          codeObj["label"] = labelObj;
                       }
                   }
               }
-             else if(dataLangAtt != undefined){
+             else**/ if(dataLangAtt != undefined){
                 for(var p = 0; p <formItem.length; p++){
                     var codeObj = formItem[p];
                     if(codeObj.hasOwnProperty("code")){
@@ -1418,6 +1484,7 @@
 
             }
           }
+
 
 
 
@@ -1537,8 +1604,8 @@
         }
 
 
-       //console.log("===================  FORM: getValues FINAL RESULT ========== ");
-      // console.log(result);
+       console.log("===================  FORM: getValues FINAL RESULT ========== ");
+       console.log(result);
 
         return result;
     };

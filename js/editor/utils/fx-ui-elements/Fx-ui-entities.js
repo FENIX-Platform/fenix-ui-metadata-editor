@@ -1,5 +1,5 @@
 ﻿define([
-    "jquery","i18n!fx-editor/nls/langProperties", "fx-editor/utils/Fx-element-utils"], function ($, langProperties, Element_Utils) {
+    "jquery","i18n!fx-editor/nls/langProperties", "fx-editor/utils/Fx-element-utils", "i18n!fx-editor/conf/nls/guiLangProps"], function ($, langProperties, Element_Utils, guiLangProps) {
 
     var bootstrapValidator_Utils, element_Utils, lang, guiCache;
 
@@ -92,7 +92,8 @@
                 var label = entities[i]["module"];
                 if(lang!=null) {
                     if (entities[i].hasOwnProperty("label")) {
-                        label = entities[i]["label"][lang];
+                        if(entities[i]["label"].hasOwnProperty("langProp"))
+                          label =  guiLangProps[entities[i]["label"]["langProp"]]; //label = entities[i]["label"][lang];
                     }
                 }
 

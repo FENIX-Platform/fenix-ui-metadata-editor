@@ -34,6 +34,8 @@ define(["fx-editor/controllers/Fx-editor-page",
                 resourceType: options.resourceType
             };
 
+
+
             var compiledTmpl = Handlebars.compile(template, context);
             $(options.container).html(compiledTmpl({ langProperties: langProperties, context: context}));
 
@@ -83,7 +85,6 @@ define(["fx-editor/controllers/Fx-editor-page",
                 options.config.jsonMapping = jsonMappingConfig;
                 options.config.ajaxEventCalls = ajaxConfig;
                 options.config.dates = datesConfig;
-
             }
             else {
                 if (!options['config'].hasOwnProperty('gui')) {
@@ -143,7 +144,7 @@ define(["fx-editor/controllers/Fx-editor-page",
             }
 
 
-            //console.log("=================================================== RESOURCE TYPE = "+options.resourceType);
+           // console.log("=================================================== INIT DATA CONTROLLER readonly = "+options.readOnly);
 
             //dataEntryController.init(options);
             dataEntryController.init({
@@ -151,20 +152,23 @@ define(["fx-editor/controllers/Fx-editor-page",
                 source: options.source,
                 onFinishClick: options.onFinishClick,
                 resourceType: options.resourceType,
-                widget: {lang: options.widget.lang}
+                widget: {lang: options.widget.lang},
+                readOnly: options.readOnly
             });
 
             menu.init({
                 container: document.querySelector("#" + html_ids.MENU),
                 config: options.config,
                 resourceType: options.resourceType,
-                widget: {lang: options.widget.lang}
+                widget: {lang: options.widget.lang},
+                readOnly: options.readOnly
             });
             form.init({
                 container: document.querySelector("#" + html_ids.FORM),
                 resourceType: options.resourceType,
                 config: options.config,
-                widget: {lang: options.widget.lang}
+                widget: {lang: options.widget.lang},
+                readOnly: options.readOnly
             });
             progress.init({
                 container: document.querySelector("#" + html_ids.PROGRESS),

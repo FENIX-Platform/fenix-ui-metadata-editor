@@ -61,7 +61,7 @@ define([
             return k;
         }  **/
 
-         if(typeof(json) != "object" || Object.keys(json).length == 0) {
+         if(json == null || typeof(json) != "object" || Object.keys(json).length == 0) {
              return null;
          }
 
@@ -93,7 +93,7 @@ define([
     Fx_Json_Utils.prototype.findParentPathForProperty = function (json, value, path){
         var self = this;
 
-       if(typeof(json) != "object" || Object.keys(json).length == 0) {
+       if(json == null || typeof(json) != "object" || Object.keys(json).length == 0) {
             return null;
        }
 

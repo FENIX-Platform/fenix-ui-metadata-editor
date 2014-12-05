@@ -9,6 +9,7 @@
         'fx-editor/utils': "./editor/utils",
         'fx-editor/conf/json': "../conf/json",
         'fx-editor/conf/js': "../conf/js",
+        'fx-editor/conf/nls': "../conf/nls",
         'fx-editor/widgets': "./editor/widgets",
         'fx-editor/plugins': "./editor/widgets/bridge/plugins",
         'fx-editor/templates': "../templates",

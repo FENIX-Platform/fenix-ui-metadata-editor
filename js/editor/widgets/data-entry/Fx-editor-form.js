@@ -746,12 +746,12 @@
         }
 
         if(!o.readOnly)
-           self.buildSaveButton();
+           self.buildSaveButton(module);
 
         return $form;
     };
 
-    Fx_Editor_Form.prototype.buildSaveButton = function () {
+    Fx_Editor_Form.prototype.buildSaveButton = function (module) {
         //Initialize Save Button
         var $button = $('<button  class="btn btn-success">'+langProperties.save+'</button>');
         $button.on('click', function (e) {

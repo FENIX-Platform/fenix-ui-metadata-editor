@@ -46,7 +46,9 @@ define([
                 REMOVE: "fx.editor.module.remove",
                 FIND: "fx.editor.module.find",
                 EMPTY_ROOT_ENTITY:  "fx.editor.module.empty_root",
-                INVALID: 'fx.editor.form.invalid'
+                INVALID: 'fx.editor.form.invalid',
+                EXIT_METADATA: 'fx.editor.metadata.exit',
+                COPY_METADATA: 'fx.editor.metadata.copy'
             },
             // onFinishClick - callback called when Finish button has been clicked
             onFinishClick:   function (data) {}
@@ -265,6 +267,54 @@ define([
             self.createForm(moduleId, module, gui);
 
         }, false);
+
+
+        document.body.addEventListener(o.events.EXIT_METADATA, function (e) {
+            console.log("----------------- EXIT_METADATA ");
+            var type, url, event;
+            //Get the urls based on the cache.saveAction type
+            url = cache.saveAjax[o.saveTypes.OVERWRITE].url;
+            type = cache.saveAjax[o.saveTypes.OVERWRITE].type;
+
+            if(cache.saveAction.type  == o.saveTypes.OVERWRITE){
+                var rootValues =  w_Storage.getItem(cache.rootEntity);
+                if(rootValues != ""){
+                    w_Commons.raiseCustomEvent(document.body, o.events.FINAL_SAVE,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: FINAL SAVE"});
+                }
+            }
+        }, false);
+
+        document.body.addEventListener(o.events.COPY_METADATA, function (e) {
+
+            var version = e.detail.version;
+            var uid = e.detail.uid;
+
+
+            if (cache.saveAjax.hasOwnProperty(o.saveTypes.GET)) {
+                var url =  cache.saveAjax[o.saveTypes.GET].url;
+                var type =  cache.saveAjax[o.saveTypes.GET].type;
+
+
+                if(version !== "" && uid !== null){
+                    url = url.replace("version", version);
+                    url = url.replace("uid", uid);
+                }
+                if(version == "" && uid !== null){
+                    url = url.replace("uid", "uid/"+uid);
+                    url = url.replace("/version", "");
+                }
+
+                //SPECIAL ENTITIES included in copy, but will be set to null
+                self.populateStorageWithSpecialEntities();
+
+                var keys =  w_Storage.getAllKeys();
+                w_Commons.raiseCustomEvent(document.body, o.events.COPY, {url:url, type: type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: COPY"});
+            }
+        }, false);
+
+
+
+
 
         /**  document.body.addEventListener(o.events.SELECT, function (e) {
           // console.log("----------------- DATA ENTRY (SELECT) "+e.detail.module);

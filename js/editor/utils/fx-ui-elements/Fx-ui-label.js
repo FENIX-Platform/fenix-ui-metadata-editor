@@ -50,13 +50,20 @@
             var toFormat = date_Utils.getFormat(o.datesConfig, date_Utils.getDateType(), "gui");
             var value = element_Utils.getElementValue(name, o.values, e);
 
+
             if(e.type.name == 'sequence'){
                 var items =  element_Utils.getValues(value);
                 value = items.join('; ');
             }
             else if(e.type.name == 'select' || e.type.name == 'hierarchy'){
-                var labels = element_Utils.getValueLabels(value, o.lang);
-                value = labels.join('; ');
+                if(e.source.type.hasOwnProperty("multipleChoice")){
+
+                    value = element_Utils.getElementValue(name+"Label"+"."+o.lang, o.values, e);
+                } else {
+                    var labels = element_Utils.getValueLabels(value, o.lang);
+                    value = labels.join('; ');
+                }
+
             }
             else if(e.type.name == 'entities' || e.type.name == 'subentities'){
                 value =  guiLangProps[value];

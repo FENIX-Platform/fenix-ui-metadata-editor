@@ -42,6 +42,7 @@ define([
                 LOAD: "fx.editor.load",
                 COPY: "fx.editor.copy",
                 METADATA_EDITOR_FINISH: "fx.editor.finish",
+                METADATA_EDITOR_ROOT_ENTITY_STATUS: "fx.editor.root.entity.status",
                 OVERWRITE : "fx.editor.overwrite",
                 REMOVE: "fx.editor.module.remove",
                 FIND: "fx.editor.module.find",
@@ -49,18 +50,18 @@ define([
                 INVALID: 'fx.editor.form.invalid',
                 EXIT_METADATA: 'fx.editor.metadata.exit',
                 COPY_METADATA: 'fx.editor.metadata.copy'
-            },
+            }
             // onFinishClick - callback called when Finish button has been clicked
-            onFinishClick:   function (data) {}
+           //onFinishClick:   function (data) {}
         };
 
     var selectors = {
         CONTAINER : ".fx-editor-data-entry-container",
-        TOGGLE_BTN: ".fx-editor-header-btn-expand",
-        COPY_BTN: ".fx-editor-copy-btn",
-        FINISH_BTN: ".fx-editor-finish-btn",
-        INSTRUCTION: "#fx-editor-instruction",
-        EDITOR_HEADING: "#fx-editor-heading"
+        TOGGLE_BTN: ".fx-editor-header-btn-expand"
+       // COPY_BTN: ".fx-editor-copy-btn",
+      //  FINISH_BTN: ".fx-editor-finish-btn",
+      //  INSTRUCTION: "#fx-editor-instruction",
+      //  EDITOR_HEADING: "#fx-editor-heading"
     };
 
     function DataEntryController() {
@@ -141,9 +142,9 @@ define([
     DataEntryController.prototype.renderComponents = function () {
         var self = this;
         NProgress.start();
-        $(".fx-header:first").hide(); // Fenix Data Editor title
-        $(selectors.EDITOR_HEADING).hide();
-        $(selectors.INSTRUCTION).hide();
+      //  $(".fx-header:first").hide(); // Fenix Data Editor title
+      //  $(selectors.EDITOR_HEADING).hide();
+      //  $(selectors.INSTRUCTION).hide();
 
         //Cache json configuration files: Validation and Json Mapping
         $.when($.getJSON(ajaxConf), $.getJSON(mappingConf),  $.getJSON(guiConf), $.getJSON(validationConf),  $.getJSON(datesConf))
@@ -194,10 +195,10 @@ define([
                     //LOADING DATA
                     if (source!=null) {
                         self.populateStorageWithSpecialEntities();
-                        $(selectors.FINISH_BTN).html(lang_Utils.save);
-                        $(".fx-header:first").hide();
-                        $(selectors.EDITOR_HEADING).show();
-                        $(selectors.INSTRUCTION).hide();
+                       // $(selectors.FINISH_BTN).html(lang_Utils.save);
+                       // $(".fx-header:first").hide();
+                       // $(selectors.EDITOR_HEADING).show();
+                       // $(selectors.INSTRUCTION).hide();
 
 
                         var keys =  w_Storage.getAllKeys();
@@ -207,10 +208,10 @@ define([
                         //self.parseData();
                         //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
                     } else {
-                        $(selectors.FINISH_BTN).html(lang_Utils.saveAndClose);
-                        $(".fx-header:first").show();
-                        $(selectors.EDITOR_HEADING).hide();
-                        $(selectors.INSTRUCTION).show();
+                      //  $(selectors.FINISH_BTN).html(lang_Utils.saveAndClose);
+                       // $(".fx-header:first").show();
+                       // $(selectors.EDITOR_HEADING).hide();
+                       // $(selectors.INSTRUCTION).show();
 
                         self.menu.setDefault();
                     }
@@ -289,6 +290,7 @@ define([
             var version = e.detail.version;
             var uid = e.detail.uid;
 
+           // console.log("COPY_METADATA: uid = "+uid + " | version = "+version);
 
             if (cache.saveAjax.hasOwnProperty(o.saveTypes.GET)) {
                 var url =  cache.saveAjax[o.saveTypes.GET].url;
@@ -480,20 +482,24 @@ define([
             if(cache.rootEntity !=undefined)   {
                 var rootValues =  w_Storage.getItem(cache.rootEntity);
                 if(rootValues != ""){
-                    if($(selectors.FINISH_BTN).attr("disabled")=="disabled") {
-                        $(selectors.FINISH_BTN).removeAttr("disabled");
-                    }
+                    this.rootEntityStatus(true);
+                    //if($(selectors.FINISH_BTN).attr("disabled")=="disabled") {
+                      //  $(selectors.FINISH_BTN).removeAttr("disabled");
+                   // }
                 } else {
-                    $(selectors.FINISH_BTN).attr("disabled", "disabled");
+                    this.rootEntityStatus(false);
+                   // $(selectors.FINISH_BTN).attr("disabled", "disabled");
                 }
             } else {
-                $(selectors.FINISH_BTN).attr("disabled", "disabled");
+                this.rootEntityStatus(false);
+               // $(selectors.FINISH_BTN).attr("disabled", "disabled");
             }
 
             // RE-SET SAVE ACTION: OVERWRITE
             cache.saveAction = {type: o.saveTypes.OVERWRITE};
 
         }, false);
+
 
 
 
@@ -591,7 +597,7 @@ define([
 
         })
 
-        $(selectors.FINISH_BTN).on('click', {self: this},function(e){
+     /**   $(selectors.FINISH_BTN).on('click', {self: this},function(e){
             var type, url, event;
            //Get the urls based on the cache.saveAction type
            url = cache.saveAjax[o.saveTypes.OVERWRITE].url;
@@ -603,15 +609,15 @@ define([
                     w_Commons.raiseCustomEvent(document.body, o.events.FINAL_SAVE,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: FINAL SAVE"});
                 }
             }
-        })
+        }) **/
     };
 
     DataEntryController.prototype.finish = function (data) {
       // console.log("Data Entry Controller: finish() DATA = "+data + " source "+source);
 
         if (source==null) {
-            if(typeof o.onFinishClick === 'function')
-                o.onFinishClick(data);
+          //  if(typeof o.onFinishClick === 'function')
+              //  o.onFinishClick(data);
 
             w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, {data:data, call: "DATA-ENTRY: FINISH"});
         } else {
@@ -1026,14 +1032,17 @@ define([
         if(cache.rootEntity !=undefined)   {
             var rootValues =  w_Storage.getItem(cache.rootEntity);
             if(rootValues != ""){
-                if($(selectors.FINISH_BTN).attr("disabled")=="disabled") {
-                    $(selectors.FINISH_BTN).removeAttr("disabled");
-                }
+                this.rootEntityStatus(true);
+               // if($(selectors.FINISH_BTN).attr("disabled")=="disabled") {
+                 //   $(selectors.FINISH_BTN).removeAttr("disabled");
+               // }
             } else {
-                $(selectors.FINISH_BTN).attr("disabled", "disabled");
+                this.rootEntityStatus(false);
+               // $(selectors.FINISH_BTN).attr("disabled", "disabled");
             }
         } else {
-            $(selectors.FINISH_BTN).attr("disabled", "disabled");
+            this.rootEntityStatus(false);
+           // $(selectors.FINISH_BTN).attr("disabled", "disabled");
         }
 
         this.menu.setDefault();
@@ -1043,6 +1052,9 @@ define([
         // this.createForm(this.menu.getSelectedModule().module, this.menu.getSelectedModule());
     };
 
+    DataEntryController.prototype.rootEntityStatus = function (isAvailable) {
+       w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_ROOT_ENTITY_STATUS, {data:{"available": isAvailable}, call: "DATA-ENTRY: ROOT_ENTITY_STATUS"});
+    };
 
     DataEntryController.prototype.parseData = function () {
         var json='{"uid":"ss","version":"ss","language":{"codes":[{"code":"AR"}],"codeList":"FAO_Languages","version":"1.0"},"languageDetail":{"EN":"ss"},"title":{"EN":"ss"},"characterSet":{"codes":[{"code":"AR"}],"codeList":"FAO_Languages","version":"1.0"},"parentIdentifier":"","metadataStandardName":{"EN":"ss"},"metadataStandardVersion":{"EN":"ss"},"metadataLanguage":{"codes":[{"code":"AR"},{"code":"ZH"},{"code":"EN"}],"codeList":"FAO_Languages","version":"1.0"},"contacts":{"name":"ss","organization":{"EN":"ss"},"organizationUnit":{"EN":"ss"},"position":{"EN":""},"role":[{"code":""}],"specify":{"EN":""},"contactInfo":{"phone":"111","address":"","emailAddress":"","hoursOfService":{"EN":""},"contactInstruction":{"EN":""}}},"noDataValue":{"EN":""},"content":{"resourceRepresentationType":[{"code":"dataset"}],"keyWords":{"EN":"www,fff"},"description":{"EN":"wwww"},"statisticalConceptsDefinition":{"EN":"www"},"referencePopulation":{"statisticalPopulation":{"EN":"www"},"statisticalUnit":{"EN":"ww"},"referencePeriod":[{"code":"day"}],"referenceArea":[{"code":"adminlevel2"}]},"coverage":{"coverageSectors":[{"code":"agriculture"}],"coverageSectorsDetails":{"EN":"sector1"},"coverageGeographic":[{"code":"africa"}]}}}';

@@ -86,8 +86,10 @@
 
         for(var t = 0; t <codes.length; t++){
             var obj = codes[t];
-            var label = obj.label[lang];
-
+            var label = obj.code;
+            if(obj.hasOwnProperty("label")){
+                label = obj.label[lang]
+            }
             labels.push(label.trim());
         }
 

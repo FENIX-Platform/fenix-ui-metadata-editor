@@ -60,7 +60,7 @@
     add: function(item, dontPushVal) {
       var self = this;
 
-      if (self.options.maxTags && self.itemsArray.length >= self.options.maxTags)
+    if (self.options.maxTags && self.itemsArray.length >= self.options.maxTags)
         return;
 
       // Ignore falsey values, except false
@@ -132,7 +132,9 @@
       $tag.after(' ');
 
       // add <option /> if item represents a value not present in one of the <select />'s options
-      if (self.isSelect && !$('option[value="' + encodeURIComponent(itemValue) + '"]',self.$element)[0]) {
+
+       //tm: original if (self.isSelect && !$('option[value="' + encodeURIComponent(itemValue) + '"]',self.$element)[0]) {
+       if (self.isSelect && !$('option[value="' + itemValue + '"]',self.$element)[0]) {
         var $option = $('<option selected>' + htmlEncode(itemText) + '</option>');
         $option.data('item', item);
         $option.attr('value', itemValue);
@@ -443,7 +445,7 @@
             self.add(self.$element.val());
         } else {
           $('option', self.$element).each(function() {
-            self.add($(this).attr('value'), true);
+             self.add($(this).attr('value'), true);
           });
         }
       }

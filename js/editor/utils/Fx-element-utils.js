@@ -35,12 +35,15 @@
 
     Fx_Element_Utils.prototype.setSelectedValues = function(select, value, isRequired, optsLength) {
         var opts = [];
+        var self = this;
+
         if(value !=null){
             var codes = this.getValues(value);
+            codes = self.removeDuplicatesFromArray(codes);
 
             if(optsLength == undefined || optsLength == 0) {
                 for(var t = 0; t <codes.length; t++){
-                    opts.push("<option value='" + codes[t] +"'>" + codes[t] + "</option>");
+                   opts.push("<option value='" + codes[t] +"'>" + codes[t] + "</option>");
                 }
 
                 select.html(opts.join(""));
@@ -54,6 +57,23 @@
             //}
         //}
 
+    }
+
+
+    Fx_Element_Utils.prototype.removeDuplicatesFromArray = function (arr) {
+        var r = new Array();
+        o:for(var i = 0, n = arr.length; i < n; i++)
+        {
+            for(var x = 0, y = r.length; x < y; x++)
+            {
+                if(r[x]==arr[i])
+                {
+                    continue o;
+                }
+            }
+            r[r.length] = arr[i];
+        }
+        return r;
     }
 
     Fx_Element_Utils.prototype.setDefaultSelectedValue = function(select, value) {

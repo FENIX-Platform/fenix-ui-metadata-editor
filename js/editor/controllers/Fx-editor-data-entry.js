@@ -468,6 +468,7 @@ define([
 
         document.body.addEventListener(o.events.NEW_METADATA_SUCCESS, function (e) {
             var text = lang_Utils.newMetadataSuccess({});
+            var self = this;
 
             new PNotify({
                 title:  lang_Utils.updateNotice,
@@ -482,16 +483,16 @@ define([
             if(cache.rootEntity !=undefined)   {
                 var rootValues =  w_Storage.getItem(cache.rootEntity);
                 if(rootValues != ""){
-                    this.rootEntityStatus(true);
+                    self.rootEntityStatus(true);
                     //if($(selectors.FINISH_BTN).attr("disabled")=="disabled") {
                       //  $(selectors.FINISH_BTN).removeAttr("disabled");
                    // }
                 } else {
-                    this.rootEntityStatus(false);
+                    self.rootEntityStatus(false);
                    // $(selectors.FINISH_BTN).attr("disabled", "disabled");
                 }
             } else {
-                this.rootEntityStatus(false);
+                self.rootEntityStatus(false);
                // $(selectors.FINISH_BTN).attr("disabled", "disabled");
             }
 

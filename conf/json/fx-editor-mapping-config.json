@@ -19,11 +19,17 @@
             "entity": "meIdentification",
             "path": "root",
             "fields": {
-                "responsibleParty": {
+                "contacts[0]": {
                     "path" : "contacts"
                 },
+                "responsibleParty": {
+                    "pathOrig" : "contacts",
+                    "path" : "contacts[0]"
+                },
                 "contactInfo": {
-                    "path" : "contacts.contactInfo"
+                    "pathOrig" : "contacts.contactInfo",
+                    "path" : "contacts[0].contactInfo"
+
                 }
             }
         },

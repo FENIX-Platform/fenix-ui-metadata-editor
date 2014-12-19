@@ -157,6 +157,17 @@
         }
 
         if(parentPath !=undefined){
+            var arrayIndex = parentPath.match(/\d+/, function(idx) {
+                return idx});
+
+            if(arrayIndex != undefined){
+                //once array index identified then strip it out of the parentPath and name
+                // e.g. parentPath = contacts[0] ==> contacts
+                // name = contacts[0].contactInfo.hoursOfService.EN ==> contacts.contactInfo.hoursOfService.EN
+                parentPath =  parentPath.replace(/\[\d]/, '');
+                name =   name.replace(/\[\d]/, '');
+            }
+
             var parents = parentPath.split('.');
             var parent;
 
@@ -209,10 +220,12 @@
             }
 
 
-            // needs to be adjusted for when there is more than 1 item in the array
+            // Use the array Index when dealing with the array
             if($.isArray(jsonValues)) {
-                jsonValues = jsonValues[0];
+                if(arrayIndex!=undefined)
+                    jsonValues = jsonValues[arrayIndex];//jsonValues = jsonValues[0];
             }
+
 
             if(/\./.test(name)){
                 var childRes = name.replace(parent+'.','');

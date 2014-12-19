@@ -13,11 +13,12 @@
     "i18n!fx-editor/conf/nls/guiLangProps",
     "i18n!fx-editor/conf/nls/guiHtmlLinksLangProps",
     "i18n!fx-editor/conf/nls/guiPopoverLangProps",
+    "fx-editor/utils/fx-ui-elements/Fx-ui-clonebutton",
     "bootstrap",
     "fx-editor/conf/js/fx-form-validation-callback",
     "jquery-serialize-object",
     "bootstrap-datetimepicker"
-], function (require, $, bootstrapValidator, bootstrapTagsInput, W_Commons, Ui_Element_Creator, UI_Info, Json_Utils, BootstrapValidator_Utils, Date_Utils, langProperties, guiLangProps, guiHtmlLinksLangProps, guiPopoverLangProps) {
+], function (require, $, bootstrapValidator, bootstrapTagsInput, W_Commons, Ui_Element_Creator, UI_Info, Json_Utils, BootstrapValidator_Utils, Date_Utils, langProperties, guiLangProps, guiHtmlLinksLangProps, guiPopoverLangProps, Clone_Utils) {
 
     var o = { },
         defaultOptions = {
@@ -48,7 +49,7 @@
         };
 
     var cache = {}, validatedModuleForm = {}, resourceType,
-        w_Commons, ui_Element_Creator, ui_Info, json_Utils, bootstrapValidator_Utils, date_Utils,
+        w_Commons, ui_Element_Creator, ui_Info, clone_Utils, json_Utils, bootstrapValidator_Utils, date_Utils,
         validation_conf, json_mapping_conf, dates_conf,
         $formPanel, $form, $module, moduleValues, storageCache, guiCache, elementValidationRule, entityPath, pathMappingExists = false, pathFieldsMappingExists = false,
         modulePath;
@@ -59,6 +60,7 @@
         bootstrapValidator_Utils = new BootstrapValidator_Utils();
         date_Utils = new Date_Utils();
         ui_Info = new UI_Info();
+        clone_Utils = new Clone_Utils();
         ui_Element_Creator = new Ui_Element_Creator();
         ui_Element_Creator.init();
     }
@@ -167,6 +169,22 @@
         // set padding after a fieldset has finished.
         $('#fx-editor-form').find('fieldset').each(function(index, element){
             //console.log(this.id);
+            var label="";
+
+            // Add Label to legend
+            //change Legend label text and track the label-index  and array-index
+            $(this).find('legend:first').each(function() {
+                var $leg = $(this);
+
+                if($leg.attr("data-labels")!=undefined && $leg.attr("data-labels")!==null){
+                   label = clone_Utils.buildLegendLabel($leg, o.readOnly);
+                }
+
+                $leg.find('label:first').each(function() {
+                    clone_Utils.setLegendText($(this), label);
+                });
+
+            });
 
             // form group before a fieldset
             var prevForGrp = $('#'+this.id).prev('.form-group');
@@ -737,7 +755,8 @@
                 guiConfig: guiCache,
                 mapping: cache.modulepathmapping,
                 objMapping: cache.objpathmapping,
-                resourceType: resourceType
+                resourceType: resourceType,
+                formIdentifier: $form.attr('id')
             }, callbackFunc);//this.onRenderInitialize);
 
         } else {
@@ -975,9 +994,12 @@
         var self = this,
             cssStyle = "fnx-fieldset-"+idx,
             $fieldSet = $('<fieldset title="Click to Expand/Collapse" class="'+cssStyle+'"></fieldset>'),
-            $legend =  $('<legend></legend>'),
+            $legend =  $('<legend data-array-index="0" data-label-index="0"></legend>'),
             $collapeIcon = $('<span class="'+o.css_classes.ICON_COLLAPSE+'"></span>');
 
+        if(value.type.hasOwnProperty("labelFields")){
+            $legend.attr("data-labels", value.type["labelFields"]);
+        }
 
         //fieldSetName used to determine the path to be associated with the HTML elements that will be appended to the fieldset
         var fieldSetId = name,
@@ -1021,10 +1043,10 @@
             //console.log('fieldsSetId '+fieldsSetId);
             //console.log("================== Toggle Legend");
             //toggle (hide/show) all HTML elements in the fieldset except for the legend, legend contents and small
-            $('#'+fieldsSetId).find("*:not(legend, legend *)").toggle();
+            $('#'+fieldsSetId).find("*:not(legend, legend *, i, small)").toggle();
 
             //If the fieldset contents is visible, remove existing class and add collapse icon class
-            if( $('#'+fieldsSetId).find("*:not(legend, legend *)").is(":visible"))
+            if( $('#'+fieldsSetId).find("*:not(legend, legend *, i, small)").is(":visible"))
             {
                 $('#'+fieldsSetId).find("legend:first span:first").removeClass();
                 $('#'+fieldsSetId).find("legend:first span:first").addClass(o.css_classes.ICON_COLLAPSE);
@@ -1336,8 +1358,19 @@
            disabledArray.push($this.attr('id'));
         });
 
+        // For fieldsets that have 'show-all-' button, enable, to ensure re-save of all items e.g. contacts in Identification
+        if ($('button[id^="show-all-"]').length > 0){
+            var contactBtn = $('button[id^="show-all-"]');
+            var isBtnDisabled = contactBtn.attr("data-disabled");
+            console.log("isBtnDisabled = "+ isBtnDisabled);
+
+            if(isBtnDisabled=="false")
+                $('button[id^="show-all-"]').click();
+
+        }
 
         var serializeForm = $form.serializeObject();
+       // console.log(serializeForm);
 
         // re-instate disabled fields
         //console.log("****************** disabledArray.length = "+disabledArray.length);
@@ -1349,9 +1382,29 @@
             }
         }
 
+        //Re-Build Legend Labels: i.e. Basically handles the [NEW] in the label being replaced with the actual Org name
+        $form.find('> fieldset').each(function(index, element){
+            //console.log(this.id);
+            var label="";
+
+            // Add Label to legend
+            //change Legend label text and track the label-index  and array-index
+            $(this).find('legend:first').each(function() {
+                var $leg = $(this);
+
+                if($leg.attr("data-labels")!=undefined && $leg.attr("data-labels")!==null){
+                    label = clone_Utils.buildLegendLabel($leg, o.readOnly);
+                }
+
+                $leg.find('label:first').each(function() {
+                    clone_Utils.setLegendText($(this), label);
+                });
+
+            });
+        });
 
         // Create Fieldset arrays
-        $form.find('> fieldset').each(function(){
+       /** $form.find('> fieldset').each(function(){
             var $this = $(this);
             var isArray = $(this).attr("data-array");
             var name = $(this).attr("name");
@@ -1376,7 +1429,7 @@
 
                 }
             }
-        });
+        });   **/
 
 
         //console.log("=========================SERIALIZE FORM ");
@@ -1604,8 +1657,8 @@
         }
 
 
-       console.log("===================  FORM: getValues FINAL RESULT ========== ");
-       console.log(result);
+      // console.log("===================  FORM: getValues FINAL RESULT ========== ");
+      // console.log(result);
 
         return result;
     };

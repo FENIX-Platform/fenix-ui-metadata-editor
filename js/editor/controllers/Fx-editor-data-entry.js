@@ -566,10 +566,10 @@ define([
             } else {
                 e.data.self.openFilter();
             }
-        })
+        });
 
 
-        $(selectors.COPY_BTN).on('click', {self: this},function(e){
+    /**    $(selectors.COPY_BTN).on('click', {self: this},function(e){
             // Prevent form submission
              e.preventDefault();
             var uid = $("#rUid").val();
@@ -596,7 +596,7 @@ define([
                 w_Commons.raiseCustomEvent(document.body, o.events.COPY, {url:url, type: type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: COPY"});
             }
 
-        })
+        })  **/
 
      /**   $(selectors.FINISH_BTN).on('click', {self: this},function(e){
             var type, url, event;
@@ -724,14 +724,15 @@ define([
             var formItemValues = w_Storage.getItem(keys[i]);
             var values = formItemValues;
 
-           //  console.log("============ key "+keys[i] + ' | ' +formItemValues);
-           //  console.log(formItemValues);
+          //  console.log("============ key "+keys[i] + ' | ' +formItemValues);
+           // console.log(values);
 
             if(values != ""){
                 // needs to be adjusted for when there is more than 1 item in the array
                var isArray = false;
               if($.isArray(values)) {
                    values = values[0];
+                 // console.log("============ key "+keys[i] + ' is ARRAY | ');
                   isArray = true;
               }
 
@@ -783,8 +784,8 @@ define([
             }
 
         }
-
-       // console.log(root);
+       // console.log("======================== ROOT ====================");
+        //console.log(root);
         return root;
 
 

@@ -3,10 +3,13 @@
         var self = this;
        // console.log(this);
         var raw = this.serializeArray().map(function(input) {
-            //console.log(input);
+          //  console.log(input);
             return [input.name, input.value]
         })
-        var obj = {}
+        var obj = {};
+        var objChild = {};
+        var objArray = [];
+
         raw.forEach(function(pair) {
             var key = pair[0],
                 value = pair[1];
@@ -16,7 +19,41 @@
                 value = null;
             }
 
-            if(isArray(key)){
+            if(isIndexedArray(key)){
+                 var indy = key.match(/\[(\d+)\]/)[1];
+                 key = key.replace(/\[(\d+)\]/, "");
+
+                var keys = key.split('.');
+
+                var parent = keys[0];
+
+                if(obj[parent] == undefined){
+                    obj[parent] = [];
+                }
+
+                if(obj[parent][indy] == undefined){
+                     objChild = {};
+                }
+
+                obj[parent][indy] = objChild;
+
+                keys.shift();
+
+
+                //set null value to the parent e.g. key = document.title.EN, ao value set to document.title = null (i.e. remove the lang component from the keys e.g. EN)
+               var $input = jQuery("input[name='"+key+"']");
+                var inputLang = $input.data("multi-lang");
+                if(inputLang != undefined && value == null) {
+                    var index = $.inArray(inputLang, keys);
+                    keys.splice(index, 1);
+                }
+
+
+                nest(keys, value, objChild);
+
+            }
+            else if(isArray(key)){
+               // console.log(key + ":  === IS ARRAY");
                  var codesArray = [],
                     codeObj = {},
                     isCodeObjEmpty = true,
@@ -55,7 +92,7 @@
 
                setCodeListDetails(rootParent, self.attr('id'), obj);
             }
-            else if (!isArray(key) && hasPeriod(key)) {
+            else if (!isArray(key) && !isIndexedArray(key) && hasPeriod(key)) {
                 var keys = key.split('.');
                 /** if(hasComma(value))  {
                      var codesArray = [],
@@ -105,6 +142,10 @@
     }
     function isArray(str) {
         return /\[]/.test(str);
+    }
+
+    function isIndexedArray(str) {
+        return /\[(\d+)\]/.test(str);
     }
 
     function isNumeric(str) {

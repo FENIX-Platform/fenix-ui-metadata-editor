@@ -67,33 +67,42 @@ function checkAtLeastOnePhoneEmailAddress(value, validator,  $field) {
 
 }
 
-
-
-
 function showSpecifyInputBox(value, validator,  $field) {
 
     //console.log("============= showSpecifyInputBox called value = "+value);
     var $specify = $("#specify");
     var $role = $("#role");
+    var roleLabel = 'role';
+    var specifyLabel = 'specify';
+    var fieldId = $field.attr('id');
 
-        if($field.attr('id') == 'role'){
-           if(value == ''){
-               if($specify.val()!=''){
-                   validator.updateStatus($specify,  validator.STATUS_NOT_VALIDATED);
-                   return false;
-               }
+    var idx = fieldId.match(/\d+/);
 
-               return true;
-           }
-           else{
+    if(idx !== null) {
+        $role = $("#role"+idx);
+        $specify = $("#specify"+idx);
+        roleLabel += idx;
+        specifyLabel += idx;
+    }
+
+    if(fieldId == roleLabel){
+        if(value == ''){
+            if($specify.val()!=''){
                 validator.updateStatus($specify,  validator.STATUS_NOT_VALIDATED);
-
-                return true;
+                return false;
             }
-        }
 
-      if($field.attr('id') == 'specify'){
-          if(value!=''){
+            return true;
+        }
+        else{
+            validator.updateStatus($specify,  validator.STATUS_NOT_VALIDATED);
+
+            return true;
+        }
+    }
+
+    if(fieldId == specifyLabel){
+        if(value!=''){
             if($role.val()==''){
                 validator.updateStatus($role,  validator.STATUS_NOT_VALIDATED);
                 return false;
@@ -101,10 +110,51 @@ function showSpecifyInputBox(value, validator,  $field) {
 
             return true;
 
-          } else {
+        } else {
 
-              return true;
-          }
+            return true;
+        }
+    }
+
+    return true;
+}
+
+
+function showSpecifyInputBoxOriginal(value, validator,  $field) {
+
+    //console.log("============= showSpecifyInputBox called value = "+value);
+    var $specify = $("#specify");
+    var $role = $("#role");
+
+    if($field.attr('id') == 'role'){
+        if(value == ''){
+            if($specify.val()!=''){
+                validator.updateStatus($specify,  validator.STATUS_NOT_VALIDATED);
+                return false;
+            }
+
+            return true;
+        }
+        else{
+            validator.updateStatus($specify,  validator.STATUS_NOT_VALIDATED);
+
+            return true;
+        }
+    }
+
+    if($field.attr('id') == 'specify'){
+        if(value!=''){
+            if($role.val()==''){
+                validator.updateStatus($role,  validator.STATUS_NOT_VALIDATED);
+                return false;
+            }
+
+            return true;
+
+        } else {
+
+            return true;
+        }
     }
 
     return true;

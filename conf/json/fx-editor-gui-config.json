@@ -220,14 +220,27 @@
                     }
                 },
                 "contacts": {
-                    "type": {
+                    "typeOriginal": {
                         "name": "label"
                     },
-                    "type1": {
+                    "type": {
                         "name": "clonebutton",
-                        "icon": "fa fa-plus fa-lg fa-fw",
                         "clone": {
-                            "property": "responsibleParty"
+                            "property": "responsibleParty",
+                            "resetFields":["organization"]
+                        },
+                        "buttons": {
+                            "remove" : {
+                                "langProp": "remove",
+                                "icon": "glyphicon glyphicon-minus"
+                            },
+                            "add" :  {
+                                "langProp": "addContact",
+                                "icon": "glyphicon glyphicon-plus"
+                            },
+                            "show": {
+                                "langProp": "showAllContacts"
+                            }
                         }
                     },
                     "label": {
@@ -243,7 +256,8 @@
                         "responsibleParty": {
                             "type": {
                                 "name": "fieldset",
-                                "multi": true
+                                "multi": true,
+                                "labelFields":["organization"]
                             },
                             "label": {
                                 "langProp": "responsibleParty",

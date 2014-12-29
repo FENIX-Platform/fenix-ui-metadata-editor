@@ -102,7 +102,8 @@ define([
             containerId = '#'+o.container + e.fieldSetId+'-'+key;
         }
 
-        text.appendTo(containerId);
+        //text.appendTo(containerId);   REFACTORING
+        $(containerId).html(text);
 
         callback();
 

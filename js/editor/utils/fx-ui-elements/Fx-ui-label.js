@@ -152,8 +152,8 @@
         }
 
 
-        label.appendTo(containerId);
-
+        //label.appendTo(containerId);   REFACTORING
+        $(containerId).html(label);
 
         callback();
 

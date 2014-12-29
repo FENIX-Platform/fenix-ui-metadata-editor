@@ -34,8 +34,6 @@ define(["fx-editor/controllers/Fx-editor-page",
                 resourceType: options.resourceType
             };
 
-
-
             var compiledTmpl = Handlebars.compile(template, context);
             $(options.container).html(compiledTmpl({ langProperties: langProperties, context: context}));
 

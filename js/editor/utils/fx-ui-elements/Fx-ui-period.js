@@ -162,9 +162,14 @@
             }
         }
 
+        //REFACTORING
+        //$(containerId).html(start);
+        //end.appendTo(containerId);
+        var $aux = $('<div></div>');
+        $aux.append(start);
+        $aux.append(end);
+        $(containerId).html($aux.children());
 
-        $(containerId).prepend(start);
-        end.appendTo(containerId);
 
        // $periodSelect.appendTo(containerId+'selector');
 

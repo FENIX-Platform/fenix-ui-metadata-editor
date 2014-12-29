@@ -86,7 +86,8 @@ define([
         }
 
        // accounts for any input-span images e.g. %
-       $(containerId).prepend(text);
+       //$(containerId).prepend(text);  REFACTORING
+       $(containerId).html(text);
 
        //text.appendTo(containerId);
 

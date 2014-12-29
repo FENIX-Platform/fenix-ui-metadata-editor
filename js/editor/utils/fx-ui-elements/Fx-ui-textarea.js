@@ -87,7 +87,8 @@
             containerId = '#'+o.container + e.fieldSetId+'-'+key;
         }
 
-        textarea.appendTo(containerId);
+        //textarea.appendTo(containerId);    REFACTORING
+        $(containerId).html(textarea);
 
         callback();
 

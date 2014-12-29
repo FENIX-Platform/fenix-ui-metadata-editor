@@ -92,7 +92,8 @@ define([
         select.html(options.join(""));
 
 
-        select.appendTo(containerId);
+        //select.appendTo(containerId); REFACTORING
+        $(containerId).html(select);
 
 
         //get Value

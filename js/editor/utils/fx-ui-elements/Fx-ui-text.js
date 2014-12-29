@@ -124,8 +124,8 @@
             containerId = '#'+o.container + e.fieldSetId+'-'+key;
         }
 
-
-       text.appendTo(containerId);
+        $(containerId).html(text);
+       //text.appendTo(containerId);  REFACTORING
 
 
         callback();

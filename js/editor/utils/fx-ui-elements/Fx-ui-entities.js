@@ -161,7 +161,8 @@
 
         });
 
-        select.appendTo(containerId);
+        //select.appendTo(containerId);  REFACTORING
+        $(containerId).html(select);
 
         callback();
 

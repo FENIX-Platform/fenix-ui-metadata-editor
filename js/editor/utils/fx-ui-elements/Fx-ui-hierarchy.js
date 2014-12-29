@@ -144,7 +144,8 @@
 
         tagsInputSelect.attr('placeholder', langProperties.selectFromList);
 
-        tagsInputSelect.appendTo(containerId);
+        //tagsInputSelect.appendTo(containerId);      REFACTORING
+        $(containerId).html(tagsInputSelect);
         tagsInputSelect.tagsinput({
             trimValue: true,
             confirmKeys: [13, 44],
@@ -327,13 +328,15 @@
                 //set options on the select
                 select.html(options.join(""));
 
-                select.appendTo(containerId);
+                //select.appendTo(containerId); REFACTORING
+                $(containerId).html(select);
                 callback();
             }
 
             else {
                 //console.log("IS NOT 200 ");
-                select.appendTo(containerId);
+                //select.appendTo(containerId); REFACTORING
+                $(containerId).html(select);
                 callback();
             }
 
@@ -445,7 +448,8 @@
                 select.html(options.join(""));
 
 
-                select.appendTo(containerId);
+                //select.appendTo(containerId); REFACTORING
+                $(containerId).html(select);
 
                 if(options.length > 0){
                     select.show();
@@ -457,7 +461,8 @@
 
             else {
                 //console.log("IS NOT 200 ");
-                select.appendTo(containerId);
+                //select.appendTo(containerId); REFACTORING
+                $(containerId).html(select);
                 callback();
             }
 

@@ -318,12 +318,14 @@
                 }
 
                 // select.selectpicker();
-                select.appendTo(containerId);
+                //select.appendTo(containerId); REFACTORING
+                $(containerId).html(select);
                 callback();
             }
 
             if(xhr.status == 404){
-                select.appendTo(containerId);
+                //select.appendTo(containerId);  REFACTORING
+                $(containerId).html(select);
                 callback();
             }
 

@@ -119,9 +119,14 @@ define([
             containerId = '#'+o.container + e.fieldSetId+'-'+key;
         }
 
+        //REFACTORING
+        //$(containerId).prepend(trueLabel);
+        //falseLabel.appendTo(containerId);
 
-        $(containerId).prepend(trueLabel);
-        falseLabel.appendTo(containerId);
+        var $aux =$('<div></div>');
+        $aux.append(trueLabel);
+        $aux.append(falseLabel);
+        $(containerId).html($aux.children());
 
         callback();
 

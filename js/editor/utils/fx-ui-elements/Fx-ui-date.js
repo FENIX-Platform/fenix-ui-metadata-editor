@@ -93,7 +93,8 @@
             }
         }
 
-        $(containerId).prepend(text);
+        //$(containerId).prepend(text); REFACTORING
+        $(containerId).html(text);
 
         callback();
 

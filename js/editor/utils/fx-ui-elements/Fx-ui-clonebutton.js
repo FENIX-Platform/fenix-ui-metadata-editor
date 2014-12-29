@@ -160,10 +160,14 @@ define([
             containerId = '#'+o.container + e.fieldSetId+'-'+key;
         }
 
-        if(hasMoreThanOneItem)
-            $showOthersButton.appendTo(containerId);
+        if(hasMoreThanOneItem)  {
+            //$showOthersButton.appendTo(containerId);    REFACTORING
+            $(containerId).html($showOthersButton);
+        }
 
-        $addButton.appendTo(containerId);
+
+        //$addButton.appendTo(containerId);  REFACTORING
+        $(containerId).html($addButton);
 
         callback();
 
@@ -392,7 +396,8 @@ define([
                                        }
                                    }
                                 }
-                                $el.append(val);
+                                //$el.append(val); REFACTORING
+                                $el.html(val);
                             }
                             else {
                               $el.val(val);
@@ -425,7 +430,8 @@ define([
 
             if(!o.readOnly){
                 $clone.find('legend:first').each(function() {
-                    $(this).append(self.createRemoveButton(e, resetFields, key, formIdentifier, $clone));
+                    //$(this).append(self.createRemoveButton(e, resetFields, key, formIdentifier, $clone));  REFACTORING
+                    $(this).html(self.createRemoveButton(e, resetFields, key, formIdentifier, $clone));
                 });
             }
 

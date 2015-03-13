@@ -283,6 +283,9 @@ define([
                     w_Commons.raiseCustomEvent(document.body, o.events.FINAL_SAVE,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: FINAL SAVE"});
                 }
             }
+            else {
+                w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, {data:null, call: "DATA-ENTRY: FINISH"});
+            }
         }, false);
 
         document.body.addEventListener(o.events.COPY_METADATA, function (e) {

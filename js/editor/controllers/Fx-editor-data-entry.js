@@ -626,6 +626,7 @@ define([
             w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, {data:data, call: "DATA-ENTRY: FINISH"});
         } else {
             if (Object.keys(data).length > 0) {
+                w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
                 w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
             }
         }

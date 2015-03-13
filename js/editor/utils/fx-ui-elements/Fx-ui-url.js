@@ -76,8 +76,8 @@ define([
             containerId = '#'+o.container + e.fieldSetId+'-'+key;
         }
 
-        //$(containerId).prepend(text); REFACTORING
-        $(containerId).html(text);
+        $(containerId).prepend(text); //REFACTORING
+        //$(containerId).html(text);
 
 
         callback();

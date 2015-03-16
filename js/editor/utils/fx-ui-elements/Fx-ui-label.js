@@ -21,6 +21,7 @@
     };
 
     Fx_ui_Label.prototype.render = function (e, name, key, o, callback) {
+
         var self = this, formIdentifier = '#'+o.formIdentifier;
 
         // add any multilingual component to the path
@@ -114,7 +115,6 @@
                     var labels = element_Utils.getValueLabels(value, o.lang);
                     value = labels.join('; ');
                 }
-
             }
             else if(e.type.name == 'entities' || e.type.name == 'subentities'){
                 value =  guiLangProps[value];
@@ -142,7 +142,6 @@
 
             if(value !=null && value!= undefined){
                 label.append(value);
-
             }
         }
 
@@ -151,12 +150,14 @@
             containerId = '#'+o.container + e.fieldSetId+'-'+key;
         }
 
-
+        console.log("At the end label")
+        console.log(label)
+        console.log("At the end container")
+        console.log(containerId)
         //label.appendTo(containerId);   REFACTORING
         $(containerId).html(label);
 
         callback();
-
     };
 
     Fx_ui_Label.prototype.getValue = function (e) {

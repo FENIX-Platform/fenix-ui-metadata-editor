@@ -80,6 +80,7 @@ define([], function () {
 
     Fx_Commons.prototype.setCacheModule = function (key, value) {
 
+        alert("set cache module key= " + key +" value= "+value)
         var self = this;
         o.sessionStorage.modules[key] = value;
 

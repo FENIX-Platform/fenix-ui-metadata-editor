@@ -8,9 +8,10 @@ define(["fx-editor/controllers/Fx-editor-page",
         "fx-editor/widgets/bridge/Fx-editor-bridge",
         "text!fx-editor/templates/fx_editor_template.html",
         'i18n!fx-editor/nls/langProperties',
-        'handlebars'
+        'handlebars',
+        "text!fx-editor/templates/fx_editor_template_noMenu.html"
     ],
-    function (Controller, DataEntryController, Menu, Form, Progress, Bridge, template, langProperties, Handlebars) {
+    function (Controller, DataEntryController, Menu, Form, Progress, Bridge, template, langProperties, Handlebars, template1) {
 
         var html_ids = {
             MAIN_CONTAINER: "#metadataEditorContainer",
@@ -24,6 +25,8 @@ define(["fx-editor/controllers/Fx-editor-page",
 
         StartUp.prototype.init = function (options) {
 
+            console.log("Start init!!!")
+            console.log(options)
             if (!options.hasOwnProperty('container')) {
                 throw 'Metadata Editor needs a container!'
             }
@@ -34,7 +37,15 @@ define(["fx-editor/controllers/Fx-editor-page",
                 resourceType: options.resourceType
             };
 
-            var compiledTmpl = Handlebars.compile(template, context);
+            var templateToLoad = '';
+            if((options.leftSideMenu!=null)&&(typeof options.leftSideMenu!= 'undefined')&&(options.leftSideMenu)){
+                templateToLoad = template;
+            }
+            else{
+                templateToLoad = template1;
+            }
+
+            var compiledTmpl = Handlebars.compile(templateToLoad, context);
             $(options.container).html(compiledTmpl({ langProperties: langProperties, context: context}));
 
 
@@ -141,7 +152,6 @@ define(["fx-editor/controllers/Fx-editor-page",
                 options.onFinishClick = options['onFinishClick'];
             }
 
-
            // console.log("=================================================== INIT DATA CONTROLLER readonly = "+options.readOnly);
 
             //dataEntryController.init(options);
@@ -159,14 +169,16 @@ define(["fx-editor/controllers/Fx-editor-page",
                 config: options.config,
                 resourceType: options.resourceType,
                 widget: {lang: options.widget.lang},
-                readOnly: options.readOnly
+                readOnly: options.readOnly,
+                leftSideMenu: options.leftSideMenu
             });
             form.init({
                 container: document.querySelector("#" + html_ids.FORM),
                 resourceType: options.resourceType,
                 config: options.config,
                 widget: {lang: options.widget.lang},
-                readOnly: options.readOnly
+                readOnly: options.readOnly,
+                leftSideMenu: options.leftSideMenu
             });
             progress.init({
                 container: document.querySelector("#" + html_ids.PROGRESS),

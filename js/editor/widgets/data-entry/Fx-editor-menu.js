@@ -40,7 +40,7 @@ define([
 
     var cache = {},
         w_Commons, $collapse,
-        conf,
+        conf, guiIsObj,
         resourceType, requiredIcon,
         json_Utils, ui_Info;
 
@@ -60,11 +60,8 @@ define([
 
         conf = o.config.gui;
         resourceType = o.resourceType;
-
-
-
+        guiIsObj = o.config.guiIsObj;
         //console.log("++++++++++++ MENU resourceType = "+ resourceType);
-
     };
 
     Fx_Editor_Menu.prototype.render = function (options, callback) {
@@ -82,7 +79,6 @@ define([
             }
         }
 
-
         //console.log("============================== CACHE JSON =======================");
        // console.log(cache.json);
 
@@ -91,17 +87,23 @@ define([
             var panels = self.renderMenu(cache.json);
             callback(panels);
         } else {
-            //Cache json GUI configuration file
-            $.when($.get(conf))
-                .done(function( guiJsn ) {
-                    cache.json = guiJsn//JSON.parse(data);
-                    self.initStructure();
-                    var panels = self.renderMenu(cache.json);
-                    callback(panels);
-            });
+            if(guiIsObj){
+                //The gui configuration is an object
+                self.initStructure();
+                var panels = self.renderMenu(cache.json);
+                callback(panels);
+            }
+            else{
+                //Cache json GUI configuration file
+                $.when($.get(conf))
+                    .done(function( guiJsn ) {
+                        cache.json = guiJsn//JSON.parse(data);
+                        self.initStructure();
+                        var panels = self.renderMenu(cache.json);
+                        callback(panels);
+                    });
+            }
         }
-
-
 
        // var $.getJSON(){
 
@@ -122,7 +124,6 @@ define([
         $collapse.attr("id", o.collapseId);
 
         $(o.container).append($collapse);
-
     };
 
     Fx_Editor_Menu.prototype.renderMenu = function (json) {
@@ -562,8 +563,6 @@ define([
     Fx_Editor_Menu.prototype.getSelectedModule = function () {
         return selectedModule;
     };
-
-
 
     Fx_Editor_Menu.prototype.activateAllButtons = function () {
         $(o.container).find("button[data-module]").removeAttr("disabled");

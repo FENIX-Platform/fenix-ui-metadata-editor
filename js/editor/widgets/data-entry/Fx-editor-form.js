@@ -151,18 +151,15 @@
        var menuHght =  $('.fx-editor-menu-container').height();
        var formHght = $('#fx-form-panel0').height();
 
-        if(menuHght < formHght)     {
-            $('.fx-editor-menu-container').css('min-height', $('#fx-form-panel0').height()+'px');
+        if(o.leftSideMenu){
+            if(menuHght < formHght)     {
+                $('.fx-editor-menu-container').css('min-height', $('#fx-form-panel0').height()+'px');
+            }
+            else  {
+                $('#fx-form-panel0').css('min-height', $('.fx-editor-menu-container').height()+'px');
+            }
         }
-       else  {
-            $('#fx-form-panel0').css('min-height', $('.fx-editor-menu-container').height()+'px');
-        }
-
     }
-
-
-
-
 
     function setFieldSetsFormatting() {
 
@@ -614,6 +611,7 @@
             }
         }
         cache.properties = {};
+
         if(module.hasOwnProperty("properties")) {
             self.checkProperties(cache.properties, module.properties);
         }
@@ -689,7 +687,6 @@
                 } else {
                     pathFieldsMappingExists = false;
                 }
-
             }
 
 
@@ -758,7 +755,6 @@
                 resourceType: resourceType,
                 formIdentifier: $form.attr('id')
             }, callbackFunc);//this.onRenderInitialize);
-
         } else {
             readjustMenuFormHeights();
            //throw new Error("Fx_Editor_Form: no 'properties' attribute in config JSON.")
@@ -1657,8 +1653,8 @@
         }
 
 
-      // console.log("===================  FORM: getValues FINAL RESULT ========== ");
-      // console.log(result);
+      console.log("===================  FORM: getValues FINAL RESULT ========== ");
+      console.log(result);
 
         return result;
     };

@@ -143,10 +143,12 @@ define([
         }
         var len = Object.keys(obj).length;
 
+       // console.log("asyncFunctionsTracker")
         $.each(obj, function (ind, element) {
            // alert(ind+ '##### widgetCreator');
             //console.log(ind+ '##### widgetCreator = '+ element);
-
+//            console.log("each ind= "+ind+" element= ")
+//            console.log(element)
 
             var widgetCreator = o.readOnly == true ? widgetBasePath+"label" : widgetBasePath + element.type.name;
           //  var widgetCreator = "fx-editor/utils/fx-ui-elements/Fx-ui-" + element.type.name;
@@ -154,13 +156,16 @@ define([
            // console.log("=================== widgetCreator = "+widgetCreator);
             //console.log(ind+ '##### widgetCreator = '+widgetCreator);
             if(element.type.name != types.FIELDSET && element.type.name != types.LABEL){
+//            if(element.type.name != types.FIELDSET){
                // console.log("=================== widgetCreator IN "+element.type.name);
            fn([widgetCreator], function(Widget) {
                  // console.log("==================="+widgetCreator + ' | '+element.type.name);
 
                     if(typeof(Widget) != 'undefined'){
                         var widget = new Widget();
-                      //  console.log("=================== WIDGET DEFINED "+ element.type.name);
+//                        console.log("=================== WIDGET DEFINED "+ element.type.name);
+//                        console.log("=================== WIDGET DEFINED ");
+//                        console.log(element)
                     fn2(widget, element, ind, function() {
                         completed++;
                         if(completed === Object.keys(obj).length) {
@@ -189,7 +194,7 @@ define([
                     }
                 });
             } else {
-              //  console.log("=================== &&&&&& widgetCreator NOT IN "+element.type.name);
+                //console.log("=================== &&&&&& widgetCreator NOT IN "+element.type.name);
                 completed++;
                 if(completed === Object.keys(obj).length) {
                     callback();

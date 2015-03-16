@@ -42,12 +42,14 @@ define([
         var self = this;
 
         try {
+            alert("o.component")
+            console.log(o.component)
+            alert("o.component 2")
             return self.createSerializedJson(o.component.getValues())
         }
         catch (e) {
             throw new Error(e);
         }
-
     };
 
     FilterPlugin.prototype.createSerializedJson = function (values) {

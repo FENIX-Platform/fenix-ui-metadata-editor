@@ -71,6 +71,7 @@
         },
             "uid" : "4",
                 "rid" : "9_65"
+                    launchCreateDataset(data); // Host callback f
         }  **/
 
         console.log(e.detail.data);
@@ -138,6 +139,12 @@
                     ajaxEventCalls: "./conf/json/fx-editor-ajax-config.json",
                     dates: "./conf/json/fx-editor-dates-config.json"
                 },
+//                //Policy Data Entry
+//                row_info : {
+//                    cplId : "17",
+//                    uid: "0"
+//
+//                },
                 onFinishClick: function (data) {
                     launchCreateDataset(data); // Host callback function
                 }

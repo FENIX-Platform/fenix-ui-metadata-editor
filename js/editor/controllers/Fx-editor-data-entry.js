@@ -12,7 +12,7 @@ define([
     'jQuery.XDomainRequest'
 ], function ($, Plugin, W_Commons, W_Storage, Json_Utils, LangUtils, NProgress, PNotify) {
 
-    var w_Commons, w_Storage, ajaxConf, mappingConf, guiConf, validationConf, datesConf, resourceType, resourceTypeModule, source, readOnly, cache = {}, json_Utils, lang_Utils,
+    var w_Commons, w_Storage, ajaxConf, mappingConf, guiConf, validationConf, datesConf, resourceType, resourceTypeModule, source, readOnly, cache = {}, json_Utils, lang_Utils, guiIsObj,
         o = {},
         defaultOptions = {
             name : 'fx-editor-dataentry',
@@ -75,6 +75,7 @@ define([
         json_Utils = new Json_Utils();
         lang_Utils = new LangUtils();
 
+
     }
 
     //(injected)
@@ -99,6 +100,7 @@ define([
         resourceType = o.resourceType;
         source = o.source;
         readOnly = o.readOnly;
+        guiIsObj = o.config.guiIsObj;
 
      // SET SAVE ACTION: Default is Create New
         cache.saveAction = {type: o.saveTypes.CREATE};
@@ -136,7 +138,6 @@ define([
         // Loop on the panels and sub-panels only and remove
         // un-necessary & form will hide the properties
 
-
     };
 
     DataEntryController.prototype.renderComponents = function () {
@@ -146,77 +147,118 @@ define([
       //  $(selectors.EDITOR_HEADING).hide();
       //  $(selectors.INSTRUCTION).hide();
 
-        //Cache json configuration files: Validation and Json Mapping
-        $.when($.getJSON(ajaxConf), $.getJSON(mappingConf),  $.getJSON(guiConf), $.getJSON(validationConf),  $.getJSON(datesConf))
-            .done(function( ajaxJsn, mappingJsn, guiJsn, validationJsn, datesJsn) {
-                cache.jsonAjax = ajaxJsn[0];
-                cache.jsonMapping = mappingJsn[0];
-                cache.jsonGuiConf = guiJsn[0];
-                cache.jsonValidationConf = validationJsn[0];
-                cache.jsonDatesConf = datesJsn[0];
+        if(guiIsObj){
+            //The configuration is an object and not a file
+            //Cache json configuration files: Validation and Json Mapping
+            $.when($.getJSON(ajaxConf), $.getJSON(mappingConf), $.getJSON(validationConf),  $.getJSON(datesConf))
+                .done(function( ajaxJsn, mappingJsn, validationJsn, datesJsn) {
+                    cache.jsonAjax = ajaxJsn[0];
+                    cache.jsonMapping = mappingJsn[0];
+                    cache.jsonGuiConf = guiConf;
+                    cache.jsonValidationConf = validationJsn[0];
+                    cache.jsonDatesConf = datesJsn[0];
 
-                cache.rootEntity = getRootEntity();
-                cache.rootLabel = getRootLabel(cache.rootEntity);
+                    cache.rootEntity = getRootEntity();
+                    cache.rootLabel = getRootLabel(cache.rootEntity);
+
+                    self.prepareGuiConf();
+                    self.form.render({config: {cache: {mapping: cache.jsonMapping, validation: cache.jsonValidationConf,  dates: cache.jsonDatesConf}}});
+
+                    self.menu.render({config: {cache: {gui: cache.jsonGuiConf, validation: cache.jsonValidationConf}}}, function(panels){
+
+                        //  if(cache.jsonAjax.hasOwnProperty("onSave")){
+                        if(cache.jsonAjax.hasOwnProperty("create")){
+                            cache.saveAjax[o.saveTypes.CREATE] = {url: cache.jsonAjax.create.url, type: cache.jsonAjax.create.type, response: cache.jsonAjax.create.response};
+                        }
+                        if(cache.jsonAjax.hasOwnProperty("overwrite")){
+                            cache.saveAjax[o.saveTypes.OVERWRITE] = {url: cache.jsonAjax.overwrite.url, type: cache.jsonAjax.overwrite.type, request: cache.jsonAjax.overwrite.request};
+                        }
+
+                        if(cache.jsonAjax.hasOwnProperty("get")){
+                            cache.saveAjax[o.saveTypes.GET] = {url: cache.jsonAjax["get"].url, type: cache.jsonAjax["get"].type,  response: cache.jsonAjax["get"].response};
+                        }
+                        // }
+
+                        //LOADING DATA
+                        if (source!=null) {
+                            self.populateStorageWithSpecialEntities();
+                            var keys =  w_Storage.getAllKeys();
+
+                            w_Commons.raiseCustomEvent(document.body, o.events.LOAD, {url:source.url, type: source.type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: LOAD"});
+                        } else {
+                            self.menu.setDefault();
+                        }
+                        NProgress.done();
+                    });
+                });
+        }
+        else
+        {
+            //Cache json configuration files: Validation and Json Mapping
+            $.when($.getJSON(ajaxConf), $.getJSON(mappingConf),  $.getJSON(guiConf), $.getJSON(validationConf),  $.getJSON(datesConf))
+                .done(function( ajaxJsn, mappingJsn, guiJsn, validationJsn, datesJsn) {
+                    cache.jsonAjax = ajaxJsn[0];
+                    cache.jsonMapping = mappingJsn[0];
+                    cache.jsonGuiConf = guiJsn[0];
+                    cache.jsonValidationConf = validationJsn[0];
+                    cache.jsonDatesConf = datesJsn[0];
+
+                    cache.rootEntity = getRootEntity();
+                    cache.rootLabel = getRootLabel(cache.rootEntity);
+
+                    self.prepareGuiConf();
+
+                    //  console.log("MAPPING CACHE ....");
+                    //  console.log( cache.jsonMapping);
+                    //  console.log("AJAX CACHE ....");
+
+                    //self.menu.render();
+                    self.form.render({config: {cache: {mapping: cache.jsonMapping, validation: cache.jsonValidationConf,  dates: cache.jsonDatesConf}}});
+
+                    //HIDE PROGRESS FOR NOW
+                    //  self.progress.render();
+                    //TEST
+
+                    self.menu.render({config: {cache: {gui: cache.jsonGuiConf, validation: cache.jsonValidationConf}}}, function(panels){
+
+                        //  if(cache.jsonAjax.hasOwnProperty("onSave")){
+                        if(cache.jsonAjax.hasOwnProperty("create")){
+                            cache.saveAjax[o.saveTypes.CREATE] = {url: cache.jsonAjax.create.url, type: cache.jsonAjax.create.type, response: cache.jsonAjax.create.response};
+                        }
+                        if(cache.jsonAjax.hasOwnProperty("overwrite")){
+                            cache.saveAjax[o.saveTypes.OVERWRITE] = {url: cache.jsonAjax.overwrite.url, type: cache.jsonAjax.overwrite.type, request: cache.jsonAjax.overwrite.request};
+                        }
+
+                        if(cache.jsonAjax.hasOwnProperty("get")){
+                            cache.saveAjax[o.saveTypes.GET] = {url: cache.jsonAjax["get"].url, type: cache.jsonAjax["get"].type,  response: cache.jsonAjax["get"].response};
+                        }
+                        // }
+
+                        //LOADING DATA
+                        if (source!=null) {
+                            self.populateStorageWithSpecialEntities();
+                            // $(selectors.FINISH_BTN).html(lang_Utils.save);
+                            // $(".fx-header:first").hide();
+                            // $(selectors.EDITOR_HEADING).show();
+                            // $(selectors.INSTRUCTION).hide();
 
 
-                self.prepareGuiConf();
+                            var keys =  w_Storage.getAllKeys();
 
+                            w_Commons.raiseCustomEvent(document.body, o.events.LOAD, {url:source.url, type: source.type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: LOAD"});
 
+                            //self.parseData();
+                            //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
+                        } else {
+                            //  $(selectors.FINISH_BTN).html(lang_Utils.saveAndClose);
+                            // $(".fx-header:first").show();
+                            // $(selectors.EDITOR_HEADING).hide();
+                            // $(selectors.INSTRUCTION).show();
 
+                            self.menu.setDefault();
+                        }
 
-                //  console.log("MAPPING CACHE ....");
-                //  console.log( cache.jsonMapping);
-                //  console.log("AJAX CACHE ....");
-
-
-                //self.menu.render();
-                self.form.render({config: {cache: {mapping: cache.jsonMapping, validation: cache.jsonValidationConf,  dates: cache.jsonDatesConf}}});
-
-                //HIDE PROGRESS FOR NOW
-                //  self.progress.render();
-
-                //TEST
-
-                self.menu.render({config: {cache: {gui: cache.jsonGuiConf, validation: cache.jsonValidationConf}}}, function(panels){
-
-                    //  if(cache.jsonAjax.hasOwnProperty("onSave")){
-                    if(cache.jsonAjax.hasOwnProperty("create")){
-                        cache.saveAjax[o.saveTypes.CREATE] = {url: cache.jsonAjax.create.url, type: cache.jsonAjax.create.type, response: cache.jsonAjax.create.response};
-                    }
-                    if(cache.jsonAjax.hasOwnProperty("overwrite")){
-                        cache.saveAjax[o.saveTypes.OVERWRITE] = {url: cache.jsonAjax.overwrite.url, type: cache.jsonAjax.overwrite.type, request: cache.jsonAjax.overwrite.request};
-                    }
-
-                    if(cache.jsonAjax.hasOwnProperty("get")){
-                        cache.saveAjax[o.saveTypes.GET] = {url: cache.jsonAjax["get"].url, type: cache.jsonAjax["get"].type,  response: cache.jsonAjax["get"].response};
-                    }
-                    // }
-
-                    //LOADING DATA
-                    if (source!=null) {
-                        self.populateStorageWithSpecialEntities();
-                       // $(selectors.FINISH_BTN).html(lang_Utils.save);
-                       // $(".fx-header:first").hide();
-                       // $(selectors.EDITOR_HEADING).show();
-                       // $(selectors.INSTRUCTION).hide();
-
-
-                        var keys =  w_Storage.getAllKeys();
-
-                        w_Commons.raiseCustomEvent(document.body, o.events.LOAD, {url:source.url, type: source.type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: LOAD"});
-
-                        //self.parseData();
-                        //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
-                    } else {
-                      //  $(selectors.FINISH_BTN).html(lang_Utils.saveAndClose);
-                       // $(".fx-header:first").show();
-                       // $(selectors.EDITOR_HEADING).hide();
-                       // $(selectors.INSTRUCTION).show();
-
-                        self.menu.setDefault();
-                    }
-
-                    /** if (cache.jsonAjax.hasOwnProperty("onLoad")) {
+                        /** if (cache.jsonAjax.hasOwnProperty("onLoad")) {
                         var keys =  w_Storage.getAllKeys();
                         //console.log("========================== renderComponents: onLoad ---- type = "+cache.jsonAjax.onLoad.type);
                         w_Commons.raiseCustomEvent(document.body, o.events.LOAD, {url: cache.jsonAjax.onLoad.url, type: cache.jsonAjax.onLoad.type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: LOAD"});
@@ -226,11 +268,11 @@ define([
                         self.menu.setDefault();
                     }   **/
 
-                    NProgress.done();
-                });
+                        NProgress.done();
+                    });
 
-                /**   $.when(self.menu.render())
-                 .done(function(panels) {
+                    /**   $.when(self.menu.render())
+                     .done(function(panels) {
                         console.log("========================== renderComponents: ---- MENU RENDER DONE "+panels);
 
                         self.form.render();
@@ -244,14 +286,11 @@ define([
                             //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
                         }
                     });
-                 **/
-
-
-                //self.menu.render();
-                // self.form.render();
-            });
-
-
+                     **/
+                    //self.menu.render();
+                    // self.form.render();
+                });
+        }
     };
 
     DataEntryController.prototype.initEventListeners = function () {
@@ -260,7 +299,7 @@ define([
 
 
         document.body.addEventListener(o.events.SELECT, function (e) {
-            //console.log("----------------- DATA ENTRY (SELECT) "+e.detail.module);
+            console.log("----------------- DATA ENTRY (SELECT) "+e.detail.module);
             var moduleId = e.detail.module.module;
             var module = e.detail.module;
             var gui = e.detail.gui;
@@ -352,7 +391,6 @@ define([
         }, false);   **/
 
         document.body.addEventListener(o.events.INIT_STORAGE, function (e) {
-
             if(source === null && resourceTypeModule!== undefined && e.detail.id === resourceTypeModule){
                 var resourceTypeModuleValues = {};
                 resourceTypeModuleValues["resourceRepresentationType"] = resourceType;
@@ -362,7 +400,6 @@ define([
             else {
                 w_Storage.setItem(e.detail.id, "");
             }
-
             }, false);
 
 
@@ -703,12 +740,7 @@ define([
     DataEntryController.prototype.cacheFormValues = function () {
         var moduleIdentifier = this.form.getCurrentModule();
         var moduleValues = this.form.getValues();
-        //console.log("moduleValues = "+moduleValues);
-        //console.log(moduleValues);
-
-        // console.log("moduleIdentifier = "+moduleIdentifier);
         w_Storage.setItem(moduleIdentifier, moduleValues);
-
     };
 
     DataEntryController.prototype.getValues = function () {
@@ -719,14 +751,9 @@ define([
         var keys = w_Storage.getAllKeys();
         var root = {};
         // Delete the "EntityPath" and "isRoot" properties
-
         for(var i=0; i<keys.length; i++){
             var formItemValues = w_Storage.getItem(keys[i]);
             var values = formItemValues;
-
-          //  console.log("============ key "+keys[i] + ' | ' +formItemValues);
-           // console.log(values);
-
             if(values != ""){
                 // needs to be adjusted for when there is more than 1 item in the array
                var isArray = false;
@@ -784,8 +811,10 @@ define([
             }
 
         }
-       // console.log("======================== ROOT ====================");
-        //console.log(root);
+        console.log("======================== ROOT ====================");
+       console.log(root);
+
+        alert("In save after console log!!!!")
         return root;
 
 
@@ -905,6 +934,7 @@ define([
         for(var i=0; i<storageKeys.length; i++){
           // console.log(storageKeys[i]);
           // console.log(data[storageKeys[i]]);
+            alert("setItem 964")
            w_Storage.setItem(storageKeys[i],data[storageKeys[i]]);
         }
 
@@ -973,6 +1003,7 @@ define([
                 var jsn = w_Storage.getItem(prop);
               // console.log(jsn);
                if(isArray){
+                   alert("setItem 1033")
                    w_Storage.setItem(prop, "");
                }
 
@@ -1017,6 +1048,7 @@ define([
             //  console.log(storageKeys[i]);
             // console.log("=================== result ");
             //console.log(data[storageKeys[i]]);
+            alert("setItem 1078")
             w_Storage.setItem(storageKeys[i],data[storageKeys[i]]);
         }
 
@@ -1080,6 +1112,7 @@ define([
         var cleanedUpObj = json_Utils.deleteRootProperties(storageKeys, splitObj);
 
         //Populate the storage cache
+        alert("setItem 1142")
         for(var i=0; i<storageKeys.length; i++){
             w_Storage.setItem(storageKeys[i], cleanedUpObj[storageKeys[i]]);
         }
@@ -1204,6 +1237,7 @@ define([
         if(cache.saveAjax[o.saveTypes.GET].hasOwnProperty("response")){
             if(cache.saveAjax[o.saveTypes.GET]["response"].hasOwnProperty("addedEntitites")){
                 var newEntities = cache.saveAjax[o.saveTypes.GET]["response"]["addedEntitites"];
+                alert("setItem 1267")
                 for(var i=0; i<newEntities.length; i++){
                     w_Storage.setItem(newEntities[i], "");
                 }

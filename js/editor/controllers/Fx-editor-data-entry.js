@@ -322,6 +322,9 @@ define([
                     w_Commons.raiseCustomEvent(document.body, o.events.FINAL_SAVE,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: FINAL SAVE"});
                 }
             }
+            else {
+                w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, {data:null, call: "DATA-ENTRY: FINISH"});
+            }
         }, false);
 
         document.body.addEventListener(o.events.COPY_METADATA, function (e) {
@@ -660,6 +663,7 @@ define([
             w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, {data:data, call: "DATA-ENTRY: FINISH"});
         } else {
             if (Object.keys(data).length > 0) {
+                w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
                 w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
             }
         }

@@ -2,7 +2,8 @@
 
 define([
     "jquery",
-    "fx-editor/widgets/Fx-widgets-commons"
+    "fx-editor/widgets/Fx-widgets-commons",
+    'amplify'
 ], function ($, W_Commons) {
 
     var o = { },
@@ -71,21 +72,23 @@ define([
                         }
 
                     } else {
-                        w_commons.raiseCustomEvent(
+                        /*w_commons.raiseCustomEvent(
                             document.body,
                             o.events.EMPTY_RESPONSE,
                             { }
-                        );
+                        );*/
+                        amplify.publish(o.events.EMPTY_RESPONSE, {})
                     }
 
                 },
                 data: plugin.getDataEntry(), //JSON.stringify(plugin.getDataEntry()),
                 complete: function(){
-                    w_commons.raiseCustomEvent(
+                    /*w_commons.raiseCustomEvent(
                         document.body,
                         o.events.END,
                         { }
-                    );
+                    );*/
+                    amplify.publish(o.events.END, {})
                 }
             });
         }
@@ -139,20 +142,22 @@ define([
                         }
 
                     } else {
-                        w_commons.raiseCustomEvent(
+                        /*w_commons.raiseCustomEvent(
                             document.body,
                             o.events.EMPTY_RESPONSE,
                             { }
-                        );
+                        );*/
+                        amplify.publish(o.events.EMPTY_RESPONSE, {});
                     }
 
                 },
                  complete: function(){
-                    w_commons.raiseCustomEvent(
+                   /* w_commons.raiseCustomEvent(
                         document.body,
                         o.events.END,
                         { }
-                    );
+                    );*/
+                     amplify.publish(o.events.END, {});
                 }
             });
         }

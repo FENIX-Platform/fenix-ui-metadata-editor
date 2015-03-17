@@ -17,7 +17,8 @@
     "bootstrap",
     "fx-editor/conf/js/fx-form-validation-callback",
     "jquery-serialize-object",
-    "bootstrap-datetimepicker"
+    "bootstrap-datetimepicker",
+    'amplify'
 ], function (require, $, bootstrapValidator, bootstrapTagsInput, W_Commons, Ui_Element_Creator, UI_Info, Json_Utils, BootstrapValidator_Utils, Date_Utils, langProperties, guiLangProps, guiHtmlLinksLangProps, guiPopoverLangProps, Clone_Utils) {
 
     var o = { },
@@ -797,11 +798,12 @@
                     moduleLabel = $module.module;
                 }
 
-                w_Commons.raiseCustomEvent(o.container, o.events.SUBMIT, {form: fm[0], module: $module.module, moduleLabel: moduleLabel, mapping: mapping, call: "FORM: SAVE"});
+                //w_Commons.raiseCustomEvent(o.container, o.events.SUBMIT, {form: fm[0], module: $module.module, moduleLabel: moduleLabel, mapping: mapping, call: "FORM: SAVE"});
+                amplify.publish(o.events.SUBMIT, { form: fm[0], module: $module.module, moduleLabel: moduleLabel, mapping: mapping, call: "FORM: SAVE" });
             } else {
                 var  errors = bv.getInvalidFields();
-                w_Commons.raiseCustomEvent(o.container, o.events.INVALID, {errors: errors});
-
+                //w_Commons.raiseCustomEvent(o.container, o.events.INVALID, {errors: errors});
+                amplify.publish(o.events.INVALID, { errors: errors });
             }
 
             return false;
@@ -1753,7 +1755,8 @@
                }
               }
        }
-        w_Commons.raiseCustomEvent(o.container, o.events.NEW_METADATA_SUCCESS, {});
+        //w_Commons.raiseCustomEvent(o.container, o.events.NEW_METADATA_SUCCESS, {});
+       amplify.publish(o.events.NEW_METADATA_SUCCESS, {});
 
     };
 

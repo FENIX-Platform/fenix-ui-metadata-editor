@@ -228,7 +228,8 @@ define([
 
 
         //Initialize Storage
-        w_Commons.raiseCustomEvent(o.container, o.events.INIT_STORAGE, {id: panel.module, call: "MENU INIT_STORAGE"});
+        //w_Commons.raiseCustomEvent(o.container, o.events.INIT_STORAGE, {id: panel.module, call: "MENU INIT_STORAGE"});
+        amplify.publish(o.events.INIT_STORAGE, { id: panel.module, call: "MENU INIT_STORAGE" });
 
         var path = json_Utils.findParentPathForValue(cache.json, panel.module);
         var parentPath = self.getParentPath(path);
@@ -244,7 +245,8 @@ define([
                // console.log("MENU ============== "+ e.data.module);
                // console.log(e.data.module);
 
-                w_Commons.raiseCustomEvent(o.container, o.events.SELECT, {module: e.data.module, gui: cache.json, call: "MENU SELECT"});
+                //w_Commons.raiseCustomEvent(o.container, o.events.SELECT, {module: e.data.module, gui: cache.json, call: "MENU SELECT"});
+                amplify.publish(o.events.SELECT, { module: e.data.module, gui: cache.json, call: "MENU SELECT" });
                // w_Commons.raiseCustomEvent(o.container, o.events.SELECT, e.data.module);
                 // }
             }
@@ -454,7 +456,8 @@ define([
             $info = $('<button class="btn fx-button-reset pull-right" type="button" tabindex="-1" data-toggle="popover" ><span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span></button>');
 
         //Initialize Storage
-        w_Commons.raiseCustomEvent(o.container, o.events.INIT_STORAGE, {id: current.module, call: "MENU INIT_STORAGE"});
+        //w_Commons.raiseCustomEvent(o.container, o.events.INIT_STORAGE, {id: current.module, call: "MENU INIT_STORAGE"});
+        amplify.publish(o.events.INIT_STORAGE, { id: current.module, call: "MENU INIT_STORAGE" });
 
 
         $btn.on('click', {module: modules[j] }, function (e) {
@@ -472,7 +475,8 @@ define([
                 // console.log('%%% BUTTON ON CLICK PANEL e.data.module = '+  e.data.module);
                 // console.log('MENU e.data.module = '+  e.data.module);
 
-                w_Commons.raiseCustomEvent(o.container, o.events.SELECT, {module: e.data.module, call: "SUB-MENU SELECT"});
+                //w_Commons.raiseCustomEvent(o.container, o.events.SELECT, {module: e.data.module, call: "SUB-MENU SELECT"});
+                amplify.publish( o.events.SELECT, { module: e.data.module, call: "SUB-MENU SELECT" });
 
                 // w_Commons.raiseCustomEvent(o.container, o.events.SELECT, e.data.module)
             }

@@ -191,9 +191,9 @@ define([
                         cache.saveAjax[o.saveTypes.GET] = { url: cache.jsonAjax["get"].url, type: cache.jsonAjax["get"].type, response: cache.jsonAjax["get"].response };
                     }
                     // }
-
-                    w_Storage.deleteItem("dsd");
-                    console.log("flush")
+                    /*if (source == null)
+                        w_Storage.deleteItem("dsd");*/
+                    //console.log("flush")
                     //LOADING DATA
                     if (source != null) {
 
@@ -265,7 +265,7 @@ define([
         var gui = e.gui;
 
         this.createForm(moduleId, module, gui);
-    }
+    };
     DataEntryController.prototype.evtExitMetadata = function (e) {
         console.log("----------------- EXIT_METADATA ");
         var type, url, event;
@@ -284,7 +284,7 @@ define([
             //w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: null, call: "DATA-ENTRY: FINISH" });
             amplify.publish(o.events.METADATA_EDITOR_FINISH, { data: null, call: "DATA-ENTRY: FINISH" })
         }
-    }
+    };
     DataEntryController.prototype.evtCopyMetadata = function (e) {
         var version = e.version;
         var uid = e.uid;
@@ -312,7 +312,7 @@ define([
             //w_Commons.raiseCustomEvent(document.body, o.events.COPY, { url: url, type: type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: COPY" });
             amplify.publish(o.events.COPY, { url: url, type: type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: COPY" });
         }
-    }
+    };
     DataEntryController.prototype.evtInitStorage = function (e) {
         if (source === null && resourceTypeModule !== undefined && e.id === resourceTypeModule) {
             var resourceTypeModuleValues = {};
@@ -323,12 +323,12 @@ define([
         else {
             w_Storage.setItem(e.id, "");
         }
-    }
+    };
     DataEntryController.prototype.evtCheckFormChanged = function (e) {
         //  if (this.form.serialize() !=  w_Storage.getItem(this.form.getCurrentModule())) {
         // Something changed
         // }
-    }
+    };
     DataEntryController.prototype.evtSubmit = function (e) {
         var form = e.form,
                 module = e.module,
@@ -367,7 +367,7 @@ define([
                 amplify.publish(o.events.EMPTY_ROOT_ENTITY, { moduleLabel: moduleLabel, root: cache.rootLabel });
             }
         }
-    }
+    };
     DataEntryController.prototype.evtEmptyRootEntity = function (e) {
         var rootEntity = e.root;
         var moduleSaved = e.moduleLabel;
@@ -389,7 +389,7 @@ define([
                 nonblock: true
             }
         });
-    }
+    };
     DataEntryController.prototype.evtInvalid = function (e) {
         var errors = e.errors;
         var text = lang_Utils.requiredFieldsError({});
@@ -412,7 +412,7 @@ define([
                 nonblock: true
             }
         });
-    }
+    };
     DataEntryController.prototype.evtNewMetadataSuccess = function (e) {
         var text = lang_Utils.newMetadataSuccess({});
 
@@ -444,7 +444,7 @@ define([
 
         // RE-SET SAVE ACTION: OVERWRITE
         cache.saveAction = { type: o.saveTypes.OVERWRITE };
-    }
+    };
     DataEntryController.prototype.evtOverwriteMetadataSuccess = function (e) {
         var text = lang_Utils.successfulUpdate({});
 
@@ -459,23 +459,21 @@ define([
 
         // SET SAVE ACTION: Default OVERWRITE
         cache.saveAction = { type: o.saveTypes.OVERWRITE };
-    }
+    };
     DataEntryController.prototype.evtFind = function (e) {
         //console.log("----------------- DATA ENTRY (FIND) ");
         var path = e.path;
         var formItemValues = w_Storage.getItem(path);
         if (formItemValues != "") {
         }
-    }
+    };
     DataEntryController.prototype.evtLoad = function (e) {
         //cache data
-    }
+    };
     DataEntryController.prototype.evtRemove = function (e) {
         this.menu.activate(e.type);
         this.form.removeItem(e.module);
-    }
-
-
+    };
     //END evt handlers
 
     DataEntryController.prototype.initEventListeners = function () {
@@ -602,9 +600,11 @@ define([
             amplify.publish(o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
         } else {
             if (Object.keys(data).length > 0) {
+
+
                 amplify.publish(o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
                 //w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
-                amplify.publish(o.events.OVERWRITE, {});
+                amplify.publish(o.events.OVERWRITE_METADATA_SUCCESS, {});
                 //w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
             }
         }

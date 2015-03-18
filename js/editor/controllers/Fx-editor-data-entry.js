@@ -87,7 +87,6 @@ define([
     //(injected)
     DataEntryController.prototype.progress = undefined;
 
-
     DataEntryController.prototype.init = function (options) {
         $.extend(o, options);
         var self = this;
@@ -193,8 +192,11 @@ define([
                     }
                     // }
 
+                    w_Storage.deleteItem("dsd");
+                    console.log("flush")
                     //LOADING DATA
                     if (source != null) {
+
                         self.populateStorageWithSpecialEntities();
                         // $(selectors.FINISH_BTN).html(lang_Utils.save);
                         // $(".fx-header:first").hide();
@@ -477,8 +479,6 @@ define([
     //END evt handlers
 
     DataEntryController.prototype.initEventListeners = function () {
-
-        var self = this;
 
         amplify.subscribe(o.events.SELECT, this, this.evtSelect)
         amplify.subscribe(o.events.EXIT_METADATA, this, this.evtExitMetadata)
@@ -1253,12 +1253,37 @@ define([
 
     };
 
+    DataEntryController.prototype.unbindEventListeners = function () {
+
+        amplify.unsubscribe(o.events.INIT_STORAGE, this.evtInitStorage);
+        amplify.unsubscribe(o.events.CHECK_FORM_CHANGED, this.evtCheckFormChanged);
+        amplify.unsubscribe(o.events.SUBMIT, this.evtSubmit);
+        amplify.unsubscribe(o.events.EMPTY_ROOT_ENTITY, this.evtEmptyRootEntity);
+        amplify.unsubscribe(o.events.INVALID, this.evtInvalid);
+        amplify.unsubscribe(o.events.NEW_METADATA_SUCCESS, this.evtNewMetadataSuccess);
+        amplify.unsubscribe(o.events.OVERWRITE_METADATA_SUCCESS, this.evtOverwriteMetadataSuccess);
+        amplify.unsubscribe(o.events.FIND, this.evtFind);
+        amplify.unsubscribe(o.events.LOAD, this.evtLoad);
+        amplify.unsubscribe(o.events.REMOVE, this.evtRemove);
+
+
+        $(selectors.TOGGLE_BTN).off();
+    };
+
     DataEntryController.prototype.overwriteMessage = function (response) {
+
         if (Object.keys(response).length > 0) {
             //w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
             amplify.publish(o.events.OVERWRITE_METADATA_SUCCESS, {});
         }
+    };
 
+    DataEntryController.prototype.destroy = function () {
+        this.menu.destroy();
+
+        this.form.destroy();
+
+        this.unbindEventListeners();
     };
 
     return DataEntryController;

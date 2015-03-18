@@ -40,21 +40,21 @@ define(["fx-editor/controllers/Fx-editor-page",
 
             // $(options.container).html(structure);
 
-            var pageController = new Controller();
+            this.pageController = new Controller();
 
             // Perform dependency injection by extending objects
-            $.extend(pageController, {
+            $.extend(this.pageController, {
                 dataentry: this.initDataEntry(options),
                 bridge: this.initBridge()
             });
 
-            pageController.render();
+            this.pageController.render();
 
         };
 
         StartUp.prototype.initDataEntry = function (options) {
 
-            var dataEntryController = new DataEntryController(),
+            this.dataEntryController = new DataEntryController(),
                 menu = new Menu(),
                 form = new Form(),
                 progress = new Progress(),
@@ -145,7 +145,7 @@ define(["fx-editor/controllers/Fx-editor-page",
            // console.log("=================================================== INIT DATA CONTROLLER readonly = "+options.readOnly);
 
             //dataEntryController.init(options);
-            dataEntryController.init({
+            this.dataEntryController.init({
                 config: options.config,
                 source: options.source,
                 onFinishClick: options.onFinishClick,
@@ -175,13 +175,13 @@ define(["fx-editor/controllers/Fx-editor-page",
 
 
             // Perform dependency injection by extending objects
-            $.extend(dataEntryController, {
+            $.extend(this.dataEntryController, {
                 menu: menu,
                 form: form,
                 progress: progress
             });
 
-            return dataEntryController;
+            return this.dataEntryController;
 
         };
 
@@ -189,6 +189,10 @@ define(["fx-editor/controllers/Fx-editor-page",
             var bridge = new Bridge();
             bridge.init();
             return bridge;
+        };
+
+        StartUp.prototype.destroy = function () {
+            this.pageController.destroy();
         };
 
         return StartUp;

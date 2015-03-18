@@ -90,7 +90,6 @@ define([
 
 
     PageController.prototype.initEventListeners = function () {
-        var self = this;
         // Load Data
         amplify.subscribe("fx.editor.load", this, this.editorLoad);
         // Copy Data
@@ -111,14 +110,34 @@ define([
 
     };
 
-
-
     PageController.prototype.render = function () {
 
         this.preValidation();
         this.initEventListeners();
 
         this.renderComponents();
+    };
+
+    PageController.prototype.unbindEventListeners = function () {
+
+        // Load Data
+        amplify.unsubscribe("fx.editor.load", this.editorLoad);
+        // Copy Data
+        amplify.unsubscribe("fx.editor.copy", this.editorCopy);
+        amplify.unsubscribe("fx.editor.save", this.editorSave);
+        //Save Data
+        amplify.unsubscribe("fx.editor.overwrite", this.editorOverwrite);
+        //Save Data
+        amplify.unsubscribe("fx.editor.final_save", this.editorFinalSave);
+        amplify.unsubscribe("end.query.editor.fx", this.endQueryEditor);
+        amplify.unsubscribe("empty_response.query.editor.fx", this.emptyResponseQueryEditor);
+
+    };
+
+    PageController.prototype.destroy = function () {
+
+        this.unbindEventListeners();
+        this.dataentry();
     };
 
     return PageController;

@@ -137,7 +137,7 @@ define([
     PageController.prototype.destroy = function () {
 
         this.unbindEventListeners();
-        this.dataentry();
+        this.dataentry.destroy();
     };
 
     return PageController;

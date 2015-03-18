@@ -1760,6 +1760,11 @@
 
     };
 
+    Fx_Editor_Form.prototype.destroy = function () {
+        $('#fx-editor-form form').off();
+        $('#fx-editor-form button').off();
+    };
+
 
     return Fx_Editor_Form;
 

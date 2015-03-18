@@ -35,7 +35,7 @@ define(["fx-editor/controllers/Fx-editor-page",
             };
 
             var compiledTmpl = Handlebars.compile(template, context);
-            $(options.container).html(compiledTmpl({ langProperties: langProperties, context: context}));
+            $(options.container).html(compiledTmpl({langProperties: langProperties, context: context}));
 
 
             // $(options.container).html(structure);
@@ -54,8 +54,8 @@ define(["fx-editor/controllers/Fx-editor-page",
 
         StartUp.prototype.initDataEntry = function (options) {
 
-            this.dataEntryController = new DataEntryController(),
-                menu = new Menu(),
+            this.dataEntryController = new DataEntryController();
+            var menu = new Menu(),
                 form = new Form(),
                 progress = new Progress(),
                 lang = "EN",
@@ -142,7 +142,7 @@ define(["fx-editor/controllers/Fx-editor-page",
             }
 
 
-           // console.log("=================================================== INIT DATA CONTROLLER readonly = "+options.readOnly);
+            // console.log("=================================================== INIT DATA CONTROLLER readonly = "+options.readOnly);
 
             //dataEntryController.init(options);
             this.dataEntryController.init({

@@ -191,8 +191,8 @@ define([
                         cache.saveAjax[o.saveTypes.GET] = { url: cache.jsonAjax["get"].url, type: cache.jsonAjax["get"].type, response: cache.jsonAjax["get"].response };
                     }
                     // }
-                    /*if (source == null)
-                        w_Storage.deleteItem("dsd");*/
+                    if (source == null)
+                        w_Storage.deleteItem("dsd");
                     //console.log("flush")
                     //LOADING DATA
                     if (source != null) {

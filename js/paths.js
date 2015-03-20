@@ -16,26 +16,27 @@
             'fx-editor/nls': "../nls",
             'jquery-serialize-object': "./editor/utils/Fx-jquery-serialize-object",
 
-            'jqueryui': "http://code.jquery.com/ui/1.10.3/jquery-ui.min",
+            'jqueryui': "//code.jquery.com/ui/1.10.3/jquery-ui.min",
+            'jquery': '{FENIX_CDN}/js/jquery/2.1.1/jquery.min',
+            domReady: "{FENIX_CDN}/js/requirejs/plugins/domready/2.0.1/domReady",
+            i18n: "{FENIX_CDN}/js/requirejs/plugins/i18n/2.0.4/i18n",
+            text: "{FENIX_CDN}/js/requirejs/plugins/text/2.0.12/text",
+            bootstrap: "//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min",
+            pnotify: '{FENIX_CDN}/js/pnotify/2.0.1/pnotify.custom.min',
 
-            'jquery': '../node_modules/jquery/dist/jquery.min',
-            'bootstrap': '../node_modules/bootstrap/dist/js/bootstrap.min',
-            'nprogress': '../node_modules/nprogress/nprogress',
-            //'bootstrap-validator': "http://cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min",
-            'text': "../node_modules/text/text",
-            'i18n': "../node_modules/i18n/i18n",
-            'domReady': "../node_modules/domReady/domReady",
-            'handlebars': "../node_modules/handlebars/dist/handlebars.min",
-            'moment': "../node_modules/moment/min/moment-with-locales.min",
+            'nprogress': '{FENIX_CDN}/js/nprogress/0.1.6/nprogress',
+            'handlebars': "{FENIX_CDN}/js/handlebars/2.0.0/handlebars",
 
-            'bootstrap-validator': "lib/bootstrapValidator",
-            'pnotify': "lib/pnotify",
-            'jstorage': "lib/jstorage",
-            'json2': "lib/json2",
-            'jqrangeslider': "lib/jqrangeslider",
-            'bootstrap-tagsinput': "lib/bootstrap-tagsinput",
-            'bootstrap-datetimepicker': "lib/bootstrap-datetimepicker",
-            'jQuery.XDomainRequest': 'lib/jQuery.XDomainRequest'
+            'moment': "{FENIX_CDN}/js/moment/2.9.0/moment-with-locales.min",
+
+            'bootstrap-validator': "{FENIX_CDN}/js/bootstrap-validator/0.5.0/bootstrapValidator",
+            'jstorage': "{FENIX_CDN}/js/jstorage/jstorage",
+            'json2': "{FENIX_CDN}/js/json2/1.0/json2",
+            'jqrangeslider': "{FENIX_CDN}/js/jqrangeslider/5.7.0/jQRangeSlider",
+
+            'bootstrap-tagsinput': "{FENIX_CDN}/js/bootstrap-tagsinput/bootstrap-tagsinput",
+            'bootstrap-datetimepicker': "{FENIX_CDN}/js/bootstrap-datetimepicker/3.1.3/bootstrap-datetimepicker",
+            'jQuery.XDomainRequest': '{FENIX_CDN}/js/jQuery.XDomainRequest/jQuery.XDomainRequest'
 
         },
         locale: 'en',

@@ -34,7 +34,6 @@ define([
 
 
     PageController.prototype.editorLoad = function (e) {
-        console.log('editorLoad');
         var url = e.url,
                 type = e.type,
                 mapping = e.mapping;
@@ -43,7 +42,6 @@ define([
         this.bridge.get(this.dataentry, this.dataentry.updateCache, this.dataentry);
     }
     PageController.prototype.editorCopy = function (e) {
-        console.log('editorCopy');
         var url = e.url,
                 type = e.type,
                 mapping = e.mapping;
@@ -53,22 +51,17 @@ define([
         this.bridge.get(this.dataentry, this.dataentry.updateCopyCache, this.dataentry);
     }
     PageController.prototype.editorSave = function (e) {
-        console.log('editorSave');
-        console.log(e);
-
         this.bridge.init(e);
         NProgress.start();
         this.bridge.query(this.dataentry, this.dataentry.updateStorage, this.dataentry);
     }
     PageController.prototype.editorOverwrite = function (e) {
-        console.log('editorOverwrite');
         //console.log("------------ PAGE CONTROLLER RENDER submit listener ");
         this.bridge.init(e);
         NProgress.start();
         this.bridge.query(this.dataentry, this.dataentry.overwriteMessage, this.dataentry);
     }
     PageController.prototype.editorFinalSave = function (e) {
-        console.log('editorFinalSave');
         //console.log("------------ PAGE CONTROLLER RENDER submit listener ");
         this.bridge.init(e);
         NProgress.start();
@@ -87,7 +80,6 @@ define([
             }
         });
     }
-
 
     PageController.prototype.initEventListeners = function () {
         // Load Data
@@ -111,7 +103,6 @@ define([
     };
 
     PageController.prototype.render = function () {
-
         this.preValidation();
         this.initEventListeners();
 
@@ -119,7 +110,6 @@ define([
     };
 
     PageController.prototype.unbindEventListeners = function () {
-
         // Load Data
         amplify.unsubscribe("fx.editor.load", this.editorLoad);
         // Copy Data

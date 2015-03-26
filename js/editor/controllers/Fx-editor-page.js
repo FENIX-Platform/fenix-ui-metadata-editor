@@ -34,7 +34,6 @@ define([
 
         // Load Data
         document.body.addEventListener("fx.editor.load", function (e) {
-            alert("editor load")
             var url = e.detail.url,
                 type = e.detail.type,
                 mapping = e.detail.mapping;
@@ -57,7 +56,6 @@ define([
 
         // Copy Data
         document.body.addEventListener("fx.editor.copy", function (e) {
-            alert("editor copy")
             var url = e.detail.url,
                 type = e.detail.type,
                 mapping = e.detail.mapping;
@@ -71,17 +69,19 @@ define([
 
 
         document.body.addEventListener("fx.editor.save", function (e) {
-            alert("editor save fx.editor.save  ")
             //console.log("------------ PAGE CONTROLLER RENDER submit listener ");
             self.bridge.init(e.detail);
             NProgress.start();
+            console.log("self.dataentry")
+            console.log(self.dataentry)
+            console.log("self.dataentry.updateStorage")
+            console.log(self.dataentry.updateStorage)
             self.bridge.query(self.dataentry, self.dataentry.updateStorage, self.dataentry);
         }, false);
 
 
         //Save Data
         document.body.addEventListener("fx.editor.overwrite", function (e) {
-            alert("editor overwrite")
             //console.log("------------ PAGE CONTROLLER RENDER submit listener ");
             self.bridge.init(e.detail);
             NProgress.start();
@@ -91,7 +91,6 @@ define([
 
         //Save Data
         document.body.addEventListener("fx.editor.final_save", function (e) {
-            alert("editor save fx.editor.final_save  ")
             //console.log("------------ PAGE CONTROLLER RENDER submit listener ");
             self.bridge.init(e.detail);
             NProgress.start();
@@ -100,13 +99,11 @@ define([
 
 
         document.body.addEventListener("end.query.editor.fx", function () {
-            alert("editor end")
             NProgress.done();
         }, false);
 
 
         document.body.addEventListener("empty_response.query.editor.fx", function () {
-            alert("editor empty")
 
             new PNotify({
                 title: 'No Result Notice',

@@ -257,6 +257,7 @@
 
         // Revalidate the tag fields when they change
         $('#fx-editor-form form').find('[data-role="tagsinput"]').each(function(){
+
             //console.log(this);
              var name = this.name;
              var bv_att = $(this).attr('data-bv-field');
@@ -274,7 +275,6 @@
         $('#fx-editor-navbar .dropdown-menu input').click(function (event) {
             event.stopPropagation();
         });
-
     }
 
 
@@ -348,8 +348,8 @@
 
         }
 
-       // console.log("================================= bValidatorOptions");
-      //  console.log(bValidatorOptions);
+        //console.log("================================= bValidatorOptions");
+        //console.log(bValidatorOptions);
        // console.log(JSON.stringify(bValidatorOptions));
 
         return bValidatorOptions;
@@ -622,7 +622,17 @@
         //console.log("======================= buildPanelBody: module.properties ========================");
        // console.log(module.properties);
 
-       $panelBody.append(self.buildForm(module, cache.properties));
+        var $form = self.buildForm(module, cache.properties)
+
+       $panelBody.append($form);
+
+   /*     $form.on("keyup keypress", function(e) {
+            var code = e.keyCode || e.which;
+            if (code  == 13) {
+                e.preventDefault();
+                return false;
+            }
+        });*/
 
         return $panelBody;
     };
@@ -668,8 +678,6 @@
                 ruleExists = false,
                 requiredFieldsExist = false,
                 elementsJson = {};
-
-
 
             if(cache.modulevalidationrules != undefined) {
                 //if(typeof(cache.modulevalidationrules) != 'undefined'){
@@ -767,6 +775,7 @@
     };
 
     Fx_Editor_Form.prototype.buildSaveButton = function (module) {
+
         //Initialize Save Button
         var $button = $('<button  class="btn btn-success">'+langProperties.save+'</button>');
         $button.on('click', function (e) {
@@ -793,13 +802,13 @@
                     moduleLabel = $module.module;
                 }
 
+                alert("Before o.events.SUBMIT")
                 w_Commons.raiseCustomEvent(o.container, o.events.SUBMIT, {form: fm[0], module: $module.module, moduleLabel: moduleLabel, mapping: mapping, call: "FORM: SAVE"});
             } else {
                 var  errors = bv.getInvalidFields();
                 w_Commons.raiseCustomEvent(o.container, o.events.INVALID, {errors: errors});
 
             }
-
             return false;
         });
 

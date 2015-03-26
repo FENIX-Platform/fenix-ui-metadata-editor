@@ -18,7 +18,6 @@ define([
             ELEM_NO_DATAFIELDS_CODE_LABEL: { EN: "FENIX UI Element Creator: select: Missing 'source.datafields[{code, label}]' properties"},
             ELEM_NO_DATAROOT: { EN: "FENIX UI Element Creator: select: Missing 'source.dataroot' property"},
             NO_DATES_CONFIG: { EN: "FENIX UI Element Creator: date/period: Missing Dates config "}
-
         },
     types = {
         FIELDSET: "fieldset",
@@ -68,7 +67,7 @@ define([
             valid = false;
         }
 
-          return valid;
+        return valid;
     }
 
 
@@ -256,8 +255,6 @@ define([
     function Fx_Ui_Element_Creator() {
         json_Utils = new Json_Utils();
     }
-
-
 
    /** Fx_Ui_Element_Creator.prototype.render1 = function (options, callback) {
          var self = this;

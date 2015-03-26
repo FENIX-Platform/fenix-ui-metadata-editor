@@ -33,6 +33,13 @@ define([
 
     Fx_editor_bridge.prototype.query = function (src, callback, context) {
         var plugin;
+        alert("before ajax call 1")
+        console.log("src")
+        console.log(src)
+        console.log("callback")
+        console.log(callback)
+        console.log("context")
+        console.log(context)
 
       //  console.log("========== IN BRIDGE: QUERY ================== src = "+src.getName());
         if (!window.Fx_editor_bridge_plugins || typeof window.Fx_editor_bridge_plugins !== "object") {
@@ -56,6 +63,14 @@ define([
         } else {
           //  console.log("========== IN BRIDGE: AJAX QUERY START ================== ");
             //Ask the plugin the filter, make the request and pass data to callback()
+
+            var d = plugin.getDataEntry();
+            console.log("plugin.getDataEntry()")
+            console.log(d)
+            alert("before ajax call 2")
+            console.log(o)
+            alert("before ajax call 3")
+
             $.ajax({
                 url: o.url,
                 type: o.type,
@@ -145,7 +160,6 @@ define([
                             { }
                         );
                     }
-
                 },
                  complete: function(){
                     w_commons.raiseCustomEvent(

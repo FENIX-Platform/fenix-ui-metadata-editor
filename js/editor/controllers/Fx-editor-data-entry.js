@@ -20,6 +20,7 @@ define([
             config: {
                 ajaxEventCalls: "conf/json/fx-editor-ajax-config.json"
             },
+            submit_default_action: null,
             source: null,
             readOnly: false,
             widget: {
@@ -74,8 +75,6 @@ define([
         w_Storage = new W_Storage();
         json_Utils = new Json_Utils();
         lang_Utils = new LangUtils();
-
-
     }
 
     //(injected)
@@ -183,9 +182,17 @@ define([
                         if (source!=null) {
                             self.populateStorageWithSpecialEntities();
                             var keys =  w_Storage.getAllKeys();
-
+                            if(o.submit_default_action)
+                            {
+                                cache.saveAction.type = o.submit_default_action;
+                            }
                             w_Commons.raiseCustomEvent(document.body, o.events.LOAD, {url:source.url, type: source.type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: LOAD"});
                         } else {
+                            //alert("MENU DEFAULT")
+                            if(o.submit_default_action)
+                            {
+                                cache.saveAction.type = o.submit_default_action;
+                            }
                             self.menu.setDefault();
                         }
                         NProgress.done();
@@ -213,6 +220,10 @@ define([
                     //  console.log("AJAX CACHE ....");
 
                     //self.menu.render();
+                    if(o.submit_default_action)
+                    {
+                        cache.saveAction.type = o.submit_default_action;
+                    }
                     self.form.render({config: {cache: {mapping: cache.jsonMapping, validation: cache.jsonValidationConf,  dates: cache.jsonDatesConf}}});
 
                     //HIDE PROGRESS FOR NOW
@@ -241,7 +252,6 @@ define([
                             // $(".fx-header:first").hide();
                             // $(selectors.EDITOR_HEADING).show();
                             // $(selectors.INSTRUCTION).hide();
-
 
                             var keys =  w_Storage.getAllKeys();
 
@@ -424,13 +434,11 @@ define([
 
             self.cacheFormValues();
 
-
             //Get the urls based on the cache.saveAction type
             if(cache.saveAction.type == o.saveTypes.CREATE){
                 url = cache.saveAjax[o.saveTypes.CREATE].url;
                 type = cache.saveAjax[o.saveTypes.CREATE].type;
                 event = o.events.SAVE;
-
             }
             else if(cache.saveAction.type  == o.saveTypes.OVERWRITE){
                 url = cache.saveAjax[o.saveTypes.OVERWRITE].url;
@@ -438,8 +446,11 @@ define([
                 event = o.events.OVERWRITE;
             }
 
-            //console.log("----------------- DATA ENTRY (SAVE) "+cache.saveAction.type);
+            console.log("----------------- DATA ENTRY (SAVE) "+cache.saveAction.type);
 
+            alert("Submit")
+            console.log("cache.jsonMapping")
+            console.log(cache.jsonMapping)
 
             if(cache.rootEntity !=undefined)   {
                 var rootValues =  w_Storage.getItem(cache.rootEntity);
@@ -447,10 +458,9 @@ define([
                 if(rootValues != ""){
                     w_Commons.raiseCustomEvent(form, event,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: SAVE"});
                 } else {
-                    w_Commons.raiseCustomEvent(document.body, o.events.EMPTY_ROOT_ENTITY,  {moduleLabel: moduleLabel, root: cache.rootLabel});
+                    w_Commons.raiseCustomEvent(document.body, o.events.EMPTY_ROOT_ENTITY, {moduleLabel: moduleLabel, root: cache.rootLabel});
                 }
             }
-
          }, false);
 
         document.body.addEventListener(o.events.EMPTY_ROOT_ENTITY, function (e) {
@@ -485,7 +495,7 @@ define([
 
             var errorList = [];
             text +=  '</br>';
-            for(var m = 0; m < errors.length; m++)            {
+            for(var m = 0; m < errors.length; m++){
 
                 text += $(errors[m]).attr('id');
 
@@ -493,8 +503,6 @@ define([
                     text += '</br>'
                 }
             }
-
-
 
             new PNotify({
                 title:  lang_Utils.requiredFieldsNotice,
@@ -667,7 +675,6 @@ define([
                 w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
             }
         }
-
       };
 
     DataEntryController.prototype.createForm = function (moduleId, module, gui) {
@@ -752,11 +759,14 @@ define([
     };
 
     DataEntryController.prototype.getAllFormValues = function () {
+
         var keys = w_Storage.getAllKeys();
         var root = {};
         // Delete the "EntityPath" and "isRoot" properties
         for(var i=0; i<keys.length; i++){
             var formItemValues = w_Storage.getItem(keys[i]);
+            console.log("key = "+keys[i])
+            console.log("formItemValues = "+formItemValues)
             var values = formItemValues;
             if(values != ""){
                 // needs to be adjusted for when there is more than 1 item in the array
@@ -804,7 +814,6 @@ define([
                                 for(var item in values) {
                                     root[keys[i]][item] = values[item];
                                     // delete formItemValues[item].isRoot;
-
                                 }
                             }
                             // }
@@ -817,8 +826,6 @@ define([
         }
         console.log("======================== ROOT ====================");
        console.log(root);
-
-        alert("In save after console log!!!!")
         return root;
 
 
@@ -938,7 +945,6 @@ define([
         for(var i=0; i<storageKeys.length; i++){
           // console.log(storageKeys[i]);
           // console.log(data[storageKeys[i]]);
-            alert("setItem 964")
            w_Storage.setItem(storageKeys[i],data[storageKeys[i]]);
         }
 
@@ -1007,7 +1013,6 @@ define([
                 var jsn = w_Storage.getItem(prop);
               // console.log(jsn);
                if(isArray){
-                   alert("setItem 1033")
                    w_Storage.setItem(prop, "");
                }
 
@@ -1052,7 +1057,6 @@ define([
             //  console.log(storageKeys[i]);
             // console.log("=================== result ");
             //console.log(data[storageKeys[i]]);
-            alert("setItem 1078")
             w_Storage.setItem(storageKeys[i],data[storageKeys[i]]);
         }
 
@@ -1116,7 +1120,6 @@ define([
         var cleanedUpObj = json_Utils.deleteRootProperties(storageKeys, splitObj);
 
         //Populate the storage cache
-        alert("setItem 1142")
         for(var i=0; i<storageKeys.length; i++){
             w_Storage.setItem(storageKeys[i], cleanedUpObj[storageKeys[i]]);
         }
@@ -1241,7 +1244,6 @@ define([
         if(cache.saveAjax[o.saveTypes.GET].hasOwnProperty("response")){
             if(cache.saveAjax[o.saveTypes.GET]["response"].hasOwnProperty("addedEntitites")){
                 var newEntities = cache.saveAjax[o.saveTypes.GET]["response"]["addedEntitites"];
-                alert("setItem 1267")
                 for(var i=0; i<newEntities.length; i++){
                     w_Storage.setItem(newEntities[i], "");
                 }
@@ -1281,8 +1283,6 @@ define([
                             moduleFields[prop] = fields;
                             for (var i = 0; i < fields.length; i++) {
                                 var field = fields[i];
-
-
                                 var value = response[field];
                                 values[field] = value;
                                 fieldValues[field] =  value;

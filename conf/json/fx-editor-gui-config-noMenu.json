@@ -1,13 +1,13 @@
 ﻿{
     "panels": [
         {
-            "module": "meIdentification",
+            "module": "policyDataEntryEditPolicy",
             "type": {
                 "name": "label"
             },
             "label": {
-                "langProp": "meIdentification",
-                "hint": "Identification"
+                "langProp": "policyDataEntryEditPolicy",
+                "hint": "Policy Data Editor"
             },
             "properties": {
                 "summary": {

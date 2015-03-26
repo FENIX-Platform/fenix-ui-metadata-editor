@@ -143,7 +143,6 @@ define(["fx-editor/controllers/Fx-editor-page",
                 options.widget.lang = lang;
             }
 
-
             if (options.hasOwnProperty('resourceType')) {
                 options.resourceType = options['resourceType'];
             }
@@ -161,7 +160,8 @@ define(["fx-editor/controllers/Fx-editor-page",
                 onFinishClick: options.onFinishClick,
                 resourceType: options.resourceType,
                 widget: {lang: options.widget.lang},
-                readOnly: options.readOnly
+                readOnly: options.readOnly,
+                submit_default_action: options.submit_default_action
             });
 
             menu.init({

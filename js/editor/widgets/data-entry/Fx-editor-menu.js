@@ -200,8 +200,6 @@ define([
                     if(jsnObj.hasOwnProperty("modules")){
                         jsnModulesValidation = jsnObj.modules;
                     }
-
-
                 }
             }
         }
@@ -284,8 +282,6 @@ define([
           var $required = $('<span class="'+requiredCss+'" title="'+langProperties.requiredMetadataEntity+'"></span>');
           $a.append($required);
         }
-
-
 
         if(panel.hasOwnProperty("info")) {
              if(panel["info"].hasOwnProperty("popover")){

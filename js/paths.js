@@ -36,7 +36,6 @@
             'bootstrap-tagsinput': "lib/bootstrap-tagsinput",
             'bootstrap-datetimepicker': "lib/bootstrap-datetimepicker",
             'jQuery.XDomainRequest': 'lib/jQuery.XDomainRequest'
-
         },
         locale: 'en',
         shim: {

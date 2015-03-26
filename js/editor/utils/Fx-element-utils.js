@@ -2,7 +2,6 @@
     "jquery",
     "fx-editor/utils/Fx-json-utils",
     "i18n!fx-editor/conf/nls/guiLangProps"
-
 ], function ($, Json_Utils, guiLangProps) {
 
     var json_Utils;
@@ -11,7 +10,6 @@
     function Fx_Element_Utils() {
         json_Utils =  new Json_Utils();
     }
-
 
     function iterate(obj, codes) {
         for (var property in obj) {
@@ -22,16 +20,12 @@
                     codes.push(obj[property]);
                 }
             }
-
         }
     }
-
 
     function setFirstItemSelected (select) {
         select.val(select.find("option:first").val());
     }
-
-
 
     Fx_Element_Utils.prototype.setSelectedValues = function(select, value, isRequired, optsLength) {
         var opts = [];
@@ -48,8 +42,7 @@
 
                 select.html(opts.join(""));
             }
-
-            select.val(codes);
+            select.val(codes).change();
 
         } //else {
             //if(isRequired){
@@ -316,7 +309,6 @@
             if(elem.hasOwnProperty("modules")) {
                 self.createModuleOptions(elem["modules"], options, resourceType, label);
             }
-
         }
     }
 

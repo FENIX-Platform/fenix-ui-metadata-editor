@@ -49,9 +49,6 @@
                 }
             }
 
-
-
-
             // else {
             //  if(!e.source.datafields[0].hasOwnProperty("code") && !e.source.datafields[0].hasOwnProperty("label")){
             //      throw new Error("ELEM_NO_DATAFIELDS_CODE_LABEL");
@@ -232,10 +229,8 @@
 
         $.getJSON(source.url, function(data, status, xhr) {
             if( xhr.status == 200 ) {
-                console.log("xhr.status == 200 !!!!!")
                 //sort data
                 var rootItem, options = [];
-                console.log(root);
                 if(root!== undefined)  {
                     rootItem = data[root];
                 } else {
@@ -259,7 +254,8 @@
                 options.push(element_Utils.createEmptyOption(element, langProperties.pleaseSelect, lang));
                 // }
 
-                options.push("<option value='-' style='background-color: #E6E6E6'>"+langProperties.otherOption+"</option>");
+                options.push("<option value='' label='other' style='background-color: #E6E6E6'>"+langProperties.otherOption+"</option>");
+                //options.push("<option style='background-color: #E6E6E6'>"+langProperties.otherOption+"</option>");
 
                 for(var i = 0; i < rootItem.length; i++){
                     var codeVal = rootItem[i];
@@ -291,14 +287,15 @@
                 }
 
                 var $button = $('<button  class="btn btn-success" id="otherSaveButton'+key+'">'+langProperties.otherSave+'</button>');
+                var $button2 = $('<input type="button" class="btn btn-success" id="otherSaveButton'+key+'" value="'+langProperties.otherSave+'"></input>');
                 var $input = $("<input data-other-inserted='false' data-other-code='' data-other-label='' type=\"text\" name=\"other\" id='otherOptions"+key+"'>");
                 $(containerId).append($input);
-                $(containerId).append($button);
+                $(containerId).append($button2);
                 $('#otherOptions'+key).hide();
-                $button.hide();
+                $button2.hide();
 
                 //Initialize Save Button
-                $button.on('click', function (e) {
+                $button2.on('click', function (e) {
 
                     var newValue = $input.val();
 
@@ -318,15 +315,17 @@
                 });
 
                 $('#'+key).change(function () {
-                    if ($(this).val() === '-') {
+                    var selected_value= $(this).find('option:selected').text();
+                    //if ($(this).val() === '-') {
+                    if (selected_value === langProperties.otherOption) {
                         // Handle new option
                         $('#otherOptions'+key).val("");
                         $('#otherOptions'+key).show();
-                        $button.show();
+                        $button2.show();
                     }
                     else{
                         $('#otherOptions'+key).hide();
-                        $button.hide();
+                        $button2.hide();
                     }
                 });
                 callback();
@@ -353,14 +352,12 @@
 
         if((code!=null)&&(typeof code!='undefined')&&(code.length>0)){
             //Remove the old value from the list
-            if(code!=item["code"]){
                 for(var iRoot=0; iRoot<rootItem.length; iRoot++){
                     if(rootItem[iRoot].code == code){
                         rootItem.splice(iRoot, 1);
                         options.splice((iRoot+2), 1);
                     }
                 }
-            }
         }
 
         if(sortLabels){
@@ -565,8 +562,8 @@
 
 
     Fx_ui_Select.prototype.getValue = function (e) {
-        console.log("e.id "+e.id);
-        console.log("$(#e.id).val() = "+$("#" + e.id).val())
+        //console.log("e.id "+e.id);
+        //console.log("$(#e.id).val() = "+$("#" + e.id).val())
         return $("#" + e.id).val();
     };
 

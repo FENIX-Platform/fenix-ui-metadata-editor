@@ -357,8 +357,6 @@ define([
     };
     DataEntryController.prototype.evtInitStorage = function (e) {
 
-        console.log("evtInitStorage")
-
         if (source === null && resourceTypeModule !== undefined && e.id === resourceTypeModule) {
             var resourceTypeModuleValues = {};
             resourceTypeModuleValues["resourceRepresentationType"] = resourceType;
@@ -527,39 +525,6 @@ define([
         amplify.subscribe(o.events.SELECT, this, this.evtSelect)
         amplify.subscribe(o.events.EXIT_METADATA, this, this.evtExitMetadata)
         amplify.subscribe(o.events.COPY_METADATA, this, this.evtCopyMetadata)
-
-        /**  document.body.addEventListener(o.events.SELECT, function (e) {
-          // console.log("----------------- DATA ENTRY (SELECT) "+e.detail.module);
-             var keys = w_Storage.getAllKeys();
-
-          //  console.log("============= STORAGE CHECK START ====== keys = "+keys.length);
-          //  for(var i=0; i<keys.length; i++){
-            //    console.log("============= STORAGE KEY = "+keys[i]);
-           //  }
-           // console.log("============= STORAGE CHECK END ======");
-
-
-
-           var moduleId = e.detail.module.module;
-
-          // console.log("----------------- DATA ENTRY (SELECT) "+moduleId);
-            if(w_Storage.getItem(moduleId)){
-                var jsn = w_Storage.getItem(moduleId)[moduleId];
-                var values = JSON.parse(jsn);
-                //console.log("========= JSN STRING PARSE +++++++++++++++++++")
-               // console.log(values)
-
-                self.form.createModuleForm(e.detail.module, values);
-            } else {
-                self.form.createModuleForm(e.detail.module);
-            }
-
-
-           // console.log("----------------- DATA ENTRY (SELECT) PARSE METADATA CALL ==================== ");
-            //////////////////////////////////////////////////////
-          //  self.parseMetadata();
-
-        }, false);   **/
         amplify.subscribe(o.events.INIT_STORAGE, this, this.evtInitStorage);
         amplify.subscribe(o.events.CHECK_FORM_CHANGED, this, this.evtCheckFormChanged);
         amplify.subscribe(o.events.SUBMIT, this, this.evtSubmit);
@@ -569,20 +534,10 @@ define([
         amplify.subscribe(o.events.OVERWRITE_METADATA_SUCCESS, this, this.evtOverwriteMetadataSuccess);
         amplify.subscribe(o.events.FIND, this, this.evtFind);
         amplify.subscribe(o.events.LOAD, this, this.evtLoad);
-        /**   document.body.addEventListener(o.events.SAVE, function (e) {
-            var form = e.detail.form,
-                module = e.detail.module;
-
-            //check the
-            w_Commons.setCacheModule(module, form);
-            w_Commons.raiseCustomEvent(form, "submit.editor.fx", {});
-
-        }, false);      **/
         amplify.subscribe(o.events.REMOVE, this, this.evtRemove);
 
 
         $(selectors.TOGGLE_BTN).on('click', {self: this}, function (e) {
-            //  console.log(' $(selectors.CONTAINER).is(":visible") = '+$(selectors.CONTAINER).is(":visible"));
             if ($(selectors.CONTAINER).is(":visible")) {
                 e.data.self.collapseFilter();
             } else {
@@ -590,49 +545,6 @@ define([
             }
         });
 
-
-        /**    $(selectors.COPY_BTN).on('click', {self: this},function(e){
-                // Prevent form submission
-                 e.preventDefault();
-                var uid = $("#rUid").val();
-                var version = $("#rVersion").val();
-    
-                if (cache.saveAjax.hasOwnProperty(o.saveTypes.GET)) {
-                   var url =  cache.saveAjax[o.saveTypes.GET].url;
-                   var type =  cache.saveAjax[o.saveTypes.GET].type;
-    
-    
-                    if(version !== "" && uid !== null){
-                      url = url.replace("version", version);
-                      url = url.replace("uid", uid);
-                   }
-                   if(version == "" && uid !== null){
-                       url = url.replace("uid", "uid/"+uid);
-                       url = url.replace("/version", "");
-                   }
-    
-                    //SPECIAL ENTITIES included in copy, but will be set to null
-                   self.populateStorageWithSpecialEntities();
-    
-                    var keys =  w_Storage.getAllKeys();
-                    w_Commons.raiseCustomEvent(document.body, o.events.COPY, {url:url, type: type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: COPY"});
-                }
-    
-            })  **/
-
-        /**   $(selectors.FINISH_BTN).on('click', {self: this},function(e){
-               var type, url, event;
-              //Get the urls based on the cache.saveAction type
-              url = cache.saveAjax[o.saveTypes.OVERWRITE].url;
-              type = cache.saveAjax[o.saveTypes.OVERWRITE].type;
-   
-               if(cache.saveAction.type  == o.saveTypes.OVERWRITE){
-                   var rootValues =  w_Storage.getItem(cache.rootEntity);
-                   if(rootValues != ""){
-                       w_Commons.raiseCustomEvent(document.body, o.events.FINAL_SAVE,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: FINAL SAVE"});
-                   }
-               }
-           }) **/
     };
 
     DataEntryController.prototype.finish = function (data) {
@@ -1305,6 +1217,8 @@ define([
     DataEntryController.prototype.unbindEventListeners = function () {
 
         amplify.unsubscribe(o.events.SELECT, this.evtSelect);
+        amplify.unsubscribe(o.events.EXIT_METADATA, this.evtExitMetadata);
+        amplify.unsubscribe(o.events.COPY_METADATA, this.evtCopyMetadata);
         amplify.unsubscribe(o.events.INIT_STORAGE, this.evtInitStorage);
         amplify.unsubscribe(o.events.CHECK_FORM_CHANGED, this.evtCheckFormChanged);
         amplify.unsubscribe(o.events.SUBMIT, this.evtSubmit);
@@ -1315,7 +1229,6 @@ define([
         amplify.unsubscribe(o.events.FIND, this.evtFind);
         amplify.unsubscribe(o.events.LOAD, this.evtLoad);
         amplify.unsubscribe(o.events.REMOVE, this.evtRemove);
-
 
         $(selectors.TOGGLE_BTN).off();
     };

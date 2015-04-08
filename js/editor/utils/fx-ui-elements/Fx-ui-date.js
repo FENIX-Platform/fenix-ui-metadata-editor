@@ -1,5 +1,8 @@
 ﻿define([
-    "jquery",  "fx-editor/utils/Fx-date-utils", "fx-editor/utils/Fx-element-utils", "i18n!fx-editor/conf/nls/guiLangProps"], function ($, Date_Utils, Element_Utils, guiLangProps) {
+    "jquery",
+    "fx-editor/utils/Fx-date-utils",
+    "fx-editor/utils/Fx-element-utils",
+    "i18n!fx-editor/conf/nls/guiLangProps"], function ($, Date_Utils, Element_Utils, guiLangProps) {
 
     var date_Utils, dateFormat, element_Utils;
 
@@ -18,24 +21,24 @@
         var fromFormat = date_Utils.getFormat(o.datesConfig, date_Utils.getDateType(), "db");
         var toFormat = date_Utils.getFormat(o.datesConfig, date_Utils.getDateType(), "gui");
 
-         //console.log("fromFormat = "+fromFormat);
-       // console.log("toFormat = "+toFormat);
+        //console.log("fromFormat = "+fromFormat);
+        // console.log("toFormat = "+toFormat);
 
-        if(o.validationUtils != undefined) {
+        if (o.validationUtils != undefined) {
             //console.log("VALIDATION UTILS DEFINED --------------- ");
             bootstrapValidator_Utils = o.validationUtils;
-        }else {
-           // console.log("VALIDATION UTILS UNDEFINED --------------- "+key);
+        } else {
+            // console.log("VALIDATION UTILS UNDEFINED --------------- "+key);
         }
 
-        if(e.hasOwnProperty("rule")){
+        if (e.hasOwnProperty("rule")) {
             validationRule = e.rule;
         }
 
         // create the HTML element
         var text = $("<input/>", {
             "class": o.cssClass,
-            "name" : name
+            "name": name
         });
 
         //set the type
@@ -44,32 +47,32 @@
         text.attr('id', key);
 
         //set Value
-        if(o.values!=null){
+        if (o.values != null) {
             value = element_Utils.getElementValue(name, o.values, e);
         }
 
 
-        if(value !=null && value!== ""){
-             var fDate = date_Utils.formatDate(value, toFormat);
+        if (value != null && value !== "") {
+            var fDate = date_Utils.formatDate(value, toFormat);
             //var fDate = date_Utils.convertFormat(value, fromFormat, toFormat);
             text.val(fDate);
         } //else {
-           // var today = new Date();
-           // var fDate = date_Utils.formatDate(today, toFormat);
-           // text.val(fDate);
-      //  }
+        // var today = new Date();
+        // var fDate = date_Utils.formatDate(today, toFormat);
+        // text.val(fDate);
+        //  }
 
         //Date Format
-            text.attr('data-date-format', toFormat);
-            text.attr('data-date-db-format', fromFormat);
+        text.attr('data-date-format', toFormat);
+        text.attr('data-date-db-format', fromFormat);
 
 
         if (e.hasOwnProperty("placeholder")) {
-          if (e.placeholder.hasOwnProperty("langProp"))
-             text.attr('placeholder', guiLangProps[e["placeholder"]["langProp"]]); //text.attr('placeholder', e["placeholder"][o.lang]);
+            if (e.placeholder.hasOwnProperty("langProp"))
+                text.attr('placeholder', guiLangProps[e["placeholder"]["langProp"]]); //text.attr('placeholder', e["placeholder"][o.lang]);
         }
 
-        if(validationRule &&  bootstrapValidator_Utils){
+        if (validationRule && bootstrapValidator_Utils) {
             bootstrapValidator_Utils.setValidationAttributes(text, validationRule, o.lang);
         }
 
@@ -79,22 +82,24 @@
         //Prepend = Add as first child item
         //console.log("============ DATE: container is #"+ o.container+key);
 
-        var containerId = '#'+ o.container + key;
-        if(e.hasOwnProperty("fieldSetId"))  {
-            containerId = '#'+o.container + e.fieldSetId+'-'+key;
+        var containerId = '#' + o.container + key;
+        if (e.hasOwnProperty("fieldSetId")) {
+            containerId = '#' + o.container + e.fieldSetId + '-' + key;
         }
 
 
-        if(validationRule &&  bootstrapValidator_Utils){
-            if(validationRule.hasOwnProperty("validators")) {
-                $(containerId).on('dp.change dp.show',function (e) {
+        if (validationRule && bootstrapValidator_Utils) {
+            if (validationRule.hasOwnProperty("validators")) {
+                $(containerId).on('dp.change dp.show', function (e) {
                     $('#fx-editor-form form').bootstrapValidator('revalidateField', text.attr('name'));
                 });
             }
         }
 
+        //console.log(text)
+        //console.log( $(containerId).children())
         $(containerId).prepend(text); //REFACTORING
-      //  $(containerId).html(text);
+        //$(containerId).html(text);
 
         callback();
 

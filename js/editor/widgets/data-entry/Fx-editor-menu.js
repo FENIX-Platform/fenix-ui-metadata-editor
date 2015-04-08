@@ -90,7 +90,7 @@ define([
             //Cache json GUI configuration file
             $.when($.get(conf))
                 .done(function (guiJsn) {
-                    cache.json = guiJsn//JSON.parse(data);
+                    cache.json = guiJsn; //JSON.parse(data);
                     self.initStructure();
                     var panels = self.renderMenu(cache.json);
                     callback(panels);
@@ -160,6 +160,7 @@ define([
     }
 
     Fx_Editor_Menu.prototype.buildPanel = function (panel) {
+
         var self = this,
             id = "fx-collapse-panel-" + w_Commons.getFenixUniqueId(),
             requiredEntity = false, jsnModulesValidation;
@@ -209,6 +210,7 @@ define([
 
 
     Fx_Editor_Menu.prototype.buildPanelHeader = function (panel, id, parentId, requiredEntity) {
+
         //Init header
         var self = this;
         var $header = $('<div class="panel-heading"></div>'),

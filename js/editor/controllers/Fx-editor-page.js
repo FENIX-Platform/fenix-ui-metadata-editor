@@ -28,6 +28,7 @@ define([
 
 
     PageController.prototype.renderComponents = function () {
+
         // console.log("------------ (2) PAGE CONTROLLER RENDER COMPONENTS() ");
         this.dataentry.render();
     };

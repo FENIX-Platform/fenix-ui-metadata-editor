@@ -101,7 +101,7 @@ define([
         readOnly = o.readOnly;
 
         // SET SAVE ACTION: Default is Create New
-        cache.saveAction = { type: o.saveTypes.CREATE };
+        cache.saveAction = {type: o.saveTypes.CREATE};
         cache.saveAjax = {};
     };
 
@@ -162,33 +162,58 @@ define([
                 self.prepareGuiConf();
 
 
-
-
                 //  console.log("MAPPING CACHE ....");
                 //  console.log( cache.jsonMapping);
                 //  console.log("AJAX CACHE ....");
 
 
                 //self.menu.render();
-                self.form.render({ config: { cache: { mapping: cache.jsonMapping, validation: cache.jsonValidationConf, dates: cache.jsonDatesConf } } });
+                self.form.render({
+                    config: {
+                        cache: {
+                            mapping: cache.jsonMapping,
+                            validation: cache.jsonValidationConf,
+                            dates: cache.jsonDatesConf
+                        }
+                    }
+                });
 
                 //HIDE PROGRESS FOR NOW
                 //  self.progress.render();
 
                 //TEST
 
-                self.menu.render({ config: { cache: { gui: cache.jsonGuiConf, validation: cache.jsonValidationConf } } }, function (panels) {
+                self.menu.render({
+                    config: {
+                        cache: {
+                            gui: cache.jsonGuiConf,
+                            validation: cache.jsonValidationConf
+                        }
+                    }
+                }, function (panels) {
 
                     //  if(cache.jsonAjax.hasOwnProperty("onSave")){
                     if (cache.jsonAjax.hasOwnProperty("create")) {
-                        cache.saveAjax[o.saveTypes.CREATE] = { url: cache.jsonAjax.create.url, type: cache.jsonAjax.create.type, response: cache.jsonAjax.create.response };
+                        cache.saveAjax[o.saveTypes.CREATE] = {
+                            url: cache.jsonAjax.create.url,
+                            type: cache.jsonAjax.create.type,
+                            response: cache.jsonAjax.create.response
+                        };
                     }
                     if (cache.jsonAjax.hasOwnProperty("overwrite")) {
-                        cache.saveAjax[o.saveTypes.OVERWRITE] = { url: cache.jsonAjax.overwrite.url, type: cache.jsonAjax.overwrite.type, request: cache.jsonAjax.overwrite.request };
+                        cache.saveAjax[o.saveTypes.OVERWRITE] = {
+                            url: cache.jsonAjax.overwrite.url,
+                            type: cache.jsonAjax.overwrite.type,
+                            request: cache.jsonAjax.overwrite.request
+                        };
                     }
 
                     if (cache.jsonAjax.hasOwnProperty("get")) {
-                        cache.saveAjax[o.saveTypes.GET] = { url: cache.jsonAjax["get"].url, type: cache.jsonAjax["get"].type, response: cache.jsonAjax["get"].response };
+                        cache.saveAjax[o.saveTypes.GET] = {
+                            url: cache.jsonAjax["get"].url,
+                            type: cache.jsonAjax["get"].type,
+                            response: cache.jsonAjax["get"].response
+                        };
                     }
                     // }
                     if (source == null)
@@ -206,7 +231,13 @@ define([
 
                         var keys = w_Storage.getAllKeys();
 
-                        amplify.publish(o.events.LOAD, { url: source.url, type: source.type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: LOAD" });
+                        amplify.publish(o.events.LOAD, {
+                            url: source.url,
+                            type: source.type,
+                            mapping: cache.jsonMapping,
+                            keys: keys,
+                            call: "DATA-ENTRY: LOAD"
+                        });
 
                         //self.parseData();
                         //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
@@ -277,12 +308,17 @@ define([
             var rootValues = w_Storage.getItem(cache.rootEntity);
             if (rootValues != "") {
                 //w_Commons.raiseCustomEvent(document.body, o.events.FINAL_SAVE, { url: url, type: type, mapping: cache.jsonMapping, call: "DATA-ENTRY: FINAL SAVE" });
-                amplify.publish(o.events.FINAL_SAVE, { url: url, type: type, mapping: cache.jsonMapping, call: "DATA-ENTRY: FINAL SAVE" });
+                amplify.publish(o.events.FINAL_SAVE, {
+                    url: url,
+                    type: type,
+                    mapping: cache.jsonMapping,
+                    call: "DATA-ENTRY: FINAL SAVE"
+                });
             }
         }
         else {
             //w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: null, call: "DATA-ENTRY: FINISH" });
-            amplify.publish(o.events.METADATA_EDITOR_FINISH, { data: null, call: "DATA-ENTRY: FINISH" })
+            amplify.publish(o.events.METADATA_EDITOR_FINISH, {data: null, call: "DATA-ENTRY: FINISH"})
         }
     };
     DataEntryController.prototype.evtCopyMetadata = function (e) {
@@ -310,10 +346,19 @@ define([
 
             var keys = w_Storage.getAllKeys();
             //w_Commons.raiseCustomEvent(document.body, o.events.COPY, { url: url, type: type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: COPY" });
-            amplify.publish(o.events.COPY, { url: url, type: type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: COPY" });
+            amplify.publish(o.events.COPY, {
+                url: url,
+                type: type,
+                mapping: cache.jsonMapping,
+                keys: keys,
+                call: "DATA-ENTRY: COPY"
+            });
         }
     };
     DataEntryController.prototype.evtInitStorage = function (e) {
+
+        console.log("evtInitStorage")
+
         if (source === null && resourceTypeModule !== undefined && e.id === resourceTypeModule) {
             var resourceTypeModuleValues = {};
             resourceTypeModuleValues["resourceRepresentationType"] = resourceType;
@@ -321,6 +366,7 @@ define([
             w_Storage.setItem(e.id, resourceTypeModuleValues);
         }
         else {
+
             w_Storage.setItem(e.id, "");
         }
     };
@@ -331,11 +377,11 @@ define([
     };
     DataEntryController.prototype.evtSubmit = function (e) {
         var form = e.form,
-                module = e.module,
-                moduleLabel = e.moduleLabel,
-                url,
-                type,
-                event;
+            module = e.module,
+            moduleLabel = e.moduleLabel,
+            url,
+            type,
+            event;
 
         this.cacheFormValues();
 
@@ -361,10 +407,10 @@ define([
 
             if (rootValues != "") {
                 //w_Commons.raiseCustomEvent(form, event, { url: url, type: type, mapping: cache.jsonMapping, call: "DATA-ENTRY: SAVE" });
-                amplify.publish(event, { url: url, type: type, mapping: cache.jsonMapping, call: "DATA-ENTRY: SAVE" });
+                amplify.publish(event, {url: url, type: type, mapping: cache.jsonMapping, call: "DATA-ENTRY: SAVE"});
             } else {
                 //w_Commons.raiseCustomEvent(document.body, o.events.EMPTY_ROOT_ENTITY, { moduleLabel: moduleLabel, root: cache.rootLabel });
-                amplify.publish(o.events.EMPTY_ROOT_ENTITY, { moduleLabel: moduleLabel, root: cache.rootLabel });
+                amplify.publish(o.events.EMPTY_ROOT_ENTITY, {moduleLabel: moduleLabel, root: cache.rootLabel});
             }
         }
     };
@@ -443,7 +489,7 @@ define([
         }
 
         // RE-SET SAVE ACTION: OVERWRITE
-        cache.saveAction = { type: o.saveTypes.OVERWRITE };
+        cache.saveAction = {type: o.saveTypes.OVERWRITE};
     };
     DataEntryController.prototype.evtOverwriteMetadataSuccess = function (e) {
         var text = lang_Utils.successfulUpdate({});
@@ -458,7 +504,7 @@ define([
         });
 
         // SET SAVE ACTION: Default OVERWRITE
-        cache.saveAction = { type: o.saveTypes.OVERWRITE };
+        cache.saveAction = {type: o.saveTypes.OVERWRITE};
     };
     DataEntryController.prototype.evtFind = function (e) {
         //console.log("----------------- DATA ENTRY (FIND) ");
@@ -535,7 +581,7 @@ define([
         amplify.subscribe(o.events.REMOVE, this, this.evtRemove);
 
 
-        $(selectors.TOGGLE_BTN).on('click', { self: this }, function (e) {
+        $(selectors.TOGGLE_BTN).on('click', {self: this}, function (e) {
             //  console.log(' $(selectors.CONTAINER).is(":visible") = '+$(selectors.CONTAINER).is(":visible"));
             if ($(selectors.CONTAINER).is(":visible")) {
                 e.data.self.collapseFilter();
@@ -597,12 +643,12 @@ define([
             //  o.onFinishClick(data);
 
             //w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
-            amplify.publish(o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
+            amplify.publish(o.events.METADATA_EDITOR_FINISH, {data: data, call: "DATA-ENTRY: FINISH"});
         } else {
             if (Object.keys(data).length > 0) {
 
 
-                amplify.publish(o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
+                amplify.publish(o.events.METADATA_EDITOR_FINISH, {data: data, call: "DATA-ENTRY: FINISH"});
                 //w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
                 amplify.publish(o.events.OVERWRITE_METADATA_SUCCESS, {});
                 //w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
@@ -613,6 +659,7 @@ define([
 
     DataEntryController.prototype.createForm = function (moduleId, module, gui) {
         // var moduleId = e.detail.module.module;
+
 
         // console.log("----------------- DATA ENTRY (SELECT): createForm "+moduleId);
         if (w_Storage.getItem(moduleId)) {
@@ -683,6 +730,7 @@ define([
     };
 
     DataEntryController.prototype.cacheFormValues = function () {
+        console.log("cache")
         var moduleIdentifier = this.form.getCurrentModule();
         var moduleValues = this.form.getValues();
         //console.log("moduleValues = "+moduleValues);
@@ -881,6 +929,8 @@ define([
 
 
     DataEntryController.prototype.updateCopyCache = function (data) {
+
+        console.log("updateCopyCache")
         // Determine the root entity
         var storageKeys = w_Storage.getAllKeys();
         //Populate the storage cache
@@ -916,7 +966,6 @@ define([
         }
 
 
-
         // console.log("=============== AFTER LOAD =================");
 
         // for(var i=0; i<storageKeys.length; i++){
@@ -925,12 +974,11 @@ define([
         // }
 
         // SET SAVE ACTION: remains as create
-        cache.saveAction = { type: o.saveTypes.CREATE };
+        cache.saveAction = {type: o.saveTypes.CREATE};
 
         this.menu.setDefault();
 
     };
-
 
 
     function setFieldsToEmpty(propObj, moduleFields) {
@@ -986,7 +1034,6 @@ define([
         }
 
 
-
     }
 
     DataEntryController.prototype.updateCache = function (data) {
@@ -1004,7 +1051,7 @@ define([
 
 
         // SET SAVE ACTION: As the data was loaded
-        cache.saveAction = { type: o.saveTypes.OVERWRITE };
+        cache.saveAction = {type: o.saveTypes.OVERWRITE};
 
         //Test Get storage cache
         // for(var i=0; i<storageKeys.length; i++){
@@ -1038,7 +1085,10 @@ define([
 
     DataEntryController.prototype.rootEntityStatus = function (isAvailable) {
         //w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_ROOT_ENTITY_STATUS, { data: { "available": isAvailable }, call: "DATA-ENTRY: ROOT_ENTITY_STATUS" });
-        amplify.publish(o.events.METADATA_EDITOR_ROOT_ENTITY_STATUS, { data: { "available": isAvailable }, call: "DATA-ENTRY: ROOT_ENTITY_STATUS" });
+        amplify.publish(o.events.METADATA_EDITOR_ROOT_ENTITY_STATUS, {
+            data: {"available": isAvailable},
+            call: "DATA-ENTRY: ROOT_ENTITY_STATUS"
+        });
     };
 
     DataEntryController.prototype.parseData = function () {
@@ -1099,7 +1149,6 @@ define([
 
         return rootEntityLabel;
     }
-
 
 
     DataEntryController.prototype.splitJsnByKeys = function (storageKeys, loadedJsnObj, rootIdentifier) {
@@ -1255,6 +1304,7 @@ define([
 
     DataEntryController.prototype.unbindEventListeners = function () {
 
+        amplify.unsubscribe(o.events.SELECT, this.evtSelect);
         amplify.unsubscribe(o.events.INIT_STORAGE, this.evtInitStorage);
         amplify.unsubscribe(o.events.CHECK_FORM_CHANGED, this.evtCheckFormChanged);
         amplify.unsubscribe(o.events.SUBMIT, this.evtSubmit);

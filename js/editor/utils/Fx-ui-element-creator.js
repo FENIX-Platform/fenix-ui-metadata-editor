@@ -165,6 +165,7 @@ define([
                         completed++;
                         if(completed === Object.keys(obj).length) {
                           //  console.log("=================== CALLBACK FN2 CALLED "+ element.type.name);
+
                             callback();
                         }
                     })
@@ -319,6 +320,8 @@ define([
             //on completion the callback function is called
             asyncFunctionsTracker(elems, require, renderElement, function(){
                 //console.log("Async done ... before call callback!!!");
+
+                //console.log(callback)
                 callback.call();
             });
         }

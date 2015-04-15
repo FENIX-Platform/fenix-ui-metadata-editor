@@ -298,7 +298,7 @@ define([
         this.createForm(moduleId, module, gui);
     };
     DataEntryController.prototype.evtExitMetadata = function (e) {
-        console.log("----------------- EXIT_METADATA ");
+        //console.log("----------------- EXIT_METADATA ");
         var type, url, event;
         //Get the urls based on the cache.saveAction type
         url = cache.saveAjax[o.saveTypes.OVERWRITE].url;
@@ -642,7 +642,7 @@ define([
     };
 
     DataEntryController.prototype.cacheFormValues = function () {
-        console.log("cache")
+        //console.log("cache")
         var moduleIdentifier = this.form.getCurrentModule();
         var moduleValues = this.form.getValues();
         //console.log("moduleValues = "+moduleValues);
@@ -842,7 +842,7 @@ define([
 
     DataEntryController.prototype.updateCopyCache = function (data) {
 
-        console.log("updateCopyCache")
+        //console.log("updateCopyCache")
         // Determine the root entity
         var storageKeys = w_Storage.getAllKeys();
         //Populate the storage cache

@@ -2,7 +2,8 @@
     "jquery",
     "fx-editor/utils/Fx-date-utils",
     "fx-editor/utils/Fx-element-utils",
-    "i18n!fx-editor/conf/nls/guiLangProps"], function ($, Date_Utils, Element_Utils, guiLangProps) {
+    "i18n!fx-editor/conf/nls/guiLangProps"
+], function ($, Date_Utils, Element_Utils, guiLangProps) {
 
     var date_Utils, dateFormat, element_Utils;
 
@@ -101,6 +102,7 @@
         $(containerId).prepend(text); //REFACTORING
         //$(containerId).html(text);
 
+        //Callback: check if all elements are rendered, including the async element
         callback();
 
     };

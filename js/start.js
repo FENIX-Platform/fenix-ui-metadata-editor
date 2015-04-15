@@ -24,6 +24,8 @@ define(["fx-editor/controllers/Fx-editor-page",
 
         StartUp.prototype.init = function (options) {
 
+            //console.log("INIT ")
+
             if (!options.hasOwnProperty('container')) {
                 throw 'Metadata Editor needs a container!'
             }

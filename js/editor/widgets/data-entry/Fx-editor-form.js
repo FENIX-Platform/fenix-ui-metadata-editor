@@ -440,12 +440,13 @@
       //  $("#fx-editor-form form input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput(
        // );
 
-        $("#fx-editor-form form input[data-role=tagsinput], select[multiple][data-role=tagsinput]").each(function(){
+       /* $("#fx-editor-form form input[data-role=tagsinput], select[multiple][data-role=tagsinput]").each(function(){
+
             $(this).tagsinput(
                 {
                     trimValue: true,
                     confirmKeys: [13, 44]
-                    /**,tagClass: 'small' **/
+                    /!**,tagClass: 'small' **!/
                 }
             );
         });
@@ -453,10 +454,29 @@
 
 
           $("#fx-editor-form form div[class='input-group date']").each(function(){
+              console.log("Date")
              $(this).datetimepicker({
                 pickTime: false
             });
 
+        });*/
+
+
+
+
+
+        $("#fx-editor-form form input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput(
+            {
+                trimValue: true,
+                confirmKeys: [13, 44]
+                /**,tagClass: 'small' **/
+            }
+        );
+
+
+
+        $("#fx-editor-form form div[class='input-group date']").datetimepicker({
+            pickTime: false
         });
 
 

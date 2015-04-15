@@ -166,6 +166,7 @@ define([
                         if(completed === Object.keys(obj).length) {
                           //  console.log("=================== CALLBACK FN2 CALLED "+ element.type.name);
 
+                            //console.log(callback)
                             callback();
                         }
                     })
@@ -177,6 +178,7 @@ define([
                         completed++;
                         if(completed === Object.keys(obj).length) {
                            // console.log("=================== &&&&&&& CALLBACK FN2 CALLED "+ element.type.name);
+
                             callback();
                         }
                     }
@@ -321,7 +323,7 @@ define([
             asyncFunctionsTracker(elems, require, renderElement, function(){
                 //console.log("Async done ... before call callback!!!");
 
-                //console.log(callback)
+                //init jquery plugin and extension (e.g calendars, tags selectors)
                 callback.call();
             });
         }

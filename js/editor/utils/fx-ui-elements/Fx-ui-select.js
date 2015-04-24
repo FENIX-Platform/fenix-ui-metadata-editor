@@ -281,6 +281,7 @@
                 // }
 
                 for(var i = 0; i < rootItem.length; i++){
+                    console.log(rootItem[i])
                     var codeVal = rootItem[i];
 
                     if(codeProp !== undefined) {

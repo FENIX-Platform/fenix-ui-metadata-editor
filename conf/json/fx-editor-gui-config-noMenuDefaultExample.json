@@ -201,7 +201,8 @@
                         "datafields": {
                             "code": "code",
                             "label": "title",
-                            "lang": "title[EN]"
+                            "lang": "title[EN]",
+                            "defaultCode": "null"
                         }
                     },
                     "info": {
@@ -222,6 +223,9 @@
                         "popover": {
                             "langProp": "startDate"
                         }
+                    },
+                    "value": {
+                      "defaultValue": "2015/11/17"
                     }
                 },
                 "endDate": {
@@ -679,7 +683,8 @@
                         "name": "text"
                     },
                     "value": {
-                        "multilingual": true
+                        "multilingual": true,
+                        "default": "FENIX"
                     },
                     "label": {
                         "langProp": "valueType",

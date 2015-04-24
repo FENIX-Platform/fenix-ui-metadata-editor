@@ -82,7 +82,7 @@ define([
 
         //Save Data
         document.body.addEventListener("fx.editor.overwrite", function (e) {
-            //console.log("------------ PAGE CONTROLLER RENDER submit listener ");
+            console.log("------------ PAGE CONTROLLER RENDER submit listener ");
             self.bridge.init(e.detail);
             NProgress.start();
             self.bridge.query(self.dataentry, self.dataentry.overwriteMessage, self.dataentry);

@@ -38,6 +38,8 @@ define([
                 NEW_METADATA_SUCCESS: "fx.editor.saved",
                 OVERWRITE_METADATA_SUCCESS: "fx.editor.overwritten",
                 SUBMIT : "fx.editor.form.submit",
+                CANCEL: "fx.editor.cancel.host",
+                CANCEL_FORM: "fx.editor.form.cancel",
                 CHECK_FORM_CHANGED: "fx.editor.module.form_check",
                 SAVE : "fx.editor.save",
                 LOAD: "fx.editor.load",
@@ -456,12 +458,22 @@ define([
                 var rootValues =  w_Storage.getItem(cache.rootEntity);
 
                 if(rootValues != ""){
+                    alert("raiseCustomEvent 1 "+event )
                     w_Commons.raiseCustomEvent(form, event,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: SAVE"});
                 } else {
+                    alert("raiseCustomEvent 1 "+o.events.EMPTY_ROOT_ENTITY )
                     w_Commons.raiseCustomEvent(document.body, o.events.EMPTY_ROOT_ENTITY, {moduleLabel: moduleLabel, root: cache.rootLabel});
                 }
             }
          }, false);
+
+        document.body.addEventListener(o.events.CANCEL_FORM, function (e) {
+            var form = e.detail.form;
+            var event = o.events.CANCEL;
+            //console.log(form)
+            //$('body').trigger(event);
+            w_Commons.raiseCustomEvent(document.body, event,  {});
+        });
 
         document.body.addEventListener(o.events.EMPTY_ROOT_ENTITY, function (e) {
 

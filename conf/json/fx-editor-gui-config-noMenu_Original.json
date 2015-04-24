@@ -49,18 +49,6 @@
                                 "default": "XXX"
                             }
                         },
-                        "commodityDomain": {
-                          "type": {
-                            "name": "fixedLabel",
-                            "input-group": {
-                              "icon": "glyphicon glyphicon-phone-alt"
-                            }
-                          },
-                          "label": {
-                            "langProp": "commodityDomain",
-                            "hint": "Commodity Domain"
-                          }
-                        },
                         "commodityClass": {
                             "type": {
                                 "name": "fixedLabel",
@@ -132,18 +120,6 @@
                                 "langProp": "policyCondition",
                                 "hint": "Policy Condition"
                             }
-                        },
-                        "individualPolicy": {
-                          "type": {
-                            "name": "fixedLabel",
-                            "input-group": {
-                              "icon": "glyphicon glyphicon-phone-alt"
-                            }
-                          },
-                          "label": {
-                            "langProp": "individualPolicy",
-                            "hint": "Individual Policy"
-                          }
                         }
                     }
                 },
@@ -643,36 +619,13 @@
                     }
                 },
                 "imposedEndDate": {
-                  "type": {
-                    "name": "select"
-                  },
-                  "value": {
-                    "multilingual": true
-                  },
-                  "label": {
-                    "langProp": "imposedEndDate",
-                    "hint": "Imposed End Date"
-                  },
-                  "source": {
                     "type": {
-                      "name": "CodeList",
-                      "object": "OJCodeList",
-                      "system": "IANAcharacterSet",
-                      "version": ""
+                        "name": "date"
                     },
-                    "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/imposedEndDate/POLICY",
-                    "dataroot": "data",
-                    "datafields": {
-                      "code": "code",
-                      "label": "title",
-                      "lang": "title[EN]"
+                    "label": {
+                        "langProp": "imposedEndDate",
+                        "hint": "Imposed End Date"
                     }
-                  },
-                  "info": {
-                    "popover": {
-                      "langProp": "imposedEndDate"
-                    }
-                  }
                 },
                 "valueType": {
                     "type": {
@@ -684,6 +637,18 @@
                     "label": {
                         "langProp": "valueType",
                         "hint": "Value Type"
+                    }
+                },
+                "commodityClassName": {
+                    "type": {
+                        "name": "text"
+                    },
+                    "value": {
+                        "multilingual": true
+                    },
+                    "label": {
+                        "langProp": "commodityClassName",
+                        "hint": "Commodity Class Name"
                     }
                 }
             }

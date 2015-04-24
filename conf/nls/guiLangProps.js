@@ -21,6 +21,7 @@ define({
         "valueType": "Value Type           ",
         "exemptions": "Exemptions",
         "localCondition": "Local Condition",
+        "individualPolicy": "Individual Policy",
         "policyNotes": "Notes",
         "link": "Link",
         "source": "Source",
@@ -74,6 +75,7 @@ define({
         "subnationalLevel": "Subnational Level",
         "commodityClass": "Commodity Class",
         "commodityId": "Commodity Id",
+        "commodityDomain": "Commodity Domain",
         "policyDomain": "Policy Domain",
         "policyType": "Policy Type",
         "policyMeasure": "Policy Measure",
@@ -253,7 +255,8 @@ define({
         "axisUnits": "Semi-major axis unit of measure",
         "denominatorOfFlatteningRatio": "Denominator of flattening rate",
         "datum": "Datum",
-        "datumName": "Name of datum"
+        "datumName": "Name of datum",
+        "policyDataEntryEditPolicy": "Policy Data Editor"
     },
     "fr": true
 });

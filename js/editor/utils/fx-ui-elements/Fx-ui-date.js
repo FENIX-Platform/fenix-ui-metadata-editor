@@ -48,16 +48,27 @@
             value = element_Utils.getElementValue(name, o.values, e);
         }
 
+        console.log("value")
+        console.log(value)
 
         if(value !=null && value!== ""){
              var fDate = date_Utils.formatDate(value, toFormat);
             //var fDate = date_Utils.convertFormat(value, fromFormat, toFormat);
             text.val(fDate);
-        } //else {
-           // var today = new Date();
-           // var fDate = date_Utils.formatDate(today, toFormat);
-           // text.val(fDate);
-      //  }
+        } else {
+            if(e.hasOwnProperty("value")){
+                if(e.value.hasOwnProperty("defaultValue") ){
+                    //var today = new Date();
+                    var fDate = date_Utils.formatDate(e.value.defaultValue, toFormat);
+                    text.val(fDate);
+                }
+            }
+        }
+
+        //value = "23/04/2015";
+        //var fDate = date_Utils.formatDate(value, toFormat);
+        ////var fDate = date_Utils.convertFormat(value, fromFormat, toFormat);
+        //text.val(fDate);
 
         //Date Format
             text.attr('data-date-format', toFormat);

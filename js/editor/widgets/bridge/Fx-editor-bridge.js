@@ -69,13 +69,16 @@ define([
             console.log(d)
             alert("before ajax call 2")
             console.log(o)
-            alert("before ajax call 3")
+            alert("before ajax call 5")
+            //var dataToLoad = {};
+            //dataToLoad.pdObj = plugin.getDataEntry();
+            var data2= {"pdObj": d}
 
             $.ajax({
                 url: o.url,
                 type: o.type,
-                contentType: 'application/json',
-                dataType: 'json',
+                //contentType: 'application/json',
+                //dataType: 'json',
                 success: function (response, textStatus, jqXHR ) {
 
                     if(jqXHR.status !== 204){
@@ -92,9 +95,11 @@ define([
                             { }
                         );
                     }
-
                 },
-                data: plugin.getDataEntry(), //JSON.stringify(plugin.getDataEntry()),
+                //data: plugin.getDataEntry(), //JSON.stringify(plugin.getDataEntry()),
+                //data: JSON.stringify({"pdObj":plugin.getDataEntry()}),
+                //data: JSON.stringify(dataToLoad),
+                data: data2,
                 complete: function(){
                     w_commons.raiseCustomEvent(
                         document.body,

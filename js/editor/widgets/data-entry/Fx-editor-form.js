@@ -44,7 +44,8 @@
                 SUBMIT: 'fx.editor.form.submit',
                 INVALID: 'fx.editor.form.invalid',
                 NEW_METADATA_SUCCESS: "fx.editor.saved",
-                OVERWRITE_METADATA_SUCCESS: "fx.editor.overwritten"
+                OVERWRITE_METADATA_SUCCESS: "fx.editor.overwritten",
+                CANCEL: 'fx.editor.form.cancel'
             }
         };
 
@@ -575,6 +576,8 @@
         var $panelHeader = $('<div class="panel-heading fx-active-panel"></div>'),
             $label = $('<h3 class="panel-title"></h3>');
 
+        //alert("In buildPanelHeader")
+        //console.log(module)
 
         //if (module.hasOwnProperty("module")) {
         if (module.hasOwnProperty("label")) {
@@ -595,9 +598,9 @@
 
         //Add any introductory text
         if (module.hasOwnProperty("intro")) {
-           /** if(module["intro"].hasOwnProperty([o.widget.lang])){
-                $panelBody.append('<div class="well well-sm">'+module["intro"][o.widget.lang]+'</div>');
-            }  **/
+           // if(module["intro"].hasOwnProperty([o.widget.lang])){
+           //     $panelBody.append('<div class="well well-sm">'+module["intro"][o.widget.lang]+'</div>');
+           // }
              if(module["intro"].hasOwnProperty("langProp")){
                 $panelBody.append('<div class="well well-sm">'+guiLangProps[module["intro"]["langProp"]]+'</div>');
             }
@@ -717,6 +720,7 @@
                 //console.log("=========================== requiredFieldsExist "+requiredFieldsExist);
 
                 if(requiredFieldsExist) {
+
                     var requiredCss =  bootstrapValidator_Utils.getFeedbackIconCss(bootstrapValidator_Utils.getFeedbackIconTypes().REQUIRED),
                     $requiredDiv = $('<div class="well well-sm"></div>'),
                     $requiredStrong = $(''),
@@ -769,7 +773,10 @@
         }
 
         if(!o.readOnly)
-           self.buildSaveButton(module);
+        {
+            self.buildSaveButton(module);
+            self.buildCancelButton(module);
+        }
 
         return $form;
     };
@@ -802,7 +809,6 @@
                     moduleLabel = $module.module;
                 }
 
-                alert("Before o.events.SUBMIT")
                 w_Commons.raiseCustomEvent(o.container, o.events.SUBMIT, {form: fm[0], module: $module.module, moduleLabel: moduleLabel, mapping: mapping, call: "FORM: SAVE"});
             } else {
                 var  errors = bv.getInvalidFields();
@@ -811,8 +817,27 @@
             }
             return false;
         });
-
+        //$form.append('<div id="fx-editor-form-button_group"> </div>');
+        //$("#fx-editor-form-button_group").append($button);
+       // document.getElementById("fx-editor-form-button_group").append($button);
         $form.append($button);
+    };
+
+    Fx_Editor_Form.prototype.buildCancelButton = function (module) {
+
+        //Initialize Save Button
+        var $button = $('<button  class="btn btn-warning">'+langProperties.cancel+'</button>');
+
+        $button.on('click', function (e) {
+            //e.preventDefault();
+
+            w_Commons.raiseCustomEvent(o.container, o.events.CANCEL, {});
+            return false;
+        });
+        //$("#fx-editor-form-button_group").append($button);
+        //$form.append('<div>&nbsp</div>');
+        $form.append($button);
+       // document.getElementById("fx-editor-form-button_group").append($button);
     };
 
     //Create Form Group

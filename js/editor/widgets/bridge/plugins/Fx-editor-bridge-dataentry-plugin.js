@@ -50,6 +50,7 @@ define([
         //var request = JSON.stringify(values);
         //var request = JSON.stringify(values)
         //console.log("============== BRIDGE PLUGIN: createSerializedJson(): values =================== ");
+
         var json = JSON.stringify(values);
 
         //console.log(json);

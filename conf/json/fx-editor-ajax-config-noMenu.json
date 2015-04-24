@@ -18,9 +18,9 @@
            }
         },
         "overwrite": {
-            "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/localCondition/POLICY",
-            "urlProd": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/localCondition/POLICY",
-            "type" : "get",
+            "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/savePolicyDataEntry/POLICY",
+            "urlProd": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/savePolicyDataEntry/POLICY",
+            "type" : "post",
             "content": "json",
             "response": {
                 "keyFields": [{"meIdentification" : ["uid", "rid", "version"]}]

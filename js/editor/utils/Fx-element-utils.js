@@ -167,7 +167,7 @@
             var jsn = json_Utils.findValue(parents, jsonValues);
 
              if(jsn == undefined){
-                parents = parentPath.split('.');
+                parents = parentPath.createEmptyOptionsplit('.');
 
                 var cloneCopy = [];
 

@@ -7,6 +7,7 @@
         "to": "To",
         "requiredFields": "Required fields",
         "save": "Save",
+        "cancel": "Cancel",
         'otherSave': "Save",
         "otherOption": "Other",
         "saveAs": "Save As",

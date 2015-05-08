@@ -33,7 +33,6 @@ define([
 
     Fx_editor_bridge.prototype.query = function (src, callback, context) {
         var plugin;
-        alert("before ajax call 1")
         console.log("src")
         console.log(src)
         console.log("callback")
@@ -67,9 +66,7 @@ define([
             var d = plugin.getDataEntry();
             console.log("plugin.getDataEntry()")
             console.log(d)
-            alert("before ajax call 2")
             console.log(o)
-            alert("before ajax call 5")
             //var dataToLoad = {};
             //dataToLoad.pdObj = plugin.getDataEntry();
             var data2= {"pdObj": d}

@@ -9,6 +9,7 @@ define({
         "creationDate": "Creation date",
         "characterSet": "Character-set",
         "shortDescription": "Short Description",
+        "longDescription": "Long Description",
         "hsCode": "HS Code",
         "hsVersion": "HS Version",
         "hsSuffix": "HS Suffix",

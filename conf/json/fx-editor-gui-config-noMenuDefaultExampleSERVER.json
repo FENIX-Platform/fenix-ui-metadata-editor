@@ -85,66 +85,6 @@
                                 "hint": "Commodity Id"
                             }
                         },
-                        "hsCode": {
-                          "type": {
-                            "name": "fixedLabel",
-                            "input-group": {
-                              "icon": "glyphicon glyphicon-phone-alt"
-                            }
-                          },
-                          "label": {
-                            "langProp": "hsCode",
-                            "hint": "HS Code"
-                          }
-                        },
-                        "hsVersion": {
-                          "type": {
-                            "name": "fixedLabel",
-                            "input-group": {
-                              "icon": "glyphicon glyphicon-phone-alt"
-                            }
-                          },
-                          "label": {
-                            "langProp": "hsVersion",
-                            "hint": "HS Version"
-                          }
-                        },
-                        "suffix": {
-                          "type": {
-                            "name": "fixedLabel",
-                            "input-group": {
-                              "icon": "glyphicon glyphicon-phone-alt"
-                            }
-                          },
-                          "label": {
-                            "langProp": "hsSuffix",
-                            "hint": "HS Suffix"
-                          }
-                        },
-                        "shortDescription": {
-                          "type": {
-                            "name": "fixedLabel",
-                            "input-group": {
-                              "icon": "glyphicon glyphicon-phone-alt"
-                            }
-                          },
-                          "label": {
-                            "langProp": "shortDescription",
-                            "hint": "Short Description"
-                          }
-                        },
-                        "description": {
-                          "type": {
-                            "name": "fixedLabel",
-                            "input-group": {
-                              "icon": "glyphicon glyphicon-phone-alt"
-                            }
-                          },
-                          "label": {
-                            "langProp": "longDescription",
-                            "hint": "Description"
-                          }
-                        },
                         "policyDomain": {
                             "type": {
                                 "name": "fixedLabel",
@@ -256,12 +196,13 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/policyElement/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/policyElement/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
                             "label": "title",
-                            "lang": "title[EN]"
+                            "lang": "title[EN]",
+                            "defaultCode": "null"
                         }
                     },
                     "info": {
@@ -282,6 +223,9 @@
                         "popover": {
                             "langProp": "startDate"
                         }
+                    },
+                    "value": {
+                      "defaultValue": "2015/11/17"
                     }
                 },
                 "endDate": {
@@ -313,7 +257,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/units/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/units/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -376,7 +320,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/source/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/source/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -490,7 +434,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/secondGenerationSpecific/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/secondGenerationSpecific/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -536,7 +480,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/localCondition/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/localCondition/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -720,7 +664,7 @@
                       "system": "IANAcharacterSet",
                       "version": ""
                     },
-                    "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/imposedEndDate/POLICY",
+                    "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/imposedEndDate/POLICY",
                     "dataroot": "data",
                     "datafields": {
                       "code": "code",
@@ -739,7 +683,8 @@
                         "name": "text"
                     },
                     "value": {
-                        "multilingual": true
+                        "multilingual": true,
+                        "default": "FENIX"
                     },
                     "label": {
                         "langProp": "valueType",

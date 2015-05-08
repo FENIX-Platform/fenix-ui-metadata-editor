@@ -18,7 +18,7 @@
            }
         },
         "overwrite": {
-            "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/savePolicyDataEntry/POLICY",
+            "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/savePolicyDataEntry/POLICY",
             "urlProd": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/savePolicyDataEntry/POLICY",
             "type" : "post",
             "content": "json",

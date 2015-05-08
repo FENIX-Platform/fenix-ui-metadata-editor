@@ -449,8 +449,6 @@ define([
             }
 
             console.log("----------------- DATA ENTRY (SAVE) "+cache.saveAction.type);
-
-            alert("Submit")
             console.log("cache.jsonMapping")
             console.log(cache.jsonMapping)
 
@@ -458,10 +456,8 @@ define([
                 var rootValues =  w_Storage.getItem(cache.rootEntity);
 
                 if(rootValues != ""){
-                    alert("raiseCustomEvent 1 "+event )
                     w_Commons.raiseCustomEvent(form, event,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: SAVE"});
                 } else {
-                    alert("raiseCustomEvent 1 "+o.events.EMPTY_ROOT_ENTITY )
                     w_Commons.raiseCustomEvent(document.body, o.events.EMPTY_ROOT_ENTITY, {moduleLabel: moduleLabel, root: cache.rootLabel});
                 }
             }

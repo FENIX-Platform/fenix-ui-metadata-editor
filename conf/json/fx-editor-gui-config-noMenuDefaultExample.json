@@ -196,7 +196,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/policyElement/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/policyElement/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",

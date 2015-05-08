@@ -256,7 +256,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/policyElement/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/policyElement/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -313,7 +313,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/units/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/units/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -376,7 +376,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/source/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/source/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -490,7 +490,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/secondGenerationSpecific/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/secondGenerationSpecific/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -536,7 +536,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/localCondition/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/localCondition/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",
@@ -720,7 +720,7 @@
                       "system": "IANAcharacterSet",
                       "version": ""
                     },
-                    "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/imposedEndDate/POLICY",
+                    "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/imposedEndDate/POLICY",
                     "dataroot": "data",
                     "datafields": {
                       "code": "code",

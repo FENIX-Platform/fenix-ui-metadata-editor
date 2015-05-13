@@ -719,10 +719,10 @@
                                 "type": {
                                     "name": "CodeList",
                                     "object": "OJCodeList",
-                                    "system": "CRS_purpose_codes",
+                                    "system": "UNECA_ClassificationOfActivities",
                                     "version": ""
                                 },
-                                "url": "http://faostat3.fao.org/d3s2/v2/msd/resources/uid/CRS_purpose_codes",
+                                "url": "http://fenix.fao.org/d3s/msd/resources/uid/UNECA_ClassificationOfActivities",
                                 "dataroot": "data",
                                 "hierarchy": {
                                     "levels": 2,

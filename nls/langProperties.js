@@ -8,6 +8,7 @@
         "requiredFields": "Required fields",
         "save": "Save",
         "cancel": "Cancel",
+        "backToSelectionPage": "Back to Selection",
         'otherSave': "Save",
         "otherOption": "Other",
         "saveAs": "Save As",

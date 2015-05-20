@@ -1,5 +1,4 @@
 ﻿/*global define */
-
 define([
     "jquery",
     "fx-editor/widgets/Fx-widgets-commons"
@@ -25,9 +24,7 @@ define([
         //Merge options
         $.extend(o, defaultOptions);
         $.extend(o, options);
-
       //  console.log("=============== IN BRIDGE ++++++++++++++++ for o.url: "+o.url + " | o.type: "+o.type + " | "+o.mapping);
-
         return $(this);
     };
 
@@ -107,8 +104,6 @@ define([
             });
         }
     };
-
-
 
     Fx_editor_bridge.prototype.get = function (src, callback, context) {
         var plugin;

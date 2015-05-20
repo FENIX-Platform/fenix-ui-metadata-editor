@@ -674,6 +674,8 @@
         $form.attr("data-bv-message", "This value is not valid");
         $form.attr("id", id);
 
+        self.buildBackButton(module);
+
         //If the module has properties, build the Form Field containers
        if (module.hasOwnProperty("properties")) {
 
@@ -839,6 +841,23 @@
         //$form.append('<div>&nbsp</div>');
         $form.append($button);
        // document.getElementById("fx-editor-form-button_group").append($button);
+    };
+
+    Fx_Editor_Form.prototype.buildBackButton = function (module) {
+
+        //Initialize Save Button
+        var $button = $('<button  class="btn btn-warning">'+langProperties.backToSelectionPage+'</button>');
+
+        $button.on('click', function (e) {
+            //e.preventDefault();
+
+            w_Commons.raiseCustomEvent(o.container, o.events.CANCEL, {});
+            return false;
+        });
+        //$("#fx-editor-form-button_group").append($button);
+        //$form.append('<div>&nbsp</div>');
+        $form.append($button);
+        // document.getElementById("fx-editor-form-button_group").append($button);
     };
 
     //Create Form Group

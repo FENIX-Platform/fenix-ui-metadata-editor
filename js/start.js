@@ -8,9 +8,10 @@ define(["fx-editor/controllers/Fx-editor-page",
         "fx-editor/widgets/bridge/Fx-editor-bridge",
         "text!fx-editor/templates/fx_editor_template.html",
         'i18n!fx-editor/nls/langProperties',
-        'handlebars'
+        'handlebars',
+        "text!fx-editor/templates/fx_editor_template_noMenu.html"
     ],
-    function (Controller, DataEntryController, Menu, Form, Progress, Bridge, template, langProperties, Handlebars) {
+    function (Controller, DataEntryController, Menu, Form, Progress, Bridge, template, langProperties, Handlebars, template1) {
 
         var html_ids = {
             MAIN_CONTAINER: "#metadataEditorContainer",
@@ -24,11 +25,13 @@ define(["fx-editor/controllers/Fx-editor-page",
 
         StartUp.prototype.init = function (options) {
 
-            //console.log("INIT ")
-
+            console.log("Start init!!!")
+            console.log(options)
             if (!options.hasOwnProperty('container')) {
                 throw 'Metadata Editor needs a container!'
             }
+
+
 
             // console.log("startUp: locale = "+ localStorage.getItem('locale'));
 
@@ -36,28 +39,37 @@ define(["fx-editor/controllers/Fx-editor-page",
                 resourceType: options.resourceType
             };
 
-            var compiledTmpl = Handlebars.compile(template, context);
-            $(options.container).html(compiledTmpl({langProperties: langProperties, context: context}));
+            var templateToLoad = '';
+            if((options.leftSideMenu!=null)&&(typeof options.leftSideMenu!= 'undefined')&&(options.leftSideMenu)){
+                templateToLoad = template;
+            }
+            else{
+                templateToLoad = template1;
+            }
+
+            var compiledTmpl = Handlebars.compile(templateToLoad, context);
+            $(options.container).html(compiledTmpl({ langProperties: langProperties, context: context}));
 
 
             // $(options.container).html(structure);
 
-            this.pageController = new Controller();
+            var pageController = new Controller();
 
             // Perform dependency injection by extending objects
-            $.extend(this.pageController, {
+            $.extend(pageController, {
                 dataentry: this.initDataEntry(options),
                 bridge: this.initBridge()
             });
 
-            this.pageController.render();
+            console.log(pageController)
+            pageController.render();
 
         };
 
         StartUp.prototype.initDataEntry = function (options) {
 
-            this.dataEntryController = new DataEntryController();
-            var menu = new Menu(),
+            var dataEntryController = new DataEntryController(),
+                menu = new Menu(),
                 form = new Form(),
                 progress = new Progress(),
                 lang = "EN",
@@ -134,7 +146,6 @@ define(["fx-editor/controllers/Fx-editor-page",
                 options.widget.lang = lang;
             }
 
-
             if (options.hasOwnProperty('resourceType')) {
                 options.resourceType = options['resourceType'];
             }
@@ -143,17 +154,17 @@ define(["fx-editor/controllers/Fx-editor-page",
                 options.onFinishClick = options['onFinishClick'];
             }
 
-
             // console.log("=================================================== INIT DATA CONTROLLER readonly = "+options.readOnly);
 
             //dataEntryController.init(options);
-            this.dataEntryController.init({
+            dataEntryController.init({
                 config: options.config,
                 source: options.source,
                 onFinishClick: options.onFinishClick,
                 resourceType: options.resourceType,
                 widget: {lang: options.widget.lang},
-                readOnly: options.readOnly
+                readOnly: options.readOnly,
+                submit_default_action: options.submit_default_action
             });
 
             menu.init({
@@ -161,14 +172,16 @@ define(["fx-editor/controllers/Fx-editor-page",
                 config: options.config,
                 resourceType: options.resourceType,
                 widget: {lang: options.widget.lang},
-                readOnly: options.readOnly
+                readOnly: options.readOnly,
+                leftSideMenu: options.leftSideMenu
             });
             form.init({
                 container: document.querySelector("#" + html_ids.FORM),
                 resourceType: options.resourceType,
                 config: options.config,
                 widget: {lang: options.widget.lang},
-                readOnly: options.readOnly
+                readOnly: options.readOnly,
+                leftSideMenu: options.leftSideMenu
             });
             progress.init({
                 container: document.querySelector("#" + html_ids.PROGRESS),
@@ -177,13 +190,13 @@ define(["fx-editor/controllers/Fx-editor-page",
 
 
             // Perform dependency injection by extending objects
-            $.extend(this.dataEntryController, {
+            $.extend(dataEntryController, {
                 menu: menu,
                 form: form,
                 progress: progress
             });
 
-            return this.dataEntryController;
+            return dataEntryController;
 
         };
 

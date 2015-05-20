@@ -633,63 +633,6 @@
                         "langProp": "productOriginalName",
                         "hint": "Product Original Name"
                     }
-                },
-                "typeOfChangeName": {
-                    "type": {
-                        "name": "text"
-                    },
-                    "value": {
-                        "multilingual": true
-                    },
-                    "label": {
-                        "langProp": "typeOfChangeName",
-                        "hint": "Type Of Change Name"
-                    }
-                },
-                "imposedEndDate": {
-                  "type": {
-                    "name": "select"
-                  },
-                  "value": {
-                    "multilingual": true
-                  },
-                  "label": {
-                    "langProp": "imposedEndDate",
-                    "hint": "Imposed End Date"
-                  },
-                  "source": {
-                    "type": {
-                      "name": "CodeList",
-                      "object": "OJCodeList",
-                      "system": "IANAcharacterSet",
-                      "version": ""
-                    },
-                    "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/imposedEndDate/POLICY",
-                    "dataroot": "data",
-                    "datafields": {
-                      "code": "code",
-                      "label": "title",
-                      "lang": "title[EN]"
-                    }
-                  },
-                  "info": {
-                    "popover": {
-                      "langProp": "imposedEndDate"
-                    }
-                  }
-                },
-                "valueType": {
-                    "type": {
-                        "name": "text"
-                    },
-                    "value": {
-                        "multilingual": true,
-                        "default": "FENIX"
-                    },
-                    "label": {
-                        "langProp": "valueType",
-                        "hint": "Value Type"
-                    }
                 }
             }
         }

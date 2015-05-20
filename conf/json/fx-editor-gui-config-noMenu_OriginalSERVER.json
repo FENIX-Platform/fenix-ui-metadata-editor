@@ -605,51 +605,6 @@
                         "langProp": "productOriginalName",
                         "hint": "Product Original Name"
                     }
-                },
-                "typeOfChangeName": {
-                    "type": {
-                        "name": "text"
-                    },
-                    "value": {
-                        "multilingual": true
-                    },
-                    "label": {
-                        "langProp": "typeOfChangeName",
-                        "hint": "Type Of Change Name"
-                    }
-                },
-                "imposedEndDate": {
-                    "type": {
-                        "name": "date"
-                    },
-                    "label": {
-                        "langProp": "imposedEndDate",
-                        "hint": "Imposed End Date"
-                    }
-                },
-                "valueType": {
-                    "type": {
-                        "name": "text"
-                    },
-                    "value": {
-                        "multilingual": true
-                    },
-                    "label": {
-                        "langProp": "valueType",
-                        "hint": "Value Type"
-                    }
-                },
-                "commodityClassName": {
-                    "type": {
-                        "name": "text"
-                    },
-                    "value": {
-                        "multilingual": true
-                    },
-                    "label": {
-                        "langProp": "commodityClassName",
-                        "hint": "Commodity Class Name"
-                    }
                 }
             }
         }

@@ -803,8 +803,8 @@
     Fx_Editor_Form.prototype.buildSaveButton = function (module) {
 
         //Initialize Save Button
-        //var $button = $('<button  class="btn btn-success">'+langProperties.save+'</button>');
-        var $button = $('<button  class="btn btn-success disabled">'+langProperties.save+'</button>');
+        var $button = $('<button  class="btn btn-success">'+langProperties.save+'</button>');
+        //var $button = $('<button  class="btn btn-success disabled">'+langProperties.save+'</button>');
         $button.on('click', function (e) {
             //e.preventDefault();
             var fm = $('#fx-editor-form form');

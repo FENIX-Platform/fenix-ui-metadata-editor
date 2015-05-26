@@ -18,8 +18,8 @@
            }
         },
         "overwrite": {
-            "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/savePolicyDataEntry/POLICY",
-            "urlProd": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/savePolicyDataEntry/POLICY",
+            "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/savePolicyDataEntry",
+            "urlProd": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/savePolicyDataEntry",
             "type" : "post",
             "content": "json",
             "response": {

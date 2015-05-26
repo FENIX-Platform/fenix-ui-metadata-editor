@@ -61,7 +61,8 @@ define([
             //console.log(o)
             //var dataToLoad = {};
             //dataToLoad.pdObj = plugin.getDataEntry();
-            var data2= {"pdObj": d}
+            //var data2= {"pdObj": d}
+            //var data2= d;
 
             $.ajax({
                 url: o.url,
@@ -81,10 +82,10 @@ define([
                         amplify.publish(o.events.EMPTY_RESPONSE, {})
                     }
                 },
-                //data: plugin.getDataEntry(), //JSON.stringify(plugin.getDataEntry()),
+                data: plugin.getDataEntry(), //JSON.stringify(plugin.getDataEntry()),
                 //data: JSON.stringify({"pdObj":plugin.getDataEntry()}),
                 //data: JSON.stringify(dataToLoad),
-                data: data2,
+                //data: data2,
                 complete: function(){
                     amplify.publish(o.events.END, {})
                 }

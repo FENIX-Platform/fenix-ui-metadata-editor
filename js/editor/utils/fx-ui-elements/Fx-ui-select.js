@@ -204,7 +204,6 @@
 
     function populateFromUrl(select, isRequired, source, element, name, value, containerId, callback){
 
-        console.log("POPULATE FROM URL!!!")
         var root, codeProp, labelProp, langProp, defaultLang, sortLabels = true;
         if(source.hasOwnProperty("dataroot")){
             root = source.dataroot;
@@ -250,7 +249,6 @@
             if( xhr.status == 200 ) {
                 //sort data
                 var rootItem, options = [];
-                console.log(root);
                 if(root!== undefined)  {
                     rootItem = data[root];
                     //rootItem.sort(sortData(label, labelProp));
@@ -281,7 +279,6 @@
                 // }
 
                 for(var i = 0; i < rootItem.length; i++){
-                    console.log(rootItem[i])
                     var codeVal = rootItem[i];
 
                     if(codeProp !== undefined) {

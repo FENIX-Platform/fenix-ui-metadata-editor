@@ -4,14 +4,12 @@ define(["jquery", "jstorage"], function ($, jStorage) {
     }
 
     Fx_Storage.prototype.setItem = function (key, value, options) {
-        console.log("SET ITEM ")
-        console.log("key = "+key + " value= "+value+ " options= "+options)
+        //console.log("key = "+key + " value= "+value+ " options= "+options)
         $.jStorage.set(key, value, options)
     };
 
     Fx_Storage.prototype.getItem = function (key) {
-        console.log("GET ITEM ")
-        console.log("key = "+key)
+        //console.log("key = "+key)
        return  $.jStorage.get(key)
     };
 

@@ -97,20 +97,11 @@ define(["jquery"], function () {
             options    = data.bv.getOptions(),                      // Entire options
             validators = data.bv.getOptions(data.field).validators; // The field validators
 
-        console.log("updateValidationIcon")
-        console.log("data")
-        console.log(data)
-        console.log("options")
-        console.log(options)
-        console.log("validators")
-        console.log(validators)
-
         if (validators.notEmpty && options.feedbackIcons && options.feedbackIcons.required) {
-            console.log("IN")
-            console.log("options.feedbackIcons.required")
-            console.log(options.feedbackIcons.required)
-            console.log("o.css_classes.ICON_FAMILY")
-            console.log(o.css_classes.ICON_FAMILY)
+            //console.log("options.feedbackIcons.required")
+            //console.log(options.feedbackIcons.required)
+            //console.log("o.css_classes.ICON_FAMILY")
+            //console.log(o.css_classes.ICON_FAMILY)
             $icon.removeClass(options.feedbackIcons.required).addClass(o.css_classes.ICON_FAMILY);
         }
     };

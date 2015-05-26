@@ -227,7 +227,8 @@ define([
 
 
         //Initialize Storage
-        w_Commons.raiseCustomEvent(o.container, o.events.INIT_STORAGE, {id: panel.module, call: "MENU INIT_STORAGE"});
+        //w_Commons.raiseCustomEvent(o.container, o.events.INIT_STORAGE, {id: panel.module, call: "MENU INIT_STORAGE"});
+        amplify.publish(o.events.INIT_STORAGE, {id: panel.module, call: "MENU INIT_STORAGE"});
 
         var path = json_Utils.findParentPathForValue(cache.json, panel.module);
         var parentPath = self.getParentPath(path);
@@ -243,7 +244,8 @@ define([
                // console.log("MENU ============== "+ e.data.module);
                // console.log(e.data.module);
 
-                w_Commons.raiseCustomEvent(o.container, o.events.SELECT, {module: e.data.module, gui: cache.json, call: "MENU SELECT"});
+                //w_Commons.raiseCustomEvent(o.container, o.events.SELECT, {module: e.data.module, gui: cache.json, call: "MENU SELECT"});
+                amplify.publish(o.events.SELECT, {module: e.data.module, gui: cache.json, call: "MENU SELECT"});
                // w_Commons.raiseCustomEvent(o.container, o.events.SELECT, e.data.module);
                 // }
             }
@@ -342,23 +344,20 @@ define([
 
     };
 
-
-
-
     Fx_Editor_Menu.prototype.toggleImageHighlight = function (e) {
 
-       // w_Commons.raiseCustomEvent(o.container, o.events.CHECK_FORM_CHANGED, {call: "MENU toggleImageHighlight"});
+        // w_Commons.raiseCustomEvent(o.container, o.events.CHECK_FORM_CHANGED, {call: "MENU toggleImageHighlight"});
 
 
         // fx-editor-menu-glyphicon fx-editor-menu-plus
-        $(e.target).prev('.panel-heading').find('span.'+o.css_classes.ICON).toggleClass(o.css_classes.PLUS_ICON+' '+o.css_classes.MINUS_ICON);
+        $(e.target).prev('.panel-heading').find('span.' + o.css_classes.ICON).toggleClass(o.css_classes.PLUS_ICON + ' ' + o.css_classes.MINUS_ICON);
 
         var parent = $(e.target).prev('.panel-heading').find('a').attr('data-parent');
 
         // console.log('LABEL = '+  parent);
         //$('#main div').not('.no div')
 
-        $('.panel-collapse.collapse.in').each(function(){
+        $('.panel-collapse.collapse.in').each(function () {
             // $(e.target).prev('.panel-heading').find('span.fx-editor-menu-glyphicon').toggleClass('fx-editor-menu-plus fx-editor-menu-minus');
             //  $(this).removeClass('in');
             // $(this).addClass('.panel-collapse.collapse');
@@ -368,18 +367,18 @@ define([
         });
 
 
-        if(typeof parent!='undefined' && parent.indexOf("accordion-") > -1) {
+        if (typeof parent != 'undefined' && parent.indexOf("accordion-") > -1) {
             // if(parent.indexOf("accordion-") > -1) {
-            if(e.data.value)
+            if (e.data.value)
                 $(e.target).prev('.panel-heading').addClass(o.css_classes.SUB_ENTITY_SELECTED);
             else
                 $(this).find('.panel-heading').not($(e.target)).removeClass(o.css_classes.SUB_ENTITY_SELECTED);
         }
         else {
-            if(e.data.value) {
+            if (e.data.value) {
                 $(e.target).prev('.panel-heading').addClass(o.css_classes.ENTITY_SELECTED);
             }
-            else  {
+            else {
                 $(this).find('.panel-heading').not($(e.target)).removeClass(o.css_classes.ENTITY_SELECTED);
                 //$(this).find('.panel-heading').not($(e.target)).removeClass(o.css_classes.SUB_ENTITY_SELECTED);
             }
@@ -394,16 +393,16 @@ define([
         for (var j = 0; j < modules.length; j++) {
             var current = modules[j];
 
-            if(jsnModulesValidation != undefined){
+            if (jsnModulesValidation != undefined) {
                 var entity = json_Utils.findParentPathForValue(jsnModulesValidation, current.module);
-                if(entity){
-                    if(entity!=null) {
-                        var jsnObj =  json_Utils.findObjectByPath(jsnModulesValidation, entity);
-                        if(jsnObj.hasOwnProperty("type")){
-                            if(jsnObj.type == "required")
+                if (entity) {
+                    if (entity != null) {
+                        var jsnObj = json_Utils.findObjectByPath(jsnModulesValidation, entity);
+                        if (jsnObj.hasOwnProperty("type")) {
+                            if (jsnObj.type == "required")
                                 requiredSubEntity = true;
                         }
-                        if(jsnObj.hasOwnProperty("modules")){
+                        if (jsnObj.hasOwnProperty("modules")) {
                             jsnModulesValidation = jsnObj.modules;
                         }
                     }
@@ -411,9 +410,9 @@ define([
             }
 
 
-            if(current.hasOwnProperty("resourceType")){
-                if($.inArray(o.resourceType, current.resourceType) >= 0) {
-                 //   if(current.resourceType == o.resourceType){
+            if (current.hasOwnProperty("resourceType")) {
+                if ($.inArray(o.resourceType, current.resourceType) >= 0) {
+                    //   if(current.resourceType == o.resourceType){
                     self.build(current, body, modules, j, jsnModulesValidation, requiredSubEntity);
                     bodyContainer.append(body);
                 }
@@ -429,110 +428,108 @@ define([
 
 
     Fx_Editor_Menu.prototype.build = function (current, body, modules, j, jsnModulesValidation, requiredSubEntity) {
-    var self = this;
-    var $module = $("<div></div>");
+        var self = this;
+        var $module = $("<div></div>");
 
-    if (current.modules && current.modules.length > 0) {
-        var $module = $("<div class='collapse-group'></div>");
+        if (current.modules && current.modules.length > 0) {
+            var $module = $("<div class='collapse-group'></div>");
 
-        $module.addClass("panel");
-        $module.addClass("panel-default");
+            $module.addClass("panel");
+            $module.addClass("panel-default");
 
-        $module.attr("id", "accordion-"+current.module);
+            $module.attr("id", "accordion-" + current.module);
 
-        $module.append(self.buildPanelHeader(current, current.module,  $module.attr("id"), requiredSubEntity));
-        $module.append(self.buildPanelBody(current, current.module, jsnModulesValidation));
+            $module.append(self.buildPanelHeader(current, current.module, $module.attr("id"), requiredSubEntity));
+            $module.append(self.buildPanelBody(current, current.module, jsnModulesValidation));
 
-        body.append($module);
+            body.append($module);
 
-    } else {
+        } else {
 
-        var $btn = $('<button type="button" class="btn btn-default"></button>'),
-            $info = $('<button class="btn fx-button-reset pull-right" type="button" tabindex="-1" data-toggle="popover" ><span class="'+o.css_classes.ICON+' '+o.css_classes.INFO_ICON+'"></span></button>');
+            var $btn = $('<button type="button" class="btn btn-default"></button>'),
+                $info = $('<button class="btn fx-button-reset pull-right" type="button" tabindex="-1" data-toggle="popover" ><span class="' + o.css_classes.ICON + ' ' + o.css_classes.INFO_ICON + '"></span></button>');
 
-        //Initialize Storage
-        w_Commons.raiseCustomEvent(o.container, o.events.INIT_STORAGE, {id: current.module, call: "MENU INIT_STORAGE"});
+            //Initialize Storage
+            //w_Commons.raiseCustomEvent(o.container, o.events.INIT_STORAGE, {id: current.module, call: "MENU INIT_STORAGE"});
+            amplify.publish(o.events.INIT_STORAGE, {id: current.module, call: "MENU INIT_STORAGE"});
+
+            $btn.on('click', {module: modules[j]}, function (e) {
+                var $btn = $(this);
+                //modules[j]["parent"] = e.data.parent;
+                //console.log("++++++++++++++++++++ e.data");
+                //console.log(e.data);
 
 
-        $btn.on('click', {module: modules[j] }, function (e) {
-            var $btn = $(this);
-            //modules[j]["parent"] = e.data.parent;
-            //console.log("++++++++++++++++++++ e.data");
-            //console.log(e.data);
+                if ($btn.is(':disabled') === false) {
+                    self.activateAllButtons();
+                    $btn.attr("disabled", "disabled");
+                    // console.log('%%% BUTTON ON CLICK PANEL e.data.module = '+  e.data.module);
+                    // console.log('MENU e.data.module = '+  e.data.module);
 
+                    //w_Commons.raiseCustomEvent(o.container, o.events.SELECT, {module: e.data.module, call: "SUB-MENU SELECT"});
+                    amplify.publish(o.events.SELECT, {module: e.data.module, call: "SUB-MENU SELECT"});
 
-            if ($btn.is(':disabled') === false) {
-                self.activateAllButtons();
+                    // w_Commons.raiseCustomEvent(o.container, o.events.SELECT, e.data.module)
+                }
 
-                //alert('e.data.module id = '+e.data.module.id);
-                $btn.attr("disabled", "disabled");
-                // console.log('%%% BUTTON ON CLICK PANEL e.data.module = '+  e.data.module);
-                // console.log('MENU e.data.module = '+  e.data.module);
+            });
 
-                w_Commons.raiseCustomEvent(o.container, o.events.SELECT, {module: e.data.module, call: "SUB-MENU SELECT"});
-
-                // w_Commons.raiseCustomEvent(o.container, o.events.SELECT, e.data.module)
+            if (current.hasOwnProperty("id")) {
+                $btn.attr("id", current.id);
             }
 
-        });
+            if (current.hasOwnProperty("module")) {
+                var path = json_Utils.findParentPathForValue(cache.json, current.module);
+                var parentPath = self.getParentPath(path);
+                modules[j]["parent"] = parentPath;
 
-        if (current.hasOwnProperty("id")) {
-            $btn.attr("id", current.id);
-        }
-
-        if (current.hasOwnProperty("module")) {
-            var path = json_Utils.findParentPathForValue(cache.json, current.module);
-            var parentPath = self.getParentPath(path);
-            modules[j]["parent"] = parentPath;
-
-            $btn.attr("data-module", modules[j].module);
-            $btn.attr("data-path", path);
-        }
-
-        //Keep it before the label to have the icon in its the left side
-        if (current.hasOwnProperty("icon")) {
-            $btn.append($('<span class="' + current.icon + '"></span>'));
-        }
-
-        if (current.hasOwnProperty("label")) {
-            if(current["label"].hasOwnProperty("langProp"))
-                $btn.append(guiLangProps[current["label"]["langProp"]]);
-
-           // $btn.append(current.label[o.widget.lang]);
-        }
-
-       if(requiredSubEntity){
-           var $required = $('<span class="'+o.css_classes.ICON+' '+o.css_classes.REQUIRED_ICON+'" title="'+langProperties.requiredMetadataSubEntity+'"></span>');
-           $btn.append($required);
-       }
-
-
-
-        if (current.hasOwnProperty("info")) {
-            if(current["info"].hasOwnProperty("popover")){
-                if(current["info"]["popover"].hasOwnProperty("langProp"))
-                    ui_Info.createPopOver($info, guiPopoverLangProps[current["info"]["popover"]["langProp"]], 'bottom');
-
-              //  ui_Info.createPopOver($info, current["info"]["popover"][o.widget.lang], 'bottom');
-            }
-            else if(current["info"].hasOwnProperty("remote-html")){
-                if(current["info"]["remote-html"].hasOwnProperty("langProp"))
-                    ui_Info.createModal($info, guiHtmlLinksLangProps[current["info"]["remote-html"]["langProp"]], '#infoModal');
-
-                //ui_Info.createModal($info, current["info"]["remote-html"][o.widget.lang], '#infoModal');
+                $btn.attr("data-module", modules[j].module);
+                $btn.attr("data-path", path);
             }
 
-            $module.append($btn).append($info);
-           // $infoContainer.append($info);
-        }  else {
-            $module.append($btn);
+            //Keep it before the label to have the icon in its the left side
+            if (current.hasOwnProperty("icon")) {
+                $btn.append($('<span class="' + current.icon + '"></span>'));
+            }
+
+            if (current.hasOwnProperty("label")) {
+                if (current["label"].hasOwnProperty("langProp"))
+                    $btn.append(guiLangProps[current["label"]["langProp"]]);
+
+                // $btn.append(current.label[o.widget.lang]);
+            }
+
+            if (requiredSubEntity) {
+                var $required = $('<span class="' + o.css_classes.ICON + ' ' + o.css_classes.REQUIRED_ICON + '" title="' + langProperties.requiredMetadataSubEntity + '"></span>');
+                $btn.append($required);
+            }
+
+
+            if (current.hasOwnProperty("info")) {
+                if (current["info"].hasOwnProperty("popover")) {
+                    if (current["info"]["popover"].hasOwnProperty("langProp"))
+                        ui_Info.createPopOver($info, guiPopoverLangProps[current["info"]["popover"]["langProp"]], 'bottom');
+
+                    //  ui_Info.createPopOver($info, current["info"]["popover"][o.widget.lang], 'bottom');
+                }
+                else if (current["info"].hasOwnProperty("remote-html")) {
+                    if (current["info"]["remote-html"].hasOwnProperty("langProp"))
+                        ui_Info.createModal($info, guiHtmlLinksLangProps[current["info"]["remote-html"]["langProp"]], '#infoModal');
+
+                    //ui_Info.createModal($info, current["info"]["remote-html"][o.widget.lang], '#infoModal');
+                }
+
+                $module.append($btn).append($info);
+                // $infoContainer.append($info);
+            } else {
+                $module.append($btn);
+            }
+
+            // $module.append($btn).append($infoContainer);
+
+            // $module.append($btn);
+            body.append($module);
         }
-
-       // $module.append($btn).append($infoContainer);
-
-        // $module.append($btn);
-        body.append($module);
-    }
     };
 
     Fx_Editor_Menu.prototype.getParentPath = function (path) {
@@ -540,19 +537,18 @@ define([
         var keys = path.split(".");
         var parentPath = "";
         var key;
-        for(var k =0; k < keys.length; k++){
-            if(k == 0){
+        for (var k = 0; k < keys.length; k++) {
+            if (k == 0) {
                 key = keys[k];
-            } else
-            {
-                key = key + '.' +  keys[k];
+            } else {
+                key = key + '.' + keys[k];
             }
             var ob = json_Utils.findObjectByPath(cache.json, key);
             parentPath = parentPath + ob.module + ".";
 
         }
 
-        return  parentPath.slice(0,-1);
+        return parentPath.slice(0, -1);
 
     };
 
@@ -560,10 +556,18 @@ define([
         return selectedModule;
     };
 
+
     Fx_Editor_Menu.prototype.activateAllButtons = function () {
         $(o.container).find("button[data-module]").removeAttr("disabled");
+    };
+
+    Fx_Editor_Menu.prototype.destroy = function () {
+        $("#fx-editor-menu div, #fx-editor-menu button").off();
+
     };
 
     return Fx_Editor_Menu;
 
 });
+
+

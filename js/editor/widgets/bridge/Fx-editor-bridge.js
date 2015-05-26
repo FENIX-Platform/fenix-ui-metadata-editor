@@ -1,7 +1,8 @@
 ﻿/*global define */
 define([
     "jquery",
-    "fx-editor/widgets/Fx-widgets-commons"
+    "fx-editor/widgets/Fx-widgets-commons",
+    'amplify'
 ], function ($, W_Commons) {
 
     var o = { },
@@ -30,12 +31,6 @@ define([
 
     Fx_editor_bridge.prototype.query = function (src, callback, context) {
         var plugin;
-        console.log("src")
-        console.log(src)
-        console.log("callback")
-        console.log(callback)
-        console.log("context")
-        console.log(context)
 
       //  console.log("========== IN BRIDGE: QUERY ================== src = "+src.getName());
         if (!window.Fx_editor_bridge_plugins || typeof window.Fx_editor_bridge_plugins !== "object") {
@@ -61,9 +56,9 @@ define([
             //Ask the plugin the filter, make the request and pass data to callback()
 
             var d = plugin.getDataEntry();
-            console.log("plugin.getDataEntry()")
-            console.log(d)
-            console.log(o)
+            //console.log("plugin.getDataEntry()")
+            //console.log(d)
+            //console.log(o)
             //var dataToLoad = {};
             //dataToLoad.pdObj = plugin.getDataEntry();
             var data2= {"pdObj": d}
@@ -83,11 +78,7 @@ define([
                         }
 
                     } else {
-                        w_commons.raiseCustomEvent(
-                            document.body,
-                            o.events.EMPTY_RESPONSE,
-                            { }
-                        );
+                        amplify.publish(o.events.EMPTY_RESPONSE, {})
                     }
                 },
                 //data: plugin.getDataEntry(), //JSON.stringify(plugin.getDataEntry()),
@@ -95,11 +86,7 @@ define([
                 //data: JSON.stringify(dataToLoad),
                 data: data2,
                 complete: function(){
-                    w_commons.raiseCustomEvent(
-                        document.body,
-                        o.events.END,
-                        { }
-                    );
+                    amplify.publish(o.events.END, {})
                 }
             });
         }
@@ -151,19 +138,11 @@ define([
                         }
 
                     } else {
-                        w_commons.raiseCustomEvent(
-                            document.body,
-                            o.events.EMPTY_RESPONSE,
-                            { }
-                        );
+                        amplify.publish(o.events.EMPTY_RESPONSE, {});
                     }
                 },
-                 complete: function(){
-                    w_commons.raiseCustomEvent(
-                        document.body,
-                        o.events.END,
-                        { }
-                    );
+                complete: function () {
+                    amplify.publish(o.events.END, {});
                 }
             });
         }

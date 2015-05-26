@@ -9,7 +9,8 @@ define([
     "fx-editor/utils/Fx-lang-utils",
     'nprogress',
     'pnotify',
-    'jQuery.XDomainRequest'
+    'jQuery.XDomainRequest',
+    'amplify'
 ], function ($, Plugin, W_Commons, W_Storage, Json_Utils, LangUtils, NProgress, PNotify) {
 
     var w_Commons, w_Storage, ajaxConf, mappingConf, guiConf, validationConf, datesConf, resourceType, resourceTypeModule, source, readOnly, cache = {}, json_Utils, lang_Utils, guiIsObj,
@@ -38,7 +39,7 @@ define([
                 NEW_METADATA_SUCCESS: "fx.editor.saved",
                 OVERWRITE_METADATA_SUCCESS: "fx.editor.overwritten",
                 SUBMIT : "fx.editor.form.submit",
-                CANCEL: "fx.editor.cancel.host",
+                CANCEL_START: "fx.editor.form.cancel.start",
                 CANCEL_FORM: "fx.editor.form.cancel",
                 CHECK_FORM_CHANGED: "fx.editor.module.form_check",
                 SAVE : "fx.editor.save",
@@ -116,13 +117,13 @@ define([
         // set the default resourceRepresentation value
         var pth = json_Utils.findParentPathForProperty(cache.jsonGuiConf, "resourceRepresentationType");
 
-        if(pth){
-            if(pth!=null) {
+        if (pth) {
+            if (pth != null) {
                 var parent = json_Utils.findObjectByPath(cache.jsonGuiConf, pth);
-                if(parent != undefined){
-                    if(parent["resourceRepresentationType"].hasOwnProperty("source")){
-                        if(parent["resourceRepresentationType"].source.hasOwnProperty("datafields")){
-                            parent["resourceRepresentationType"].source.datafields["defaultCode"] =  resourceType;  // reset the defaultCode
+                if (parent != undefined) {
+                    if (parent["resourceRepresentationType"].hasOwnProperty("source")) {
+                        if (parent["resourceRepresentationType"].source.hasOwnProperty("datafields")) {
+                            parent["resourceRepresentationType"].source.datafields["defaultCode"] = resourceType;  // reset the defaultCode
                             parent["resourceRepresentationType"].type["enabled"] = false; // disable the select
                         }
                     }
@@ -131,7 +132,7 @@ define([
 
             var parentPth = pth.split(".");
             var parentObj = json_Utils.findObjectByPath(cache.jsonGuiConf, parentPth[0]);
-            if(parentObj != undefined){
+            if (parentObj != undefined) {
                 resourceTypeModule = parentObj["module"];
             }
         }
@@ -235,18 +236,32 @@ define([
                     self.menu.render({config: {cache: {gui: cache.jsonGuiConf, validation: cache.jsonValidationConf}}}, function(panels){
 
                         //  if(cache.jsonAjax.hasOwnProperty("onSave")){
-                        if(cache.jsonAjax.hasOwnProperty("create")){
-                            cache.saveAjax[o.saveTypes.CREATE] = {url: cache.jsonAjax.create.url, type: cache.jsonAjax.create.type, response: cache.jsonAjax.create.response};
-                        }
-                        if(cache.jsonAjax.hasOwnProperty("overwrite")){
-                            cache.saveAjax[o.saveTypes.OVERWRITE] = {url: cache.jsonAjax.overwrite.url, type: cache.jsonAjax.overwrite.type, request: cache.jsonAjax.overwrite.request};
-                        }
+                    if (cache.jsonAjax.hasOwnProperty("create")) {
+                        cache.saveAjax[o.saveTypes.CREATE] = {
+                            url: cache.jsonAjax.create.url,
+                            type: cache.jsonAjax.create.type,
+                            response: cache.jsonAjax.create.response
+                        };
+                    }
+                    if (cache.jsonAjax.hasOwnProperty("overwrite")) {
+                        cache.saveAjax[o.saveTypes.OVERWRITE] = {
+                            url: cache.jsonAjax.overwrite.url,
+                            type: cache.jsonAjax.overwrite.type,
+                            request: cache.jsonAjax.overwrite.request
+                        };
+                    }
 
-                        if(cache.jsonAjax.hasOwnProperty("get")){
-                            cache.saveAjax[o.saveTypes.GET] = {url: cache.jsonAjax["get"].url, type: cache.jsonAjax["get"].type,  response: cache.jsonAjax["get"].response};
+                    if (cache.jsonAjax.hasOwnProperty("get")) {
+                        cache.saveAjax[o.saveTypes.GET] = {
+                            url: cache.jsonAjax["get"].url,
+                            type: cache.jsonAjax["get"].type,
+                            response: cache.jsonAjax["get"].response
+                        };
                         }
                         // }
-
+                    if (source == null)
+                        w_Storage.deleteItem("dsd");
+                    //console.log("flush")
                         //LOADING DATA
                         if (source!=null) {
                             self.populateStorageWithSpecialEntities();
@@ -257,7 +272,13 @@ define([
 
                             var keys =  w_Storage.getAllKeys();
 
-                            w_Commons.raiseCustomEvent(document.body, o.events.LOAD, {url:source.url, type: source.type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: LOAD"});
+                        amplify.publish(o.events.LOAD, {
+                            url: source.url,
+                            type: source.type,
+                            mapping: cache.jsonMapping,
+                            keys: keys,
+                            call: "DATA-ENTRY: LOAD"
+                        });
 
                             //self.parseData();
                             //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
@@ -305,391 +326,296 @@ define([
         }
     };
 
-    DataEntryController.prototype.initEventListeners = function () {
+//EVT handlers
+    DataEntryController.prototype.evtSelect = function (e) {
+        //console.log("----------------- DATA ENTRY (SELECT) "+e.detail.module);
+        var moduleId = e.module.module;
+        var module = e.module;
+        var gui = e.gui;
 
-        var self = this;
+        this.createForm(moduleId, module, gui);
+    };
+    DataEntryController.prototype.evtExitMetadata = function (e) {
+        //console.log("----------------- EXIT_METADATA ");
+        var type, url, event;
+        //Get the urls based on the cache.saveAction type
+        url = cache.saveAjax[o.saveTypes.OVERWRITE].url;
+        type = cache.saveAjax[o.saveTypes.OVERWRITE].type;
+
+        if (cache.saveAction.type == o.saveTypes.OVERWRITE) {
+            var rootValues = w_Storage.getItem(cache.rootEntity);
+            if (rootValues != "") {
+                //w_Commons.raiseCustomEvent(document.body, o.events.FINAL_SAVE, { url: url, type: type, mapping: cache.jsonMapping, call: "DATA-ENTRY: FINAL SAVE" });
+                amplify.publish(o.events.FINAL_SAVE, {
+                    url: url,
+                    type: type,
+                    mapping: cache.jsonMapping,
+                    call: "DATA-ENTRY: FINAL SAVE"
+                });
+            }
+        }
+        else {
+            //w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: null, call: "DATA-ENTRY: FINISH" });
+            amplify.publish(o.events.METADATA_EDITOR_FINISH, {data: null, call: "DATA-ENTRY: FINISH"})
+        }
+    };
+    DataEntryController.prototype.evtCopyMetadata = function (e) {
+        var version = e.version;
+        var uid = e.uid;
+
+        // console.log("COPY_METADATA: uid = "+uid + " | version = "+version);
+
+        if (cache.saveAjax.hasOwnProperty(o.saveTypes.GET)) {
+            var url = cache.saveAjax[o.saveTypes.GET].url;
+            var type = cache.saveAjax[o.saveTypes.GET].type;
 
 
-        document.body.addEventListener(o.events.SELECT, function (e) {
-            console.log("----------------- DATA ENTRY (SELECT) "+e.detail.module);
-            var moduleId = e.detail.module.module;
-            var module = e.detail.module;
-            var gui = e.detail.gui;
+            if (version !== "" && uid !== null) {
+                url = url.replace("version", version);
+                url = url.replace("uid", uid);
+            }
+            if (version == "" && uid !== null) {
+                url = url.replace("uid", "uid/" + uid);
+                url = url.replace("/version", "");
+            }
 
-            self.createForm(moduleId, module, gui);
+            //SPECIAL ENTITIES included in copy, but will be set to null
+            this.populateStorageWithSpecialEntities();
 
-        }, false);
+            var keys = w_Storage.getAllKeys();
+            //w_Commons.raiseCustomEvent(document.body, o.events.COPY, { url: url, type: type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: COPY" });
+            amplify.publish(o.events.COPY, {
+                url: url,
+                type: type,
+                mapping: cache.jsonMapping,
+                keys: keys,
+                call: "DATA-ENTRY: COPY"
+            });
+        }
+    };
+    DataEntryController.prototype.evtInitStorage = function (e) {
+
+        if (source === null && resourceTypeModule !== undefined && e.id === resourceTypeModule) {
+            var resourceTypeModuleValues = {};
+            resourceTypeModuleValues["resourceRepresentationType"] = resourceType;
+            resourceTypeModuleValues["isRoot"] = false;
+            w_Storage.setItem(e.id, resourceTypeModuleValues);
+        }
+        else {
+
+            w_Storage.setItem(e.id, "");
+        }
+    };
+    DataEntryController.prototype.evtCheckFormChanged = function (e) {
+        //  if (this.form.serialize() !=  w_Storage.getItem(this.form.getCurrentModule())) {
+        // Something changed
+        // }
+    };
+    DataEntryController.prototype.evtSubmit = function (e) {
+        var form = e.form,
+            module = e.module,
+            moduleLabel = e.moduleLabel,
+            url,
+            type,
+            event;
+
+        this.cacheFormValues();
 
 
-        document.body.addEventListener(o.events.EXIT_METADATA, function (e) {
-            console.log("----------------- EXIT_METADATA ");
-            var type, url, event;
-            //Get the urls based on the cache.saveAction type
+        //Get the urls based on the cache.saveAction type
+        if (cache.saveAction.type == o.saveTypes.CREATE) {
+            url = cache.saveAjax[o.saveTypes.CREATE].url;
+            type = cache.saveAjax[o.saveTypes.CREATE].type;
+            event = o.events.SAVE;
+
+        }
+        else if (cache.saveAction.type == o.saveTypes.OVERWRITE) {
             url = cache.saveAjax[o.saveTypes.OVERWRITE].url;
             type = cache.saveAjax[o.saveTypes.OVERWRITE].type;
+            event = o.events.OVERWRITE;
+        }
 
-            if(cache.saveAction.type  == o.saveTypes.OVERWRITE){
-                var rootValues =  w_Storage.getItem(cache.rootEntity);
-                if(rootValues != ""){
-                    w_Commons.raiseCustomEvent(document.body, o.events.FINAL_SAVE,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: FINAL SAVE"});
-                }
-            }
-            else {
-                w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, {data:null, call: "DATA-ENTRY: FINISH"});
-            }
-        }, false);
-
-        document.body.addEventListener(o.events.COPY_METADATA, function (e) {
-
-            var version = e.detail.version;
-            var uid = e.detail.uid;
-
-           // console.log("COPY_METADATA: uid = "+uid + " | version = "+version);
-
-            if (cache.saveAjax.hasOwnProperty(o.saveTypes.GET)) {
-                var url =  cache.saveAjax[o.saveTypes.GET].url;
-                var type =  cache.saveAjax[o.saveTypes.GET].type;
+        //console.log("----------------- DATA ENTRY (SAVE) "+cache.saveAction.type);
 
 
-                if(version !== "" && uid !== null){
-                    url = url.replace("version", version);
-                    url = url.replace("uid", uid);
-                }
-                if(version == "" && uid !== null){
-                    url = url.replace("uid", "uid/"+uid);
-                    url = url.replace("/version", "");
-                }
+        if (cache.rootEntity != undefined) {
+            var rootValues = w_Storage.getItem(cache.rootEntity);
 
-                //SPECIAL ENTITIES included in copy, but will be set to null
-                self.populateStorageWithSpecialEntities();
-
-                var keys =  w_Storage.getAllKeys();
-                w_Commons.raiseCustomEvent(document.body, o.events.COPY, {url:url, type: type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: COPY"});
-            }
-        }, false);
-
-
-
-
-
-        /**  document.body.addEventListener(o.events.SELECT, function (e) {
-          // console.log("----------------- DATA ENTRY (SELECT) "+e.detail.module);
-             var keys = w_Storage.getAllKeys();
-
-          //  console.log("============= STORAGE CHECK START ====== keys = "+keys.length);
-          //  for(var i=0; i<keys.length; i++){
-            //    console.log("============= STORAGE KEY = "+keys[i]);
-           //  }
-           // console.log("============= STORAGE CHECK END ======");
-
-
-
-           var moduleId = e.detail.module.module;
-
-          // console.log("----------------- DATA ENTRY (SELECT) "+moduleId);
-            if(w_Storage.getItem(moduleId)){
-                var jsn = w_Storage.getItem(moduleId)[moduleId];
-                var values = JSON.parse(jsn);
-                //console.log("========= JSN STRING PARSE +++++++++++++++++++")
-               // console.log(values)
-
-                self.form.createModuleForm(e.detail.module, values);
+            if (rootValues != "") {
+                //w_Commons.raiseCustomEvent(form, event, { url: url, type: type, mapping: cache.jsonMapping, call: "DATA-ENTRY: SAVE" });
+                amplify.publish(event, {url: url, type: type, mapping: cache.jsonMapping, call: "DATA-ENTRY: SAVE"});
             } else {
-                self.form.createModuleForm(e.detail.module);
+                //w_Commons.raiseCustomEvent(document.body, o.events.EMPTY_ROOT_ENTITY, { moduleLabel: moduleLabel, root: cache.rootLabel });
+                amplify.publish(o.events.EMPTY_ROOT_ENTITY, {moduleLabel: moduleLabel, root: cache.rootLabel});
             }
+        }
+    };
+    DataEntryController.prototype.evtEmptyRootEntity = function (e) {
+        var rootEntity = e.root;
+        var moduleSaved = e.moduleLabel;
 
-
-           // console.log("----------------- DATA ENTRY (SELECT) PARSE METADATA CALL ==================== ");
-            //////////////////////////////////////////////////////
-          //  self.parseMetadata();
-
-        }, false);   **/
-
-        document.body.addEventListener(o.events.INIT_STORAGE, function (e) {
-            if(source === null && resourceTypeModule!== undefined && e.detail.id === resourceTypeModule){
-                var resourceTypeModuleValues = {};
-                resourceTypeModuleValues["resourceRepresentationType"] = resourceType;
-                resourceTypeModuleValues["isRoot"] = false;
-                w_Storage.setItem(e.detail.id, resourceTypeModuleValues);
-            }
-            else {
-                w_Storage.setItem(e.detail.id, "");
-            }
-            }, false);
-
-
-        document.body.addEventListener(o.events.CHECK_FORM_CHANGED, function (e) {
-            //  if (this.form.serialize() !=  w_Storage.getItem(this.form.getCurrentModule())) {
-            // Something changed
-            // }
-
-        }, false);
-
-
-        document.body.addEventListener(o.events.SUBMIT, function (e) {
-            var form = e.detail.form,
-                module = e.detail.module,
-                moduleLabel = e.detail.moduleLabel,
-                url,
-                type,
-                event;
-
-            self.cacheFormValues();
-
-            //Get the urls based on the cache.saveAction type
-            if(cache.saveAction.type == o.saveTypes.CREATE){
-                url = cache.saveAjax[o.saveTypes.CREATE].url;
-                type = cache.saveAjax[o.saveTypes.CREATE].type;
-                event = o.events.SAVE;
-            }
-            else if(cache.saveAction.type  == o.saveTypes.OVERWRITE){
-                url = cache.saveAjax[o.saveTypes.OVERWRITE].url;
-                type = cache.saveAjax[o.saveTypes.OVERWRITE].type;
-                event = o.events.OVERWRITE;
-            }
-
-            console.log("----------------- DATA ENTRY (SAVE) "+cache.saveAction.type);
-            console.log("cache.jsonMapping")
-            console.log(cache.jsonMapping)
-
-            if(cache.rootEntity !=undefined)   {
-                var rootValues =  w_Storage.getItem(cache.rootEntity);
-
-                if(rootValues != ""){
-                    w_Commons.raiseCustomEvent(form, event,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: SAVE"});
-                } else {
-                    w_Commons.raiseCustomEvent(document.body, o.events.EMPTY_ROOT_ENTITY, {moduleLabel: moduleLabel, root: cache.rootLabel});
-                }
-            }
-         }, false);
-
-        document.body.addEventListener(o.events.CANCEL_FORM, function (e) {
-            var form = e.detail.form;
-            var event = o.events.CANCEL;
-            //console.log(form)
-            //$('body').trigger(event);
-            w_Commons.raiseCustomEvent(document.body, event,  {});
+        var noRootNotice = lang_Utils.noRootNotice({
+            rootModule: rootEntity
         });
 
-        document.body.addEventListener(o.events.EMPTY_ROOT_ENTITY, function (e) {
+        var noRootError = lang_Utils.noRootError({
+            currentModule: moduleSaved,
+            rootModule: rootEntity
+        });
 
-            var rootEntity = e.detail.root;
-            var moduleSaved = e.detail.moduleLabel;
-
-            var noRootNotice = lang_Utils.noRootNotice({
-                rootModule: rootEntity
-            });
-
-            var noRootError = lang_Utils.noRootError({
-                currentModule: moduleSaved,
-                rootModule: rootEntity
-            });
-
-            new PNotify({
-                title:  noRootNotice,
-                text: noRootError,
-                type: 'error',
-                nonblock: {
-                    nonblock: true
-                }
-            });
-        }, false);
-
-
-        document.body.addEventListener(o.events.INVALID, function (e) {
-            var errors = e.detail.errors;
-
-            var text = lang_Utils.requiredFieldsError({});
-
-            var errorList = [];
-            text +=  '</br>';
-            for(var m = 0; m < errors.length; m++){
-
-                text += $(errors[m]).attr('id');
-
-                if(m < errors.length -1){
-                    text += '</br>'
-                }
+        new PNotify({
+            title: noRootNotice,
+            text: noRootError,
+            type: 'error',
+            nonblock: {
+                nonblock: true
             }
+        });
+    };
+    DataEntryController.prototype.evtInvalid = function (e) {
+        var errors = e.errors;
+        var text = lang_Utils.requiredFieldsError({});
+        var errorList = [];
+        text += '</br>';
+        for (var m = 0; m < errors.length; m++) {
 
-            new PNotify({
-                title:  lang_Utils.requiredFieldsNotice,
-                text: text,
-                type: 'error',
-                nonblock: {
-                    nonblock: true
-                }
-            });
-        }, false);
+            text += $(errors[m]).attr('id');
 
-        document.body.addEventListener(o.events.NEW_METADATA_SUCCESS, function (e) {
-            var text = lang_Utils.newMetadataSuccess({});
+            if (m < errors.length - 1) {
+                text += '</br>'
+            }
+        }
 
+        new PNotify({
+            title: lang_Utils.requiredFieldsNotice,
+            text: text,
+            type: 'error',
+            nonblock: {
+                nonblock: true
+            }
+        });
+    };
+    DataEntryController.prototype.evtNewMetadataSuccess = function (e) {
+        var text = lang_Utils.newMetadataSuccess({});
 
-            new PNotify({
-                title:  lang_Utils.updateNotice,
-                text: text,
-                type: 'success',
-                nonblock: {
-                    nonblock: true
-                }
-            });
+        new PNotify({
+            title: lang_Utils.updateNotice,
+            text: text,
+            type: 'success',
+            nonblock: {
+                nonblock: true
+            }
+        });
 
-            // Activate/Deactivate finish button
-            if(cache.rootEntity !=undefined)   {
-                var rootValues =  w_Storage.getItem(cache.rootEntity);
-                if(rootValues != ""){
-                    self.rootEntityStatus(true);
-                    //if($(selectors.FINISH_BTN).attr("disabled")=="disabled") {
-                      //  $(selectors.FINISH_BTN).removeAttr("disabled");
-                   // }
-                } else {
-                    self.rootEntityStatus(false);
-                   // $(selectors.FINISH_BTN).attr("disabled", "disabled");
-                }
+        // Activate/Deactivate finish button
+        if (cache.rootEntity != undefined) {
+            var rootValues = w_Storage.getItem(cache.rootEntity);
+            if (rootValues != "") {
+                this.rootEntityStatus(true);
+                //if($(selectors.FINISH_BTN).attr("disabled")=="disabled") {
+                //  $(selectors.FINISH_BTN).removeAttr("disabled");
+                // }
             } else {
-                self.rootEntityStatus(false);
-               // $(selectors.FINISH_BTN).attr("disabled", "disabled");
+                this.rootEntityStatus(false);
+                // $(selectors.FINISH_BTN).attr("disabled", "disabled");
             }
+        } else {
+            this.rootEntityStatus(false);
+            // $(selectors.FINISH_BTN).attr("disabled", "disabled");
+        }
 
-            // RE-SET SAVE ACTION: OVERWRITE
-            cache.saveAction = {type: o.saveTypes.OVERWRITE};
+        // RE-SET SAVE ACTION: OVERWRITE
+        cache.saveAction = {type: o.saveTypes.OVERWRITE};
+    };
+    DataEntryController.prototype.evtOverwriteMetadataSuccess = function (e) {
+        var text = lang_Utils.successfulUpdate({});
 
-        }, false);
-
-
-
-
-        document.body.addEventListener(o.events.OVERWRITE_METADATA_SUCCESS, function (e) {
-
-            var text = lang_Utils.successfulUpdate({});
-
-            new PNotify({
-                title:  lang_Utils.updateNotice,
-                text: text,
-                type: 'success',
-                nonblock: {
-                    nonblock: true
-                }
-            });
-
-            // SET SAVE ACTION: Default OVERWRITE
-            cache.saveAction = {type: o.saveTypes.OVERWRITE};
-
-        }, false);
-
-
-
-        document.body.addEventListener(o.events.FIND, function (e) {
-            //console.log("----------------- DATA ENTRY (FIND) ");
-            var path = e.detail.path;
-
-            var formItemValues = w_Storage.getItem(path);
-
-            if(formItemValues != ""){
-
+        new PNotify({
+            title: lang_Utils.updateNotice,
+            text: text,
+            type: 'success',
+            nonblock: {
+                nonblock: true
             }
+        });
+
+        // SET SAVE ACTION: Default OVERWRITE
+        cache.saveAction = {type: o.saveTypes.OVERWRITE};
+    };
+    DataEntryController.prototype.evtFind = function (e) {
+        //console.log("----------------- DATA ENTRY (FIND) ");
+        var path = e.path;
+        var formItemValues = w_Storage.getItem(path);
+        if (formItemValues != "") {
+        }
+    };
+    DataEntryController.prototype.evtLoad = function (e) {
+        //cache data
+    };
+    DataEntryController.prototype.evtRemove = function (e) {
+        this.menu.activate(e.type);
+        this.form.removeItem(e.module);
+    };
+    DataEntryController.prototype.evtCancel = function (data) {
+        amplify.publish(o.events.CANCEL_START, this);
+    }
+    //END evt handlers
+
+    DataEntryController.prototype.initEventListeners = function () {
+
+        amplify.subscribe(o.events.SELECT, this, this.evtSelect)
+        amplify.subscribe(o.events.EXIT_METADATA, this, this.evtExitMetadata)
+        amplify.subscribe(o.events.COPY_METADATA, this, this.evtCopyMetadata)
+        amplify.subscribe(o.events.INIT_STORAGE, this, this.evtInitStorage);
+        amplify.subscribe(o.events.CHECK_FORM_CHANGED, this, this.evtCheckFormChanged);
+        amplify.subscribe(o.events.SUBMIT, this, this.evtSubmit);
+        amplify.subscribe(o.events.EMPTY_ROOT_ENTITY, this, this.evtEmptyRootEntity);
+        amplify.subscribe(o.events.INVALID, this, this.evtInvalid);
+        amplify.subscribe(o.events.NEW_METADATA_SUCCESS, this, this.evtNewMetadataSuccess);
+        amplify.subscribe(o.events.OVERWRITE_METADATA_SUCCESS, this, this.evtOverwriteMetadataSuccess);
+        amplify.subscribe(o.events.FIND, this, this.evtFind);
+        amplify.subscribe(o.events.LOAD, this, this.evtLoad);
+        amplify.subscribe(o.events.REMOVE, this, this.evtRemove);
+        amplify.subscribe(o.events.CANCEL_FORM, this, this.evtCancel);
 
 
-        }, false);
-
-
-
-        document.body.addEventListener(o.events.LOAD, function (e) {
-            //cache data
-        }, false);
-
-
-        /**   document.body.addEventListener(o.events.SAVE, function (e) {
-            var form = e.detail.form,
-                module = e.detail.module;
-
-            //check the
-            w_Commons.setCacheModule(module, form);
-            w_Commons.raiseCustomEvent(form, "submit.editor.fx", {});
-
-        }, false);      **/
-
-        document.body.addEventListener(o.events.REMOVE, function (e) {
-            self.menu.activate(e.detail.type);
-            self.form.removeItem(e.detail.module);
-        }, false);
-
-        $(selectors.TOGGLE_BTN).on('click', {self: this},function(e){
-            //  console.log(' $(selectors.CONTAINER).is(":visible") = '+$(selectors.CONTAINER).is(":visible"));
-            if ( $(selectors.CONTAINER).is(":visible") ) {
+        $(selectors.TOGGLE_BTN).on('click', {self: this}, function (e) {
+            if ($(selectors.CONTAINER).is(":visible")) {
                 e.data.self.collapseFilter();
             } else {
                 e.data.self.openFilter();
             }
         });
-
-
-    /**    $(selectors.COPY_BTN).on('click', {self: this},function(e){
-            // Prevent form submission
-             e.preventDefault();
-            var uid = $("#rUid").val();
-            var version = $("#rVersion").val();
-
-            if (cache.saveAjax.hasOwnProperty(o.saveTypes.GET)) {
-               var url =  cache.saveAjax[o.saveTypes.GET].url;
-               var type =  cache.saveAjax[o.saveTypes.GET].type;
-
-
-                if(version !== "" && uid !== null){
-                  url = url.replace("version", version);
-                  url = url.replace("uid", uid);
-               }
-               if(version == "" && uid !== null){
-                   url = url.replace("uid", "uid/"+uid);
-                   url = url.replace("/version", "");
-               }
-
-                //SPECIAL ENTITIES included in copy, but will be set to null
-               self.populateStorageWithSpecialEntities();
-
-                var keys =  w_Storage.getAllKeys();
-                w_Commons.raiseCustomEvent(document.body, o.events.COPY, {url:url, type: type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: COPY"});
-            }
-
-        })  **/
-
-     /**   $(selectors.FINISH_BTN).on('click', {self: this},function(e){
-            var type, url, event;
-           //Get the urls based on the cache.saveAction type
-           url = cache.saveAjax[o.saveTypes.OVERWRITE].url;
-           type = cache.saveAjax[o.saveTypes.OVERWRITE].type;
-
-            if(cache.saveAction.type  == o.saveTypes.OVERWRITE){
-                var rootValues =  w_Storage.getItem(cache.rootEntity);
-                if(rootValues != ""){
-                    w_Commons.raiseCustomEvent(document.body, o.events.FINAL_SAVE,  {url: url, type: type,  mapping: cache.jsonMapping, call: "DATA-ENTRY: FINAL SAVE"});
-                }
-            }
-        }) **/
     };
 
     DataEntryController.prototype.finish = function (data) {
-      // console.log("Data Entry Controller: finish() DATA = "+data + " source "+source);
+        // console.log("Data Entry Controller: finish() DATA = "+data + " source "+source);
 
-        if (source==null) {
-          //  if(typeof o.onFinishClick === 'function')
-              //  o.onFinishClick(data);
+        if (source == null) {
+            //  if(typeof o.onFinishClick === 'function')
+            //  o.onFinishClick(data);
 
-            w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, {data:data, call: "DATA-ENTRY: FINISH"});
+            //w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
+            amplify.publish(o.events.METADATA_EDITOR_FINISH, {data: data, call: "DATA-ENTRY: FINISH"});
         } else {
             if (Object.keys(data).length > 0) {
-                w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
-                w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
+
+
+                amplify.publish(o.events.METADATA_EDITOR_FINISH, {data: data, call: "DATA-ENTRY: FINISH"});
+                //w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_FINISH, { data: data, call: "DATA-ENTRY: FINISH" });
+                amplify.publish(o.events.OVERWRITE_METADATA_SUCCESS, {});
+                //w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
             }
         }
-      };
+
+    };
 
     DataEntryController.prototype.createForm = function (moduleId, module, gui) {
         // var moduleId = e.detail.module.module;
 
+
         // console.log("----------------- DATA ENTRY (SELECT): createForm "+moduleId);
-        if(w_Storage.getItem(moduleId)){
+        if (w_Storage.getItem(moduleId)) {
             //var jsn = w_Storage.getItem(moduleId)[moduleId];
             var jsn = w_Storage.getItem(moduleId);
             // console.log("----------------- DATA ENTRY (SELECT) "+jsn);
@@ -699,7 +625,7 @@ define([
             //  console.log(values)
 
             // needs to be adjusted for when there is more than 1 item in the array
-            if($.isArray(jsn)) {
+            if ($.isArray(jsn)) {
                 values = jsn[0];
             }
 
@@ -707,8 +633,8 @@ define([
             //console.log(values.length);
 
 
-            if(values !== "")  {
-                if(typeof values === 'object' && Object.keys(values).length> 0)
+            if (values !== "") {
+                if (typeof values === 'object' && Object.keys(values).length > 0)
                     this.form.createModuleForm(module, w_Storage, gui, values);
                 else
                     this.form.createModuleForm(module, w_Storage, gui, null);
@@ -757,9 +683,15 @@ define([
     };
 
     DataEntryController.prototype.cacheFormValues = function () {
+        //console.log("cache")
         var moduleIdentifier = this.form.getCurrentModule();
         var moduleValues = this.form.getValues();
+        //console.log("moduleValues = "+moduleValues);
+        //console.log(moduleValues);
+
+        // console.log("moduleIdentifier = "+moduleIdentifier);
         w_Storage.setItem(moduleIdentifier, moduleValues);
+
     };
 
     DataEntryController.prototype.getValues = function () {
@@ -767,40 +699,42 @@ define([
     };
 
     DataEntryController.prototype.getAllFormValues = function () {
-
         var keys = w_Storage.getAllKeys();
         var root = {};
         // Delete the "EntityPath" and "isRoot" properties
-        for(var i=0; i<keys.length; i++){
-            var formItemValues = w_Storage.getItem(keys[i]);
-            console.log("key = "+keys[i])
-            console.log("formItemValues = "+formItemValues)
-            var values = formItemValues;
-            if(values != ""){
-                // needs to be adjusted for when there is more than 1 item in the array
-               var isArray = false;
-              if($.isArray(values)) {
-                   values = values[0];
-                 // console.log("============ key "+keys[i] + ' is ARRAY | ');
-                  isArray = true;
-              }
 
-                if(values.hasOwnProperty("isRoot")){
-                    if(values.isRoot){
-                        root =  formItemValues;
+        for (var i = 0; i < keys.length; i++) {
+            var formItemValues = w_Storage.getItem(keys[i]);
+            var values = formItemValues;
+
+            //  console.log("============ key "+keys[i] + ' | ' +formItemValues);
+            // console.log(values);
+
+            if (values != "") {
+                // needs to be adjusted for when there is more than 1 item in the array
+                var isArray = false;
+                if ($.isArray(values)) {
+                    values = values[0];
+                    // console.log("============ key "+keys[i] + ' is ARRAY | ');
+                    isArray = true;
+                }
+
+                if (values.hasOwnProperty("isRoot")) {
+                    if (values.isRoot) {
+                        root = formItemValues;
                         // delete formItemValues.isRoot;
                     } else {
-                      //  console.log("============ key "+keys[i] + ' | ' +values);
-                      //  console.log(values);
+                        //  console.log("============ key "+keys[i] + ' | ' +values);
+                        //  console.log(values);
 
                         var formObs;
-                        if(values.hasOwnProperty("entityPath")){
+                        if (values.hasOwnProperty("entityPath")) {
                             var ePth = values.entityPath.split('.');
                             //console.log("============ split ePth "+ePth + " for "+keys[i]);
-                            if(isArray)
-                               this.nest(ePth, root, formItemValues);
+                            if (isArray)
+                                this.nest(ePth, root, formItemValues);
                             else
-                               this.nest(ePth, root, values);
+                                this.nest(ePth, root, values);
                             // delete formItemValues.entityPath;
                         }
                         else {
@@ -812,16 +746,17 @@ define([
                             // delete formItemValues.entityPath;
                             // }
                             // else {
-                            if(root[keys[i]] === undefined){
+                            if (root[keys[i]] === undefined) {
                                 root[keys[i]] = formItemValues;
                                 // delete formItemValues.isRoot;
                             } else {
                                 root[keys[i]] = root[keys[i]];
 
                                 //This needs to be extended so that it is recursive
-                                for(var item in values) {
+                                for (var item in values) {
                                     root[keys[i]][item] = values[item];
                                     // delete formItemValues[item].isRoot;
+
                                 }
                             }
                             // }
@@ -832,8 +767,8 @@ define([
             }
 
         }
-        console.log("======================== ROOT ====================");
-       console.log(root);
+        // console.log("======================== ROOT ====================");
+        //console.log(root);
         return root;
 
 
@@ -886,7 +821,7 @@ define([
         return root;    **/
     };
 
-    DataEntryController.prototype.deleteObjects = function(obj, find) {
+    DataEntryController.prototype.deleteObjects = function (obj, find) {
         //  console.log("======================== parseMetadata: iterate: find "+find);
         for (var property in obj) {
             if (obj.hasOwnProperty(property)) {
@@ -895,7 +830,7 @@ define([
                 if (typeof obj[property] == "object") {
                     // console.log("======================== parseMetadata: iterate: isObject "+ obj[property] + " prop "+property);
 
-                    if(property == find) {
+                    if (property == find) {
                         // console.log("MATCH find: "+find + " | prop: "+ property + "   " + obj[property]);
                         delete obj[property];
                         break;
@@ -914,7 +849,7 @@ define([
         }
     };
 
-    DataEntryController.prototype.iterate = function(obj, find, json) {
+    DataEntryController.prototype.iterate = function (obj, find, json) {
         // console.log("======================== parseMetadata: iterate: find "+find);
         for (var property in obj) {
             if (obj.hasOwnProperty(property)) {
@@ -923,7 +858,7 @@ define([
                 if (typeof obj[property] == "object") {
                     //   console.log("======================== parseMetadata: iterate: isObject "+ obj[property] + " prop "+property);
 
-                    if(property == find) {
+                    if (property == find) {
                         // console.log("MATCH find: "+find + " | prop: "+ property + "   " + obj[property]);
                         json = obj[property];
                         break;
@@ -947,48 +882,49 @@ define([
 
 
     DataEntryController.prototype.updateCopyCache = function (data) {
-      // Determine the root entity
+
+        //console.log("updateCopyCache")
+        // Determine the root entity
         var storageKeys = w_Storage.getAllKeys();
         //Populate the storage cache
-        for(var i=0; i<storageKeys.length; i++){
-          // console.log(storageKeys[i]);
-          // console.log(data[storageKeys[i]]);
-           w_Storage.setItem(storageKeys[i],data[storageKeys[i]]);
+        for (var i = 0; i < storageKeys.length; i++) {
+            // console.log(storageKeys[i]);
+            // console.log(data[storageKeys[i]]);
+            w_Storage.setItem(storageKeys[i], data[storageKeys[i]]);
         }
 
 
         var responseObj = cache.saveAjax[o.saveTypes.GET].response;
-         var moduleKFields = {};
-         var moduleAFields = {};
+        var moduleKFields = {};
+        var moduleAFields = {};
 
 
         // set key fields as empty
-        if(responseObj!= undefined){
-            if(responseObj.hasOwnProperty("keyFields")){
-            for (var j = 0; j < responseObj["keyFields"].length; j++) {
-                var modObj = responseObj["keyFields"][j];
-                setFieldsToEmpty(modObj, moduleKFields);
+        if (responseObj != undefined) {
+            if (responseObj.hasOwnProperty("keyFields")) {
+                for (var j = 0; j < responseObj["keyFields"].length; j++) {
+                    var modObj = responseObj["keyFields"][j];
+                    setFieldsToEmpty(modObj, moduleKFields);
 
-            }
+                }
             }
 
-            if(responseObj.hasOwnProperty("addedEntitites")){
-               // console.log(responseObj["addedEntitites"]);
-               for (var k = 0; k < responseObj["addedEntitites"].length; k++) {
+            if (responseObj.hasOwnProperty("addedEntitites")) {
+                // console.log(responseObj["addedEntitites"]);
+                for (var k = 0; k < responseObj["addedEntitites"].length; k++) {
                     var moObj = responseObj["addedEntitites"][k];
                     setFieldsToEmpty(moObj, moduleAFields);
-               }
+                }
             }
         }
 
 
+        // console.log("=============== AFTER LOAD =================");
 
-       // console.log("=============== AFTER LOAD =================");
+        // for(var i=0; i<storageKeys.length; i++){
+        //  console.log(w_Storage.getItem(storageKeys[i]));
 
-       // for(var i=0; i<storageKeys.length; i++){
-         //  console.log(w_Storage.getItem(storageKeys[i]));
-
-       // }
+        // }
 
         // SET SAVE ACTION: remains as create
         cache.saveAction = {type: o.saveTypes.CREATE};
@@ -998,74 +934,72 @@ define([
     };
 
 
-
-    function setFieldsToEmpty(propObj, moduleFields){
-        if( typeof propObj === 'object'){
-            for(var prop in propObj){
-                if(propObj.hasOwnProperty(prop)){
+    function setFieldsToEmpty(propObj, moduleFields) {
+        if (typeof propObj === 'object') {
+            for (var prop in propObj) {
+                if (propObj.hasOwnProperty(prop)) {
                     setNullValues(prop, propObj[prop], moduleFields, false)
                 }
             }
         } else {
 
-                setNullValues(propObj, propObj, moduleFields, true)
+            setNullValues(propObj, propObj, moduleFields, true)
 
         }
 
 
     }
 
-   function setNullValues(prop, propObj, moduleFields, isArray){
-               moduleFields[prop];
+    function setNullValues(prop, propObj, moduleFields, isArray) {
+        moduleFields[prop];
 
-                var jsn = w_Storage.getItem(prop);
-              // console.log(jsn);
-               if(isArray){
-                   w_Storage.setItem(prop, "");
-               }
+        var jsn = w_Storage.getItem(prop);
+        // console.log(jsn);
+        if (isArray) {
+            w_Storage.setItem(prop, "");
+        }
 
-               if(jsn!=null){
-                   var values = jsn;
-                   if($.isArray(jsn)) {
-                       values = jsn[0];
-                   }
+        if (jsn != null) {
+            var values = jsn;
+            if ($.isArray(jsn)) {
+                values = jsn[0];
+            }
 
-                   var fields = propObj;
-                   var fieldsArry = [];
-                   var fieldValues = {};
-                   moduleFields[prop] = fields;
-
-
-                       for (var i = 0; i < fields.length; i++) {
-                           var field = fields[i];
-
-                           //set value to null
-                           var value = null;
-                           values[field] = value;
-                           fieldValues[field] =  value;
-                           fieldsArry.push(fieldValues);
-                       }
-
-                       moduleFields[prop] =  fieldsArry;
+            var fields = propObj;
+            var fieldsArry = [];
+            var fieldValues = {};
+            moduleFields[prop] = fields;
 
 
-               }
+            for (var i = 0; i < fields.length; i++) {
+                var field = fields[i];
+
+                //set value to null
+                var value = null;
+                values[field] = value;
+                fieldValues[field] = value;
+                fieldsArry.push(fieldValues);
+            }
+
+            moduleFields[prop] = fieldsArry;
 
 
+        }
 
-   }
+
+    }
 
     DataEntryController.prototype.updateCache = function (data) {
-       var self = this;
+        var self = this;
         // console.log(data);
         var storageKeys = w_Storage.getAllKeys();
         //Populate the storage cache
-        for(var i=0; i<storageKeys.length; i++){
+        for (var i = 0; i < storageKeys.length; i++) {
             //  console.log("=================== updateCache");
             //  console.log(storageKeys[i]);
             // console.log("=================== result ");
             //console.log(data[storageKeys[i]]);
-            w_Storage.setItem(storageKeys[i],data[storageKeys[i]]);
+            w_Storage.setItem(storageKeys[i], data[storageKeys[i]]);
         }
 
 
@@ -1079,20 +1013,20 @@ define([
         // }
 
         // Activate/Deactivate finish button
-        if(cache.rootEntity !=undefined)   {
-            var rootValues =  w_Storage.getItem(cache.rootEntity);
-            if(rootValues != ""){
+        if (cache.rootEntity != undefined) {
+            var rootValues = w_Storage.getItem(cache.rootEntity);
+            if (rootValues != "") {
                 self.rootEntityStatus(true);
-               // if($(selectors.FINISH_BTN).attr("disabled")=="disabled") {
-                 //   $(selectors.FINISH_BTN).removeAttr("disabled");
-               // }
+                // if($(selectors.FINISH_BTN).attr("disabled")=="disabled") {
+                //   $(selectors.FINISH_BTN).removeAttr("disabled");
+                // }
             } else {
                 self.rootEntityStatus(false);
-               // $(selectors.FINISH_BTN).attr("disabled", "disabled");
+                // $(selectors.FINISH_BTN).attr("disabled", "disabled");
             }
         } else {
             self.rootEntityStatus(false);
-           // $(selectors.FINISH_BTN).attr("disabled", "disabled");
+            // $(selectors.FINISH_BTN).attr("disabled", "disabled");
         }
 
         this.menu.setDefault();
@@ -1103,18 +1037,22 @@ define([
     };
 
     DataEntryController.prototype.rootEntityStatus = function (isAvailable) {
-       w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_ROOT_ENTITY_STATUS, {data:{"available": isAvailable}, call: "DATA-ENTRY: ROOT_ENTITY_STATUS"});
+        //w_Commons.raiseCustomEvent(document.body, o.events.METADATA_EDITOR_ROOT_ENTITY_STATUS, { data: { "available": isAvailable }, call: "DATA-ENTRY: ROOT_ENTITY_STATUS" });
+        amplify.publish(o.events.METADATA_EDITOR_ROOT_ENTITY_STATUS, {
+            data: {"available": isAvailable},
+            call: "DATA-ENTRY: ROOT_ENTITY_STATUS"
+        });
     };
 
     DataEntryController.prototype.parseData = function () {
-        var json='{"uid":"ss","version":"ss","language":{"codes":[{"code":"AR"}],"codeList":"FAO_Languages","version":"1.0"},"languageDetail":{"EN":"ss"},"title":{"EN":"ss"},"characterSet":{"codes":[{"code":"AR"}],"codeList":"FAO_Languages","version":"1.0"},"parentIdentifier":"","metadataStandardName":{"EN":"ss"},"metadataStandardVersion":{"EN":"ss"},"metadataLanguage":{"codes":[{"code":"AR"},{"code":"ZH"},{"code":"EN"}],"codeList":"FAO_Languages","version":"1.0"},"contacts":{"name":"ss","organization":{"EN":"ss"},"organizationUnit":{"EN":"ss"},"position":{"EN":""},"role":[{"code":""}],"specify":{"EN":""},"contactInfo":{"phone":"111","address":"","emailAddress":"","hoursOfService":{"EN":""},"contactInstruction":{"EN":""}}},"noDataValue":{"EN":""},"content":{"resourceRepresentationType":[{"code":"dataset"}],"keyWords":{"EN":"www,fff"},"description":{"EN":"wwww"},"statisticalConceptsDefinition":{"EN":"www"},"referencePopulation":{"statisticalPopulation":{"EN":"www"},"statisticalUnit":{"EN":"ww"},"referencePeriod":[{"code":"day"}],"referenceArea":[{"code":"adminlevel2"}]},"coverage":{"coverageSectors":[{"code":"agriculture"}],"coverageSectorsDetails":{"EN":"sector1"},"coverageGeographic":[{"code":"africa"}]}}}';
+        var json = '{"uid":"ss","version":"ss","language":{"codes":[{"code":"AR"}],"codeList":"FAO_Languages","version":"1.0"},"languageDetail":{"EN":"ss"},"title":{"EN":"ss"},"characterSet":{"codes":[{"code":"AR"}],"codeList":"FAO_Languages","version":"1.0"},"parentIdentifier":"","metadataStandardName":{"EN":"ss"},"metadataStandardVersion":{"EN":"ss"},"metadataLanguage":{"codes":[{"code":"AR"},{"code":"ZH"},{"code":"EN"}],"codeList":"FAO_Languages","version":"1.0"},"contacts":{"name":"ss","organization":{"EN":"ss"},"organizationUnit":{"EN":"ss"},"position":{"EN":""},"role":[{"code":""}],"specify":{"EN":""},"contactInfo":{"phone":"111","address":"","emailAddress":"","hoursOfService":{"EN":""},"contactInstruction":{"EN":""}}},"noDataValue":{"EN":""},"content":{"resourceRepresentationType":[{"code":"dataset"}],"keyWords":{"EN":"www,fff"},"description":{"EN":"wwww"},"statisticalConceptsDefinition":{"EN":"www"},"referencePopulation":{"statisticalPopulation":{"EN":"www"},"statisticalUnit":{"EN":"ww"},"referencePeriod":[{"code":"day"}],"referenceArea":[{"code":"adminlevel2"}]},"coverage":{"coverageSectors":[{"code":"agriculture"}],"coverageSectorsDetails":{"EN":"sector1"},"coverageGeographic":[{"code":"africa"}]}}}';
         var loadedJsnObj = json_Utils.parse(json);
         // console.log("======================== parseMetadata jsonObj = ");
         //console.log(loadedJsnObj);
         // console.log("parseData: cache.jsonMapping ======================== "+ cache.jsonMapping);
 
         // Determine the root entity
-        var rootIdentifier =  cache.rootEntity;
+        var rootIdentifier = cache.rootEntity;
 
 
         // console.log("parseData: rootIdentifier ======================== "+ rootIdentifier);
@@ -1128,7 +1066,7 @@ define([
         var cleanedUpObj = json_Utils.deleteRootProperties(storageKeys, splitObj);
 
         //Populate the storage cache
-        for(var i=0; i<storageKeys.length; i++){
+        for (var i = 0; i < storageKeys.length; i++) {
             w_Storage.setItem(storageKeys[i], cleanedUpObj[storageKeys[i]]);
         }
 
@@ -1139,32 +1077,31 @@ define([
         //}
     };
 
-    function getRootEntity(){
+    function getRootEntity() {
         var rootEntity;
         var jsnRootPath = json_Utils.findParentPathForValue(cache.jsonMapping, "root");
 
         var rootJsnEntity = json_Utils.findObjectByPath(cache.jsonMapping, jsnRootPath);
 
-        if(rootJsnEntity.hasOwnProperty("entity")){
+        if (rootJsnEntity.hasOwnProperty("entity")) {
             rootEntity = rootJsnEntity["entity"];
         }
 
         return rootEntity;
     }
 
-    function getRootLabel(rootEntity){
+    function getRootLabel(rootEntity) {
         var rootEntityLabel;
         var jsnRootPath = json_Utils.findParentPathForValue(cache.jsonGuiConf, rootEntity);
 
         var rootJsnEntity = json_Utils.findObjectByPath(cache.jsonGuiConf, jsnRootPath);
 
-        if(rootJsnEntity.hasOwnProperty("label")){
+        if (rootJsnEntity.hasOwnProperty("label")) {
             rootEntityLabel = rootJsnEntity["label"][o.widget.lang];
         }
 
         return rootEntityLabel;
     }
-
 
 
     DataEntryController.prototype.splitJsnByKeys = function (storageKeys, loadedJsnObj, rootIdentifier) {
@@ -1173,13 +1110,13 @@ define([
 
         var splitJsnObj = {};
 
-        for(var i = 0; i < storageKeys.length; i++){
+        for (var i = 0; i < storageKeys.length; i++) {
             var keyPath = json_Utils.findParentPathForProperty(loadedJsnObj, storageKeys[i]);
             var keyObj;
-            if(keyPath === undefined){
+            if (keyPath === undefined) {
                 keyObj = "";
-                if(rootIdentifier != undefined){   // If rootIdentifier is defined then the key is the root Object and the whole loadedJsnObj is assigned to keyObj
-                    if(storageKeys[i] === rootIdentifier) {
+                if (rootIdentifier != undefined) {   // If rootIdentifier is defined then the key is the root Object and the whole loadedJsnObj is assigned to keyObj
+                    if (storageKeys[i] === rootIdentifier) {
                         keyObj = loadedJsnObj;
                         keyObj.isRoot = true;
                     }
@@ -1189,11 +1126,11 @@ define([
                 }
             }
             else {
-                if(keyPath == 'rootProp') {  // keyPath = 'rootProp', means that the key is a direct property of the root object  e.g. {"content":{}}
+                if (keyPath == 'rootProp') {  // keyPath = 'rootProp', means that the key is a direct property of the root object  e.g. {"content":{}}
                     keyObj = loadedJsnObj[storageKeys[i]];
                 }
                 else {
-                    keyObj = json_Utils.findObjectByPath(loadedJsnObj, keyPath+"["+storageKeys[i]+"]");
+                    keyObj = json_Utils.findObjectByPath(loadedJsnObj, keyPath + "[" + storageKeys[i] + "]");
                 }
 
             }
@@ -1206,7 +1143,7 @@ define([
 
     };
 
-    DataEntryController.prototype.nest  = function (keys, obj, values) {
+    DataEntryController.prototype.nest = function (keys, obj, values) {
         if (keys.length > 0) {
             var key = keys.shift()
 
@@ -1249,10 +1186,10 @@ define([
     };
 
     DataEntryController.prototype.populateStorageWithSpecialEntities = function () {
-        if(cache.saveAjax[o.saveTypes.GET].hasOwnProperty("response")){
-            if(cache.saveAjax[o.saveTypes.GET]["response"].hasOwnProperty("addedEntitites")){
+        if (cache.saveAjax[o.saveTypes.GET].hasOwnProperty("response")) {
+            if (cache.saveAjax[o.saveTypes.GET]["response"].hasOwnProperty("addedEntitites")) {
                 var newEntities = cache.saveAjax[o.saveTypes.GET]["response"]["addedEntitites"];
-                for(var i=0; i<newEntities.length; i++){
+                for (var i = 0; i < newEntities.length; i++) {
                     w_Storage.setItem(newEntities[i], "");
                 }
             }
@@ -1263,25 +1200,25 @@ define([
 
     DataEntryController.prototype.updateStorage = function (response) {
         if (response) {
-            var keys =  w_Storage.getAllKeys();
+            var keys = w_Storage.getAllKeys();
             var moduleIds = [];
             var moduleFields = {};
 
 
             var responseObj = cache.saveAjax[cache.saveAction.type].response;
 
-            if(responseObj!= undefined && responseObj.hasOwnProperty("keyFields")){
+            if (responseObj != undefined && responseObj.hasOwnProperty("keyFields")) {
                 for (var j = 0; j < responseObj["keyFields"].length; j++) {
                     var moduleObj = responseObj["keyFields"][j];
 
-                    for(var prop in moduleObj){
-                        if(moduleObj.hasOwnProperty(prop)){
+                    for (var prop in moduleObj) {
+                        if (moduleObj.hasOwnProperty(prop)) {
                             moduleIds.push(prop);
                             moduleFields[prop];
 
                             var jsn = w_Storage.getItem(prop);
                             var values = jsn;
-                            if($.isArray(jsn)) {
+                            if ($.isArray(jsn)) {
                                 values = jsn[0];
                             }
 
@@ -1291,12 +1228,14 @@ define([
                             moduleFields[prop] = fields;
                             for (var i = 0; i < fields.length; i++) {
                                 var field = fields[i];
+
+
                                 var value = response[field];
                                 values[field] = value;
-                                fieldValues[field] =  value;
+                                fieldValues[field] = value;
                                 fieldsArry.push(fieldValues);
                             }
-                            moduleFields[prop] =  fieldsArry;
+                            moduleFields[prop] = fieldsArry;
                         }
                     }
                 }
@@ -1304,10 +1243,11 @@ define([
 
             var currentForm = this.form.getCurrentModule();
 
-            if($.inArray(currentForm, moduleIds) >= 0) {
+            if ($.inArray(currentForm, moduleIds) >= 0) {
                 this.form.refresh(moduleFields[currentForm]);
-            }  else {
-                w_Commons.raiseCustomEvent(document.body, o.events.NEW_METADATA_SUCCESS, {});
+            } else {
+                //w_Commons.raiseCustomEvent(document.body, o.events.NEW_METADATA_SUCCESS, {});
+                amplify.publish(o.events.NEW_METADATA_SUCCESS, {});
             }
 
 
@@ -1315,11 +1255,40 @@ define([
 
     };
 
-    DataEntryController.prototype.overwriteMessage = function (response) {
-        if (Object.keys(response).length > 0) {
-            w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
-        }
+    DataEntryController.prototype.unbindEventListeners = function () {
 
+        amplify.unsubscribe(o.events.SELECT, this.evtSelect);
+        amplify.unsubscribe(o.events.EXIT_METADATA, this.evtExitMetadata);
+        amplify.unsubscribe(o.events.COPY_METADATA, this.evtCopyMetadata);
+        amplify.unsubscribe(o.events.INIT_STORAGE, this.evtInitStorage);
+        amplify.unsubscribe(o.events.CHECK_FORM_CHANGED, this.evtCheckFormChanged);
+        amplify.unsubscribe(o.events.SUBMIT, this.evtSubmit);
+        amplify.unsubscribe(o.events.EMPTY_ROOT_ENTITY, this.evtEmptyRootEntity);
+        amplify.unsubscribe(o.events.INVALID, this.evtInvalid);
+        amplify.unsubscribe(o.events.NEW_METADATA_SUCCESS, this.evtNewMetadataSuccess);
+        amplify.unsubscribe(o.events.OVERWRITE_METADATA_SUCCESS, this.evtOverwriteMetadataSuccess);
+        amplify.unsubscribe(o.events.FIND, this.evtFind);
+        amplify.unsubscribe(o.events.LOAD, this.evtLoad);
+        amplify.unsubscribe(o.events.REMOVE, this.evtRemove);
+        amplify.unsubscribe(o.events.CANCEL_FORM, this.evtCancel);
+
+        $(selectors.TOGGLE_BTN).off();
+    };
+
+    DataEntryController.prototype.overwriteMessage = function (response) {
+
+        if (Object.keys(response).length > 0) {
+            //w_Commons.raiseCustomEvent(document.body, o.events.OVERWRITE_METADATA_SUCCESS, {});
+            amplify.publish(o.events.OVERWRITE_METADATA_SUCCESS, {});
+        }
+    };
+
+    DataEntryController.prototype.destroy = function () {
+        this.menu.destroy();
+
+        this.form.destroy();
+
+        this.unbindEventListeners();
     };
 
     return DataEntryController;

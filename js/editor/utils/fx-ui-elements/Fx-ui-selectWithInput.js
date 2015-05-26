@@ -378,6 +378,9 @@
         options.splice(optionIndex+2, 0, opt);
         select.html(options);
 
+        //$('#otherOptions'+'source').hide();
+        //$('#otherSaveButtonsource').hide();
+
         if(item!=null){
             element_Utils.setSelectedValues(select, newValue, isRequired, options.length);
         }

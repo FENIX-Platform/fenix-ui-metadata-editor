@@ -20,18 +20,18 @@ define(["fx-editor/controllers/Fx-editor-page",
             PROGRESS: "fx-editor-progress"
         };
 
+        var event = {
+            CANCEL_START: "fx.editor.form.cancel.start",
+            CANCEL: "fx.editor.cancel.host"
+        };
+
         function StartUp() {
         }
 
         StartUp.prototype.init = function (options) {
-
-            console.log("Start init!!!")
-            console.log(options)
             if (!options.hasOwnProperty('container')) {
                 throw 'Metadata Editor needs a container!'
             }
-
-
 
             // console.log("startUp: locale = "+ localStorage.getItem('locale'));
 
@@ -53,23 +53,28 @@ define(["fx-editor/controllers/Fx-editor-page",
 
             // $(options.container).html(structure);
 
-            var pageController = new Controller();
+            this.pageController = new Controller();
 
             // Perform dependency injection by extending objects
-            $.extend(pageController, {
+            $.extend(this.pageController, {
                 dataentry: this.initDataEntry(options),
                 bridge: this.initBridge()
             });
 
-            console.log(pageController)
-            pageController.render();
+            this.pageController.render();
 
         };
 
+        StartUp.prototype.evtCancelStar = function (options) {
+            amplify.publish(event.CANCEL, this.pageController);
+        }
+
         StartUp.prototype.initDataEntry = function (options) {
 
-            var dataEntryController = new DataEntryController(),
-                menu = new Menu(),
+            amplify.subscribe(event.CANCEL_START, this, this.evtCancelStar);
+
+            this.dataEntryController = new DataEntryController();
+            var menu = new Menu(),
                 form = new Form(),
                 progress = new Progress(),
                 lang = "EN",
@@ -157,7 +162,7 @@ define(["fx-editor/controllers/Fx-editor-page",
             // console.log("=================================================== INIT DATA CONTROLLER readonly = "+options.readOnly);
 
             //dataEntryController.init(options);
-            dataEntryController.init({
+            this.dataEntryController.init({
                 config: options.config,
                 source: options.source,
                 onFinishClick: options.onFinishClick,
@@ -190,13 +195,13 @@ define(["fx-editor/controllers/Fx-editor-page",
 
 
             // Perform dependency injection by extending objects
-            $.extend(dataEntryController, {
+            $.extend(this.dataEntryController, {
                 menu: menu,
                 form: form,
                 progress: progress
             });
 
-            return dataEntryController;
+            return this.dataEntryController;
 
         };
 
@@ -207,6 +212,7 @@ define(["fx-editor/controllers/Fx-editor-page",
         };
 
         StartUp.prototype.destroy = function () {
+            amplify.unsubscribe(event.CANCEL_START, this.evtCancelStar);
             this.pageController.destroy();
         };
 

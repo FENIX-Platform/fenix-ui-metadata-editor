@@ -17,7 +17,8 @@
     "bootstrap",
     "fx-editor/conf/js/fx-form-validation-callback",
     "jquery-serialize-object",
-    "bootstrap-datetimepicker"
+    "bootstrap-datetimepicker",
+    'amplify'
 ], function (require, $, bootstrapValidator, bootstrapTagsInput, W_Commons, Ui_Element_Creator, UI_Info, Json_Utils, BootstrapValidator_Utils, Date_Utils, langProperties, guiLangProps, guiHtmlLinksLangProps, guiPopoverLangProps, Clone_Utils) {
 
     var o = { },
@@ -437,12 +438,13 @@
       //  $("#fx-editor-form form input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput(
        // );
 
-        $("#fx-editor-form form input[data-role=tagsinput], select[multiple][data-role=tagsinput]").each(function(){
+       /* $("#fx-editor-form form input[data-role=tagsinput], select[multiple][data-role=tagsinput]").each(function(){
+
             $(this).tagsinput(
                 {
                     trimValue: true,
                     confirmKeys: [13, 44]
-                    /**,tagClass: 'small' **/
+                    /!**,tagClass: 'small' **!/
                 }
             );
         });
@@ -454,6 +456,24 @@
                 pickTime: false
             });
 
+        });*/
+
+
+
+
+
+        $("#fx-editor-form form input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput(
+            {
+                trimValue: true,
+                confirmKeys: [13, 44]
+                /**,tagClass: 'small' **/
+            }
+        );
+
+
+
+        $("#fx-editor-form form div[class='input-group date']").datetimepicker({
+            pickTime: false
         });
 
 
@@ -575,9 +595,6 @@
         //Initialize header and set with the module name
         var $panelHeader = $('<div class="panel-heading fx-active-panel"></div>'),
             $label = $('<h3 class="panel-title"></h3>');
-
-        //alert("In buildPanelHeader")
-        //console.log(module)
 
         //if (module.hasOwnProperty("module")) {
         if (module.hasOwnProperty("label")) {
@@ -812,11 +829,12 @@
                     moduleLabel = $module.module;
                 }
 
-                w_Commons.raiseCustomEvent(o.container, o.events.SUBMIT, {form: fm[0], module: $module.module, moduleLabel: moduleLabel, mapping: mapping, call: "FORM: SAVE"});
+                //w_Commons.raiseCustomEvent(o.container, o.events.SUBMIT, {form: fm[0], module: $module.module, moduleLabel: moduleLabel, mapping: mapping, call: "FORM: SAVE"});
+                amplify.publish(o.events.SUBMIT, { form: fm[0], module: $module.module, moduleLabel: moduleLabel, mapping: mapping, call: "FORM: SAVE" });
             } else {
                 var  errors = bv.getInvalidFields();
-                w_Commons.raiseCustomEvent(o.container, o.events.INVALID, {errors: errors});
-
+                //w_Commons.raiseCustomEvent(o.container, o.events.INVALID, {errors: errors});
+                amplify.publish(o.events.INVALID, { errors: errors });
             }
             return false;
         });
@@ -828,13 +846,14 @@
 
     Fx_Editor_Form.prototype.buildCancelButton = function (module) {
 
-        //Initialize Save Button
+        //Initialize Cancel Button
         var $button = $('<button  class="btn btn-warning">'+langProperties.cancel+'</button>');
 
         $button.on('click', function (e) {
             //e.preventDefault();
-
-            w_Commons.raiseCustomEvent(o.container, o.events.CANCEL, {});
+            //e.stopPropagation();
+            //w_Commons.raiseCustomEvent(o.container, o.events.CANCEL, {});
+            amplify.publish(o.events.CANCEL, {});
             return false;
         });
         //$("#fx-editor-form-button_group").append($button);
@@ -850,8 +869,8 @@
 
         $button.on('click', function (e) {
             //e.preventDefault();
-
-            w_Commons.raiseCustomEvent(o.container, o.events.CANCEL, {});
+           // w_Commons.raiseCustomEvent(o.container, o.events.CANCEL, {});
+            amplify.publish(o.events.CANCEL, {});
             return false;
         });
         //$("#fx-editor-form-button_group").append($button);
@@ -1803,8 +1822,18 @@
                }
               }
        }
-        w_Commons.raiseCustomEvent(o.container, o.events.NEW_METADATA_SUCCESS, {});
+        //w_Commons.raiseCustomEvent(o.container, o.events.NEW_METADATA_SUCCESS, {});
+       amplify.publish(o.events.NEW_METADATA_SUCCESS, {});
 
+    };
+
+    Fx_Editor_Form.prototype.destroy = function () {
+        $('#fx-editor-form form').off();
+        $('#fx-editor-form button').off();
+
+        var $button = $('<button  class="btn btn-warning">'+langProperties.cancel+'</button>')
+
+        $button.off();
     };
 
 

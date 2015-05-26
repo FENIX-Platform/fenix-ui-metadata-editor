@@ -150,10 +150,6 @@
             containerId = '#'+o.container + e.fieldSetId+'-'+key;
         }
 
-        console.log("At the end label")
-        console.log(label)
-        console.log("At the end container")
-        console.log(containerId)
         //label.appendTo(containerId);   REFACTORING
         $(containerId).html(label);
 

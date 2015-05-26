@@ -47,9 +47,8 @@
         if(o.values!=null){
             value = element_Utils.getElementValue(name, o.values, e);
         }
-
-        console.log("value")
-        console.log(value)
+        //console.log("value")
+        //console.log(value)
 
         if(value !=null && value!== ""){
              var fDate = date_Utils.formatDate(value, toFormat);

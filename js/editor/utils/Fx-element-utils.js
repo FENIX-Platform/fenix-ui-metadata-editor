@@ -43,7 +43,10 @@
                 select.html(opts.join(""));
             }
             select.val(codes).change();
-
+            //alert("Bofore set codes")
+            //console.log(select)
+            //console.log(codes)
+            //select.val(codes);
         } //else {
             //if(isRequired){
               //  setFirstItemSelected(select);
@@ -167,7 +170,7 @@
             var jsn = json_Utils.findValue(parents, jsonValues);
 
              if(jsn == undefined){
-                parents = parentPath.createEmptyOptionsplit('.');
+                parents = parentPath.split('.');
 
                 var cloneCopy = [];
 

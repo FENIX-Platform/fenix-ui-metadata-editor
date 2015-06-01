@@ -13,7 +13,7 @@ define([
     'amplify'
 ], function ($, Plugin, W_Commons, W_Storage, Json_Utils, LangUtils, NProgress, PNotify) {
 
-    var w_Commons, w_Storage, ajaxConf, mappingConf, guiConf, validationConf, datesConf, resourceType, resourceTypeModule, source, readOnly, cache = {}, json_Utils, lang_Utils,
+    var w_Commons, w_Storage, ajaxConf, mappingConf, guiConf, validationConf, datesConf, resourceType, resourceTypeModule, source, readOnly, cache = {}, json_Utils, lang_Utils, guiIsObj,
         o = {},
         defaultOptions = {
             name: 'fx-editor-dataentry',
@@ -21,6 +21,7 @@ define([
             config: {
                 ajaxEventCalls: "conf/json/fx-editor-ajax-config.json"
             },
+            submit_default_action: null,
             source: null,
             readOnly: false,
             widget: {
@@ -37,7 +38,9 @@ define([
                 INIT_STORAGE: 'fx.editor.init_storage',
                 NEW_METADATA_SUCCESS: "fx.editor.saved",
                 OVERWRITE_METADATA_SUCCESS: "fx.editor.overwritten",
-                SUBMIT: "fx.editor.form.submit",
+                SUBMIT : "fx.editor.form.submit",
+                CANCEL_START: "fx.editor.form.cancel.start",
+                CANCEL_FORM: "fx.editor.form.cancel",
                 CHECK_FORM_CHANGED: "fx.editor.module.form_check",
                 SAVE: "fx.editor.save",
                 LOAD: "fx.editor.load",
@@ -75,7 +78,6 @@ define([
         w_Storage = new W_Storage();
         json_Utils = new Json_Utils();
         lang_Utils = new LangUtils();
-
     }
 
     //(injected)
@@ -99,6 +101,7 @@ define([
         resourceType = o.resourceType;
         source = o.source;
         readOnly = o.readOnly;
+        guiIsObj = o.config.guiIsObj;
 
         // SET SAVE ACTION: Default is Create New
         cache.saveAction = {type: o.saveTypes.CREATE};
@@ -136,7 +139,6 @@ define([
         // Loop on the panels and sub-panels only and remove
         // un-necessary & form will hide the properties
 
-
     };
 
     DataEntryController.prototype.renderComponents = function () {
@@ -146,53 +148,93 @@ define([
         //  $(selectors.EDITOR_HEADING).hide();
         //  $(selectors.INSTRUCTION).hide();
 
-        //Cache json configuration files: Validation and Json Mapping
-        $.when($.getJSON(ajaxConf), $.getJSON(mappingConf), $.getJSON(guiConf), $.getJSON(validationConf), $.getJSON(datesConf))
-            .done(function (ajaxJsn, mappingJsn, guiJsn, validationJsn, datesJsn) {
-                cache.jsonAjax = ajaxJsn[0];
-                cache.jsonMapping = mappingJsn[0];
-                cache.jsonGuiConf = guiJsn[0];
-                cache.jsonValidationConf = validationJsn[0];
-                cache.jsonDatesConf = datesJsn[0];
+        if(guiIsObj){
+            //The configuration is an object and not a file
+            //Cache json configuration files: Validation and Json Mapping
+            $.when($.getJSON(ajaxConf), $.getJSON(mappingConf), $.getJSON(validationConf),  $.getJSON(datesConf))
+                .done(function( ajaxJsn, mappingJsn, validationJsn, datesJsn) {
+                    cache.jsonAjax = ajaxJsn[0];
+                    cache.jsonMapping = mappingJsn[0];
+                    cache.jsonGuiConf = guiConf;
+                    cache.jsonValidationConf = validationJsn[0];
+                    cache.jsonDatesConf = datesJsn[0];
 
-                cache.rootEntity = getRootEntity();
-                cache.rootLabel = getRootLabel(cache.rootEntity);
+                    cache.rootEntity = getRootEntity();
+                    cache.rootLabel = getRootLabel(cache.rootEntity);
 
+                    self.prepareGuiConf();
+                    self.form.render({config: {cache: {mapping: cache.jsonMapping, validation: cache.jsonValidationConf,  dates: cache.jsonDatesConf}}});
 
-                self.prepareGuiConf();
+                    self.menu.render({config: {cache: {gui: cache.jsonGuiConf, validation: cache.jsonValidationConf}}}, function(panels){
 
-
-                //  console.log("MAPPING CACHE ....");
-                //  console.log( cache.jsonMapping);
-                //  console.log("AJAX CACHE ....");
-
-
-                //self.menu.render();
-                self.form.render({
-                    config: {
-                        cache: {
-                            mapping: cache.jsonMapping,
-                            validation: cache.jsonValidationConf,
-                            dates: cache.jsonDatesConf
+                        //  if(cache.jsonAjax.hasOwnProperty("onSave")){
+                        if(cache.jsonAjax.hasOwnProperty("create")){
+                            cache.saveAjax[o.saveTypes.CREATE] = {url: cache.jsonAjax.create.url, type: cache.jsonAjax.create.type, response: cache.jsonAjax.create.response};
                         }
-                    }
+                        if(cache.jsonAjax.hasOwnProperty("overwrite")){
+                            cache.saveAjax[o.saveTypes.OVERWRITE] = {url: cache.jsonAjax.overwrite.url, type: cache.jsonAjax.overwrite.type, request: cache.jsonAjax.overwrite.request};
+                        }
+
+                        if(cache.jsonAjax.hasOwnProperty("get")){
+                            cache.saveAjax[o.saveTypes.GET] = {url: cache.jsonAjax["get"].url, type: cache.jsonAjax["get"].type,  response: cache.jsonAjax["get"].response};
+                        }
+                        // }
+
+                        //LOADING DATA
+                        if (source!=null) {
+                            self.populateStorageWithSpecialEntities();
+                            var keys =  w_Storage.getAllKeys();
+                            if(o.submit_default_action)
+                            {
+                                cache.saveAction.type = o.submit_default_action;
+                            }
+                            w_Commons.raiseCustomEvent(document.body, o.events.LOAD, {url:source.url, type: source.type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: LOAD"});
+                        } else {
+                            //alert("MENU DEFAULT")
+                            if(o.submit_default_action)
+                            {
+                                cache.saveAction.type = o.submit_default_action;
+                            }
+                            self.menu.setDefault();
+                        }
+                        NProgress.done();
+                    });
                 });
+        }
+        else
+        {
+            //Cache json configuration files: Validation and Json Mapping
+            $.when($.getJSON(ajaxConf), $.getJSON(mappingConf),  $.getJSON(guiConf), $.getJSON(validationConf),  $.getJSON(datesConf))
+                .done(function( ajaxJsn, mappingJsn, guiJsn, validationJsn, datesJsn) {
+                    cache.jsonAjax = ajaxJsn[0];
+                    cache.jsonMapping = mappingJsn[0];
+                    cache.jsonGuiConf = guiJsn[0];
+                    cache.jsonValidationConf = validationJsn[0];
+                    cache.jsonDatesConf = datesJsn[0];
 
-                //HIDE PROGRESS FOR NOW
-                //  self.progress.render();
+                    cache.rootEntity = getRootEntity();
+                    cache.rootLabel = getRootLabel(cache.rootEntity);
 
-                //TEST
+                    self.prepareGuiConf();
 
-                self.menu.render({
-                    config: {
-                        cache: {
-                            gui: cache.jsonGuiConf,
-                            validation: cache.jsonValidationConf
-                        }
+                    //  console.log("MAPPING CACHE ....");
+                    //  console.log( cache.jsonMapping);
+                    //  console.log("AJAX CACHE ....");
+
+                    //self.menu.render();
+                    if(o.submit_default_action)
+                    {
+                        cache.saveAction.type = o.submit_default_action;
                     }
-                }, function (panels) {
+                    self.form.render({config: {cache: {mapping: cache.jsonMapping, validation: cache.jsonValidationConf,  dates: cache.jsonDatesConf}}});
 
-                    //  if(cache.jsonAjax.hasOwnProperty("onSave")){
+                    //HIDE PROGRESS FOR NOW
+                    //  self.progress.render();
+                    //TEST
+
+                    self.menu.render({config: {cache: {gui: cache.jsonGuiConf, validation: cache.jsonValidationConf}}}, function(panels){
+
+                        //  if(cache.jsonAjax.hasOwnProperty("onSave")){
                     if (cache.jsonAjax.hasOwnProperty("create")) {
                         cache.saveAjax[o.saveTypes.CREATE] = {
                             url: cache.jsonAjax.create.url,
@@ -214,22 +256,20 @@ define([
                             type: cache.jsonAjax["get"].type,
                             response: cache.jsonAjax["get"].response
                         };
-                    }
-                    // }
+                        }
+                        // }
                     if (source == null)
                         w_Storage.deleteItem("dsd");
                     //console.log("flush")
-                    //LOADING DATA
-                    if (source != null) {
+                        //LOADING DATA
+                        if (source!=null) {
+                            self.populateStorageWithSpecialEntities();
+                            // $(selectors.FINISH_BTN).html(lang_Utils.save);
+                            // $(".fx-header:first").hide();
+                            // $(selectors.EDITOR_HEADING).show();
+                            // $(selectors.INSTRUCTION).hide();
 
-                        self.populateStorageWithSpecialEntities();
-                        // $(selectors.FINISH_BTN).html(lang_Utils.save);
-                        // $(".fx-header:first").hide();
-                        // $(selectors.EDITOR_HEADING).show();
-                        // $(selectors.INSTRUCTION).hide();
-
-
-                        var keys = w_Storage.getAllKeys();
+                            var keys =  w_Storage.getAllKeys();
 
                         amplify.publish(o.events.LOAD, {
                             url: source.url,
@@ -239,18 +279,18 @@ define([
                             call: "DATA-ENTRY: LOAD"
                         });
 
-                        //self.parseData();
-                        //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
-                    } else {
-                        //  $(selectors.FINISH_BTN).html(lang_Utils.saveAndClose);
-                        // $(".fx-header:first").show();
-                        // $(selectors.EDITOR_HEADING).hide();
-                        // $(selectors.INSTRUCTION).show();
+                            //self.parseData();
+                            //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
+                        } else {
+                            //  $(selectors.FINISH_BTN).html(lang_Utils.saveAndClose);
+                            // $(".fx-header:first").show();
+                            // $(selectors.EDITOR_HEADING).hide();
+                            // $(selectors.INSTRUCTION).show();
 
-                        self.menu.setDefault();
-                    }
+                            self.menu.setDefault();
+                        }
 
-                    /** if (cache.jsonAjax.hasOwnProperty("onLoad")) {
+                        /** if (cache.jsonAjax.hasOwnProperty("onLoad")) {
                         var keys =  w_Storage.getAllKeys();
                         //console.log("========================== renderComponents: onLoad ---- type = "+cache.jsonAjax.onLoad.type);
                         w_Commons.raiseCustomEvent(document.body, o.events.LOAD, {url: cache.jsonAjax.onLoad.url, type: cache.jsonAjax.onLoad.type, mapping: cache.jsonMapping, keys: keys, call: "DATA-ENTRY: LOAD"});
@@ -260,11 +300,11 @@ define([
                         self.menu.setDefault();
                     }   **/
 
-                    NProgress.done();
-                });
+                        NProgress.done();
+                    });
 
-                /**   $.when(self.menu.render())
-                 .done(function(panels) {
+                    /**   $.when(self.menu.render())
+                     .done(function(panels) {
                         console.log("========================== renderComponents: ---- MENU RENDER DONE "+panels);
 
                         self.form.render();
@@ -278,17 +318,14 @@ define([
                             //console.log("hasproperty "+cache.jsonAjax["onLoad"]);
                         }
                     });
-                 **/
-
-
-                //self.menu.render();
-                // self.form.render();
-            });
-
-
+                     **/
+                    //self.menu.render();
+                    // self.form.render();
+                });
+        }
     };
 
-    //EVT handlers
+//EVT handlers
     DataEntryController.prototype.evtSelect = function (e) {
         //console.log("----------------- DATA ENTRY (SELECT) "+e.detail.module);
         var moduleId = e.module.module;
@@ -518,6 +555,9 @@ define([
         this.menu.activate(e.type);
         this.form.removeItem(e.module);
     };
+    DataEntryController.prototype.evtCancel = function (data) {
+        amplify.publish(o.events.CANCEL_START, this);
+    }
     //END evt handlers
 
     DataEntryController.prototype.initEventListeners = function () {
@@ -535,6 +575,7 @@ define([
         amplify.subscribe(o.events.FIND, this, this.evtFind);
         amplify.subscribe(o.events.LOAD, this, this.evtLoad);
         amplify.subscribe(o.events.REMOVE, this, this.evtRemove);
+        amplify.subscribe(o.events.CANCEL_FORM, this, this.evtCancel);
 
 
         $(selectors.TOGGLE_BTN).on('click', {self: this}, function (e) {
@@ -544,7 +585,6 @@ define([
                 e.data.self.openFilter();
             }
         });
-
     };
 
     DataEntryController.prototype.finish = function (data) {
@@ -1229,6 +1269,7 @@ define([
         amplify.unsubscribe(o.events.FIND, this.evtFind);
         amplify.unsubscribe(o.events.LOAD, this.evtLoad);
         amplify.unsubscribe(o.events.REMOVE, this.evtRemove);
+        amplify.unsubscribe(o.events.CANCEL_FORM, this.evtCancel);
 
         $(selectors.TOGGLE_BTN).off();
     };

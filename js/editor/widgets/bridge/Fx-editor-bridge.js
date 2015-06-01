@@ -1,5 +1,4 @@
 ﻿/*global define */
-
 define([
     "jquery",
     "fx-editor/widgets/Fx-widgets-commons",
@@ -26,9 +25,7 @@ define([
         //Merge options
         $.extend(o, defaultOptions);
         $.extend(o, options);
-
-        //  console.log("=============== IN BRIDGE ++++++++++++++++ for o.url: "+o.url + " | o.type: "+o.type + " | "+o.mapping);
-
+      //  console.log("=============== IN BRIDGE ++++++++++++++++ for o.url: "+o.url + " | o.type: "+o.type + " | "+o.mapping);
         return $(this);
     };
 
@@ -57,12 +54,22 @@ define([
         } else {
             //  console.log("========== IN BRIDGE: AJAX QUERY START ================== ");
             //Ask the plugin the filter, make the request and pass data to callback()
+
+            var d = plugin.getDataEntry();
+            //console.log("plugin.getDataEntry()")
+            //console.log(d)
+            //console.log(o)
+            //var dataToLoad = {};
+            //dataToLoad.pdObj = plugin.getDataEntry();
+            //var data2= {"pdObj": d}
+            //var data2= d;
+
             $.ajax({
                 url: o.url,
                 type: o.type,
-                contentType: 'application/json',
-                dataType: 'json',
-                success: function (response, textStatus, jqXHR) {
+                //contentType: 'application/json',
+                //dataType: 'json',
+                success: function (response, textStatus, jqXHR ) {
 
                     if (jqXHR.status !== 204) {
                         if (context) {
@@ -74,17 +81,17 @@ define([
                     } else {
                         amplify.publish(o.events.EMPTY_RESPONSE, {})
                     }
-
                 },
                 data: plugin.getDataEntry(), //JSON.stringify(plugin.getDataEntry()),
-                complete: function () {
+                //data: JSON.stringify({"pdObj":plugin.getDataEntry()}),
+                //data: JSON.stringify(dataToLoad),
+                //data: data2,
+                complete: function(){
                     amplify.publish(o.events.END, {})
                 }
             });
         }
     };
-
-
 
     Fx_editor_bridge.prototype.get = function (src, callback, context) {
         var plugin;
@@ -134,7 +141,6 @@ define([
                     } else {
                         amplify.publish(o.events.EMPTY_RESPONSE, {});
                     }
-
                 },
                 complete: function () {
                     amplify.publish(o.events.END, {});

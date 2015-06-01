@@ -9,9 +9,8 @@ define([
     function FilterPlugin(options) {
         $.extend(o, options);
 
-
        //console.log("o.config: "+ o.mapping);
-      // console.log("o.config: "+ o.component);
+       //console.log("o.config: "+ o.component);
 
         json_Utils = new Json_Utils();
     }
@@ -25,7 +24,6 @@ define([
         if (!o.mapping) {
             throw new Error("FILTER PLUGIN: no config during init()");
         }
-
     };
 
     FilterPlugin.prototype.init = function (options) {
@@ -34,7 +32,6 @@ define([
         $.extend(o, options);
 
         self.preValidation();
-
     };
 
     FilterPlugin.prototype.getDataEntry = function () {
@@ -47,13 +44,13 @@ define([
         catch (e) {
             throw new Error(e);
         }
-
     };
 
     FilterPlugin.prototype.createSerializedJson = function (values) {
         //var request = JSON.stringify(values);
         //var request = JSON.stringify(values)
         //console.log("============== BRIDGE PLUGIN: createSerializedJson(): values =================== ");
+
         var json = JSON.stringify(values);
 
         //console.log(json);

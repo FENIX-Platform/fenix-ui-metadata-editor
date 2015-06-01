@@ -32,7 +32,7 @@ define([
 
     var cache = {},
         w_Commons, $collapse,
-        conf,
+        conf, guiIsObj,
         json_Utils, ui_Info;
 
     function Fx_Editor_Progress() {
@@ -49,7 +49,7 @@ define([
         $.extend(o, options);
 
         conf = o.config.gui;
-
+        guiIsObj = o.config.guiIsObj;
     };
 
     Fx_Editor_Progress.prototype.render = function (options) {
@@ -57,14 +57,21 @@ define([
 
         var self = this;
         //console.log("======================== IN PROGRESS render");
-        //Cache json GUI configuration file
-        $.when($.get(conf))
-            .done(function( guiJsn ) {
-                cache.json = guiJsn//JSON.parse(data);
-                self.initStructure();
-                self.renderProgressBar(cache.json);
-        });
-
+        if(guiIsObj){
+            //The gui configuration is an object
+            cache.json = conf;
+            self.initStructure();
+            self.renderProgressBar(cache.json);
+        }
+        else{
+            //Cache json GUI configuration file
+            $.when($.get(conf))
+                .done(function( guiJsn ) {
+                    cache.json = guiJsn//JSON.parse(data);
+                    self.initStructure();
+                    self.renderProgressBar(cache.json);
+                });
+        }
     };
 
 

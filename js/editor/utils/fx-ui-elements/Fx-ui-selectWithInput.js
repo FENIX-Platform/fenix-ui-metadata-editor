@@ -1,5 +1,5 @@
 ﻿define([
-    "jquery","i18n!fx-editor/nls/langProperties", "fx-editor/utils/Fx-element-utils", "jQuery.XDomainRequest"], function ($, langProperties, Element_Utils) {
+    "jquery","i18n!fx-editor/nls/langProperties", "fx-editor/utils/Fx-element-utils", 'pnotify', "jQuery.XDomainRequest"], function ($, langProperties, Element_Utils, PNotify) {
 
     var bootstrapValidator_Utils, element_Utils, lang,
         types = {
@@ -49,9 +49,6 @@
                 }
             }
 
-
-
-
             // else {
             //  if(!e.source.datafields[0].hasOwnProperty("code") && !e.source.datafields[0].hasOwnProperty("label")){
             //      throw new Error("ELEM_NO_DATAFIELDS_CODE_LABEL");
@@ -85,9 +82,11 @@
         //  var select = $("<select data-live-search='true' title='"+message+"'/>");
 
         var select = $("<select/>");
+        //var select = $("<datalist/>");
         if(e.type.hasOwnProperty("enabled")){
             if(!e.type.enabled){
-                select =  $("<select disabled/>");
+//                select =  $("<select disabled/>");
+                select =  $("<datalist disabled/>");
             }
         }
 
@@ -110,23 +109,14 @@
             }
         }
 
-
-
-
-        // console.log("==== SELECT selectName = "+ selectName);
-        //  console.log("==== SELECT o.objMapping = "+ o.objMapping);
-
         if(e.source.type.hasOwnProperty("object")){
-            //  console.log("==== SELECT e.type.object = "+ e.source.type.object);
             if(o.objMapping != undefined) {
                 var objType =  e.source.type["object"];
                 if(o.objMapping.hasOwnProperty(objType)){
                     if(o.objMapping[objType].hasOwnProperty("code")){
-                        // console.log("==== SELECT hasProperty code ");
                         if(o.objMapping[objType]["code"].hasOwnProperty("path")){
                             //   console.log("==== SELECT hasProperty code.path "+ objType);
                             selectName += o.objMapping[objType]["code"]["path"];
-                            //  console.log("selectName = "+ selectName);
                         }
                     }
                 }
@@ -194,16 +184,14 @@
 
 
         if (e.source.hasOwnProperty("url")) {
-
-            populateFromUrl(select, isRequired,  e.source, e, name, value, containerId, callback);
+            populateFromUrl(select, isRequired,  e.source, e, name, value, containerId, callback, key);
         }
     };
 
 
+    function populateFromUrl(select, isRequired, source, element, name, value, containerId, callback, key){
 
-
-    function populateFromUrl(select, isRequired, source, element, name, value, containerId, callback){
-
+        var self = this;
         var root, codeProp, labelProp, langProp, defaultLang, sortLabels = true;
         if(source.hasOwnProperty("dataroot")){
             root = source.dataroot;
@@ -224,13 +212,8 @@
         if(source.datafields.hasOwnProperty("lang")){
             langProp = source.datafields.lang;
 
-            // console.log("langProp = "+langProp);
-            // console.log("labelProp = "+labelProp);
-
             if(langProp === labelProp){
                 defaultLang = labelProp;
-                //console.log("labelProp MATCH ");
-                //console.log("defaultLang =  "+defaultLang);
             }
             else {
                 var fields = langProp.split(/[[\]]{1,2}/);
@@ -244,14 +227,12 @@
             }
         }
 
-
         $.getJSON(source.url, function(data, status, xhr) {
             if( xhr.status == 200 ) {
                 //sort data
                 var rootItem, options = [];
                 if(root!== undefined)  {
                     rootItem = data[root];
-                    //rootItem.sort(sortData(label, labelProp));
                 } else {
                     var dataArry = [];
                     for(var prop in data){
@@ -262,21 +243,19 @@
                     rootItem =  dataArry;
                 }
 
-                // console.log("codeProp = "+codeProp);
-                // console.log("labelProp = "+labelProp);
-                // console.log("defaultLang = "+defaultLang);
-                // console.log("lang = "+lang);
-                //    console.log("====================================== "+name+" ========================== sort = "+sortLabels);
+                popupCreation(select, containerId, key, langProperties, rootItem, labelProp, defaultLang, lang, select, isRequired, options, sortLabels);
+
                 if(sortLabels){
                     rootItem.sort(sortData(labelProp, defaultLang, lang));
                 }
-                //  console.log("AFTER SORT: ");
-                //  console.log(rootItem);
 
                 // Add empty option always (irrespective of whether required/not required)
                 // if(!isRequired){
                 options.push(element_Utils.createEmptyOption(element, langProperties.pleaseSelect, lang));
                 // }
+
+                options.push("<option value='' label='other' style='background-color: #E6E6E6'>"+langProperties.otherOption+"</option>");
+                //options.push("<option style='background-color: #E6E6E6'>"+langProperties.otherOption+"</option>");
 
                 for(var i = 0; i < rootItem.length; i++){
                     var codeVal = rootItem[i];
@@ -289,12 +268,10 @@
                     var opt = createOption(codeVal, rootItem[i], labelProp, defaultLang, lang);
 
                     options.push(opt);
-
                 }
 
                 //set options on the select
                 select.html(options.join(""));
-
 
                 //set Values
                 //console.log("====================================== TEST ==========================");
@@ -309,39 +286,152 @@
                     }
                 }
 
-                // select.selectpicker();
-                //select.appendTo(containerId); REFACTORING
-                $(containerId).html(select);
+                var $button = $('<button  class="btn btn-success" id="otherSaveButton'+key+'">'+langProperties.otherSave+'</button>');
+                var $button2 = $('<input type="button" class="btn btn-success" id="otherSaveButton'+key+'" value="'+langProperties.otherSave+'"></input>');
+                var $input = $("<input data-other-inserted='false' data-other-code='' data-other-label='' type=\"text\" name=\"other\" id='otherOptions"+key+"'>");
+                $(containerId).append($input);
+                $(containerId).append($button2);
+                $('#otherOptions'+key).hide();
+                $button2.hide();
+
+                //Initialize Save Button
+                $button2.on('click', function (e) {
+
+                    var newValue = $input.val();
+
+                    var item = {};
+                    item["code"]= $input.val();
+                    item[labelProp]= {};
+                    item[labelProp][lang]= $input.val();
+                    var inserted = $input.attr("data-other-inserted");
+                    var code = $input.attr("data-other-code");
+                    var label = $input.attr("data-other-label");
+                    if(inserted=='false'){
+                        comboStoreNewValue($input, item, rootItem, labelProp, defaultLang, lang, select, isRequired, options, sortLabels)
+                    }
+                    else{
+                        $('#confirmModal'+key).modal('toggle');
+                    }
+                });
+
+                $('#'+key).change(function () {
+                    var selected_value= $(this).find('option:selected').text();
+                    //if ($(this).val() === '-') {
+                    if (selected_value === langProperties.otherOption) {
+                        // Handle new option
+                        $('#otherOptions'+key).val("");
+                        $('#otherOptions'+key).show();
+                        $button2.show();
+                    }
+                    else{
+                        $('#otherOptions'+key).hide();
+                        $button2.hide();
+                    }
+                });
                 callback();
             }
 
             if(xhr.status == 404){
-                //select.appendTo(containerId);  REFACTORING
                 $(containerId).html(select);
                 callback();
             }
-
-            //else {
-            //console.log("IS NOT 200 ");
-            //select.appendTo(containerId);
-            //callback();
-            //}
-
         }).error(function(jqXHR, textStatus, errorThrown) {
                 //console.log("error " + errorThrown);
                 // console.log("error " + textStatus);
                 // console.log("incoming Text " + jqXHR.responseText);
             });
+    }
 
+    function comboStoreNewValue($input, item, rootItem, labelProp, defaultLang, lang, select, isRequired, options, sortLabels){
+        var inserted = $input.attr("data-other-inserted");
+        var code = $input.attr("data-other-code");
+        var label = $input.attr("data-other-label");
+        $input.attr("data-other-inserted", 'true');
+        $input.attr("data-other-code", item["code"]);
+        $input.attr("data-other-label", item[labelProp][lang]);
 
+        if((code!=null)&&(typeof code!='undefined')&&(code.length>0)){
+            //Remove the old value from the list
+                for(var iRoot=0; iRoot<rootItem.length; iRoot++){
+                    if(rootItem[iRoot].code == code){
+                        rootItem.splice(iRoot, 1);
+                        options.splice((iRoot+2), 1);
+                    }
+                }
+        }
 
+        if(sortLabels){
+            rootItem.push(item);
+            rootItem.sort(sortData(labelProp, defaultLang, lang));
+        }
+        var newValue = $input.val();
+        var opt = createOption(newValue, item, labelProp, defaultLang, lang);
+
+        var optionIndex=0;
+        for(var iRoot=0; iRoot<rootItem.length; iRoot++){
+            if(rootItem[iRoot][labelProp][lang] == $input.val()){
+                optionIndex = iRoot;
+                break;
+            }
+        }
+        //iRoot+2 because there are: Please Select element and Other element
+        options.splice(optionIndex+2, 0, opt);
+        select.html(options);
+
+        //$('#otherOptions'+'source').hide();
+        //$('#otherSaveButtonsource').hide();
+
+        if(item!=null){
+            element_Utils.setSelectedValues(select, newValue, isRequired, options.length);
+        }
+    }
+
+    function popupCreation(select, containerId, key, langProperties, rootItem, labelProp, defaultLang, lang, select, isRequired, options, sortLabels){
+        $(containerId).html(select);
+        var popup = '<div class="modal fade" id="confirmModal'+key+'"';
+        popup += 'aria-hidden="true" role="dialog">';
+        popup += ' <div class="modal-dialog">';
+        popup += '<div class="modal-content">';
+        popup += '<div>';
+        popup += '</div>';
+
+        popup += '<div class="modal-body">';
+        popup += '<div>';
+        popup += '<p>'+langProperties.otherContent+'</p>';
+        popup += '</div>';
+
+        popup += '<div class="modal-footer">';
+        popup += '<button type="button" class="btn btn-default" id="cancel'+key+'"';
+        popup += 'data-dismiss="modal">'+langProperties.otherCancel+'</button>';
+        popup += '<button type="button" id="ok'+key+'"';
+        popup += 'class="btn btn-primary" data-dismiss="modal">'+langProperties.otherReplace+'</button>';
+        popup += '</div>';
+        popup += '</div>';
+        popup += '</div>';
+        popup += '</div>';
+
+        $(containerId).append(popup);
+        $('#cancel'+key).on('click', function (e) {
+            $('#otherOptions'+key).val("");
+        });
+
+        $('#ok'+key).on('click', function (e) {
+            var inserted = $('#otherOptions'+key).attr("data-other-inserted");
+            var code = $('#otherOptions'+key).attr("data-other-code");
+            var label = $('#otherOptions'+key).attr("data-other-label");
+
+            var item = {};
+            item["code"]= $('#otherOptions'+key).val();
+            item[labelProp]= {};
+            item[labelProp][lang]= $('#otherOptions'+key).val();
+
+            comboStoreNewValue($('#otherOptions'+key), item, rootItem, labelProp, defaultLang, lang, select, isRequired, options, sortLabels)
+        });
     }
 
     function sortData(labelProp, langProp, lang) {
         //if language is associated to label field, get value based on the lang
         return function(a, b) {
-            // console.log(a);
-            // console.log(b);
 
             if(langProp!=null) {
                 if(labelProp == langProp){
@@ -417,9 +507,6 @@
     }
 
 
-
-
-
     /**   function setSelectedValues(select, value, isRequired) {
         console.log("%%%%%% TEST: value "+value);
         console.log(value)
@@ -478,10 +565,10 @@
 
 
     Fx_ui_Select.prototype.getValue = function (e) {
+        //console.log("e.id "+e.id);
+        //console.log("$(#e.id).val() = "+$("#" + e.id).val())
         return $("#" + e.id).val();
     };
-
-
 
 
     return Fx_ui_Select;

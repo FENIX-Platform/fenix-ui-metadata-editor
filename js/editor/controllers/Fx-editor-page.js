@@ -36,16 +36,16 @@ define([
 
     PageController.prototype.editorLoad = function (e) {
         var url = e.url,
-                type = e.type,
-                mapping = e.mapping;
+            type = e.type,
+            mapping = e.mapping;
         this.bridge.init(e);
         NProgress.start();
         this.bridge.get(this.dataentry, this.dataentry.updateCache, this.dataentry);
     }
     PageController.prototype.editorCopy = function (e) {
         var url = e.url,
-                type = e.type,
-                mapping = e.mapping;
+            type = e.type,
+            mapping = e.mapping;
 
         this.bridge.init(e);
         NProgress.start();

@@ -45,7 +45,8 @@
                 SUBMIT: 'fx.editor.form.submit',
                 INVALID: 'fx.editor.form.invalid',
                 NEW_METADATA_SUCCESS: "fx.editor.saved",
-                OVERWRITE_METADATA_SUCCESS: "fx.editor.overwritten"
+                OVERWRITE_METADATA_SUCCESS: "fx.editor.overwritten",
+                CANCEL: 'fx.editor.form.cancel'
             }
         };
 
@@ -152,18 +153,15 @@
        var menuHght =  $('.fx-editor-menu-container').height();
        var formHght = $('#fx-form-panel0').height();
 
-        if(menuHght < formHght)     {
-            $('.fx-editor-menu-container').css('min-height', $('#fx-form-panel0').height()+'px');
+        if(o.leftSideMenu){
+            if(menuHght < formHght)     {
+                $('.fx-editor-menu-container').css('min-height', $('#fx-form-panel0').height()+'px');
+            }
+            else  {
+                $('#fx-form-panel0').css('min-height', $('.fx-editor-menu-container').height()+'px');
+            }
         }
-       else  {
-            $('#fx-form-panel0').css('min-height', $('.fx-editor-menu-container').height()+'px');
-        }
-
     }
-
-
-
-
 
     function setFieldSetsFormatting() {
 
@@ -261,6 +259,7 @@
 
         // Revalidate the tag fields when they change
         $('#fx-editor-form form').find('[data-role="tagsinput"]').each(function(){
+
             //console.log(this);
              var name = this.name;
              var bv_att = $(this).attr('data-bv-field');
@@ -278,7 +277,6 @@
         $('#fx-editor-navbar .dropdown-menu input').click(function (event) {
             event.stopPropagation();
         });
-
     }
 
 
@@ -352,8 +350,8 @@
 
         }
 
-       // console.log("================================= bValidatorOptions");
-      //  console.log(bValidatorOptions);
+        //console.log("================================= bValidatorOptions");
+        //console.log(bValidatorOptions);
        // console.log(JSON.stringify(bValidatorOptions));
 
         return bValidatorOptions;
@@ -599,7 +597,6 @@
         var $panelHeader = $('<div class="panel-heading fx-active-panel"></div>'),
             $label = $('<h3 class="panel-title"></h3>');
 
-
         //if (module.hasOwnProperty("module")) {
         if (module.hasOwnProperty("label")) {
             if(module["label"].hasOwnProperty("langProp"))
@@ -619,9 +616,9 @@
 
         //Add any introductory text
         if (module.hasOwnProperty("intro")) {
-           /** if(module["intro"].hasOwnProperty([o.widget.lang])){
-                $panelBody.append('<div class="well well-sm">'+module["intro"][o.widget.lang]+'</div>');
-            }  **/
+           // if(module["intro"].hasOwnProperty([o.widget.lang])){
+           //     $panelBody.append('<div class="well well-sm">'+module["intro"][o.widget.lang]+'</div>');
+           // }
              if(module["intro"].hasOwnProperty("langProp")){
                 $panelBody.append('<div class="well well-sm">'+guiLangProps[module["intro"]["langProp"]]+'</div>');
             }
@@ -635,6 +632,7 @@
             }
         }
         cache.properties = {};
+
         if(module.hasOwnProperty("properties")) {
             self.checkProperties(cache.properties, module.properties);
         }
@@ -645,7 +643,17 @@
         //console.log("======================= buildPanelBody: module.properties ========================");
        // console.log(module.properties);
 
-       $panelBody.append(self.buildForm(module, cache.properties));
+        var $form = self.buildForm(module, cache.properties)
+
+       $panelBody.append($form);
+
+   /*     $form.on("keyup keypress", function(e) {
+            var code = e.keyCode || e.which;
+            if (code  == 13) {
+                e.preventDefault();
+                return false;
+            }
+        });*/
 
         return $panelBody;
     };
@@ -684,6 +692,8 @@
         $form.attr("data-bv-message", "This value is not valid");
         $form.attr("id", id);
 
+        self.buildBackButton(module);
+
         //If the module has properties, build the Form Field containers
        if (module.hasOwnProperty("properties")) {
 
@@ -691,8 +701,6 @@
                 ruleExists = false,
                 requiredFieldsExist = false,
                 elementsJson = {};
-
-
 
             if(cache.modulevalidationrules != undefined) {
                 //if(typeof(cache.modulevalidationrules) != 'undefined'){
@@ -710,7 +718,6 @@
                 } else {
                     pathFieldsMappingExists = false;
                 }
-
             }
 
 
@@ -733,6 +740,7 @@
                 //console.log("=========================== requiredFieldsExist "+requiredFieldsExist);
 
                 if(requiredFieldsExist) {
+
                     var requiredCss =  bootstrapValidator_Utils.getFeedbackIconCss(bootstrapValidator_Utils.getFeedbackIconTypes().REQUIRED),
                     $requiredDiv = $('<div class="well well-sm"></div>'),
                     $requiredStrong = $(''),
@@ -779,21 +787,25 @@
                 resourceType: resourceType,
                 formIdentifier: $form.attr('id')
             }, callbackFunc);//this.onRenderInitialize);
-
         } else {
             readjustMenuFormHeights();
            //throw new Error("Fx_Editor_Form: no 'properties' attribute in config JSON.")
         }
 
         if(!o.readOnly)
-           self.buildSaveButton(module);
+        {
+            self.buildSaveButton(module);
+            self.buildCancelButton(module);
+        }
 
         return $form;
     };
 
     Fx_Editor_Form.prototype.buildSaveButton = function (module) {
+
         //Initialize Save Button
         var $button = $('<button  class="btn btn-success">'+langProperties.save+'</button>');
+        //var $button = $('<button  class="btn btn-success disabled">'+langProperties.save+'</button>');
         $button.on('click', function (e) {
             //e.preventDefault();
             var fm = $('#fx-editor-form form');
@@ -825,11 +837,47 @@
                 //w_Commons.raiseCustomEvent(o.container, o.events.INVALID, {errors: errors});
                 amplify.publish(o.events.INVALID, { errors: errors });
             }
-
             return false;
         });
-
+        //$form.append('<div id="fx-editor-form-button_group"> </div>');
+        //$("#fx-editor-form-button_group").append($button);
+       // document.getElementById("fx-editor-form-button_group").append($button);
         $form.append($button);
+    };
+
+    Fx_Editor_Form.prototype.buildCancelButton = function (module) {
+
+        //Initialize Cancel Button
+        var $button = $('<button  class="btn btn-warning">'+langProperties.cancel+'</button>');
+
+        $button.on('click', function (e) {
+            //e.preventDefault();
+            //e.stopPropagation();
+            //w_Commons.raiseCustomEvent(o.container, o.events.CANCEL, {});
+            amplify.publish(o.events.CANCEL, {});
+            return false;
+        });
+        //$("#fx-editor-form-button_group").append($button);
+        //$form.append('<div>&nbsp</div>');
+        $form.append($button);
+       // document.getElementById("fx-editor-form-button_group").append($button);
+    };
+
+    Fx_Editor_Form.prototype.buildBackButton = function (module) {
+
+        //Initialize Save Button
+        var $button = $('<button  class="btn btn-warning">'+langProperties.backToSelectionPage+'</button>');
+
+        $button.on('click', function (e) {
+            //e.preventDefault();
+           // w_Commons.raiseCustomEvent(o.container, o.events.CANCEL, {});
+            amplify.publish(o.events.CANCEL, {});
+            return false;
+        });
+        //$("#fx-editor-form-button_group").append($button);
+        //$form.append('<div>&nbsp</div>');
+        $form.append($button);
+        // document.getElementById("fx-editor-form-button_group").append($button);
     };
 
     //Create Form Group
@@ -1679,8 +1727,8 @@
         }
 
 
-      // console.log("===================  FORM: getValues FINAL RESULT ========== ");
-      // console.log(result);
+      console.log("===================  FORM: getValues FINAL RESULT ========== ");
+      console.log(result);
 
         return result;
     };
@@ -1783,6 +1831,10 @@
     Fx_Editor_Form.prototype.destroy = function () {
         $('#fx-editor-form form').off();
         $('#fx-editor-form button').off();
+
+        var $button = $('<button  class="btn btn-warning">'+langProperties.cancel+'</button>')
+
+        $button.off();
     };
 
 

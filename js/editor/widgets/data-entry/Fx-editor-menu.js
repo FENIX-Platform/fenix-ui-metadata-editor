@@ -40,7 +40,7 @@ define([
 
     var cache = {},
         w_Commons, $collapse,
-        conf,
+        conf, guiIsObj,
         resourceType, requiredIcon,
         json_Utils, ui_Info;
 
@@ -60,7 +60,8 @@ define([
 
         conf = o.config.gui;
         resourceType = o.resourceType;
-
+        guiIsObj = o.config.guiIsObj;
+        //console.log("++++++++++++ MENU resourceType = "+ resourceType);
     };
 
     Fx_Editor_Menu.prototype.render = function (options, callback) {
@@ -78,7 +79,6 @@ define([
             }
         }
 
-
         //console.log("============================== CACHE JSON =======================");
         // console.log(cache.json);
 
@@ -87,18 +87,25 @@ define([
             var panels = self.renderMenu(cache.json);
             callback(panels);
         } else {
-            //Cache json GUI configuration file
-            $.when($.get(conf))
-                .done(function (guiJsn) {
-                    cache.json = guiJsn; //JSON.parse(data);
-                    self.initStructure();
-                    var panels = self.renderMenu(cache.json);
-                    callback(panels);
-                });
+            if(guiIsObj){
+                //The gui configuration is an object
+                self.initStructure();
+                var panels = self.renderMenu(cache.json);
+                callback(panels);
+            }
+            else{
+                //Cache json GUI configuration file
+                $.when($.get(conf))
+                    .done(function( guiJsn ) {
+                        cache.json = guiJsn//JSON.parse(data);
+                        self.initStructure();
+                        var panels = self.renderMenu(cache.json);
+                        callback(panels);
+                    });
+            }
         }
 
-
-        // var $.getJSON(){
+       // var $.getJSON(){
 
         //}
         //  console.log("++++++++++++ MENU RENDER  conf = "+ conf +' confy ');
@@ -117,7 +124,6 @@ define([
         $collapse.attr("id", o.collapseId);
 
         $(o.container).append($collapse);
-
     };
 
     Fx_Editor_Menu.prototype.renderMenu = function (json) {
@@ -195,8 +201,6 @@ define([
                     if (jsnObj.hasOwnProperty("modules")) {
                         jsnModulesValidation = jsnObj.modules;
                     }
-
-
                 }
             }
         }
@@ -244,7 +248,7 @@ define([
 
                 //w_Commons.raiseCustomEvent(o.container, o.events.SELECT, {module: e.data.module, gui: cache.json, call: "MENU SELECT"});
                 amplify.publish(o.events.SELECT, {module: e.data.module, gui: cache.json, call: "MENU SELECT"});
-                // w_Commons.raiseCustomEvent(o.container, o.events.SELECT, e.data.module);
+               // w_Commons.raiseCustomEvent(o.container, o.events.SELECT, e.data.module);
                 // }
             }
         });
@@ -283,11 +287,10 @@ define([
             $a.append($required);
         }
 
-
-        if (panel.hasOwnProperty("info")) {
-            if (panel["info"].hasOwnProperty("popover")) {
-                if (panel["info"]["popover"].hasOwnProperty("langProp"))
-                    ui_Info.createPopOver($info, guiPopoverLangProps[panel["info"]["popover"]["langProp"]]);
+        if(panel.hasOwnProperty("info")) {
+             if(panel["info"].hasOwnProperty("popover")){
+                 if(panel["info"]["popover"].hasOwnProperty("langProp"))
+                     ui_Info.createPopOver($info, guiPopoverLangProps[panel["info"]["popover"]["langProp"]]);
 
                 // ui_Info.createPopOver($info, panel["info"]["popover"][o.widget.lang]);
             }
@@ -342,7 +345,6 @@ define([
         $(o.container).find("[data-module='" + module + "']").removeAttr("disabled");
 
     };
-
 
     Fx_Editor_Menu.prototype.toggleImageHighlight = function (e) {
 
@@ -462,8 +464,6 @@ define([
 
                 if ($btn.is(':disabled') === false) {
                     self.activateAllButtons();
-
-                    //alert('e.data.module id = '+e.data.module.id);
                     $btn.attr("disabled", "disabled");
                     // console.log('%%% BUTTON ON CLICK PANEL e.data.module = '+  e.data.module);
                     // console.log('MENU e.data.module = '+  e.data.module);
@@ -571,3 +571,5 @@ define([
     return Fx_Editor_Menu;
 
 });
+
+

@@ -64,11 +64,14 @@ define([
             //var data2= {"pdObj": d}
             //var data2= d;
 
+
+            //Daniele: contentType and dataType were commented generating an error on the dates.
+            //if for some reasons it generates problems add an if and change them to behave differently
             $.ajax({
                 url: o.url,
                 type: o.type,
-                //contentType: 'application/json',
-                //dataType: 'json',
+                contentType: 'application/json',
+                dataType: 'json',
                 success: function (response, textStatus, jqXHR ) {
 
                     if (jqXHR.status !== 204) {

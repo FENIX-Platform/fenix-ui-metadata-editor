@@ -1727,8 +1727,8 @@
         }
 
 
-      console.log("===================  FORM: getValues FINAL RESULT ========== ");
-      console.log(result);
+      //console.log("===================  FORM: getValues FINAL RESULT ========== ");
+      //console.log(result);
 
         return result;
     };

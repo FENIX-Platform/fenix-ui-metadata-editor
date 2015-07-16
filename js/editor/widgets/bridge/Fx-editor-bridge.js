@@ -25,7 +25,7 @@ define([
         //Merge options
         $.extend(o, defaultOptions);
         $.extend(o, options);
-      //  console.log("=============== IN BRIDGE ++++++++++++++++ for o.url: "+o.url + " | o.type: "+o.type + " | "+o.mapping);
+        //  console.log("=============== IN BRIDGE ++++++++++++++++ for o.url: "+o.url + " | o.type: "+o.type + " | "+o.mapping);
         return $(this);
     };
 
@@ -55,24 +55,16 @@ define([
             //  console.log("========== IN BRIDGE: AJAX QUERY START ================== ");
             //Ask the plugin the filter, make the request and pass data to callback()
 
-            var d = plugin.getDataEntry();
-            //console.log("plugin.getDataEntry()")
-            //console.log(d)
-            //console.log(o)
-            //var dataToLoad = {};
-            //dataToLoad.pdObj = plugin.getDataEntry();
-            //var data2= {"pdObj": d}
-            //var data2= d;
+           /* var d = plugin.getDataEntry();
+            console.log(d);
+            return;*/
 
-
-            //Daniele: contentType and dataType were commented generating an error on the dates.
-            //if for some reasons it generates problems add an if and change them to behave differently
             $.ajax({
                 url: o.url,
                 type: o.type,
                 contentType: 'application/json',
                 dataType: 'json',
-                success: function (response, textStatus, jqXHR ) {
+                success: function (response, textStatus, jqXHR) {
 
                     if (jqXHR.status !== 204) {
                         if (context) {
@@ -89,7 +81,7 @@ define([
                 //data: JSON.stringify({"pdObj":plugin.getDataEntry()}),
                 //data: JSON.stringify(dataToLoad),
                 //data: data2,
-                complete: function(){
+                complete: function () {
                     amplify.publish(o.events.END, {})
                 }
             });

@@ -109,8 +109,10 @@
             bootstrapValidator_Utils.setValidationAttributes(text, validationRule, o.lang);
         }
 
-        if(e.hasOwnProperty("disabled")) {
-            text.prop('disabled', e.disabled);
+        //console.log("e.disabled");
+        //console.log(e.disabled);
+        if(e.type.hasOwnProperty("disabled")) {
+            text.prop('disabled', e.type.disabled);
         }
 
        //DEBUG

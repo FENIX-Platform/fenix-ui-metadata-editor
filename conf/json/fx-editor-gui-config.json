@@ -13,7 +13,7 @@
                 "uid": {
                     "type": {
                         "name": "text",
-                        "disabled": true,
+                        "disabled": false,
                         "copy": true
                     },
                     "label": {
@@ -29,7 +29,7 @@
                 "version": {
                     "type": {
                         "name": "text",
-                        "disabled": true
+                        "disabled": false
                     },
                     "label": {
                         "langProp": "version",

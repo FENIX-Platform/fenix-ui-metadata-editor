@@ -47,9 +47,9 @@
   #fx-editor-form legend {
     padding: 5px 0 0 10px;
     margin-bottom: 0px;
-    background-color: #eeeeff; }
+    background-color: #EEEEFF; }
   #fx-editor-form fieldset {
-    background-color: #eeeeff; }
+    background-color: #EEEEFF; }
   #fx-editor-form .fnx-fieldset-2 {
     background-color: #f3efe0; }
     #fx-editor-form .fnx-fieldset-2 legend {
@@ -79,3 +79,5 @@
 .bootstrap-tagsinput {
   /** problem in IE, placeholder is cut
    font-size: 11px;  **/ }
+
+/*# sourceMappingURL=fenix-metadata-editor.css.map */

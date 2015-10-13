@@ -687,7 +687,7 @@
             id = "fx-form-" + w_Commons.getFenixUniqueId();
 
         //Initialize form
-        $form = $('<form class="form-horizontal" role="form" action="" method="">');
+        $form = $('<form class="form-horizontal metadata-container" role="form" action="" method="">');
         //Set default message for bootstrap validator
         $form.attr("data-bv-message", "This value is not valid");
         $form.attr("id", id);

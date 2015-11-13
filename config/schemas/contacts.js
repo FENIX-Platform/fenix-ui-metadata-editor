@@ -72,8 +72,8 @@
                 "helper": "Role or position of the responsible person."
             },
             "role": {
-                "type": "radio",
-                "dataSource": "../submodules/fenix-ui-metadata-editor2/config/CL/CL_ResponsiblePartyRole.json",
+                "type": "select",
+                "dataSource": "../submodules/fenix-ui-metadata-editor/config/CL/CL_ResponsiblePartyRole.json",
                 "helper": "Function performed by the responsible party concerning the resource."
             },
             "specify": {
@@ -82,12 +82,14 @@
             "contactInfo": {
                 "fields": {
                     "phone": {
+                        "type": "phone",
                         "helper": "Telephone numbers at which the organization or individual may be contacted."
                     },
                     "address": {
                         "helper": "Physical address at which the organization or individual may be contacted."
                     },
                     "emailAddress": {
+                        "type":"email",
                         "helper": "E-mail address at which the organization or individual may be contacted."
                     },
                     "hoursOfService": {

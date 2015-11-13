@@ -1,6 +1,0 @@
-﻿{
-    "enum": [ "owner", "distributor", "other" ],
-    "options": {
-        "enum_titles": [ "Owner", "Distributor", "Other" ]
-    }
-}

@@ -1,8 +1,0 @@
-﻿{
-    "type": "string",
-    "enum": [ "", "C", "M", "N", "R", "S", "T", "W", "X", "Y", "_Z" ],
-    "options": {
-        "enum_titles": [ "", "Trend-cycle data, workin...not seasonally adjusted", "Combined seasonal and calendar factors", "Neither seasonally nor working day adjusted", "Trend cycle data, not working day adjusted", "Seasonally adjusted, not working day adjusted", "Trend", "Working day adjusted, not seasonally adjusted", "Seasonal factors", "Working day and seasonally adjusted", "Not applicable" ]
-    },
-    "default": ""
-}

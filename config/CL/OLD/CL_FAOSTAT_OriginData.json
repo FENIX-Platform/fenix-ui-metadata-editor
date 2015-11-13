@@ -1,7 +1,0 @@
-﻿{
-    "enum": [ "", "A", "B", "C", "D", "E", "F", "G" ],
-    "options": {
-        "enum_titles": [ "", "Other International Organizations", "Industry associations", "Universities, research centres", "Government and Ministries", "National Statistics Institutes", "Other sources", "Mixture of data source" ]
-    },
-    "default": ""
-}

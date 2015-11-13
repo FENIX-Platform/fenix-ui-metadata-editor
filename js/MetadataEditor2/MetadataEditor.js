@@ -70,15 +70,18 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
                 { id: "maintenance_update", text: "Update" },
                 { id: "maintenance_metadataMaintenance", text: "Metadata Maintenance" }
             ]
-        },
-        { id: "documents", text: "Documents" }
+        }
+        //,{ id: "documents", text: "Documents" }
     ];
 
     var treeConfig = {
         core: {
             data: sec,
             animation: 0,
-            themes: { "stripes": true }
+
+            themes: {
+                //"stripes": true
+            }
         },
         plugins: ["wholerow"]
     };
@@ -118,7 +121,7 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
 
         this.$sections.on("ready.jstree", function () {
             me.$sections.off("ready.jstree");
-            me.$sections.jstree(true).select_node(startingSection.id, true);
+            //me.$sections.jstree(true).select_node(startingSection.id, true);
         });
         this.secTree = this.$sections.jstree(treeConfig);
     };
@@ -138,11 +141,13 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
             return;
 
         this.$editor.alpaca('get').refreshValidationState();
+        var invalidState = false;
 
         if (!this.validateCurrentForm()) {
             var conf = confirm("The form is not valid, do you want to change section and lose all the changes in the current one?");
             if (conf) {
                 this.$editor.alpaca('get').clear();
+                invalidState = true;
             }
             else {
                 this.$sections.jstree(true).select_node(this.currentSection.id, true);
@@ -153,7 +158,7 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
 
         var me = this;
         if (this.currentSection != "") {
-            this.editorToMeta();
+            this.editorToMeta(invalidState);
             this.updateValidation(this._uiToMeta(this.meta)); //convert and validate
         }
         /*if (this.currentSection.id == section.id)
@@ -164,14 +169,6 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         this.currentSection = section;
         var schToLoad = this.config.schemaPath + section.id;
         this.loadJSONSchema(schToLoad);
-        /*require([schToLoad], function (data) {
-            data.postRender = function () { me.editorReady(); };
-            data.data = me.getValsToSet();
-            me.$editor.alpaca(
-                data
-            );
-        });*/
-        //var isValid = this.updateValidation();
     };
 
     MetadataEditor.prototype.loadJSONSchema = function (schToLoad, callB) {
@@ -196,11 +193,16 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         return null;
     };
 
-    MetadataEditor.prototype.editorToMeta = function () {
+    MetadataEditor.prototype.editorToMeta = function (clearSection) {
         if (!this.currentSection)
             return
-        var val = this.$editor.alpaca('get').getValue();
-        this.meta[this.currentSection.id] = val;
+        if (clearSection) {
+            if (this.meta[this.currentSection.id])
+                delete this.meta[this.currentSection.id];
+        } else {
+            var val = this.$editor.alpaca('get').getValue();
+            this.meta[this.currentSection.id] = val;
+        }
     };
 
     MetadataEditor.prototype.destroy = function () {
@@ -225,12 +227,6 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         var toRet = this.metaAdapterFactory.uiToMeta(uiMeta);
         return toRet;
     };
-
-    /* MetadataEditor.prototype.validate = function () {
-         if (!this.jsForm)
-             return null;
-         this.jsForm.validate();
-     };*/
 
     MetadataEditor.prototype.set = function (m) {
         this.currentSection = "";
@@ -260,40 +256,27 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
     };
 
     MetadataEditor.prototype.updateValidation = function (convertedMeta) {
-
-
         var identVal = this.validator.validateSection(convertedMeta, "identification");
         var contVal = this.validator.validateSection(convertedMeta, "contacts");
         var valid = true;
 
-        /*console.log("identVal");
-        console.log(identVal);
-        console.log("contVal");
-        console.log(contVal);*/
+        this.$sections.find('.fx-panel-required').remove();
+
 
         if (identVal && identVal.length > 0) {
-            this.isTreeNodeValid("identification", false);
+            this.nodeError("identification");
             valid = false;
-        }
-        else {
-            this.isTreeNodeValid("identification", true);
         }
         if (contVal && contVal.length > 0) {
-            this.isTreeNodeValid("contacts", false);
+            this.nodeError("contacts");
             valid = false;
         }
-        else {
-            this.isTreeNodeValid("contacts", true);
-        }
+
         return valid;
     };
-    MetadataEditor.prototype.isTreeNodeValid = function (nodeId, isValid) {
-        if (isValid) {
-            this.$sections.jstree(true).set_icon(nodeId, "");
-        }
-        else {
-            this.$sections.jstree(true).set_icon(nodeId, " ");
-        }
+    MetadataEditor.prototype.nodeError = function (nodeId) {
+        var node = this.$sections.jstree(true).get_node(nodeId, true);
+        node.append('<span class="fx-panel-required" title="Required metadata entity"></span>');
     };
 
     return MetadataEditor;

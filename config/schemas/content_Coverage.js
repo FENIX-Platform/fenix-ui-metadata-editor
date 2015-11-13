@@ -109,7 +109,7 @@
                 "type": "select",
                 "multiple": true,
                 "size": 10,
-                "dataSource": "../submodules/fenix-ui-metadata-editor2/config/CL/CL_GAUL0.json",
+                "dataSource": "../submodules/fenix-ui-metadata-editor/config/CL/CL_GAUL0.json",
                 "helper": "Geographical coverage represented by the resource. It is highly recommended to make reference to officially recognized or easily identifiable macro-areas (e.g. South Saharan Africa, North America, OECD member countries..)."
             }
         }

@@ -42,7 +42,7 @@
             },
             "disseminationPeriodicity": {
                 "type": "select",
-                "dataSource": "../submodules/fenix-ui-metadata-editor2/config/CL/CL_FAO_Period.json",
+                "dataSource": "../submodules/fenix-ui-metadata-editor/config/CL/CL_FAO_Period.json",
                 "helper": "Frequency of data dissemination (e.g. daily, monthly, quarterly, yearly)"
             },
             "embargoTime": {

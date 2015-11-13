@@ -20,6 +20,7 @@
         "helper": "This section reports the mode of distribution of the resource with a focus on how to access the resource, the supported formats.",
         "fields": {
             "onlineResource": {
+                "type": "url",
                 "helper": "Link to the on-line resource. It is conditional to the policy governing distribution and sharing mechanism. For \u0027restricted\u0027 resources it is not available."
             },
             "disseminationFormat": {

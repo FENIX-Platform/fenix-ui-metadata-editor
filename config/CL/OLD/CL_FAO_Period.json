@@ -1,0 +1,7 @@
+﻿{
+    "enum": [ "", "1", "10", "11", "12", "13", "14", "2", "3", "4", "5", "6", "7", "8", "9" ],
+    "options": {
+        "enum_titles": [ "", "Second", "Fiscal year", "Decay", "Irregular", "2 years", "5 years", "Minute", "Hour", "Day", "Week", "Month", "Quarter", "Semester", "Year" ]
+    },
+    "default": ""
+}

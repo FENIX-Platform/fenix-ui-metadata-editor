@@ -1,0 +1,7 @@
+﻿{
+    "enum": [ "", "C", "D", "F", "N", "S" ],
+    "options": {
+        "enum_titles": [ "", "Confidential statistical information", "Secondary confidentiality set by the sender, not for publication", "Free", "Not for publication, restricted for internal use only", "Secondary confidentiality set and managed by the receiver, not for publication" ]
+    },
+    "default": ""
+}

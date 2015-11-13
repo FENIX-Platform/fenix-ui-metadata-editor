@@ -1,0 +1,8 @@
+﻿{
+    "type": "string",
+    "enum": [ "", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
+    "options": {
+        "enum_titles": [ "", "Census data", "National accounts data", "Exhaustive surveys", "Random sampling", "Non-random sampling data", "Administrative data", "Mixture or other modes of data collection", "Input to Food Balance sh...lization Accounts (SUA)", "Exhaustive/adm.", "Household Budget Survey (HBS)", "Large-scale sighting survey (LSS)", "Random sampling/exhaustive surveys" ]
+    },
+    "default": ""
+}

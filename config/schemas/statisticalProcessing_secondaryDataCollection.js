@@ -33,7 +33,7 @@
                 "helper": "Coded element which allows to specify in a standard way the origin of the resource.",
                 "removeDefaultNone": false,
                 "type": "select",
-                "dataSource": "../submodules/fenix-ui-metadata-editor/config/CL/CL_FAOSTAT_OriginData.json"
+                "dataSource": "submodules/fenix-ui-metadata-editor/config/CL/CL_FAOSTAT_OriginData.json"
             },
             "organization": {
                 "helper": "Organization is mandatory when 'Other International Organizations' has been chosen in originOfCollectedData *** If the element \u003c\u003coriginOfCollectedData\u003e\u003e has been generally specified as \u0027other International Organizations\u0027 this element requests to report the exact source of the resource.",

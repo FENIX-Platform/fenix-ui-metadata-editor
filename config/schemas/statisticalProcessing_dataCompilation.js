@@ -58,7 +58,7 @@
             "dataAdjustment": {
                 "helper": "Type of adjustment used represented by a code.",
                 "type": "select",
-                "dataSource": "../submodules/fenix-ui-metadata-editor/config/CL/CL_ADJUSTMENT.json"
+                "dataSource": "submodules/fenix-ui-metadata-editor/config/CL/CL_ADJUSTMENT.json"
             },
             "dataAdjustmentDetails": {
                 "helper": "Set of procedures employed to modify statistical data to enable it to be conform with national or international standards (such as seasonal adjustment methods, time series decomposition, or other similar methods)."

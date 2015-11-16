@@ -33,13 +33,13 @@
             "referencePeriod": {
                 "type": "select",
                 "removeDefaultNone": false,
-                "dataSource": "../submodules/fenix-ui-metadata-editor/config/CL/CL_FAO_Period.json",
+                "dataSource": "submodules/fenix-ui-metadata-editor/config/CL/CL_FAO_Period.json",
                 "helper": "Specific time periods (e.g. a day, a week, a month, a fiscal year, a calendar year or several calendar years) the statistical variables refer to."
             },
             "referenceArea": {
                 "type": "select",
                 "removeDefaultNone": false,
-                "dataSource": "../submodules/fenix-ui-metadata-editor/config/CL/CL_GAUL_ReferenceArea.json",
+                "dataSource": "submodules/fenix-ui-metadata-editor/config/CL/CL_GAUL_ReferenceArea.json",
                 "helper": "Type of geographical units the resource represents or refers to. Note that the spatial resolution must refer to the minimum mapping unit whose bounds are officially recognized indipendently from the measurement process of the phonomenon taken into account. Examples are: countries, administrative level 2, etc."
             }
         }

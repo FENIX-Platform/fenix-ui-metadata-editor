@@ -1,6 +1,6 @@
 ﻿define({
-    "schemaSource": "../submodules/fenix-ui-metadata-editor/config/schemas/contactsSCH.json",
-    "optionsSource": "../submodules/fenix-ui-metadata-editor/config/schemas/contactsOPTS.json",
+    "schemaSource": "submodules/fenix-ui-metadata-editor/config/schemas/contactsSCH.json",
+    "optionsSource": "submodules/fenix-ui-metadata-editor/config/schemas/contactsOPTS.json",
     "required": ["dataCollection", "collectionPeriodicity"],
     "schema": {
         "type": "object",
@@ -26,7 +26,7 @@
             {
                 "typeOfCollection": {
                     "type": "select",
-                    "dataSource": "../submodules/fenix-ui-metadata-editor/config/CL/CL_FAOSTAT_Collection.json",
+                    "dataSource": "submodules/fenix-ui-metadata-editor/config/CL/CL_FAOSTAT_Collection.json",
                     "helper": "Coded element which specifies the type of data collection method (e.g. census, random sampling, etc.)."
                 },
                 "samplingProcedure": {
@@ -37,7 +37,7 @@
                 },
                 "collectionPeriodicity": {                    
                     "type": "select",
-                    "dataSource": "../submodules/fenix-ui-metadata-editor/config/CL/CL_FAO_Period.json",
+                    "dataSource": "submodules/fenix-ui-metadata-editor/config/CL/CL_FAO_Period.json",
                     "helper": "Frequency with which the data are collected from the sources."
                 },
 

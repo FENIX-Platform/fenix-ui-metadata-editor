@@ -31,7 +31,7 @@
             "confidentialityStatus": {
                 "helper": "Coded information describing the degree of confidentiality of the resource",
                 "type": "select",
-                "dataSource": "../submodules/fenix-ui-metadata-editor/config/CL/CL_CONF_STATUS.json"
+                "dataSource": "submodules/fenix-ui-metadata-editor/config/CL/CL_CONF_STATUS.json"
             }
         }
     }

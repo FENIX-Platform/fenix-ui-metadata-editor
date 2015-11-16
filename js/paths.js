@@ -17,8 +17,9 @@ define(function () {
             'datetimepicker': '../lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
             'moment': '../lib/moment-with-locales',
             //'validate': '../lib/parsley',
-            //'jsTree': '../lib/jsTree/jstree.min',
-            'jsTree': '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
+            'jsTree': '../lib/jsTree/jstree.min',
+            //The one on the CDN times out, check and reEnable it
+            //'jsTree': '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
             'alpaca': '../lib/alpaca/alpaca.min'
             //,'handlebars404': '../lib/handlebars-v4.0.4'
 

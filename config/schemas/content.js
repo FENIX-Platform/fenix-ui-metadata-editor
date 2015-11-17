@@ -40,6 +40,7 @@
             },*/
             "keywords": {
                 "helper": "Commonly used word(s), formalized word(s) or phrase(s) used to describe the resource.",
+                "toolbarSticky": true
             },
             "abstract": {
                 "helper": "Overview of the main characteristics of the resource and summary of the information contained in the resource, in an easily understandable manner, for technical and non-technical users."

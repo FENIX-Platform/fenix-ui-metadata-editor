@@ -23,13 +23,22 @@
         "helper": "This section involves maintenance operations concerning the periodic update of metadata to ensure that the resource is properly described.",
         "fields": {
             "metadataLastCertified": {
-                "helper": "Latest date of certification of the metadata."
+                "helper": "Latest date of certification of the metadata.",
+                "picker": {
+                    "format": "DD/MM/YYYY"
+                }
             },
             "metadataLastPosted": {
-                "helper": "Latest date of publication of the metadata. It is usually automatically updated by the metadata production system."
+                "helper": "Latest date of publication of the metadata. It is usually automatically updated by the metadata production system.",
+                "picker": {
+                    "format": "DD/MM/YYYY"
+                }
             },
             "metadataLastUpdate": {
-                "helper": "Most recent date of update of the metadata."
+                "helper": "Most recent date of update of the metadata.",
+                "picker": {
+                    "format": "DD/MM/YYYY"
+                }
             }
         }
     }

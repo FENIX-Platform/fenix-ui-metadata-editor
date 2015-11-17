@@ -17,12 +17,12 @@
                 "title": "Dissemination periodicity",
             },
             "embargoTime": {
-                "title":"Embargo time",
+                "title": "Embargo time",
                 "type": "object",
                 "properties": {
                     "from": {
                         "title": "From",
-                        "format":"date"
+                        "format": "date"
                     },
                     "to": {
                         "title": "To",
@@ -42,11 +42,23 @@
             },
             "disseminationPeriodicity": {
                 "type": "select",
-                "dataSource": "submodules/fenix-ui-metadata-editor/config/CL/CL_FAO_Period.json",
+                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_FAO_Period.json",
                 "helper": "Frequency of data dissemination (e.g. daily, monthly, quarterly, yearly)"
             },
             "embargoTime": {
                 "helper": "Time span between the completion of the production process of statistical data and their publication.",
+                "fields": {
+                    "from": {
+                        "picker": {
+                            "format": "DD/MM/YYYY"
+                        }
+                    },
+                    "to": {
+                        "picker": {
+                            "format": "DD/MM/YYYY"
+                        }
+                    }
+                }
             }
         }
     }

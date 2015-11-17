@@ -103,13 +103,25 @@
                 "helper": "Textual element delimiting the statistical results with regard to the main sectors covered."
             },
             "coverageTime": {
-                "helper": "Information about the time period for which data are available. It requests to report the time window of reference (reporting the starting date and the ending date) even if it presents some lacks."
+                "helper": "Information about the time period for which data are available. It requests to report the time window of reference (reporting the starting date and the ending date) even if it presents some lacks.",
+                "fields": {
+                    "from": {
+                        "picker": {
+                            "format": "DD/MM/YYYY"
+                        }
+                    },
+                    "to": {
+                        "picker": {
+                            "format": "DD/MM/YYYY"
+                        }
+                    }
+                }
             },
             "coverageGeographic": {
                 "type": "select",
                 "multiple": true,
                 "size": 10,
-                "dataSource": "submodules/fenix-ui-metadata-editor/config/CL/CL_GAUL0.json",
+                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_GAUL0.json",
                 "helper": "Geographical coverage represented by the resource. It is highly recommended to make reference to officially recognized or easily identifiable macro-areas (e.g. South Saharan Africa, North America, OECD member countries..)."
             }
         }

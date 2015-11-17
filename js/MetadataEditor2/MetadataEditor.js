@@ -97,6 +97,8 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         this.$editor = null;
         this.currentSection = startingSection;
 
+        this.uid = null;
+        this.version = null;
         this.meta = {};
         this.jsForm = null;
         this.$sections = null;
@@ -229,6 +231,14 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
     };
 
     MetadataEditor.prototype.set = function (m) {
+        if (m.uid)
+            this.uid = m.uid;
+        else
+            this.uid = null;
+        if (m.version)
+            this.version = m.version;
+        else
+            this.version = null;
         this.currentSection = "";
         this.meta = this.metaAdapterFactory.metaToUi(m);
         this.changeSection(sec[0]);
@@ -237,18 +247,12 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         this.editorToMeta();
         var metaToExport = this._uiToMeta(this.meta);
         var isValid = this.updateValidation(metaToExport);
-
-
-
-
-        //Uncommet that after debug!
         if (!isValid)
             return null;
-
-
-
-
-
+        if (this.uid)
+            metaToExport.uid = this.uid;
+        if (this.version)
+            metaToExport.version = this.version;
         return metaToExport;
     };
     MetadataEditor.prototype.reset = function () {

@@ -73,7 +73,7 @@
             },
             "role": {
                 "type": "select",
-                "dataSource": "submodules/fenix-ui-metadata-editor/config/CL/CL_ResponsiblePartyRole.json",
+                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_ResponsiblePartyRole.json",
                 "helper": "Function performed by the responsible party concerning the resource."
             },
             "specify": {

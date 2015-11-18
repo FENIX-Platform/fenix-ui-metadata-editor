@@ -1,6 +1,6 @@
 ﻿define({
-    "schemaSource": "submodules/fenix-ui-metadata-editor/config/schemas/contactsSCH.json",
-    "optionsSource": "submodules/fenix-ui-metadata-editor/config/schemas/contactsOPTS.json",
+    "schemaSource": "./submodules/fenix-ui-metadata-editor/config/schemas/contactsSCH.json",
+    "optionsSource": "./submodules/fenix-ui-metadata-editor/config/schemas/contactsOPTS.json",
     "required": ["dataCollection", "collectionPeriodicity"],
     "schema": {
         "type": "object",

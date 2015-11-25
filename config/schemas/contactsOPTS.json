@@ -15,7 +15,7 @@
                     "helper": "Role or position of the responsible person."
                 },
                 "role": {
-                    "type": "radio",
+                    "type": "select",
                     "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_ResponsiblePartyRole.json",
                     "helper": "Function performed by the responsible party concerning the resource."
                 },
@@ -25,7 +25,6 @@
                 "contactInfo": {
                     "fields": {
                         "phone": {
-                            "type": "phone",
                             "helper": "Telephone numbers at which the organization or individual may be contacted."
                         },
                         "address": {

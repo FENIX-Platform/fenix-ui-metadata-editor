@@ -82,7 +82,6 @@
             "contactInfo": {
                 "fields": {
                     "phone": {
-                        "type": "phone",
                         "helper": "Telephone numbers at which the organization or individual may be contacted."
                     },
                     "address": {

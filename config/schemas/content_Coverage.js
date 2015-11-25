@@ -7,8 +7,7 @@
         "required": ["coverageGeographic"],
         "properties": {
             "sector": {
-                "title": "Sector",
-                "enum": ["Demographic and social statistics", "Economic statistics", "Environment and multi-domain statistics"]
+                "title": "Sector"
             },
             "demoStats": {
                 "title": "Demographic and social statistics"
@@ -52,6 +51,12 @@
     "options": {
         "fields": {
             "sector": {
+                "type": "select",
+                "dataSource": {
+                    "Demographic and social statistics": "Demographic and social statistics",
+                    "Economic statistics": "Economic statistics",
+                    "Environment and multi-domain statistics": "Environment and multi-domain statistics"
+                },
                 "helper": "Sector(s) the resource refers to as specified in the selected codelist. The word \u0027Sector\u0027 indicates the subject area the resource refers to. These sectors can be institutional sectors, economic or other sectors (e.g. local government sector, agriculture, forestry, business services, etc.)."
             },
             "demoStats": {

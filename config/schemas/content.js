@@ -5,7 +5,7 @@
         "title": "Content",
         "type": "object",
         //"required": ["resourceRepresentationType", "keywords", "description"],
-        "required": [ "keywords", "description"],
+        "required": ["keywords", "description"],
         "properties": {
             /*"resourceRepresentationType": {
                 "title": "Type of resource",
@@ -46,6 +46,7 @@
                 "helper": "Overview of the main characteristics of the resource and summary of the information contained in the resource, in an easily understandable manner, for technical and non-technical users."
             },
             "statisticalConceptsDefinitions": {
+                "type": "textarea",
                 "helper": "Definitions of the statistical concepts under measure (i.e. the statistical domain) and the main variables provided. The considered types of variables (e.g. raw figures, annual growth rates, index, ow or stock data, ...) should be defined and described in accordance with internationally accepted statistical standards, guidelines, or good practices."
             }
         }

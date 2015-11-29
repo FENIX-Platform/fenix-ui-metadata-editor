@@ -48,7 +48,6 @@ function ($, moment) {
         if (!codes[0])
             return null;
         return codes[0].code;
-        return codelist.codes;
     };
     MetaAdapterBase.prototype.codelistToCodes = function (codelist) {
         if (!codelist)

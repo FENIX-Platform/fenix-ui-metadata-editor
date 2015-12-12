@@ -292,7 +292,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/source/POLICY",
+                        "url": "http://168.202.28.26:10400/wdspolicy/rest/policyservice/sourceWithoutWTO/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",

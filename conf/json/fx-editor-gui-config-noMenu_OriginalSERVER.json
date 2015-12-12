@@ -292,7 +292,7 @@
                             "system": "IANAcharacterSet",
                             "version": ""
                         },
-                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/source/POLICY",
+                        "url": "http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/sourceWithoutWTO/POLICY",
                         "dataroot": "data",
                         "datafields": {
                             "code": "code",

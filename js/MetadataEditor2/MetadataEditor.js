@@ -6,7 +6,7 @@
 //    'text!components/metadataEditor/html/MetadataEditor.html',
     'fx-MetaEditor2/js/MetadataEditor2/translators/MetaAdapterFactory',
     'fx-MetaEditor2/js/MetadataEditor2/validators/MetaValidator',
-    'fx-MetaEditor2/js/dataManagementCommons/Notifications'
+    'fx-DataMngCommons/js/Notifications'
 ],
 function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, noti) {
 

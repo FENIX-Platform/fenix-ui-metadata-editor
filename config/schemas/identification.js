@@ -63,7 +63,8 @@
             "language": {
                 "helper": "Language used by the resource for textual information.",
                 "type": "select",
-                "dataSource": "fx-MetaEditor2/config/CL/CL_Languages.json"
+                //"dataSource": "fx-MetaEditor2/config/CL/CL_Languages.json"
+                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_Languages.json"
             },
             "languageDetails": {
                 "helper": "Comments and additional details about the language used for the textual information of the resource. This field is addressed to highlight some particular inconsistencies in the language (or languages) used in the resource, if any. For example to alert that the resource is not completely homogeneous in the language used for textual information. Otherwise it can be leaved empty.",
@@ -71,7 +72,8 @@
             "characterSet": {
                 "helper": "Full name of the character coding standard used by the resource.",
                 "type": "select",
-                "dataSource": "fx-MetaEditor2/config/CL/CL_IANACharacterSet.json"
+                //"dataSource": "fx-MetaEditor2/config/CL/CL_IANACharacterSet.json"
+                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_IANACharacterSet.json",
             },
             "metadataStandardName": {
                 "helper": "Name of the metadata standard specifications used. In FENIX framework this field would be pre-compiled by \u0027FENIX\u0027.",

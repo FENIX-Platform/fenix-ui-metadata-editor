@@ -20,9 +20,10 @@ define(function () {
             'jsTree': '../lib/jsTree/jstree.min',
             //The one on the CDN times out, check and reEnable it
             //'jsTree': '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
-            'alpaca': '../lib/alpaca/alpaca.min'
+            'alpaca': '../lib/alpaca/alpaca.min',
             //,'handlebars404': '../lib/handlebars-v4.0.4'
 
+            'fx-MetaEditor2/codelists/ClCodelist': "../config/CL/CL_CONF_STATUS"
         },
         config: { i18n: { locale: locale } },
         shim: {

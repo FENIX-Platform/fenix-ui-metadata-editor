@@ -63,6 +63,7 @@
             "language": {
                 "helper": "Language used by the resource for textual information.",
                 "type": "select",
+                //"dataSource": "fx-MetaEditor2/config/CL/CL_Languages.json"
                 "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_Languages.json"
             },
             "languageDetails": {
@@ -71,7 +72,8 @@
             "characterSet": {
                 "helper": "Full name of the character coding standard used by the resource.",
                 "type": "select",
-                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_IANACharacterSet.json"
+                //"dataSource": "fx-MetaEditor2/config/CL/CL_IANACharacterSet.json"
+                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_IANACharacterSet.json",
             },
             "metadataStandardName": {
                 "helper": "Name of the metadata standard specifications used. In FENIX framework this field would be pre-compiled by \u0027FENIX\u0027.",
@@ -82,7 +84,7 @@
             "metadataLanguage": {
                 "helper": "Version of the metadata standard specifications used.",
                 "type": "select",
-                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_Languages.json"
+                "dataSource": "fx-MetaEditor2/config/CL/CL_Languages.json"
             },
             "noDataValue": {
                 "helper": "Value assigned to the cells to represent the absence of data. Missing values are usually highlight through apposite ags, however the data matrix does not report empty cells but a predefined combination of characters (such as \u0027NA\u0027, \u0027000\u0027 . . . ) indicating the absence of data."

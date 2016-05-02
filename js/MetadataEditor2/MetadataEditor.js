@@ -3,7 +3,6 @@
     'jsTree',
     'alpaca',
     'text!fx-MetaEditor2/js/MetadataEditor2/html/MetadataEditor.html',
-//    'text!components/metadataEditor/html/MetadataEditor.html',
     'fx-MetaEditor2/js/MetadataEditor2/translators/MetaAdapterFactory',
     'fx-MetaEditor2/js/MetadataEditor2/validators/MetaValidator',
     'fx-DataMngCommons/js/Notifications'
@@ -128,6 +127,7 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         this.secTree = this.$sections.jstree(treeConfig);
     };
 
+    //Validates the form
     MetadataEditor.prototype.validateCurrentForm = function (section) {
         if (this.currentSection == "")
             return true;
@@ -138,6 +138,7 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         }
     };
 
+    //Switches the current section
     MetadataEditor.prototype.changeSection = function (section) {
         if (!section)
             return;
@@ -145,6 +146,7 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         this.$editor.alpaca('get').refreshValidationState();
         var invalidState = false;
 
+        //To avoid sending incomplete/invalid data to the server each section must be valid or empty
         if (!this.validateCurrentForm()) {
             var conf = confirm("The form is not valid, do you want to change section and lose all the changes in the current one?");
             if (conf) {
@@ -163,8 +165,6 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
             this.editorToMeta(invalidState);
             this.updateValidation(this._uiToMeta(this.meta)); //convert and validate
         }
-        /*if (this.currentSection.id == section.id)
-            return;*/
         if (this.$editor.alpaca) {
             this.$editor.alpaca('destroy');
         }
@@ -173,8 +173,10 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         this.loadJSONSchema(schToLoad);
     };
 
+    //Loads the js containing the JSon schema
     MetadataEditor.prototype.loadJSONSchema = function (schToLoad, callB) {
         var me = this;
+        //Load and set the values
         require([schToLoad], function (data) {
             data.postRender = function () { if (callB) callB(); };
             data.data = me.getValsToSet();
@@ -184,6 +186,7 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         });
     };
 
+    //Gets the portion of the metadata to be sent to the interface
     MetadataEditor.prototype.getValsToSet = function () {
         if (!this.currentSection)
             return null;
@@ -195,6 +198,7 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         return null;
     };
 
+    //Gets the values from the interface and merges them in the meta object
     MetadataEditor.prototype.editorToMeta = function (clearSection) {
         if (!this.currentSection)
             return
@@ -224,12 +228,14 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         });
     };
 
+    //From the interface's format to the metadata format (it can be exported)
     MetadataEditor.prototype._uiToMeta = function (uiMeta) {
         //this.editorToMeta();
         var toRet = this.metaAdapterFactory.uiToMeta(uiMeta);
         return toRet;
     };
 
+    //Sets the metadata converting them to the interface's format
     MetadataEditor.prototype.set = function (m) {
         if (m.uid)
             this.uid = m.uid;
@@ -243,6 +249,7 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         this.meta = this.metaAdapterFactory.metaToUi(m);
         this.changeSection(sec[0]);
     };
+    //Returns the metadata converting them from the interface's format to the external one
     MetadataEditor.prototype.get = function () {
         this.editorToMeta();
         var metaToExport = this._uiToMeta(this.meta);
@@ -259,13 +266,13 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
         this.set(null);
     };
 
+    //Validates the meta
     MetadataEditor.prototype.updateValidation = function (convertedMeta) {
         var identVal = this.validator.validateSection(convertedMeta, "identification");
         var contVal = this.validator.validateSection(convertedMeta, "contacts");
         var valid = true;
 
         this.$sections.find('.fx-panel-required').remove();
-
 
         if (identVal && identVal.length > 0) {
             this.nodeError("identification");
@@ -278,6 +285,7 @@ function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, no
 
         return valid;
     };
+    //Shows the error on the sections' menu
     MetadataEditor.prototype.nodeError = function (nodeId) {
         var node = this.$sections.jstree(true).get_node(nodeId, true);
         node.append('<span class="fx-panel-required" title="Required metadata entity"></span>');

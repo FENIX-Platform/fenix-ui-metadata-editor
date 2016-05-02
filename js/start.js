@@ -20,24 +20,11 @@ define([
     function reset() { return this.metaEditor.reset(); }
     function destroy() { return this.metaEditor.destroy(); }
 
-    /*function validate() { return this.DSDE.validate(); }
-
-    function editable(editable) {
-        this.DSDE.editable(editable);
-    }
-
-    
-    function destroy() { this.DSDE.destroy(); }
-    function hasChanged() { return this.DSDE.hasChanged(); }*/
     return {
         init: init,
         set: set,
         get: get,
         reset: reset,
         destroy: destroy
-        /*validate: validate,
-        editable: editable,
-        reset: reset,
-        hasChanged: hasChanged*/
     }
 });

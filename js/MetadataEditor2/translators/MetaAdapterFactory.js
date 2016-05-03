@@ -113,7 +113,6 @@ function ($,
                 toRet.meContent.resourceRepresentationType = "dataset";
             }
         }
-
         return toRet;
     }
 

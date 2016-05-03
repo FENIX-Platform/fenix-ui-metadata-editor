@@ -1,13 +1,14 @@
 ﻿define({
     "schema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
-        "id": "content_coverage",
+        "id": "content_Coverage",
         "title": "Coverage",
         "type": "object",
         "required": ["coverageGeographic"],
         "properties": {
             "sector": {
-                "title": "Sector"
+                "title": "Sector",
+                "type": "object"
             },
             "demoStats": {
                 "title": "Demographic and social statistics"
@@ -82,7 +83,8 @@
                     "0205": "Globalisation",
                     "0204": "Energy",
                     "0213": "Tourism",
-                    "0203": "Debt", "0202": "Balance of Payments",
+                    "0203": "Debt",
+                    "0202": "Balance of Payments",
                     "0209": "Monetary Statistics",
                     "0208": "Mining",
                     "0207": "National Account",

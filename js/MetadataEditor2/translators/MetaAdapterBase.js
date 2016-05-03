@@ -78,28 +78,26 @@ function ($, moment) {
 
     //Dates
     MetaAdapterBase.prototype._toMillis = function (val) {
-        if (!val)
-            return null;
-        var d = moment(val, "MM-DD-YYYY");
+        if (!val) return null;
+        var d = moment(val, "DD/MM/YYYY");
         return d.valueOf()
     };
     MetaAdapterBase.prototype._fromMillis = function (val) {
         var d = moment(val);
-        return d.format("MM/DD/YYYY");
+        return d.format("DD/MM/YYYY");
     };
     MetaAdapterBase.prototype.copyDatesFromMeta = function (src, dest, properties) {
-        if (!properties || !src || !dest)
-            return;
+        if (!properties || !src || !dest) return;
 
         for (var i = 0; i < properties.length; i++) {
             if (src[properties[i]]) {
                 dest[properties[i]] = this._fromMillis(src[properties[i]]);
             }
         }
+
     };
     MetaAdapterBase.prototype.copyDatesToMeta = function (src, dest, properties) {
-        if (!properties || !src || !dest)
-            return;
+        if (!properties || !src || !dest) return;
 
         for (var i = 0; i < properties.length; i++) {
             if (src[properties[i]]) {

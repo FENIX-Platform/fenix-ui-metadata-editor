@@ -23,6 +23,7 @@ define(function () {
             //The one on the CDN times out, check and reEnable it
             //'jsTree': '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
             'alpaca': '../lib/alpaca/alpaca.min',
+            'fx-MetaEditor2/md-codelists' : '../config/CL/uid_codelists',
             //,'handlebars404': '../lib/handlebars-v4.0.4'
 
             'fx-MetaEditor2/codelists/ClCodelist': "../config/CL/CL_CONF_STATUS"

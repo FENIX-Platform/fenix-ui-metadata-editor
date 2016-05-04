@@ -14,6 +14,8 @@ function ($, MetaAdapterBase) {
     MetaAdapter.prototype.constructor = MetaAdapter;
     MetaAdapter.prototype.parent = MetaAdapterBase.prototype;
 
+
+
     // "sector", "demoStats", "ecoStats", "envStats" ?????
     var toCopy = [];
     var toCopyML = ["coverageSectorsDetails"];
@@ -22,9 +24,9 @@ function ($, MetaAdapterBase) {
     MetaAdapter.prototype.convertUIToMeta = function (meta, lang) {
         if (!meta)
             return null;
-        if (!meta.content_coverage)
+        if (!meta.content_Coverage)
             return null;
-        var vals = meta.content_coverage;
+        var vals = meta.content_Coverage;
 
         var toRet = {};
 
@@ -54,8 +56,7 @@ function ($, MetaAdapterBase) {
 
 
     MetaAdapter.prototype.convertMetaToUi = function (meta, lang) {
-        if (!meta || !meta.meContent || !meta.meContent.seCoverage)
-            return null;
+        if (!meta || !meta.meContent || !meta.meContent.seCoverage) return null;
         var vals = meta.meContent.seCoverage;
         var toRet = {};
 
@@ -87,7 +88,7 @@ function ($, MetaAdapterBase) {
 
         this.copyVals(vals, toRet, toCopy);
         this.copyValsFromML(vals, toRet, toCopyML, lang);
-        return { content_coverage: toRet };
+        return { content_Coverage: toRet };
     };
     return MetaAdapter;
 });

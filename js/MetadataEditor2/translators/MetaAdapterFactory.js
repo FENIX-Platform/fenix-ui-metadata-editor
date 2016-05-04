@@ -54,8 +54,8 @@ function ($,
         identification: Identification,
         contacts: Contacts,
         content: Content,
-        content_referencePopulation: Content_ReferencePopulation,
-        content_coverage: Content_Coverage,
+        content_ReferencePopulation: Content_ReferencePopulation,
+        content_Coverage: Content_Coverage,
         institutionalMandate: InstitutionalMandate,
         statisticalProcessing_primaryDataCollection: StatProc_PrimaryDataCollection,
         statisticalProcessing_secondaryDataCollection: StatProc_SecondaryDataCollection,
@@ -113,6 +113,7 @@ function ($,
                 toRet.meContent.resourceRepresentationType = "dataset";
             }
         }
+        console.log("toRet uiToMeta",toRet)
         return toRet;
     }
 

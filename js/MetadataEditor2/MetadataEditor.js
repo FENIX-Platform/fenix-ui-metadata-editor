@@ -29,7 +29,7 @@
             {id: "contacts", text: "Contacts"},
             {
                 id: "content", text: "Content", children: [
-                {id: 'content_referencePopulation', text: "Reference Population"},
+                {id: 'content_ReferencePopulation', text: "Reference Population"},
                 {id: 'content_Coverage', text: "Coverage"}
             ]
             },

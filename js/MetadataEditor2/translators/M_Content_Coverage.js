@@ -59,21 +59,22 @@ function ($, MetaAdapterBase) {
         if (!meta || !meta.meContent || !meta.meContent.seCoverage) return null;
         var vals = meta.meContent.seCoverage;
         var toRet = {};
+        var target = vals.coverageSectors;
 
-        if (vals.coverageSectors) {
+        if (target && target.codes && target.codes.length > 0 && target.codes[0].code) {
             toRet.coverageSectors = {};
-            var code = vals.coverageSectors.codes[0].code.substring(0,2);
+            var code = target.codes[0].code.substring(0,2);
 
             if (code == "01") {
-                toRet.demoStats = vals.coverageSectors.codes[0].code;
+                toRet.demoStats = target.codes[0].code;
                 toRet.sector = "Demographic and social statistics";
             }
             if (code == "02"){
-                toRet.ecoStats = vals.coverageSectors.codes[0].code;
+                toRet.ecoStats = target.codes[0].code;
                 toRet.sector = "Economic statistics";
             }
             if (code == "03") {
-                toRet.envStats = vals.coverageSectors.codes[0].code;
+                toRet.envStats = target.codes[0].code;
                 toRet.sector = "Environment and multi-domain statistics";
             }
         }
@@ -88,7 +89,7 @@ function ($, MetaAdapterBase) {
 
         this.copyVals(vals, toRet, toCopy);
         this.copyValsFromML(vals, toRet, toCopyML, lang);
-        return { content_Coverage: toRet };
+        return { content_coverage: toRet };
     };
     return MetaAdapter;
 });

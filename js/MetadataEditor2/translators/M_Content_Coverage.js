@@ -60,7 +60,7 @@ function ($, MetaAdapterBase) {
         var vals = meta.meContent.seCoverage;
         var toRet = {};
 
-        if (vals.coverageSectors.codes.length > 0) {
+        if (vals.coverageSectors) {
             toRet.coverageSectors = {};
             var code = vals.coverageSectors.codes[0].code.substring(0,2);
 

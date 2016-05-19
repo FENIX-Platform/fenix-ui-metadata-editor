@@ -85,11 +85,15 @@ function ($, MetaAdapterBase) {
             this.copyDatesFromMeta(vals.coverageTime, toRet.coverageTime, ["from", "to"]);
         }
 
-        if (vals.coverageGeographic)toRet.coverageGeographic = this.codelistToCode(vals.coverageGeographic);
+        if (vals.coverageGeographic) {
+            toRet.coverageGeographic = this.codelistToCode(vals.coverageGeographic);
+           // console.log(toRet.coverageGeographic)
+        }
 
         this.copyVals(vals, toRet, toCopy);
         this.copyValsFromML(vals, toRet, toCopyML, lang);
-        return { content_coverage: toRet };
+        console.log(toRet);
+        return { content_Coverage: toRet };
     };
     return MetaAdapter;
 });

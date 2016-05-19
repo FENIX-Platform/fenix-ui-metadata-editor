@@ -18,11 +18,10 @@ define(function () {
             'moment': '../lib/moment-with-locales',
             //'validate': '../lib/parsley',
             'jsTree': '../lib/jsTree/jstree.min',
-            //TODO: remove strong dependency with handlebars version 3.0.2
-            handlebars: "{FENIX_CDN}/js/handlebars/3.0.2/handlebars.min",
+            handlebars: "{FENIX_CDN}/js/handlebars/4.0.5/handlebars.min",
             //The one on the CDN times out, check and reEnable it
             //'jsTree': '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
-            'alpaca': '../lib/alpaca/alpaca.min',
+            'alpaca': '{FENIX_CDN}/js/alpaca/1.5.17/dist/alpaca/bootstrap/alpaca.min',
             'fx-MetaEditor2/md-codelists' : '../config/CL/uid_codelists',
             //,'handlebars404': '../lib/handlebars-v4.0.4'
 

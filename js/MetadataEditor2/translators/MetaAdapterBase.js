@@ -8,7 +8,7 @@ function ($, moment, clists) {
 
     var MetaAdapterBase = function (config) {
 
-        console.log(clists)
+        //console.log(clists)
         this.clists = clists;
 
         /*this.metaLangCodes = {

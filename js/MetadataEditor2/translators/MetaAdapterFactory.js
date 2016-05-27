@@ -95,9 +95,12 @@ function ($,
     MetaAdapterFactory.prototype.uiToMeta = function (meta) {
         if (!meta || $.isEmptyObject(meta))
             return {};
+
         var lang = "EN";
-        if (meta.identification && meta.identification.language && meta.identification.language.codes && meta.identification.language.codes[0])
-            var lang = this.langCode_clistToMeta(meta.identification.language.codes[0]);
+        if (meta.identification && meta.identification.language)
+            //&& meta.identification.language.codes && meta.identification.language.codes[0])
+            //var lang = this.langCode_clistToMeta(meta.identification.language.codes[0]);
+            var lang = this.langCode_clistToMeta(meta.identification.language);
         var toRet = {};
         for (var k in this.config) {
             var ad = new this.config[k]();
@@ -113,14 +116,14 @@ function ($,
                 toRet.meContent.resourceRepresentationType = "dataset";
             }
         }
-        //console.log("toRet uiToMeta",toRet)
+
         return toRet;
     }
 
     MetaAdapterFactory.prototype.metaToUi = function (meta) {
         if (!meta || $.isEmptyObject(meta))
             return {};
-        
+
         var lang = "EN";
         if (meta.language && meta.language.codes && meta.language.codes[0])
              lang = this.langCode_clistToMeta(meta.language.codes[0].code);

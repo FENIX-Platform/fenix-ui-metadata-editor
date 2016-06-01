@@ -37,6 +37,7 @@ function ($, MetaAdapterBase) {
             if (vals.ecoStats) target = vals.ecoStats;
             toRet.coverageSectors = {};
             toRet.coverageSectors.codes = [];
+            toRet.coverageSectors.idCodeList = "UNECA_ClassificationOfActivities";
             var topush = {"code":target};
             toRet.coverageSectors.codes.push(topush);
         }
@@ -51,6 +52,7 @@ function ($, MetaAdapterBase) {
 
         this.copyVals(vals, toRet, toCopy);
         this.copyValsToML(vals, toRet, toCopyML, lang);
+        console.log(toRet);
         return { meContent: { seCoverage: toRet } };
     };
 

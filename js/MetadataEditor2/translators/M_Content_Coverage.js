@@ -52,7 +52,7 @@ function ($, MetaAdapterBase) {
 
         this.copyVals(vals, toRet, toCopy);
         this.copyValsToML(vals, toRet, toCopyML, lang);
-        console.log(toRet);
+
         return { meContent: { seCoverage: toRet } };
     };
 
@@ -94,7 +94,7 @@ function ($, MetaAdapterBase) {
 
         this.copyVals(vals, toRet, toCopy);
         this.copyValsFromML(vals, toRet, toCopyML, lang);
-        console.log(toRet);
+
         return { content_Coverage: toRet };
     };
     return MetaAdapter;

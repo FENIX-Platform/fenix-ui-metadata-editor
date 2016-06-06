@@ -18,7 +18,7 @@ define(function () {
             'moment': '../lib/moment-with-locales',
             //'validate': '../lib/parsley',
             'jsTree': '../lib/jsTree/jstree.min',
-            handlebars: "{FENIX_CDN}/js/handlebars/4.0.5/handlebars.min",
+            'handlebars': "{FENIX_CDN}/js/handlebars/4.0.5/handlebars.min",
             //The one on the CDN times out, check and reEnable it
             //'jsTree': '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
             'alpaca': '{FENIX_CDN}/js/alpaca/1.5.17/dist/alpaca/bootstrap/alpaca.min',

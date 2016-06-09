@@ -12,7 +12,7 @@ define(function () {
             "bootstrap": "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min",
             'jquery': '{FENIX_CDN}/js/jquery/2.1.1/jquery.min',
             //'amplify': '../lib/amplify/amplify.min',
-            'text': '../lib/text',
+            //'text': '../lib/text',
             'pnotify': '../lib/pnotify/pnotify.custom.min',
             'datetimepicker': '../lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
             'moment': '../lib/moment-with-locales',

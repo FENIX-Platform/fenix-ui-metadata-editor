@@ -16,7 +16,7 @@ function ($, MetaAdapterBase, moment) {
     MetaAdapter.prototype.constructor = MetaAdapter;
     MetaAdapter.prototype.parent = MetaAdapterBase.prototype;
 
-    var toCopy = ['metadataStandardName', 'metadataStandardVersion', 'noDataValue'];
+    var toCopy = ['uid','metadataStandardName', 'metadataStandardVersion', 'noDataValue'];
     var toCopyDates = ["creationDate"];
     var toCopyML = ["title", "languageDetails"];
 

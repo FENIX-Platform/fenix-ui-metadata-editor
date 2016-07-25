@@ -30,6 +30,7 @@
             //console.log("vals: ",vals);
             var toRet = {};
 
+            //console.log("convertUIToMeta",vals);
 
             if (    vals.prodStats || vals.foodStats || vals.tradeStats || vals.machStats ||
                 vals.popStats || vals.priceStats || vals.valStats || vals.landStats ||
@@ -54,6 +55,28 @@
                 toRet.coverageSectors.idCodeList = "CountrySTAT_Indicators";
                 var topush = {"code":target};
                 toRet.coverageSectors.codes.push(topush);
+            } else {
+                var target = null;
+                if (vals.sector == "Production")  target = "01";
+                if (vals.sector == "Food availability")  target = "02";
+                if (vals.sector == "Trade")  target = "03";
+                if (vals.sector == "Machinery")  target = "04";
+                if (vals.sector == "Population")  target = "05";
+                if (vals.sector == "Prices")  target = "06";
+                if (vals.sector == "Value added")  target = "07";
+                if (vals.sector == "Land use")  target = "08";
+                if (vals.sector == "Employment")  target = "09";
+                if (vals.sector == "Water")  target = "10";
+                if (vals.sector == "Livestock")  target = "11";
+                if (vals.sector == "National account")  target = "12";
+                if (vals.sector == "Fishery")  target = "13";
+                if (target != null) {
+                    toRet.coverageSectors = {};
+                    toRet.coverageSectors.codes = [];
+                    toRet.coverageSectors.idCodeList = "CountrySTAT_Indicators";
+                    var topush = {"code": target};
+                    toRet.coverageSectors.codes.push(topush);
+                }
             }
 
             if (vals.coverageTime) {
@@ -78,6 +101,8 @@
             var toRet = {};
             var target = vals.coverageSectors;
 
+            //console.log("convertMetaToUi",vals);
+
             if (target && target.codes && target.codes.length > 0 && target.codes[0].code) {
                 toRet.coverageSectors = {};
                 var code = target.codes[0].code.substring(0,2);
@@ -85,54 +110,67 @@
                 if (code == "01") {
                     toRet.prodStats = target.codes[0].code;
                     toRet.sector = "Production";
+                    if (target.codes[0].code.length < 3) toRet.prodStats = "";
                 }
                 if (code == "02"){
                     toRet.foodStats = target.codes[0].code;
                     toRet.sector = "Food availability";
+                    if (target.codes[0].code.length < 3) toRet.foodStats = "";
                 }
                 if (code == "03") {
                     toRet.tradeStats = target.codes[0].code;
                     toRet.sector = "Trade";
+                    if (target.codes[0].code.length < 3) toRet.tradeStats = "";
                 }
                 if (code == "04") {
                     toRet.machStats = target.codes[0].code;
                     toRet.sector = "Machinery";
+                    if (target.codes[0].code.length < 3) toRet.machStats = "";
                 }
                 if (code == "05"){
                     toRet.popStats = target.codes[0].code;
                     toRet.sector = "Population";
+                    if (target.codes[0].code.length < 3) toRet.popStats = "";
                 }
                 if (code == "06") {
                     toRet.priceStats = target.codes[0].code;
                     toRet.sector = "Prices";
+                    if (target.codes[0].code.length < 3) toRet.priceStats = "";
                 }
                 if (code == "07") {
                     toRet.valStats = target.codes[0].code;
                     toRet.sector = "Value added";
+                    if (target.codes[0].code.length < 3) toRet.valStats = "";
                 }
                 if (code == "08"){
                     toRet.landStats = target.codes[0].code;
                     toRet.sector = "Land use";
+                    if (target.codes[0].code.length < 3) toRet.landStats = "";
                 }
                 if (code == "09") {
                     toRet.empStats = target.codes[0].code;
                     toRet.sector = "Employment";
+                    if (target.codes[0].code.length < 3) toRet.empStats = "";
                 }
                 if (code == "10") {
                     toRet.waterStats = target.codes[0].code;
                     toRet.sector = "Water";
+                    if (target.codes[0].code.length < 3) toRet.waterStats = "";
                 }
                 if (code == "11") {
                     toRet.liveStats = target.codes[0].code;
                     toRet.sector = "Livestock";
+                    if (target.codes[0].code.length < 3) toRet.liveStats = "";
                 }
                 if (code == "12"){
                     toRet.natStats = target.codes[0].code;
                     toRet.sector = "National account";
+                    if (target.codes[0].code.length < 3) toRet.natStats = "";
                 }
                 if (code == "13") {
                     toRet.fishStats = target.codes[0].code;
                     toRet.sector = "Fishery";
+                    if (target.codes[0].code.length < 3) toRet.fishStats = "";
                 }
             }
 

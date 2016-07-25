@@ -78,7 +78,10 @@ function ($,
 
     var metaLangCodes = {
         "eng": "EN",
-        "fre": "FR"
+        "fre": "FR",
+        "por": "PT",
+        "spa": "ES",
+        "ara": "AR"
     };
 
     var MetaAdapterFactory = function (config) {

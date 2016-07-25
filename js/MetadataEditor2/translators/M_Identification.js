@@ -1,9 +1,8 @@
 ﻿define([
         'jquery',
-        'fx-MetaEditor2/js/MetadataEditor2/translators/MetaAdapterBase',
-        'moment'
+        'fx-MetaEditor2/js/MetadataEditor2/translators/MetaAdapterBase'
 ],
-function ($, MetaAdapterBase, moment) {
+function ($, MetaAdapterBase) {
     var defConfig = {
     };
 
@@ -21,8 +20,7 @@ function ($, MetaAdapterBase, moment) {
     var toCopyML = ["title", "languageDetails"];
 
     MetaAdapter.prototype.convertUIToMeta = function (uiVals, lang) {
-        if (!uiVals.identification)
-            return null;
+        if (!uiVals.identification) return null;
         var toRet = {};
         var vals = uiVals.identification;
         toRet.language = this.codeToCodelist(vals.language, this.clists.language.id, this.clists.language.v);
@@ -32,7 +30,6 @@ function ($, MetaAdapterBase, moment) {
         this.copyDatesToMeta(vals, toRet, toCopyDates);
         this.copyVals(vals, toRet, toCopy);
         this.copyValsToML(vals, toRet, toCopyML, lang);
-
         return toRet;
     };
     MetaAdapter.prototype.convertMetaToUi = function (meta, lang) {
@@ -45,7 +42,6 @@ function ($, MetaAdapterBase, moment) {
         this.copyVals(meta, toRet.identification, toCopy);
         this.copyDatesFromMeta(meta, toRet.identification, toCopyDates);
         this.copyValsFromML(meta, toRet.identification, toCopyML, lang);
-
         return toRet;
     };
 

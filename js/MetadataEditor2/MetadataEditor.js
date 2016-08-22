@@ -18,6 +18,7 @@
 
         var defConfig = C.METADATA_PATH || DC.METADATA_PATH;
         var sec = C.METADATA_SEC || DC.METADATA_SEC;
+        var locale = C.LOCALE || DC.LOCALE;
 
         var treeConfig = {
             core: {
@@ -127,7 +128,9 @@
                 data.postRender = function () {
                     if (callB) callB();
                 };
+                data.view = {"locale": locale };
                 data.data = me.getValsToSet();
+                console.log(data)
                 me.$editor.alpaca(
                     data
                 );

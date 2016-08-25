@@ -49,6 +49,9 @@
             "fishStats": {
                 "title": "Fishery"
             },
+            "forestStats": {
+                "title": "Forestry"
+            },
             "coverageSectorsDetails": {
                 "title": "Main sector(s)",
                 "type": "string"
@@ -86,7 +89,8 @@
             "waterStats": ["sector"],
             "liveStats": ["sector"],
             "natStats": ["sector"],
-            "fishStats": ["sector"]
+            "fishStats": ["sector"],
+            "forestStats": ["sector"]
         }
     },
     "options": {
@@ -106,7 +110,8 @@
                     "Water": "Water",
                     "Livestock": "Livestock",
                     "National account": "National account",
-                    "Fishery": "Fishery"
+                    "Fishery": "Fishery",
+                    "Forestry": "Forestry"
                 },
                 "helper": "Sector(s) the resource refers to as specified in the selected codelist. The word \u0027Sector\u0027 indicates the subject area the resource refers to. These sectors can be institutional sectors, economic or other sectors (e.g. local government sector, agriculture, forestry, business services, etc.)."
             },
@@ -128,8 +133,8 @@
                 "type": "select",
                 "dataSource": {
                     "0201": "Protein quantity",
-                    "0202": "Food supply quantity",
-                    "0203": "Lipid quantity"
+                    "0202": "Lipid quantity",
+                    "0203": "Food supply quantity"
                 },
                 "dependencies": {
                     "sector": "Food availability"
@@ -146,7 +151,9 @@
                     "0306": "Re-export quantity",
                     "0307": "Re-export value",
                     "0308": "Re-import quantity",
-                    "0309": "Re-import value"
+                    "0309": "Re-import value",
+                    "0310": "Inventory of available products",
+                    "0311": "Consumption rate"
                 },
                 "dependencies": {
                     "sector": "Trade"
@@ -182,7 +189,9 @@
                     "0603": "Commercial rate",
                     "0604": "Official rate",
                     "0605": "Wholesale price",
-                    "0606": "Annual average price"
+                    "0606": "Annual average price",
+                    "0607": "Lowest price",
+                    "0608": "Highest price"
                 },
                 "dependencies": {
                     "sector": "Prices"
@@ -210,7 +219,7 @@
                     "0807": "Forest area",
                     "0808": "Inland water",
                     "0809": "Land Area",
-                    "0810": "Other land?",
+                    "0810": "Other land",
                     "0811": "Other wooded land",
                     "0812": "Permanent crops area",
                     "0813": "Permanent meadows and pastures",
@@ -234,9 +243,11 @@
             "waterStats": {
                 "type": "select",
                 "dataSource": {
-                    "1001": "Min temperature",
-                    "1002": "Average rainfall",
-                    "1003": "Max temperature"
+                    "1001": "Average rainfall",
+                    "1002": "Max temperature",
+                    "1003": "Min temperature",
+                    "1004": "Drinking-water supply rate",
+                    "1005": "Basic sanitation acces rate"
                 },
                 "dependencies": {
                     "sector": "Water"
@@ -246,10 +257,9 @@
                 "type": "select",
                 "dataSource": {
                     "1101": "Slaughtered animals",
-                    "110102": "Slaughtered animals - Lactating Animals",
-                    "110101": "Slaughtered animals - Female Live Animals",
-
                     "1102": "Live animals",
+                    "110201": "Live animals - Female Live Animals",
+                    "110202": "Live animals - Lactating Animals",
                     "110203": "Live animals - Male animals",
                     "110204": "Live animals - Born Animals",
                     "110205": "Live animals - Bought Animals",
@@ -259,6 +269,7 @@
                     "110209": "Live animals - Stolen Animals",
                     "110210": "Live animals - Animals given for caretaking",
                     "110211": "Live animals - Animals given as gift",
+                    "110212": "Live animals - Age at disposal",
                     "1103": "Laying hens",
                     "1104": "Dead Animals",
                     "1105": "Total Input",
@@ -283,19 +294,46 @@
             "fishStats": {
                 "type": "select",
                 "dataSource": {
+                    "1301": "Aquaculture production",
                     "130101": "Inland Aquaculture production",
+                    "130102": "Marine aquacole production",
                     "13010201": "Aquaculture production - Industrial Marine Aquaculture production",
                     "13010202": "Aquaculture production - Artisanal Marine Aquaculture production",
                     "130103": "Marine/Brackish Aquaculture production",
+                    "1302": "Capture production",
                     "130201": "Inland Capture production",
+                    "130202": "Marine Capture production",
                     "13020201": "Capture production - Industrial Marine Capture production",
                     "13020202": "Capture production - Artisanal Marine Capture production",
+                    "13020203": "Traditional Marine Capture production",
                     "130203": "Marine/Brackish Capture production"
+
                 },
                 "dependencies": {
                     "sector": "Fishery"
                 }
             },
+
+            "forestStats": {
+                "type": "select",
+                "dataSource": {
+                    "1401": "Reforested area",
+                    "1402": "Seedlings planted",
+                    "1403": "Burned area",
+                    "140301": "Burned meadows",
+                    "140302": "Burned natural forests",
+                    "140303": "Burned reafforestation",
+                    "140304": "Authorized clearing",
+                    "140305": "Non-authorized clearing",
+                    "1404": "Deforested area",
+                    "1405": "Deforestation rate"
+
+                },
+                "dependencies": {
+                    "sector": "Forestry"
+                }
+            },
+
 
             "coverageSectorsDetails": {
                 "helper": "Textual element delimiting the statistical results with regard to the main sectors covered."

@@ -1,4 +1,6 @@
-/*global requirejs, define*/
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module);
+}
 var locale = localStorage.getItem('locale' || 'en-us');
 
 define(function () {

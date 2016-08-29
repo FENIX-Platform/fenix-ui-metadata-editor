@@ -1,4 +1,7 @@
-﻿define([
+﻿if (typeof define !== 'function') {
+    var define = require('amdefine')(module);
+}
+define([
     'jquery',
     'fx-MetaEditor/js/MetadataEditor/validators/MetaValidator_Errors',
 ],

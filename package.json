@@ -1,0 +1,19 @@
+{
+  "name": "fenix-ui-metadata-editor",
+  "version": "1.1.0",
+  "description": "FENIX Metadata Editor",
+  "main": "src/js/MetadataEditor2/MetadataEditor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FENIX-Platform/fenix-ui-metadata-editor.git"
+  },
+  "author": "FENIX team (http://fenix.fao.org/)",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/FENIX-Platform/fenix-ui-metadata-editor/issues"
+  },
+  "homepage": "https://github.com/FENIX-Platform/fenix-ui-metadata-editor#readme"
+}

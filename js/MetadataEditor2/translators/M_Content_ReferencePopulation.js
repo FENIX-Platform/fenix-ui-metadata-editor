@@ -20,9 +20,9 @@ function ($, MetaAdapterBase) {
     MetaAdapter.prototype.convertUIToMeta = function (meta, lang) {
         if (!meta)
             return null;
-        if (!meta.content_referencePopulation)
+        if (!meta.content_ReferencePopulation)
             return null;
-        var vals = meta.content_referencePopulation;
+        var vals = meta.content_ReferencePopulation;
         var toRet = {};
 
         toRet.referencePeriod = this.codeToCodelist(vals.referencePeriod, this.clists.faoPeriod.id, this.clists.faoPeriod.v);
@@ -43,7 +43,7 @@ function ($, MetaAdapterBase) {
 
         this.copyValsFromML(vals, toRet, toCopyML, lang);
 
-        return { content_referencePopulation: toRet };
+        return { content_ReferencePopulation: toRet };
     };
 
     return MetaAdapter;

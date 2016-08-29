@@ -54,8 +54,8 @@ function ($,
         identification: Identification,
         contacts: Contacts,
         content: Content,
-        content_referencePopulation: Content_ReferencePopulation,
-        content_coverage: Content_Coverage,
+        content_ReferencePopulation: Content_ReferencePopulation,
+        content_Coverage: Content_Coverage,
         institutionalMandate: InstitutionalMandate,
         statisticalProcessing_primaryDataCollection: StatProc_PrimaryDataCollection,
         statisticalProcessing_secondaryDataCollection: StatProc_SecondaryDataCollection,
@@ -78,7 +78,10 @@ function ($,
 
     var metaLangCodes = {
         "eng": "EN",
-        "fre": "FR"
+        "fre": "FR",
+        "por": "PT",
+        "spa": "ES",
+        "ara": "AR"
     };
 
     var MetaAdapterFactory = function (config) {
@@ -95,9 +98,12 @@ function ($,
     MetaAdapterFactory.prototype.uiToMeta = function (meta) {
         if (!meta || $.isEmptyObject(meta))
             return {};
+
         var lang = "EN";
-        if (meta.identification && meta.identification.language && meta.identification.language.codes && meta.identification.language.codes[0])
-            var lang = this.langCode_clistToMeta(meta.identification.language.codes[0]);
+        if (meta.identification && meta.identification.language)
+            //&& meta.identification.language.codes && meta.identification.language.codes[0])
+            //var lang = this.langCode_clistToMeta(meta.identification.language.codes[0]);
+            var lang = this.langCode_clistToMeta(meta.identification.language);
         var toRet = {};
         for (var k in this.config) {
             var ad = new this.config[k]();
@@ -120,7 +126,7 @@ function ($,
     MetaAdapterFactory.prototype.metaToUi = function (meta) {
         if (!meta || $.isEmptyObject(meta))
             return {};
-        
+
         var lang = "EN";
         if (meta.language && meta.language.codes && meta.language.codes[0])
              lang = this.langCode_clistToMeta(meta.language.codes[0].code);

@@ -1,22 +1,15 @@
 ﻿define([
         'jquery',
-        'moment'
+        'moment',
+    'fx-MetaEditor2/md-codelists'
 ],
-function ($, moment) {
+function ($, moment, clists) {
     //var defConfig = {};
 
     var MetaAdapterBase = function (config) {
-        this.clists = {
-            language: { id: "ISO639-2", v: "1998" },
-            charset: { id: "IANAcharacterSet", v: null },
-            gaul0: { id: "GAUL0", v: "2014" },
-            faostatCollection: { id: "FAOSTAT_Collection", v: "1.0" },
-            faoPeriod: { id: "FAO_Period", v: "1.0" },
-            faoStatOriginData: { id: "FAOSTAT_OriginData", v: "1.0" },
-            clAdjustment: { id: "CL_ADJUSTMENT", v: "1.1" },
-            confidentialityStatus: { id: "CL_CONF_STATUS", v: "1.0" },
-            gaulReferenceArea: { id: "GAUL_ReferenceArea", v: "1.0" }
-        };
+
+        //console.log(clists)
+        this.clists = clists;
 
         /*this.metaLangCodes = {
             "eng": "EN",
@@ -78,28 +71,26 @@ function ($, moment) {
 
     //Dates
     MetaAdapterBase.prototype._toMillis = function (val) {
-        if (!val)
-            return null;
-        var d = moment(val, "MM-DD-YYYY");
+        if (!val) return null;
+        var d = moment(val, "DD/MM/YYYY");
         return d.valueOf()
     };
     MetaAdapterBase.prototype._fromMillis = function (val) {
         var d = moment(val);
-        return d.format("MM/DD/YYYY");
+        return d.format("DD/MM/YYYY");
     };
     MetaAdapterBase.prototype.copyDatesFromMeta = function (src, dest, properties) {
-        if (!properties || !src || !dest)
-            return;
+        if (!properties || !src || !dest) return;
 
         for (var i = 0; i < properties.length; i++) {
             if (src[properties[i]]) {
                 dest[properties[i]] = this._fromMillis(src[properties[i]]);
             }
         }
+
     };
     MetaAdapterBase.prototype.copyDatesToMeta = function (src, dest, properties) {
-        if (!properties || !src || !dest)
-            return;
+        if (!properties || !src || !dest) return;
 
         for (var i = 0; i < properties.length; i++) {
             if (src[properties[i]]) {

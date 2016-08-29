@@ -40,8 +40,6 @@ function ($, MetaAdapterBase) {
         toRet.originOfCollectedData = this.codelistToCode(vals.originOfCollectedData);
         this.copyValsFromML(vals, toRet, toCopyML, lang);
 
-        console.log();
-
         return { statisticalProcessing_secondaryDataCollection: toRet };
     };
 

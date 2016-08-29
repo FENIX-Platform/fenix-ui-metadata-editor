@@ -1,7 +1,7 @@
 ﻿define({
     "schema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
-        "id": "content_referencePopulation",
+        "id": "content_ReferencePopulation",
         "title": "Reference Population",
         "type": "object",
         "required": ["statisticalPopulation", "referencePeriod", "referenceArea"],

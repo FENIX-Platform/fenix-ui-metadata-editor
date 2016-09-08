@@ -1,6 +1,6 @@
 ﻿define([
         'jquery',
-        'fx-MetaEditor/js/MetadataEditor/translators/MetaAdapterBase'
+        './MetaAdapterBase'
     ],
     function ($, MetaAdapterBase) {
         //console.log("M_Content_Coverage_MDG")

@@ -1,16 +1,11 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
 define([
     'jquery',
-    'fx-MetaEditor/js/MetadataEditor/MetadataEditor',
+    'MetadataEditor/MetadataEditor',
     'bootstrap'
 ], function ($, MetaEditor) {
 
-    var defConfig = {
-    };
-
-    var cfg = {};
+    var defConfig = {},
+        cfg = {};
 
     function init(containerID, config, callB) {
         $.extend(true, cfg, defConfig, config);

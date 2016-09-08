@@ -1,6 +1,6 @@
 ﻿define([
         'jquery',
-        'fx-MetaEditor/js/MetadataEditor/translators/MetaAdapterBase'
+        './MetaAdapterBase'
 ],
 function ($, MetaAdapterBase) {
     var defConfig = {

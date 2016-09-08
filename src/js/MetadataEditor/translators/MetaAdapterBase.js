@@ -1,7 +1,7 @@
 ﻿define([
         'jquery',
         'moment',
-    'fx-MetaEditor/md-codelists'
+        '../../../config/CL/uid_codelists'
 ],
 function ($, moment, clists) {
     //var defConfig = {};

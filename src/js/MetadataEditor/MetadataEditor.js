@@ -1,16 +1,12 @@
-﻿if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define([
+﻿define([
         'jquery',
-        'jsTree',
+        'jstree',
         'alpaca',
-        'text!fx-MetaEditor/js/MetadataEditor/html/MetadataEditor.html',
-        'fx-MetaEditor/js/MetadataEditor/translators/MetaAdapterFactory',
-        'fx-MetaEditor/js/MetadataEditor/validators/MetaValidator',
-        'fx-d-m/config/config',
-        'fx-d-m/config/config-default'
+        'html/MetadataEditor.html',
+        'translators/MetaAdapterFactory',
+        './MetaValidator',
+        '../../../config/config',
+        '../../../config/config-default'
     ],
     function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, C, DC) {
 

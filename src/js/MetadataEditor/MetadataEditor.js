@@ -2,11 +2,11 @@
         'jquery',
         'jstree',
         'alpaca',
-        'html/MetadataEditor.html',
-        'translators/MetaAdapterFactory',
+        './html/MetadataEditor.html',
+        './translators/MetaAdapterFactory',
         './MetaValidator',
-        '../../../config/config',
-        '../../../config/config-default'
+        '../../config/config',
+        '../../config/config-default'
     ],
     function ($, jsTree, alpaca, MetadataEditorHTML, MetaAdapterFactory, MetaVal, C, DC) {
 

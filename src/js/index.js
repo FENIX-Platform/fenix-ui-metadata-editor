@@ -1,6 +1,6 @@
 define([
     'jquery',
-    'MetadataEditor/MetadataEditor',
+    './MetadataEditor/MetadataEditor',
     'bootstrap'
 ], function ($, MetaEditor) {
 

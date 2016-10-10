@@ -2,12 +2,12 @@ define([
     'loglevel',
     'jquery',
     '../../../src/js/index'
-], function (log, $, DataManagement) {
+], function (log, $, MDE) {
 
     'use strict';
 
     var s = {
-            DATA_MNG: "#data-mng"
+            MDE: "#mde"
         },
         cache = false,
         lang = "EN",
@@ -34,11 +34,14 @@ define([
 
     Dev.prototype._render = function () {
 
-        this.dataMng = new DataManagement({
+        this.MDE = new MetaDataEditor({
             environment: environment,
-            el: s.DATA_MNG,
+            el: s.MDE,
             cache: cache,
-            lang: lang
+            lang: lang,
+            conf: {
+                //TODO: Configuration here
+            }
         });
     };
 

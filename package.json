@@ -31,7 +31,7 @@
     "jstree": "3.3.2",
     "moment": "2.14.1",
     "pnotify": "3.0.0",
-    "alpaca": "1.5.18"
+    "alpaca": "1.5.11"
   },
   "devDependencies": {
     "chai": "3.5.0",

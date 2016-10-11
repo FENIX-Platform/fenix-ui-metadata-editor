@@ -1,0 +1,46 @@
+{
+  "identification": {
+    "title": "Identification",
+    "description": "Basic Metadata",
+    "sections": { },
+    "items": {
+      "title" : { "validation": { "mandatory" : true } },
+      "creationDate" : { "format": "date", "validation": { "mandatory" : true } },
+      "characterSet" : { "validation": { "mandatory" : true } },
+      "metadataStandardName" : { "default": "FENIX", "validation": { "mandatory" : true } },
+      "language" : {  },
+      "languageDetails" : {  },
+      "metadataStandardVersion" : {  },
+      "metadataLanguage" : { },
+      "noDataValue" : { }
+    },
+    "validator" : {
+      "valIdentification" : true
+    }
+  },
+  "contacts": {
+    "title": "Contacts",
+    "description": "Responsible party that could be identify as the data source. FENIX metadata contains more than one field of the type 'ResponsibleParty' addressed to report all the information necessary to contact party(ies) playing different roles in respect to the resource. In particular this field (belonging to the Identification entity) should report the party who owns authority on the resource.",
+    "sections": { },
+    "items": {
+      "organization" : { "validation": { "mandatory" : true } },
+      "organizationUnit" : {  },
+      "pointOfContact" : {  },
+      "position" : {  },
+      "role" : {  },
+      "specify" : {  },
+      "contactInfo" : {
+        "recursive": true,
+        "validation": { "mandatory" : true },
+        "phone" : {  },
+        "address" : {  },
+        "emailAddress" : {  },
+        "hoursOfService" : {  },
+        "contactInstruction" : {  }
+      }
+    },
+    "validator" : {
+      "valContacts" : true
+    }
+  }
+}

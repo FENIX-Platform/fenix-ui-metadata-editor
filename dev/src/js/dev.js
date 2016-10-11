@@ -1,8 +1,9 @@
 define([
     'loglevel',
     'jquery',
-    '../../../src/js/index'
-], function (log, $, MDE) {
+    '../../../src/js/index',
+    '../config/config.json'
+], function (log, $, MetaDataEditor, Config) {
 
     'use strict';
 
@@ -11,23 +12,19 @@ define([
         },
         cache = false,
         lang = "EN",
-        environment = "develop";
+        environment = "develop",
+        config = Config;
 
     function Dev() {
 
         console.clear();
-
         this._importThirdPartyCss();
-
         log.setLevel('trace');
-
         this.start();
     }
 
     Dev.prototype.start = function () {
-
         log.trace("Test started");
-
         this._render();
 
     };
@@ -37,11 +34,8 @@ define([
         this.MDE = new MetaDataEditor({
             environment: environment,
             el: s.MDE,
-            cache: cache,
             lang: lang,
-            conf: {
-                //TODO: Configuration here
-            }
+            conf: config
         });
     };
 
@@ -49,15 +43,6 @@ define([
 
         //Bootstrap
         require("bootstrap-loader");
-        //dropdown selector
-        require("../../../node_modules/selectize/dist/css/selectize.bootstrap3.css");
-        // fenix-ui-filter
-        require("../../../node_modules/fenix-ui-filter/dist/fenix-ui-filter.min.css");
-        // fenix-ui-dropdown
-        require("../../../node_modules/fenix-ui-dropdown/dist/fenix-ui-dropdown.min.css");
-
-        // bootstrap-table
-        require("../../../node_modules/bootstrap-table/dist/bootstrap-table.min.css");
 
 
     };

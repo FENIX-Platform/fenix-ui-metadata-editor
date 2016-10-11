@@ -24,14 +24,19 @@
   },
   "homepage": "https://github.com/FENIX-Platform/fenix-ui-metadata-editor#readme",
   "dependencies": {
-    "bootstrap": "3.3.7",
+    "alpaca": "1.5.11",
+    "bootstrap": "^3.3.7",
+    "bootstrap-loader": "^2.0.0-beta.12",
     "eonasdan-bootstrap-datetimepicker": "4.17.42",
+    "extract-text-webpack-plugin": "^1.0.1",
     "handlebars": "4.0.5",
+    "html-webpack-plugin": "^2.22.0",
     "jquery": "3.1.0",
+    "json-loader": "^0.5.4",
     "jstree": "3.3.2",
+    "loglevel": "^1.4.1",
     "moment": "2.14.1",
-    "pnotify": "3.0.0",
-    "alpaca": "1.5.11"
+    "pnotify": "3.0.0"
   },
   "devDependencies": {
     "chai": "3.5.0",

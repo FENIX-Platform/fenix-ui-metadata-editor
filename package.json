@@ -25,7 +25,8 @@
   "homepage": "https://github.com/FENIX-Platform/fenix-ui-metadata-editor#readme",
   "dependencies": {
     "jquery": "^3.1.0",
-    "loglevel": "^1.4.1"
+    "loglevel": "^1.4.1",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "bootstrap-loader": "^2.0.0-beta.11",
@@ -59,4 +60,3 @@
     "url-loader": "^0.5.7"
   }
 }
-

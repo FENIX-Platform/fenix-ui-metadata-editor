@@ -35,7 +35,7 @@ define([
             environment: environment,
             el: s.MDE,
             lang: lang,
-            conf: config
+            config: config
         });
     };
 

@@ -5,26 +5,23 @@
     "sections": { },
     "items": {
       "title" : {
-        "text": {
-          "selector": {
-            "id": "input",
-            "type": "text",
-            "source": [
-              {
-                "value": "title",
-                "label": "title"
-              }
-            ]
-          },
-          "template": {
-            "title": "Title",
-            "hideSwitch": false,
-            "hideRemoveButton": false
-          }
+        "selector": {
+          "id": "input",
+          "type": "text",
+          "source": [
+            {
+              "value": "title",
+              "label": "title"
+            }
+          ]
+        },
+        "template": {
+          "title": "Title",
+          "hideSwitch": false,
+          "hideRemoveButton": false
         }
       },
       "creationDate" : {
-        "text": {
           "selector": {
             "id": "input",
             "type": "text",
@@ -40,140 +37,125 @@
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
       },
       "characterSet" : {
-        "text": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "characterSet",
+                "label": "characterSet"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "characterSet",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
       },
       "metadataStandardName" : {
-        "text": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "metadataStandardName",
+                "label": "metadataStandardName"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "metadataStandardName",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
       },
       "language" : {
-        "text": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "language",
+                "label": "language"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "language",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
       },
       "languageDetails" : {
-        "text": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "languageDetails",
+                "label": "languageDetails"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "languageDetails",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
       },
       "metadataStandardVersion" : {
-        "text": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "metadataStandardVersion",
+                "label": "metadataStandardVersion"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "metadataStandardVersion",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
       },
       "metadataLanguage" : {
-        "text": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "metadataLanguage",
+                "label": "metadataLanguage"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "metadataLanguage",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
       },
       "noDataValue" : {
-        "text": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "noDataValue",
+                "label": "noDataValue"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "noDataValue",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
       }
     },
     "validator" : {
@@ -185,138 +167,124 @@
     "description": "Responsible party that could be identify as the data source. FENIX metadata contains more than one field of the type 'ResponsibleParty' addressed to report all the information necessary to contact party(ies) playing different roles in respect to the resource. In particular this field (belonging to the Identification entity) should report the party who owns authority on the resource.",
     "sections": { },
     "items": {
-      "organization" : {
-        "text": {
+        "organization": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "organization",
+                "label": "organization"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "organization",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
-      },
-      "organizationUnit" : {
-        "text": {
+        },
+        "organizationUnit": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "organizationUnit",
+                "label": "organizationUnit"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "organizationUnit",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
-      },
-      "pointOfContact" : {
-        "text": {
+        },
+        "pointOfContact": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "pointOfContact",
+                "label": "pointOfContact"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "pointOfContact",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
-      },
-      "position" : {
-        "text": {
+        },
+        "position": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "position",
+                "label": "position"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "position",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
-      },
-      "role" : {
-        "text": {
+        },
+        "role": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "role",
+                "label": "role"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "role",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
-      },
-      "specify" : {
-        "text": {
+        },
+        "specify": {
           "selector": {
             "id": "input",
             "type": "text",
             "source": [
               {
-                "value": "item_1",
-                "label": "item_1"
+                "value": "specify",
+                "label": "specify"
               }
             ]
           },
           "template": {
-            "title": "Item Title",
+            "title": "specify",
             "hideSwitch": false,
             "hideRemoveButton": false
           }
-        }
-      },
-      "contactInfo" : {
-        "text": {
+        },
+        "contactInfo": {
         "selector": {
           "id": "input",
           "type": "text",
           "source": [
             {
-              "value": "item_1",
-              "label": "item_1"
+              "value": "contactInfo",
+              "label": "contactInfo"
             }
           ]
         },
         "template": {
-          "title": "Item Title",
+          "title": "contactInfo",
           "hideSwitch": false,
           "hideRemoveButton": false
         }
-      }
       }
     },
     "validator" : {
@@ -330,82 +298,74 @@
       "seReferencePopulation": {
         "title": "Reference Population",
         "items": {
-          "statisticalPopulation" : {
-            "text": {
+            "statisticalPopulation": {
               "selector": {
                 "id": "input",
                 "type": "text",
                 "source": [
                   {
-                    "value": "item_1",
-                    "label": "item_1"
+                    "value": "statisticalPopulation",
+                    "label": "statisticalPopulation"
                   }
                 ]
               },
               "template": {
-                "title": "Item Title",
+                "title": "statisticalPopulation",
                 "hideSwitch": false,
                 "hideRemoveButton": false
               }
-            }
-          },
-          "statisticalUnit" : {
-            "text": {
+            },
+            "statisticalUnit": {
               "selector": {
                 "id": "input",
                 "type": "text",
                 "source": [
                   {
-                    "value": "item_1",
-                    "label": "item_1"
+                    "value": "statisticalUnit",
+                    "label": "statisticalUnit"
                   }
                 ]
               },
               "template": {
-                "title": "Item Title",
+                "title": "statisticalUnit",
                 "hideSwitch": false,
                 "hideRemoveButton": false
               }
-            }
-          },
-          "referencePeriod" : {
-            "text": {
+            },
+            "referencePeriod": {
               "selector": {
                 "id": "input",
                 "type": "text",
                 "source": [
                   {
-                    "value": "item_1",
-                    "label": "item_1"
+                    "value": "referencePeriod",
+                    "label": "referencePeriod"
                   }
                 ]
               },
               "template": {
-                "title": "Item Title",
+                "title": "referencePeriod",
                 "hideSwitch": false,
                 "hideRemoveButton": false
               }
-            }
-          },
-          "referenceArea" : {
-            "text": {
+            },
+            "referenceArea": {
               "selector": {
                 "id": "input",
                 "type": "text",
                 "source": [
                   {
-                    "value": "item_1",
-                    "label": "item_1"
+                    "value": "referenceArea",
+                    "label": "referenceArea"
                   }
                 ]
               },
               "template": {
-                "title": "Item Title",
+                "title": "referenceArea",
                 "hideSwitch": false,
                 "hideRemoveButton": false
               }
             }
-          }
         },
         "validator" : {
           "valReferencePopulation" : true
@@ -414,8 +374,58 @@
       "seCoverage": {
         "title": "Coverage",
         "items": {
-          "sector": {
-            "text": {
+            "sector": {
+              "selector": {
+                "id": "input",
+                "type": "text",
+                "source": [
+                  {
+                    "value": "sector",
+                    "label": "sector"
+                  }
+                ]
+              },
+              "template": {
+                "title": "sector",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            },
+            "coverageSectorsDetails": {
+              "selector": {
+                "id": "input",
+                "type": "text",
+                "source": [
+                  {
+                    "value": "coverageSectorsDetails",
+                    "label": "coverageSectorsDetails"
+                  }
+                ]
+              },
+              "template": {
+                "title": "coverageSectorsDetails",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            },
+            "coverageGeographic": {
+              "selector": {
+                "id": "input",
+                "type": "text",
+                "source": [
+                  {
+                    "value": "coverageGeographic",
+                    "label": "coverageGeographic"
+                  }
+                ]
+              },
+              "template": {
+                "title": "coverageGeographic",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            },
+            "coverageTime": {
               "selector": {
                 "id": "input",
                 "type": "text",
@@ -432,64 +442,6 @@
                 "hideRemoveButton": false
               }
             }
-          },
-          "coverageSectorsDetails": {
-            "text": {
-              "selector": {
-                "id": "input",
-                "type": "text",
-                "source": [
-                  {
-                    "value": "item_1",
-                    "label": "item_1"
-                  }
-                ]
-              },
-              "template": {
-                "title": "Item Title",
-                "hideSwitch": false,
-                "hideRemoveButton": false
-              }
-            }
-          },
-          "coverageGeographic": {
-            "text": {
-              "selector": {
-                "id": "input",
-                "type": "text",
-                "source": [
-                  {
-                    "value": "item_1",
-                    "label": "item_1"
-                  }
-                ]
-              },
-              "template": {
-                "title": "Item Title",
-                "hideSwitch": false,
-                "hideRemoveButton": false
-              }
-            }
-          },
-          "coverageTime" : {
-            "text": {
-              "selector": {
-                "id": "input",
-                "type": "text",
-                "source": [
-                  {
-                    "value": "item_1",
-                    "label": "item_1"
-                  }
-                ]
-              },
-              "template": {
-                "title": "Item Title",
-                "hideSwitch": false,
-                "hideRemoveButton": false
-              }
-            }
-          }
         },
         "validator" : {
           "valCoverage" : true

@@ -19,7 +19,7 @@ define([
 
         console.clear();
         this._importThirdPartyCss();
-        log.setLevel('trace');
+        log.setLevel('silent');
         this.start();
     }
 

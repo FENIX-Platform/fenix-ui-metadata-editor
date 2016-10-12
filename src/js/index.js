@@ -9,8 +9,10 @@ define([
 
     var s = {
         CODE : "#mdeCode",
-        FILTER : "#mde"
-    };
+        FILTER : "#mde",
+        BUTTON : "#getFilter"
+    },
+        items = {};
 
     function MetaDataEditor(obj) {
         log.info("[MDE] Meta Data Editor", obj);
@@ -38,34 +40,27 @@ define([
 
     MetaDataEditor.prototype._initVariables = function () {
         log.info("[MDE] _initVariables");
+        items = {};
     };
 
     MetaDataEditor.prototype._bindEventListeners = function () {
         log.info("[MDE] _bindEventListeners");
     };
 
-    MetaDataEditor.prototype._sectionReader = function (obj) {
-        log.info("[MDE] _sectionReader ", obj);
-        var items = {};
+    MetaDataEditor.prototype._elementsReader = function (obj) {
+        log.info("[MDE] _elementsReader ", obj);
         if ( (typeof obj !== 'undefined') && _.size(obj.sections) ) { // we have sections
         var self = this;
-            console.log("[");
             $.each(obj.sections, function (index, object) {
-                self._sectionReader(object);
+                self._elementsReader(object);
             });
-            console.log("]");
         } else if ( (_.size(obj.items)) && (typeof obj.items !== 'undefined') ) { // we have items
             $.each(obj.items, function (index, object) {
-                console.log( obj.title + " >>> ["+index+"] ", object);
-                $.extend(true, items, object);
-
+                var item = {};
+                item[index] = object;
+                $.extend(true, items, item);
             });
         }
-        var fil = new Filter({
-            el : s.FILTER,
-            items: items
-        });
-        // console.log(object.hasOwnProperty('sections'));
     };
     
     MetaDataEditor.prototype._readConfiguration = function (obj) {
@@ -74,13 +69,24 @@ define([
         var self = this;
         // Read all the sections
         $.each(this.config, function (index, object){
-            self._sectionReader(object);
+            self._elementsReader(object);
         });
+
+        this.filter = new Filter({
+            el : s.FILTER,
+            items: items
+        });
+
     };
 
     MetaDataEditor.prototype._renderOutput = function () {
         log.info("[MDE] _renderOutput");
+        var self = this;
         $(s.CODE).html(JSON.stringify(this.config));
+        $(s.BUTTON).on("click", function () {
+            //console.log("clock");
+            console.log(JSON.stringify(self.filter.getValues('plain',true)));
+        })
     };
 
     return MetaDataEditor;

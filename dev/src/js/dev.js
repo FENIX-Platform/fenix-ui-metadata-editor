@@ -10,7 +10,8 @@ define([
     var s = {
             CODE : "#mdeCode",
             FILTER : "#mde",
-            BUTTON : "#getFilter"
+            BUTTON : "#getFilter",
+            SHOWCODE : "#showCode",
 
         },
         cache = false,
@@ -22,6 +23,7 @@ define([
 
         console.clear();
         this._importThirdPartyCss();
+        // silent trace
         log.setLevel('silent');
         this.start();
     }
@@ -48,6 +50,9 @@ define([
            // console.log(self.MDE);
            $(s.CODE).html(self.MDE.getValues());
         })
+        $(s.SHOWCODE).on("click", function(){
+            $(s.CODE).toggle();
+        });
 
     };
 

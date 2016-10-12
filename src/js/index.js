@@ -24,8 +24,8 @@ define([
             this._initVariables();
             this._createContainers();
             this._readConfiguration(obj);
-            this._bindEventListeners();
             this._renderOutput();
+            this._bindEventListeners();
             this.valid = true;
             return this;
         } else {
@@ -47,13 +47,16 @@ define([
 
     MetaDataEditor.prototype._bindEventListeners = function () {
         log.info("[MDE] _bindEventListeners");
+        var self = this;
+        $(s.SECTIONS_LIST).on("click", function(e){
+            self._activateSection($(e.target).data("section"));
+        });
     };
 
     MetaDataEditor.prototype._createContainers = function () {
         this.$el.html('' +
             '<div class="col-xs-3" id="mde_sections"><div id="mde_sections_list" class="list-group"> </div></div>' +
             '<div class="col-xs-9" id="mde_items"></div>');
-
     };
 
     MetaDataEditor.prototype._elementsReader = function (obj) {
@@ -85,32 +88,39 @@ define([
     };
 
     MetaDataEditor.prototype.getValues = function () {
+        log.info("[MDE] getValues");
         console.log(filters);
         //return JSON.stringify(this.filter.getValues('plain',true));
     };
 
     MetaDataEditor.prototype._renderSections = function() {
+        log.info("[MDE] _renderSections");
         $.each(filters, function(index, object) {
-                $(s.SECTIONS_LIST).append(
-                    '<button type="button" class="list-group-item">'+index+'</button>'
-                );
-            console.log('object is ',object);
+            $(s.SECTIONS_LIST).append('<button type="button" class="list-group-item" data-section="'+index+'">'+index+'</button>');
+        });
+    };
+
+    MetaDataEditor.prototype._activateSection = function(section) {
+        log.info("[MDE] _activateSection",section);
+        console.log("creating into "+s.ITEMS, section, filters[section]);
+        var fillo = new Filter({
+            el : s.ITEMS,
+            items: filters[section]
         });
     };
 
     MetaDataEditor.prototype._renderOutput = function () {
         log.info("[MDE] _renderOutput");
-        var self = this;
         this._renderSections();
 
         $.each(filters, function(index, object) {
             console.log("creating ",index, object);
-
+            /*
             filters[index] = new Filter({
                 el : s.ITEMS,
                 items: object
             });
-
+            */
         });
 
     };

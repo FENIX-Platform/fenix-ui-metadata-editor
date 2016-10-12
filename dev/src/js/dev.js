@@ -8,7 +8,10 @@ define([
     'use strict';
 
     var s = {
-            MDE: "#mde"
+            CODE : "#mdeCode",
+            FILTER : "#mde",
+            BUTTON : "#getFilter"
+
         },
         cache = false,
         lang = "EN",
@@ -33,10 +36,19 @@ define([
 
         this.MDE = new MetaDataEditor({
             environment: environment,
-            el: s.MDE,
+            el: s.FILTER,
             lang: lang,
             config: config
         });
+
+        var self = this;
+
+        $(s.CODE).html(JSON.stringify(this.MDE.config));
+        $(s.BUTTON).on("click", function () {
+           // console.log(self.MDE);
+           $(s.CODE).html(self.MDE.getValues());
+        })
+
     };
 
     Dev.prototype._importThirdPartyCss = function () {

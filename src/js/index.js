@@ -8,9 +8,6 @@ define([
     'use strict';
 
     var s = {
-        CODE : "#mdeCode",
-        FILTER : "#mde",
-        BUTTON : "#getFilter"
     },
         items = {};
 
@@ -25,7 +22,6 @@ define([
             this._bindEventListeners();
             this._renderOutput();
             this.valid = true;
-            this.filterConfig = {};
             return this;
         } else {
             this.valid = false;
@@ -49,8 +45,8 @@ define([
 
     MetaDataEditor.prototype._elementsReader = function (obj) {
         log.info("[MDE] _elementsReader ", obj);
-        if ( (typeof obj !== 'undefined') && _.size(obj.sections) ) { // we have sections
         var self = this;
+        if ( (_.size(obj.sections)) && (typeof obj !== 'undefined')  ) { // we have sections
             $.each(obj.sections, function (index, object) {
                 self._elementsReader(object);
             });
@@ -73,20 +69,19 @@ define([
         });
 
         this.filter = new Filter({
-            el : s.FILTER,
+            el : this.$el,
             items: items
         });
 
     };
 
+    MetaDataEditor.prototype.getValues = function () {
+        return JSON.stringify(this.filter.getValues('plain',true));
+    };
+
     MetaDataEditor.prototype._renderOutput = function () {
         log.info("[MDE] _renderOutput");
-        var self = this;
-        $(s.CODE).html(JSON.stringify(this.config));
-        $(s.BUTTON).on("click", function () {
-            //console.log("clock");
-            console.log(JSON.stringify(self.filter.getValues('plain',true)));
-        })
+
     };
 
     return MetaDataEditor;

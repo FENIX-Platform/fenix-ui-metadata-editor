@@ -8,8 +8,7 @@ define(function () {
             "items": {
                 "title": {
                     "selector": {
-                        "id": "input",
-                        "type": "text",
+                        "id": "textarea",
                         "source": [
                             {
                                 "value": "title",

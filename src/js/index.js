@@ -228,6 +228,7 @@ define([
         //add custom class
         $template.addClass(s.className);
         $template.addClass(this.sectionContentClassName);
+        $template.append("<div data-role='items'></div>");
 
         $parentEl.append($template);
 
@@ -280,7 +281,7 @@ define([
             log.warn("Abort because section does not contains any items: " + id);
         } else {
             s.filter = new Filter({
-                el: s.el,
+                el: s.el.find("[data-role='items']").first(),
                 cache: this.cache,
                 environment: this.environment,
                 items: s.items
@@ -354,15 +355,15 @@ define([
     MetaDataEditor.prototype._getValues = function () {
 
         var result = {
-            values : {},
+            values: {},
             labels: {},
-            valid : true,
-            errors : []
+            valid: true,
+            errors: []
         };
 
         this._getSectionsValues(this.config, result);
 
-        if (Array.isArray(result.errors) && result.errors.length ===0) {
+        if (Array.isArray(result.errors) && result.errors.length === 0) {
             delete result.errors;
         }
 
@@ -384,7 +385,7 @@ define([
                 this._assign(result.labels, path, filter.labels);
                 result.valid = result.valid && filter.valid;
 
-                if (Array.isArray(filter.error)){
+                if (Array.isArray(filter.error)) {
                     result.error = result.error.concat(filter.error);
                 }
             }

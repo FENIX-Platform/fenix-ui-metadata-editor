@@ -8,10 +8,10 @@ define(function () {
             indexTemplate: "<li>Custom [A] </li>",
             className: "custom",
             items: {
-                text: {
+                textarea: {
                     selector: {
-                        id: "input",
-                        type: "text"
+                        id: "textarea",
+                        source : [{value: "Textarea", label: "Textarea"}]
                     }
                 },
                 input: {
@@ -25,6 +25,16 @@ define(function () {
         },
         b: {
             title: "B",
+            items: {
+                input: {
+                    selector: {
+                        id: "input",
+                        type: "radio",
+                        source: [{value: "item_1", label: "Item 1"}, {value: "item_2", label: "Item 2"}]
+                    }
+                }
+
+            },
             sections: {
                 ba: {
                     title: "BA"

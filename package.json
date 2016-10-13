@@ -25,6 +25,7 @@
   "homepage": "https://github.com/FENIX-Platform/fenix-ui-metadata-editor#readme",
   "dependencies": {
     "fenix-ui-filter": "^3.0.0-beta.8",
+    "fenix-ui-filter-utils": "^1.0.0-beta.3",
     "jquery": "^3.1.0",
     "loglevel": "^1.4.1",
     "underscore": "^1.8.3"
@@ -36,13 +37,15 @@
     "clean-webpack-plugin": "^0.1.10",
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
     "handlebars": "^4.0.5",
+    "handlebars-loader": "^1.4.0",
     "html-webpack-plugin": "^2.22.0",
+    "image-webpack-loader": "^2.0.0",
     "imports-loader": "^0.6.5",
     "jshint": "^2.9.3",
+    "jshint-loader": "^0.8.3",
     "json-loader": "^0.5.4",
-    "sass-loader": "^4.0.2",
-    "file-loader": "^0.9.0",
     "karma": "^1.2.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.0.0",
@@ -51,13 +54,12 @@
     "karma-mocha": "^1.1.1",
     "karma-webpack": "^1.8.0",
     "mocha": "^3.0.2",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.15.1",
-    "image-webpack-loader": "^2.0.0",
-    "jshint-loader": "^0.8.3",
     "node-sass": "^3.10.0",
     "resolve-url-loader": "^1.6.0",
+    "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7"
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.1"
   }
 }

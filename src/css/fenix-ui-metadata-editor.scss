@@ -1,0 +1,17 @@
+[data-fenix="metadata-editor"] {
+
+  .content {
+    display: none;
+    border-style: dashed;
+
+    &.active {
+      display: block;
+      background-color: red;
+    }
+  }
+
+  .index.active {
+    background-color: red;
+  }
+
+}

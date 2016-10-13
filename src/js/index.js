@@ -5,11 +5,12 @@ define([
     '../config/errors',
     '../config/events',
     '../config/config',
+    '../config/metadata',
     '../html/template.hbs',
     '../html/sectionContent.hbs',
     '../html/sectionIndex.hbs',
     'fenix-ui-filter'
-], function (log, $, _, ERR, EVT, C, template, sectionContent, sectionIndex, Filter) {
+], function (log, $, _, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex, Filter) {
 
     'use strict';
 
@@ -122,12 +123,6 @@ define([
             log.warn("Impossible to find filter container");
         }
 
-        //Check if $el exist
-        if (!this.initial.config) {
-            errors.push({code: ERR.MISSING_CONFIG});
-            log.warn("Impossible to find Metadata editor configuration");
-        }
-
         return errors.length > 0 ? errors : valid;
     };
 
@@ -161,7 +156,7 @@ define([
 
         this.$template.attr("data-fenix", "metadata-editor");
 
-        this.config = this.initial.config || {};
+        this.config = this.initial.config || FenixMetadata;
     };
 
     MetaDataEditor.prototype._attach = function () {
@@ -454,6 +449,6 @@ define([
 
         return this;
     };
-    
+
     return MetaDataEditor;
 });

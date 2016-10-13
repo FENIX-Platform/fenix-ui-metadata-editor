@@ -2,9 +2,8 @@ define([
     'loglevel',
     'jquery',
     '../../../src/js/index',
-    '../config/metadata',
     '../config/nested'
-], function (log, $, MetaDataEditor, Metadata, Nested) {
+], function (log, $, MetaDataEditor, Nested) {
 
     'use strict';
 

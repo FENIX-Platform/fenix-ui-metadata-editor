@@ -1,0 +1,632 @@
+{
+  "identification": {
+    "title": "Identification",
+    "description": "Basic Metadata",
+    "sections": { },
+    "items": {
+      "title" : {
+        "selector": {
+          "id": "title",
+          "type": "text",
+          "source": [
+            {
+              "value": "title",
+              "label": "title"
+            }
+          ]
+        },
+        "template": {
+          "title": "Title",
+          "description": "Textual label used as title of the resource.",
+          "hideSwitch": false,
+          "hideRemoveButton": false
+        }
+      },
+      "creationDate" : {
+          "selector": {
+            "id": "creationdate",
+            "type": "text",
+            "source": [
+              {
+                "value": "creationdate",
+                "label": "creationdate"
+              }
+            ]
+          },
+          "template": {
+            "title": "Creation Date",
+            "description" : "Creation date of the resource.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+      },
+      "characterSet" : {
+          "selector": {
+            "id": "characterSet",
+            "type": "dropdown",
+            "source": [
+              {
+                "value": "characterSet",
+                "label": "characterSet"
+              }
+            ]
+          },
+          "template": {
+            "title": "Character-set",
+            "description" : "Full name of the character coding standard used by the resource.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+      },
+      "metadataStandardName" : {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "FENIX",
+                "label": "FENIX"
+              }
+            ]
+          },
+          "template": {
+            "title": "Used metadata standard",
+            "description": "Name of the metadata standard specifications used. In FENIX framework this field would be pre-compiled by 'FENIX'.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+      },
+      "language" : {
+          "selector": {
+            "id": "input",
+            "type": "dropdown",
+            "source": [
+              {
+                "value": "language",
+                "label": "language"
+              }
+            ]
+          },
+          "template": {
+            "title": "Language(s)",
+            "description" : "Language used by the resource for textual information.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+      },
+      "languageDetails" : {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "languageDetails",
+                "label": "languageDetails"
+              }
+            ]
+          },
+          "template": {
+            "title": "Language details",
+            "description" : "Comments and additional details about the language used for the textual information of the resource. This field is addressed to highlight some particular inconsistencies in the language (or languages) used in the resource, if any. For example to alert that the resource is not completely homogeneous in the language used for textual information. Otherwise it can be leaved empty.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+      },
+      "metadataStandardVersion" : {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "metadataStandardVersion",
+                "label": "metadataStandardVersion"
+              }
+            ]
+          },
+          "template": {
+            "title": "Version of metadata standard",
+            "description": "Version of the metadata standard specifications used.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+      },
+      "metadataLanguage" : {
+          "selector": {
+            "id": "input",
+            "type": "select",
+            "source": [
+              {
+                "value": "metadataLanguage",
+                "label": "metadataLanguage"
+              }
+            ]
+          },
+          "template": {
+            "title": "metadataLanguage",
+            "description":"Language(s) used for metadata",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+      },
+      "noDataValue" : {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "noDataValue",
+                "label": "noDataValue"
+              }
+            ]
+          },
+          "template": {
+            "title": "Value assigned to No-data",
+            "description" : " Value assigned to the cells to represent the absence of data. Missing values are usually highlight through apposite ags, however the data matrix does not report empty cells but a predefined combination of characters (such as 'NA', '000' . . . ) indicating the absence of data.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+      }
+    },
+    "validator" : {
+      "valIdentification" : true
+    }
+  },
+  "contacts": {
+    "title": "Contacts",
+    "description": "Responsible party that could be identify as the data source. FENIX metadata contains more than one field of the type 'ResponsibleParty' addressed to report all the information necessary to contact party(ies) playing different roles in respect to the resource. In particular this field (belonging to the Identification entity) should report the party who owns authority on the resource.",
+    "sections": { },
+    "items": {
+        "organization": {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "organization",
+                "label": "organization"
+              }
+            ]
+          },
+          "template": {
+            "title": "Organization",
+            "description": "Name of the responsible organization.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+        },
+        "organizationUnit": {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "Organization unit/division",
+                "label": "Addressable subdivision of an organization."
+              }
+            ]
+          },
+          "template": {
+            "title": "organizationUnit",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+        },
+        "pointOfContact": {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "pointOfContact",
+                "label": "pointOfContact"
+              }
+            ]
+          },
+          "template": {
+            "title": "Point of contact",
+            "description" : "Responsible person-surname, given name, title separated by a delimiter. It contains information about the party who can be contacted for acquiring knowledge the resource.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+        },
+        "position": {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "position",
+                "label": "position"
+              }
+            ]
+          },
+          "template": {
+            "title": "Position",
+            "description" : " Role or position of the responsible person.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+        },
+        "role": {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "role",
+                "label": "role"
+              }
+            ]
+          },
+          "template": {
+            "title": "Role",
+            "description": "Function performed by the responsible party concerning the resource.",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+        },
+        "specify": {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "specify",
+                "label": "specify"
+              }
+            ]
+          },
+          "template": {
+            "title": "Specify",
+            "description": "Textual metadata element that allows to specify the role performed by the responsible party. This field is conditional to the element .",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+        },
+        "contactInfo": {
+          "selector": {
+            "id": "input",
+            "type": "text",
+            "source": [
+              {
+                "value": "contactInfo",
+                "label": "contactInfo"
+              }
+            ]
+          },
+          "template": {
+            "title": "contactInfo",
+            "hideSwitch": false,
+            "hideRemoveButton": false
+          }
+        }
+    },
+    "validator" : {
+      "valContacts" : true
+    }
+  },
+  "content": {
+    "title": "Content",
+    "description": "This section includes a summary of the content of the resource and the description of the geographical, time and sector coverage.",
+    "sections": {
+      "referencePopulation": {
+        "title": "Reference Population",
+        "items": {
+            "statisticalPopulation": {
+              "selector": {
+                "id": "input",
+                "type": "text",
+                "source": [
+                  {
+                    "value": "statisticalPopulation",
+                    "label": "statisticalPopulation"
+                  }
+                ]
+              },
+              "template": {
+                "title": "Statistical population",
+                "description": "Target statistical population (one or more) the resource refers to.",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            },
+            "statisticalUnit": {
+              "selector": {
+                "id": "input",
+                "type": "text",
+                "source": [
+                  {
+                    "value": "statisticalUnit",
+                    "label": "statisticalUnit"
+                  }
+                ]
+              },
+              "template": {
+                "title": "Statistical unit",
+                "description": "Simplest unit for which information is sought and for which statistics are ultimately compiled.",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            },
+            "referencePeriod": {
+              "selector": {
+                "id": "input",
+                "type": "text",
+                "source": [
+                  {
+                    "value": "referencePeriod",
+                    "label": "referencePeriod"
+                  }
+                ]
+              },
+              "template": {
+                "title": "Period of reference",
+                "description" : "Specific time periods (e.g. a day, a week, a month, a fiscal year, a calendar year or several calendar years) the statistical variables refer to.",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            },
+            "referenceArea": {
+              "selector": {
+                "id": "input",
+                "type": "text",
+                "source": [
+                  {
+                    "value": "referenceArea",
+                    "label": "referenceArea"
+                  }
+                ]
+              },
+              "template": {
+                "title": "Area of reference",
+                "description": "Type of geographical units the resource represents or refers to. Note that the spatial resolution must refer to the minimum mapping unit whose bounds are officially recognized indipendently from the measurement process of the phonomenon taken into account. Examples are: countries, administrative level 2, etc.",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            }
+        },
+        "validator" : {
+          "valReferencePopulation" : true
+        }
+      },
+      "coverage": {
+        "title": "Coverage",
+        "items": {
+            "sector": {
+              "selector": {
+                "id": "input",
+                "type": "text",
+                "source": [
+                  {
+                    "value": "sector",
+                    "label": "sector"
+                  }
+                ]
+              },
+              "template": {
+                "title": "Sector",
+                "description" : " Sector(s) the resource refers to as specified in the selected codelist. The word 'Sector' indicates the subject area the resource refers to. These sectors can be institutional sectors, economic or other sectors (e.g. local government sector, agriculture, forestry, business services, etc.).",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            },
+            "coverageSectorsDetails": {
+              "selector": {
+                "id": "input",
+                "type": "dropdown",
+                "source": [
+                  {
+                    "value": "coverageSectorsDetails",
+                    "label": "coverageSectorsDetails"
+                  }
+                ]
+              },
+              "template": {
+                "title": "coverageSectorsDetails",
+                "description": "Textual element delimiting the statistical results with regard to the main sectors covered.",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            },
+            "coverageGeographic": {
+              "selector": {
+                "id": "input",
+                "type": "dropdown",
+                "source": [
+                  {
+                    "value": "coverageGeographic",
+                    "label": "coverageGeographic"
+                  }
+                ]
+              },
+              "template": {
+                "title": "Geographic extent",
+                "title": "Geographical coverage represented by the resource. It is highly recommended to make reference to officially recognized or easily identifiable macro-areas (e.g. South Saharan Africa, North America, OECD member countries..).",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            },
+            "coverageTime": {
+              "selector": {
+                "id": "input",
+                "type": "text",
+                "source": [
+                  {
+                    "value": "item_1",
+                    "label": "item_1"
+                  }
+                ]
+              },
+              "template": {
+                "title": "Coverage period",
+                "description": "Information about the time period for which data are available. It requests to report the time window of reference (reporting the starting date and the ending date) even if it presents some lacks.",
+                "hideSwitch": false,
+                "hideRemoveButton": false
+              }
+            }
+        },
+        "validator" : {
+          "valCoverage" : true
+        }
+      }
+    }
+  },
+  "istitutionalMandate": {
+    "items": {
+      "legalActsAgreements" : {
+        "selector": {
+          "id": "input",
+          "type": "text",
+          "source": [
+            {
+              "value": "sector",
+              "label": "sector"
+            }
+          ]
+        },
+        "template": {
+          "title": "Legal acts/agreements",
+          "description" : "References (citations or website link) to legal acts or other formal or informal agreements that assign responsibility as well as authority to an agency for the collection, processing, and dissemination of the resource.",
+          "hideSwitch": false,
+          "hideRemoveButton": false
+        }
+      },
+      "institutionalMandateDataSharing" : {
+        "selector": {
+          "id": "input",
+          "type": "text",
+          "source": [
+            {
+              "value": "sector",
+              "label": "sector"
+            }
+          ]
+        },
+        "template": {
+          "title": "Data sharing arrangements",
+          "description" : "References (citations or website link) to arrangements or procedures for data sharing and coordination.",
+          "hideSwitch": false,
+          "hideRemoveButton": false
+        }
+      }
+    }
+  },
+  "statisticalProcessing": {
+    "sections": {
+      "primaryDataCollection": {
+        "items": {
+          "typeOfCollection": {
+            "selector": {
+              "id": "dropdown",
+              "type": "text",
+              "source": [
+                {
+                  "value": "Type of collection",
+                  "label": "Type of collection"
+                }
+              ]
+            },
+            "template": {
+              "title": "Type of collection",
+              "description" : "Coded element which specifies the type of data collection method (e.g. census, random sampling, etc.).",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "samplingProcedure": {
+            "selector": {
+              "id": "dropdown",
+              "type": "text",
+              "source": [
+                {
+                  "value": "Sampling procedure",
+                  "label": "Sampling procedure"
+                }
+              ]
+            },
+            "template": {
+              "title": "Sampling procedure",
+              "description" : "The type of sample design used to select the survey respondents to represent the population. It may refer to information on sample design, sample size, sample frame, sample updating etc.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "dataCollection": {
+            "selector": {
+              "id": "input",
+              "type": "text",
+              "source": [
+                {
+                  "value": "Data collection",
+                  "label": "Data collection"
+                }
+              ]
+            },
+            "template": {
+              "title": "Data collection",
+              "description" : "Methods used to gather data from the respondents (e.g. postal survey, CAPI, on-line survey, face-to-face interviews etc.) and description of data collection methods. This metadata element also includes more precise information about the kind of questionnaire (structured, unstructured etc.) and if necessary somenoteworthy aspects of the data collection process.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "collectionPeriodicity": {
+            "selector": {
+              "id": "input",
+              "type": "text",
+              "source": [
+                {
+                  "value": "Periodicity of data collection",
+                  "label": "Periodicity of data collection"
+                }
+              ]
+            },
+            "template": {
+              "title": "Periodicity of data collection",
+              "description" : "Frequency with which the data are collected from the sources.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          }
+
+        }
+      },
+
+
+
+
+      "secondaryDataCollection": {
+        "items": {}
+      },
+      "dataCompilation": {
+        "items": {}
+      },
+      "dataValidation": {
+        "items": {}
+      }
+    }
+  },
+  "dataQuality": {
+    "sections": {
+      "accuracy": {},
+      "dataRevision": {},
+      "relevance": {},
+      "compatibilityCoherence": {},
+      "timelinessAndPunctuality": {}
+    }
+  },
+  "accesibility": {
+    "sections": {
+      "dataDissemination": {
+        "sections": {
+          "distribution": {},
+          "policy": {}
+        }
+      },
+      "clarity": {},
+      "confidentiality": {}
+    }
+
+  },
+  "maintenance": {}
+
+}

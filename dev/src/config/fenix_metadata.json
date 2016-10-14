@@ -590,18 +590,286 @@
 
         }
       },
-
-
-
-
       "secondaryDataCollection": {
-        "items": {}
+        "items": {
+          "originOfCollectedData": {
+            "selector": {
+              "id": "originOfCollectedData",
+              "type": "dropdown",
+              "source": [
+                {
+                  "value": "Origin of collected data",
+                  "label": "Origin of collected data"
+                }
+              ]
+            },
+            "template": {
+              "title": "Periodicity of data collection",
+              "description": "Coded element which allows to specify in a standard way the origin of the resource.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "organization": {
+            "selector": {
+              "id": "organization",
+              "type": "text",
+              "source": [
+                {
+                  "value": "Organization",
+                  "label": "text"
+                }
+              ]
+            },
+            "template": {
+              "title": "Organization",
+              "description": "Organization is mandatory when 'Other International Organizations' has been chosen in originOfCollectedData *** If the element \u003c\u003coriginOfCollectedData\u003e\u003e has been generally specified as \u0027other International Organizations\u0027 this element requests to report the exact source of the resource.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "rawDataDescription": {
+            "selector": {
+              "id": "rawDataDescription",
+              "type": "dropdown",
+              "source": [
+                {
+                  "value": "Description of raw data",
+                  "label": "Description of raw data"
+                }
+              ]
+            },
+            "template": {
+              "title": "Description of raw data",
+              "description": "Characteristics and components of the raw statistical data used for compiling statistical aggregates. It indicates if data set is based on a survey or on administrative data source. If administrative registers are used, the description of registers should be given (source, year, primary purpose, potential deficiencies, etc. ).",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "dataCollection": {
+            "selector": {
+              "id": "dataCollection",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Data collection",
+                  "label": "Data collection"
+                }
+              ]
+            },
+            "template": {
+              "title": "Data collection",
+              "description": "Data collection details.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          }
+        }
       },
       "dataCompilation": {
-        "items": {}
+        "items": {
+          "missingData": {
+            "selector": {
+              "id": "missingData",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Missing data",
+                  "label": "Missing data"
+                }
+              ]
+            },
+            "template": {
+              "title": "Missing data",
+              "description": "It describe under which circumstance missing data are estimated or imputed and when the cells are left empty. It also describe methodologies used to estimate/impute missing values.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "weights": {
+            "selector": {
+              "id": "weights",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Weights",
+                  "label": "Weights"
+                }
+              ]
+            },
+            "template": {
+              "title": "Weights",
+              "description": "Description of weights system (if any) used in order to produce accurate statistical results. This field reports the criteria for using weights in analysis of collection, the formulas and coefficients developed and how they are applied to data.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "aggregationProcessing": {
+            "selector": {
+              "id": "aggregationProcessing",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Process of aggregation",
+                  "label": "Process of aggregation"
+                }
+              ]
+            },
+            "template": {
+              "title": "Process of aggregation",
+              "description": "Information about the methodology used to aggregate data.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "aggregationFormula": {
+            "selector": {
+              "id": "aggregationFormula",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Aggregation formula",
+                  "label": "Aggregation formula"
+                }
+              ]
+            },
+            "template": {
+              "title": "Aggregation formula",
+              "description": "Formula used to aggregate data.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "dataAdjustment": {
+            "selector": {
+              "id": "dataAdjustment",
+              "type": "dropdown",
+              "source": [
+                {
+                  "value": "Process of adjustment",
+                  "label": "Process of adjustment"
+                }
+              ]
+            },
+            "template": {
+              "title": "Process of adjustment",
+              "description": "Type of adjustment used represented by a code.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "dataAdjustmentDetails": {
+            "selector": {
+              "id": "dataAdjustmentDetails",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Details on process of adjustment",
+                  "label": "Details on process of adjustment"
+                }
+              ]
+            },
+            "template": {
+              "title": "Details on process of adjustment",
+              "description": "Set of procedures employed to modify statistical data to enable it to be conform with national or international standards (such as seasonal adjustment methods, time series decomposition, or other similar methods).",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "indexType": {
+            "selector": {
+              "id": "indexType",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Type of index",
+                  "label": "Type of index"
+                }
+              ]
+            },
+            "template": {
+              "title": "Type of index",
+              "description": "Data collection details.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "basePeriod": {
+            "selector": {
+              "id": "basePeriod",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Base period",
+                  "label": "Base period"
+                }
+              ]
+            },
+            "template": {
+              "title": "Base period",
+              "description": "Period of time used as a base of an index number or to which a time series refers (e.g. base year 2000 for certain annual data).",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          }
+        }
       },
       "dataValidation": {
-        "items": {}
+        "items": {
+          "dataValidationIntermediate": {
+            "selector": {
+              "id": "dataValidationIntermediate",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Data validation - intermediate",
+                  "label": "Data validation - intermediate"
+                }
+              ]
+            },
+            "template": {
+              "title": "Data validation - intermediate",
+              "description": "Assessment of the quality and correctness of intermediate calculations leading to statistical outputs.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "dataValidationOutput": {
+            "selector": {
+              "id": "dataValidationOutput",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Data validation - output",
+                  "label": "Data validation - output"
+                }
+              ]
+            },
+            "template": {
+              "title": "Data validation - output",
+              "description": "Assessment of discrepancies and/or inaccuracies observed in the statistical outputs.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          },
+          "dataValidationSource": {
+            "selector": {
+              "id": "dataValidationSource",
+              "type": "input",
+              "source": [
+                {
+                  "value": "Data validation - source",
+                  "label": "Data validation - source"
+                }
+              ]
+            },
+            "template": {
+              "title": "Data validation - source",
+              "description": "Assessment of discrepancies and/or inaccuracies inherent to the data source.",
+              "hideSwitch": false,
+              "hideRemoveButton": false
+            }
+          }
       }
     }
   },

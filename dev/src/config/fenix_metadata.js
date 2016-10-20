@@ -2,29 +2,34 @@ define(
     function () {
 
         var IANA = {body: [], uid: 'IANAcharacterSet'},
-            Role = {body: [], uid: 'ResponsiblePartyRole'},
-            GAUL_ReferenceArea = {body: [], uid: 'GAUL_ReferenceArea'},
-            Languages = {body: [], uid: 'ISO639-2'},
-            PeriodOfReference = {body: [], uid: 'FAO_Period'},
-            TypeOfCollection = {body: [], uid: 'FAOSTAT_Collection'},
-            OriginOfCollectedData = {body: [], uid: 'FAOSTAT_OriginData'},
-            DataAdjustment = {body: [], uid: 'CL_ADJUSTMENT'},
-            StatusConfidenciality = {body: [], uid: 'CL_CONF_STATUS'},
+            Role = {
+                "owner": "Owner",
+                "distributor": "Distributor",
+                "producer": "Producer",
+                "other": "Other"
+            },
+            GAUL = {body: [], uid: 'GAUL0', version:"2014" },
+            Languages = {body: [], uid: 'ISO639-2', version:"1998" },
+            PeriodOfReference = {body: [], uid: 'FAO_Period', version:"1.0"},
+            TypeOfCollection = {body: [], uid: 'FAOSTAT_Collection', version:"1.0"},
+            OriginOfCollectedData = {body: [], uid: 'FAOSTAT_OriginData', version:"1.0"},
+            DataAdjustment = {body: [], uid: 'CL_ADJUSTMENT', version:"1.1"},
+            StatusConfidenciality = {body: [], uid: 'CL_CONF_STATUS', version:"1.0"},
+            AreaOfReference = {body: [], uid: 'GAUL_ReferenceArea', version:"1.0"},
+            DisseminationPeriodicy = {body: [], uid: 'FAO_Period', version:"1.0"},
+            PeriodicityDataCollection = {body: [], uid: 'FAO_Period', version:"1.0"},
+            UpdatePeriodicity = {body: [], uid: 'FAO_Period', version:"1.0"},
+            CoverageSector = {body: [], uid: 'CRS_purpose_codes'}; // CSTAT_Core
 
-            DisseminationPeriodicy = {body: [], uid: 'DisseminationPeriodicy'},
-            PeriodicityDataCollection = {body: [], uid: 'PeriodicityDataCollection'},
-            AreaOfReference = {body: [], uid: 'AreaOfReference'},
-            CoverageSector = {body: [], uid: 'CoverageSector'},
-            UpdatePeriodicity = {body: [], uid: 'UpdatePeriodicity'}
-            /*
-             {
-             "eng": "English",
-             "fre": "French",
-             "por": "Portuguese",
-             "spa": "Spanish",
-             "ara": "Arabic"
-             }
-             */;
+        /*
+         {
+         "eng": "English",
+         "fre": "French",
+         "por": "Portuguese",
+         "spa": "Spanish",
+         "ara": "Arabic"
+         }
+         */
 
         return {
             "identification": {
@@ -264,21 +269,7 @@ define(
                     "role": {
                         "selector": {
                             "id": "dropdown",
-                            "source": [
-                                {
-                                    "value": "owner",
-                                    "label": "Owner"
-                                }, {
-                                    "value": "distributor",
-                                    "label": "Distributor"
-                                }, {
-                                    "value": "producer",
-                                    "label": "Producer"
-                                }, {
-                                    "value": "other",
-                                    "label": "Other"
-                                }
-                            ]
+                            "enumeration": Role
                         },
                         "template": {
                             "title": "Role",
@@ -443,13 +434,7 @@ define(
                             "referenceArea": {
                                 "selector": {
                                     "id": "dropdown",
-                                    //"cl": AreaOfReference,
-                                    "source": [
-                                        {
-                                            "value": "referenceArea",
-                                            "label": "referenceArea"
-                                        }
-                                    ]
+                                    "cl": AreaOfReference
                                 },
                                 "template": {
                                     "title": "Area of reference",
@@ -469,13 +454,7 @@ define(
                             "sector": {
                                 "selector": {
                                     "id": "dropdown",
-                                    //"cl": CoverageSector,
-                                    "source": [
-                                        {
-                                            "value": "sector",
-                                            "label": "Sector"
-                                        }
-                                    ]
+                                    "cl": CoverageSector
                                 },
                                 "template": {
                                     "title": "Sector",
@@ -505,7 +484,7 @@ define(
                             "coverageGeographic": {
                                 "selector": {
                                     "id": "dropdown",
-                                    "cl": GAUL_ReferenceArea
+                                    "cl": GAUL
                                 },
                                 "template": {
                                     "title": "Geographic extent",
@@ -639,13 +618,7 @@ define(
                             "collectionPeriodicity": {
                                 "selector": {
                                     "id": "dropdown",
-                                    //"cl": PeriodicityDataCollection,
-                                    "source": [
-                                        {
-                                            "value": "Periodicity of data collection",
-                                            "label": "Periodicity of data collection"
-                                        }
-                                    ]
+                                    "cl": PeriodicityDataCollection
                                 },
                                 "template": {
                                     "title": "Periodicity of data collection",
@@ -1349,13 +1322,7 @@ define(
                                     "disseminationPeriodicity": {
                                         "selector": {
                                             "id": "dropdown",
-                                            //"cl": DisseminationPeriodicy,
-                                            "source": [
-                                                {
-                                                    "value": "Dissemination periodicity",
-                                                    "label": "Dissemination periodicity"
-                                                }
-                                            ]
+                                            "cl": DisseminationPeriodicy
                                         },
                                         "template": {
                                             "title": "Dissemination periodicity",
@@ -1523,7 +1490,7 @@ define(
                             "updatePeriodicity": {
                                 "selector": {
                                     "id": "dropdown",
-                                    //"cl": UpdatePeriodicity
+                                    "cl": UpdatePeriodicity
                                 },
                                 "template": {
                                     "title": "Frequency of update",

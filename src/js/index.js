@@ -131,7 +131,7 @@ define([
         //init index container
         this.$index = this.$el.find(s.INDEX);
         if (this.$index.length === 0) {
-            this.$index = this.$el.append("<ol data-role='index'></ol>");
+            this.$index = this.$el.append("<ul data-role='index'></ul>");
         }
 
         //init content container
@@ -256,13 +256,13 @@ define([
             $parentEl = this.$index;
         }
 
-        var $ol = $parentEl.find("ol");
+        var $ol = $parentEl.find("ul");
 
         if ($ol.length === 0) {
-            $parentEl.append("<ol></ol>");
+            $parentEl.append("<ul></ul>");
         }
 
-        $parentEl = $parentEl.find("ol").first();
+        $parentEl = $parentEl.find("ul").first();
 
         //add section id for retrieve
         $template.attr("data-section", id);

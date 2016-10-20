@@ -142,6 +142,8 @@ define([
 
         this.initialSection = this.initial.initialSection || Object.keys(this.config)[0];
 
+        this.model = this.initial.model || {};
+
         this.sections = {};
 
         this.channels = {};
@@ -157,6 +159,8 @@ define([
         this.$template.attr("data-fenix", "metadata-editor");
 
         this.config = this.initial.config || FenixMetadata;
+
+        this.nls = this.initial.nls || {};
     };
 
     MetaDataEditor.prototype._attach = function () {
@@ -228,7 +232,7 @@ define([
         //add custom class
         $template.addClass(s.className);
         $template.addClass(this.sectionContentClassName);
-        $template.append("<div data-role='items'></div>");
+        $template.append("<div data-role='selectors'></div>");
 
         $parentEl.append($template);
 
@@ -273,26 +277,36 @@ define([
 
     };
 
-    MetaDataEditor.prototype._renderItems = function (s, id) {
-        log.info("Render section's items: " + id);
+    MetaDataEditor.prototype._renderSelectors = function (s, id) {
+        log.info("Render section's selectors: " + id);
         log.info(s);
 
-        if (!s.items) {
-            log.warn("Abort because section does not contains any items: " + id);
+        if (!s.selectors) {
+            log.warn("Abort because section does not contains any selectors: " + id);
         } else {
+
             s.filter = new Filter({
-                el: s.el.find("[data-role='items']").first(),
+                el: s.el.find("[data-role='selectors']").first(),
                 cache: this.cache,
                 environment: this.environment,
-                items: s.items
+                selectors: s.selectors,
+                values : this._getInitialValues(s)
             });
         }
 
         _.each(s.sections, _.bind(function (sec, id) {
-            this._renderItems(sec, id)
+            this._renderSelectors(sec, id)
         }, this));
 
         s.initialized = true;
+    };
+
+    MetaDataEditor.prototype._getInitialValues = function(s) {
+
+        return {
+            values : this._getNestedProperty(s.path.join("."), this.model)
+        }
+
     };
 
     MetaDataEditor.prototype._showInitialSection = function () {
@@ -331,7 +345,7 @@ define([
         this.$content.find("[data-section='" + root + "']").find("[data-section]").addClass("active");
 
         if (!section.initialized) {
-            this._renderItems(this.sections[root], root);
+            this._renderSelectors(this.sections[root], root);
         }
 
     };

@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/FENIX-Platform/fenix-ui-metadata-editor#readme",
   "dependencies": {
-    "fenix-ui-filter": "^3.0.0-beta.9",
+    "fenix-ui-filter": "^3.0.0-beta.11",
     "fenix-ui-filter-utils": "^1.0.0-beta.3",
     "jquery": "^3.1.0",
     "loglevel": "^1.4.1",

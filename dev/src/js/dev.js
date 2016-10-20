@@ -8,8 +8,8 @@ define([
     'use strict';
 
     var s = {
-            MDE : "#mde",
-            VALUES  : "#get-values-btn"
+            MDE: "#mde",
+            VALUES: "#get-values-btn"
         },
         cache = false,
         lang = "EN",
@@ -22,7 +22,7 @@ define([
         this._importThirdPartyCss();
 
         // silent trace
-        log.setLevel('trace');
+        log.setLevel('silent');
 
         this.start();
     }
@@ -40,11 +40,24 @@ define([
             el: s.MDE,
             lang: lang,
             config: Nested,
-            cache : cache,
-            environment : environment
+            model: {
+                a: {
+                    textarea: ["Hello dani!"],
+                    input: ["item_1"]
+                },
+                b: {
+                    bb: {
+                        bba: {
+                            dropdown: ["item_1"]
+                        }
+                    }
+                }
+            },
+            cache: cache,
+            environment: environment
         });
 
-        $(s.VALUES).on("click", function() {
+        $(s.VALUES).on("click", function () {
             console.log(mde.getValues())
         });
 

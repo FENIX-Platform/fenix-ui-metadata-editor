@@ -12,7 +12,9 @@ define(function () {
 
         sectionContentClassName : "content",
 
-        sectionIndexClassName : "index"
+        sectionIndexClassName : "index",
+
+        nls: { }
 
     }
 

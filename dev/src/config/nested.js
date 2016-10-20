@@ -7,7 +7,7 @@ define(function () {
             contentTemplate: "<div class='row'><div class='col-xs-12'>Custom [A]</div></div>",
             indexTemplate: "<li>Custom [A] </li>",
             className: "custom",
-            items: {
+            selectors: {
                 textarea: {
                     selector: {
                         id: "textarea",
@@ -25,7 +25,7 @@ define(function () {
         },
         b: {
             title: "B",
-            items: {
+            selectors: {
                 input: {
                     selector: {
                         id: "input",
@@ -44,7 +44,7 @@ define(function () {
                     sections: {
                         bba: {
                             title: "BBA",
-                            items: {
+                            selectors: {
                                 dropdown: {
                                     selector: {
                                         id: "dropdown",

@@ -214,7 +214,8 @@ define([
     MetaDataEditor.prototype._attachSectionContent = function (s, id, parent) {
 
         var $parentEl = this.$content.find("[data-section='" + parent + "']"),
-            $template = $(s.contentTemplate || sectionContent(s));
+            template = s.template || {},
+            $template = $(template.contentTemplate || sectionContent($.extend(true, {}, s, template)));
 
         if ($template.length === 0) {
             log.error(id + " section has not a valid content template configuration");
@@ -243,7 +244,8 @@ define([
     MetaDataEditor.prototype._attachSectionIndex = function (s, id, parent) {
 
         var $parentEl = this.$index.find("[data-section='" + parent + "']"),
-            $template = $(s.indexTemplate || sectionIndex(s));
+            template = s.template || {},
+            $template = $(template.contentTemplate || sectionIndex($.extend(true, {}, s, template)));
 
         if ($template.length === 0) {
             log.error(id + " section has not a valid index template configuration");
@@ -357,7 +359,8 @@ define([
         this.$index.find("." + this.sectionIndexClassName).on("click", function (e) {
             e.stopPropagation();
 
-            var target = $(e.target).data("section");
+            var target = $(e.target).data("section") || $(e.target).parent().data("section");
+
             if (target) {
                 self.showSection(target); //Note: is an API
             }

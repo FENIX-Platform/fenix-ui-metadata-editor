@@ -2,16 +2,22 @@ define(function () {
 
     return {
         a: {
-            title: "A",
-            description: "",
-            contentTemplate: "<div class='row'><div class='col-xs-12'>Custom [A]</div></div>",
-            indexTemplate: "<li>Custom [A] </li>",
+
             className: "custom",
+
+            template : {
+                contentTemplate: "<div class='row'><div class='col-xs-12'>Custom [A]</div></div>",
+                indexTemplate: "<li>Custom [A] </li>"
+            },
+
             selectors: {
                 textarea: {
                     selector: {
                         id: "textarea",
                         source : [{value: "Textarea", label: "Textarea"}]
+                    },
+                    template : {
+                        description : "Textarea My custom description"
                     }
                 },
                 input: {
@@ -24,7 +30,12 @@ define(function () {
             }
         },
         b: {
-            title: "B",
+            template : {
+                title: "B",
+                hideTitle: true,
+                description: "This is the section description. PS: the title is hidden by configuration",
+                hideDescription : false
+            },
             selectors: {
                 input: {
                     selector: {
@@ -58,7 +69,9 @@ define(function () {
             }
         },
         c: {
-            title: "C"
+            template : {
+                title: "C"
+            }
         }
     }
 

@@ -1,4 +1,10 @@
 <div>
-    <h1>{{{title}}}</h1>
-    <span>{{{description}}}</span>
+
+    {{#unless hideTitle}}
+        <h1>{{{title}}}</h1>
+    {{/unless}}
+
+    {{#unless hideDescription}}
+        <span>{{{description}}}</span>
+    {{/unless}}
 </div>

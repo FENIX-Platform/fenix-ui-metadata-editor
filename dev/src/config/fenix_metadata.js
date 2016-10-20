@@ -3,6 +3,10 @@ define(
     // codelist using bridge?
 
       var IANA = "", // "IANAcharacterSet"
+          PeriodOfReference = "", // "IANAcharacterSet"
+          AreaOfReference = "", // ""
+          CoverageSector = "", // ""
+          GAUL = "", // ""
           Languages = {
             "eng": "English",
             "fre": "French",
@@ -434,7 +438,7 @@ define(
                     "source": [
                       {
                         "value": "statisticalPopulation",
-                        "label": "statisticalPopulation"
+                        "label": "Statistical population"
                       }
                     ]
                   },
@@ -452,7 +456,7 @@ define(
                     "source": [
                       {
                         "value": "statisticalUnit",
-                        "label": "statisticalUnit"
+                        "label": "Statistical unit"
                       }
                     ]
                   },
@@ -465,12 +469,12 @@ define(
                 },
                 "referencePeriod": {
                   "selector": {
-                    "id": "input",
-                    "type": "text",
+                    "id": "dropdown",
+                    //"cl": PeriodOfReference,
                     "source": [
                       {
                         "value": "referencePeriod",
-                        "label": "referencePeriod"
+                        "label": "Period of reference"
                       }
                     ]
                   },
@@ -483,8 +487,8 @@ define(
                 },
                 "referenceArea": {
                   "selector": {
-                    "id": "input",
-                    "type": "text",
+                    "id": "dropdown",
+                    //"cl": AreaOfReference,
                     "source": [
                       {
                         "value": "referenceArea",
@@ -509,12 +513,12 @@ define(
               "items": {
                 "sector": {
                   "selector": {
-                    "id": "input",
-                    "type": "text",
+                    "id": "dropdown",
+                    //"cl": CoverageSector,
                     "source": [
                       {
                         "value": "sector",
-                        "label": "sector"
+                        "label": "Sector"
                       }
                     ]
                   },
@@ -527,17 +531,17 @@ define(
                 },
                 "coverageSectorsDetails": {
                   "selector": {
-                    "id": "input",
-                    "type": "dropdown",
+                    "id": "dropdown",
+                    "cl": coverageSectorsDetails,
                     "source": [
                       {
                         "value": "coverageSectorsDetails",
-                        "label": "coverageSectorsDetails"
+                        "label": "Coverage Sector Details"
                       }
                     ]
                   },
                   "template": {
-                    "title": "coverageSectorsDetails",
+                    "title": "Coverage Sector Details",
                     "description": "Textual element delimiting the statistical results with regard to the main sectors covered.",
                     "hideSwitch": false,
                     "hideRemoveButton": false
@@ -545,12 +549,12 @@ define(
                 },
                 "coverageGeographic": {
                   "selector": {
-                    "id": "input",
-                    "type": "dropdown",
+                    "id": "dropdown",
+                    //"cl": GAUL,
                     "source": [
                       {
                         "value": "coverageGeographic",
-                        "label": "coverageGeographic"
+                        "label": "Geographic extent"
                       }
                     ]
                   },
@@ -563,14 +567,12 @@ define(
                 },
                 "coverageTime": {
                   "selector": {
-                    "id": "input",
-                    "type": "text",
-                    "source": [
-                      {
-                        "value": "item_1",
-                        "label": "item_1"
-                      }
-                    ]
+                    "id": "range",
+                    "format" : "YYYY/MM/DD",
+                    "config": {
+                      type: "double"
+                    },
+
                   },
                   "template": {
                     "title": "Coverage period",

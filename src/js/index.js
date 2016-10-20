@@ -131,7 +131,7 @@ define([
         //init index container
         this.$index = this.$el.find(s.INDEX);
         if (this.$index.length === 0) {
-            this.$index = this.$el.append("<ul data-role='index'></ul>");
+            this.$index = this.$el.append("<ol data-role='index'></ol>");
         }
 
         //init content container
@@ -143,6 +143,9 @@ define([
         this.initialSection = this.initial.initialSection || Object.keys(this.config)[0];
 
         this.model = this.initial.model || {};
+
+        this.environment = this.initial.environment;
+        this.cache = this.initial.cache || C.cache;
 
         this.sections = {};
 
@@ -258,13 +261,13 @@ define([
             $parentEl = this.$index;
         }
 
-        var $ol = $parentEl.find("ul");
+        var $ol = $parentEl.find("ol");
 
         if ($ol.length === 0) {
-            $parentEl.append("<ul></ul>");
+            $parentEl.append("<ol></ol>");
         }
 
-        $parentEl = $parentEl.find("ul").first();
+        $parentEl = $parentEl.find("ol").first();
 
         //add section id for retrieve
         $template.attr("data-section", id);
@@ -308,7 +311,6 @@ define([
         return {
             values : this._getNestedProperty(s.path.join("."), this.model)
         }
-
     };
 
     MetaDataEditor.prototype._showInitialSection = function () {

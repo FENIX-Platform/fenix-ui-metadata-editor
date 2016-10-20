@@ -2,8 +2,10 @@ define([
     'loglevel',
     'jquery',
     '../../../src/js/index',
-    '../config/nested'
-], function (log, $, MetaDataEditor, Nested) {
+    '../../../src/js/converter',
+    '../config/nested',
+    '../models/fxMetadata'
+], function (log, $, MetaDataEditor, Converter, Nested, fxMetadata) {
 
     'use strict';
 
@@ -13,7 +15,7 @@ define([
         },
         cache = false,
         lang = "EN",
-        environment = "develop";
+        environment = "production"; //develop production
 
     function Dev() {
 
@@ -31,6 +33,38 @@ define([
         log.trace("Test started");
 
         this._render();
+
+        //this._toValues();
+
+        //this._toMetadata();
+
+    };
+
+    Dev.prototype._toValues = function () {
+
+        console.log(Converter.toValues({
+            model: fxMetadata
+        }));
+
+    };
+
+    Dev.prototype._toMetadata = function () {
+
+        console.log(Converter.toMetadata({
+            config: Nested,
+            environment : environment,
+            values: {
+                "values": {
+                    "a": {"textarea": ["Hello dani!"], "input": ["item_1"]},
+                    "b": {"input": [], "bb": {"bba": {"dropdown": ["item_1"]}}}
+                },
+                "labels": {
+                    "a": {"textarea": {"Hello dani!": "Hello dani!"}, "input": {"item_1": "Item 1"}},
+                    "b": {"input": {}, "bb": {"bba": {"dropdown": {"item_1": "Item 1"}}}}
+                },
+                "valid": true
+            }
+        }));
 
     };
 
@@ -59,6 +93,7 @@ define([
 
         $(s.VALUES).on("click", function () {
             console.log(mde.getValues())
+            console.log(JSON.stringify(mde.getValues()))
         });
 
     };

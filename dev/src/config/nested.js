@@ -18,6 +18,9 @@ define(function () {
                     },
                     template : {
                         description : "Textarea My custom description"
+                    },
+                    format : {
+                        output : "string"
                     }
                 },
                 input: {
@@ -25,6 +28,9 @@ define(function () {
                         id: "input",
                         type: "radio",
                         source: [{value: "item_1", label: "Item 1"}, {value: "item_2", label: "Item 2"}]
+                    },
+                    format : {
+                        output : "label"
                     }
                 }
             }
@@ -42,6 +48,9 @@ define(function () {
                         id: "input",
                         type: "radio",
                         source: [{value: "item_1", label: "Item 1"}, {value: "item_2", label: "Item 2"}]
+                    },
+                    format : {
+                        output : "array<string>"
                     }
                 }
 
@@ -58,8 +67,13 @@ define(function () {
                             selectors: {
                                 dropdown: {
                                     selector: {
-                                        id: "dropdown",
-                                        source: [{value: "item_1", label: "Item 1"}, {value: "item_2", label: "Item 2"}]
+                                        id: "dropdown"
+                                    },
+                                    cl : {
+                                        uid : "IANAcharacterSet"
+                                    },
+                                    format : {
+                                        output : "codes"
                                     }
                                 }
                             }

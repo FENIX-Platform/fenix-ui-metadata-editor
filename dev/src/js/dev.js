@@ -15,7 +15,7 @@ define([
         },
         cache = false,
         lang = "EN",
-        environment = "production"; //develop production
+        environment = "develop"; //develop production
 
     function Dev() {
 
@@ -24,7 +24,7 @@ define([
         this._importThirdPartyCss();
 
         // silent trace
-        log.setLevel('trace');
+        log.setLevel('silent');
 
         this.start();
     }
@@ -32,7 +32,7 @@ define([
     Dev.prototype.start = function () {
         log.trace("Test started");
 
-        this._render();
+        this._renderMDE();
 
         //this._toValues();
 
@@ -68,25 +68,12 @@ define([
 
     };
 
-    Dev.prototype._render = function () {
+    Dev.prototype._renderMDE = function () {
 
         var mde = new MetaDataEditor({
             el: s.MDE,
             lang: lang,
-            config: Nested,
-            model: {
-                a: {
-                    textarea: ["Hello dani!"],
-                    input: ["item_1"]
-                },
-                b: {
-                    bb: {
-                        bba: {
-                            dropdown: ["item_1"]
-                        }
-                    }
-                }
-            },
+            model: fxMetadata,
             cache: cache,
             environment: environment
         });
@@ -97,6 +84,7 @@ define([
         });
 
     };
+
 
     Dev.prototype._importThirdPartyCss = function () {
 

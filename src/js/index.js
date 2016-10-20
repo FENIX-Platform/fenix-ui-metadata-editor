@@ -2,6 +2,7 @@ define([
     'loglevel',
     'jquery',
     'underscore',
+    './converter',
     '../config/errors',
     '../config/events',
     '../config/config',
@@ -10,7 +11,7 @@ define([
     '../html/sectionContent.hbs',
     '../html/sectionIndex.hbs',
     'fenix-ui-filter'
-], function (log, $, _, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex, Filter) {
+], function (log, $, _, Converter, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex, Filter) {
 
     'use strict';
 
@@ -142,7 +143,7 @@ define([
 
         this.initialSection = this.initial.initialSection || Object.keys(this.config)[0];
 
-        this.model = this.initial.model || {};
+        this.model = Converter.toValues({model: this.initial.model, lang: this.lang}) || {};
 
         this.environment = this.initial.environment;
         this.cache = this.initial.cache || C.cache;
@@ -295,7 +296,7 @@ define([
                 cache: this.cache,
                 environment: this.environment,
                 selectors: s.selectors,
-                values : this._getInitialValues(s)
+                values: this._getInitialValues(s)
             });
         }
 
@@ -306,11 +307,20 @@ define([
         s.initialized = true;
     };
 
-    MetaDataEditor.prototype._getInitialValues = function(s) {
+    MetaDataEditor.prototype._getInitialValues = function (s) {
 
-        return {
-            values : this._getNestedProperty(s.path.join("."), this.model)
-        }
+        var self = this,
+            result = {values : {}},
+            found = false;
+
+        _.each(s.selectors, function(sel, id) {
+            if (self.model[id]) {
+                found = true;
+                result.values[id] = self.model[id];
+            }
+        });
+
+        return found ? result : undefined;
     };
 
     MetaDataEditor.prototype._showInitialSection = function () {

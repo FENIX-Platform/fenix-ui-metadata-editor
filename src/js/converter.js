@@ -95,15 +95,13 @@ define([
         var value = obj || {};
 
         if (typeof value === "string" || typeof value === "number") {
-            return [{value: value}];
+            return [value];
         }
 
         if (Array.isArray(obj) && obj.every(function (i) {
                 return typeof i === "string";
             })) {
-            return obj.map(function (o) {
-                return {value: o};
-            })
+            return obj;
         }
 
         if (typeof value === "object") {
@@ -122,12 +120,13 @@ define([
             }, this));
 
             if (isLabel) {
-                return label ? [{value: label}] : [{value: value[keys[0]]}];
+                label = label ? label : value[keys[0]];
+                return label ? [label] : undefined;
             }
 
             if (isCode) {
                 return value.codes.map(function (v) {
-                    return {value: v.code}
+                    return  v.code
                 })
             }
 

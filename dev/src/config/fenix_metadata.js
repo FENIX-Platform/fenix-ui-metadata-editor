@@ -3,17 +3,18 @@ define(
 
         var IANA = {body: [], uid: 'IANAcharacterSet'},
             Role = {body: [], uid: 'ResponsiblePartyRole'},
-            PeriodOfReference = {body: [], uid: 'PeriodOfReference'},
-            AreaOfReference = {body: [], uid: 'AreaOfReference'},
-            CoverageSector = {body: [], uid: 'CoverageSector'},
             GAUL_ReferenceArea = {body: [], uid: 'GAUL_ReferenceArea'},
             Languages = {body: [], uid: 'ISO639-2'},
-            TypeOfCollection = {body: [], uid: 'TypeOfCollection'},
-            PeriodicityDataCollection = {body: [], uid: 'PeriodicityDataCollection'},
-            OriginOfCollectedData = {body: [], uid: 'OriginOfCollectedData'},
-            DataAdjustment = {body: [], uid: 'DataAdjustment'},
+            PeriodOfReference = {body: [], uid: 'FAO_Period'},
+            TypeOfCollection = {body: [], uid: 'FAOSTAT_Collection'},
+            OriginOfCollectedData = {body: [], uid: 'FAOSTAT_OriginData'},
+            DataAdjustment = {body: [], uid: 'CL_ADJUSTMENT'},
+            StatusConfidenciality = {body: [], uid: 'CL_CONF_STATUS'},
+
             DisseminationPeriodicy = {body: [], uid: 'DisseminationPeriodicy'},
-            StatusConfidenciality = {body: [], uid: 'StatusConfidenciality'},
+            PeriodicityDataCollection = {body: [], uid: 'PeriodicityDataCollection'},
+            AreaOfReference = {body: [], uid: 'AreaOfReference'},
+            CoverageSector = {body: [], uid: 'CoverageSector'},
             UpdatePeriodicity = {body: [], uid: 'UpdatePeriodicity'}
             /*
              {
@@ -430,13 +431,7 @@ define(
                             "referencePeriod": {
                                 "selector": {
                                     "id": "dropdown",
-                                    //"cl": PeriodOfReference,
-                                    "source": [
-                                        {
-                                            "value": "referencePeriod",
-                                            "label": "Period of reference"
-                                        }
-                                    ]
+                                    "cl": PeriodOfReference
                                 },
                                 "template": {
                                     "title": "Period of reference",
@@ -596,13 +591,7 @@ define(
                             "typeOfCollection": {
                                 "selector": {
                                     "id": "dropdown",
-                                    //"cl": TypeOfCollection,
-                                    "source": [
-                                        {
-                                            "value": "Type of collection",
-                                            "label": "Type of collection"
-                                        }
-                                    ]
+                                    "cl": TypeOfCollection
                                 },
                                 "template": {
                                     "title": "Type of collection",
@@ -691,13 +680,7 @@ define(
                             "originOfCollectedData": {
                                 "selector": {
                                     "id": "dropdown",
-                                    //"cl": OriginOfCollectedData,
-                                    "source": [
-                                        {
-                                            "value": "originOfCollectedData",
-                                            "label": "Origin of collected data"
-                                        }
-                                    ]
+                                    "cl": OriginOfCollectedData
                                 },
                                 "template": {
                                     "title": "Origin of collected data",
@@ -822,13 +805,7 @@ define(
                             "dataAdjustment": {
                                 "selector": {
                                     "id": "dropdown",
-                                    //"cl": DataAdjustment,
-                                    "source": [
-                                        {
-                                            "value": "Process of adjustment",
-                                            "label": "Process of adjustment"
-                                        }
-                                    ]
+                                    "cl": DataAdjustment
                                 },
                                 "template": {
                                     "title": "Process of adjustment",
@@ -1490,13 +1467,7 @@ define(
                             "confidentialityStatus": {
                                 "selector": {
                                     "id": "dropdown",
-                                    //"cl": StatusConfidenciality,
-                                    "source": [
-                                        {
-                                            "value": "Status of confidentiality",
-                                            "label": "Status of confidentiality"
-                                        }
-                                    ]
+                                    "cl": StatusConfidenciality
                                 },
                                 "template": {
                                     "title": "Status of confidentiality",

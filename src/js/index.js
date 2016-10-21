@@ -433,8 +433,12 @@ define([
 
     MetaDataEditor.prototype._format_plain = function (values) {
 
-        return values;
+        return Converter.toMetadata({
+            values : values,
+            config : this.config
+        });
     };
+
 
     // utils
 

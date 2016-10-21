@@ -36,7 +36,7 @@ define([
 
             this._processObject(cleaned, result);
 
-            log.info("Convert FENIX metadata to Questionnaire configuration: success");
+            log.info("Convert FENIX metadata to Questionnaire configuration: finish");
 
             return result;
 

@@ -4,8 +4,10 @@ define([
     '../../../src/js/index',
     '../../../src/js/converter',
     '../config/nested',
-    '../models/fxMetadata'
-], function (log, $, MetaDataEditor, Converter, Nested, fxMetadata) {
+    '../models/fxMetadata',
+    '../models/fxMetadataSchema',
+    'ajv'
+], function (log, $, MetaDataEditor, Converter, Nested, fxMetadata, schema, Ajv) {
 
     'use strict';
 
@@ -24,7 +26,7 @@ define([
         this._importThirdPartyCss();
 
         // silent trace
-        log.setLevel('silent');
+        log.setLevel('trace');
 
         this.start();
     }
@@ -52,7 +54,7 @@ define([
 
         console.log(Converter.toMetadata({
             config: Nested,
-            environment : environment,
+            environment: environment,
             values: {
                 "values": {
                     "a": {"textarea": ["Hello dani!"], "input": ["item_1"]},
@@ -70,21 +72,43 @@ define([
 
     Dev.prototype._renderMDE = function () {
 
-        var mde = new MetaDataEditor({
-            el: s.MDE,
-            lang: lang,
-            model: fxMetadata,
-            cache: cache,
-            environment: environment
-        });
+        var ajv = new Ajv({
+                extendRefs: true,
+                allErrors: true
+            }),
+            validate,
+            mde = new MetaDataEditor({
+                el: s.MDE,
+                lang: lang,
+                model: fxMetadata,
+                cache: cache,
+                environment: environment
+            });
+
+        log.warn("Compile FENIX metadata schema: start");
+
+        validate = ajv.compile(schema);
+
+        log.warn("Compile FENIX metadata schema: success");
 
         $(s.VALUES).on("click", function () {
-            console.log(mde.getValues())
-            console.log(JSON.stringify(mde.getValues()))
+
+            var data = mde.getValues(),
+                valid;
+
+            log.warn("Values:");
+            log.info(data);
+
+            valid = validate(data);
+
+            log.warn("Valid FENIX metadata? " + valid);
+
+            if (!valid) {
+                log.error(validate.errors);
+            }
+
         });
-
     };
-
 
     Dev.prototype._importThirdPartyCss = function () {
 

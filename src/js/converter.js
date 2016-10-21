@@ -256,9 +256,9 @@ define([
                     this._assign(result, key, value[0] ? value[0] : undefined);
                     break;
 
-                case "data" :
-                    log.error("Data format to be implemented");
-                    alert("Data to be implemented");
+                case "date" :
+                    log.error("Date format to be implemented");
+                    alert("Date to be implemented");
                     break;
 
                 case "period" :

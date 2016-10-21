@@ -13,7 +13,8 @@ define([
 
     var s = {
             MDE: "#mde",
-            VALUES: "#get-values-btn"
+            VALUES: "#get-values-btn",
+            DISPOSE: "#dispose-btn",
         },
         cache = false,
         lang = "EN",
@@ -26,7 +27,7 @@ define([
         this._importThirdPartyCss();
 
         // silent trace
-        log.setLevel('trace');
+        log.setLevel('silent');
 
         this.start();
     }
@@ -34,9 +35,9 @@ define([
     Dev.prototype.start = function () {
         log.trace("Test started");
 
-        this._renderMDE();
+        //this._renderMDE();
 
-        //this._renderNested();
+        this._renderNested();
 
         //this._toValues();
 
@@ -95,7 +96,7 @@ define([
 
         $(s.VALUES).on("click", function () {
 
-            var data = mde.getValues("metadata"),
+            var data = mde.getValues(),
                 valid;
 
             log.warn("Values:");
@@ -110,24 +111,32 @@ define([
             }
 
         });
+
+        $(s.DISPOSE).on("click", function () {
+            mde.dispose();
+        });
     };
 
     Dev.prototype._renderNested = function () {
 
         var mde = new MetaDataEditor({
-                el: s.MDE,
-                lang: lang,
-                config: Nested,
-                cache: cache,
-                environment: environment
-            });
+            el: s.MDE,
+            lang: lang,
+            config: Nested,
+            cache: cache,
+            environment: environment
+        });
 
         $(s.VALUES).on("click", function () {
 
-            var data = mde.getValues();
+            var data = mde.getValues("plain");
 
             console.log(data);
 
+        });
+
+        $(s.DISPOSE).on("click", function () {
+            mde.dispose();
         });
     };
 

@@ -4,8 +4,10 @@ define(function () {
 
     return {
 
-        outputFormat: "plain", // plain
-        
+        outputFormat: "metadata", // plain metadata
+
+        corePlugins : ['nls', 'incremental', 'standard'],
+
         cache : false,
 
         lang : "EN",
@@ -14,7 +16,7 @@ define(function () {
 
         sectionIndexClassName : "index",
 
-        nls: { }
+        nls: ["EN", "FR", "ES"]
 
     }
 

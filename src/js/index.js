@@ -9,13 +9,13 @@ define([
     '../config/metadata',
     '../html/template.hbs',
     '../html/sectionContent.hbs',
-    '../html/sectionIndex.hbs',
-    'fenix-ui-filter'
-], function (log, $, _, Converter, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex, Filter) {
+    '../html/sectionIndex.hbs'
+], function (log, $, _, Converter, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex) {
 
     'use strict';
 
-    var s = {
+    var codePluginsFolder = "./selectors/",
+        s = {
             INDEX: "[data-role='index']",
             CONTENT: "[data-role='content']"
         },
@@ -59,7 +59,7 @@ define([
     }
 
     /**
-     * Return the current selection
+     * Return the current model
      * @return {Object} Selection
      */
     MetaDataEditor.prototype.getValues = function (format) {
@@ -101,6 +101,14 @@ define([
     MetaDataEditor.prototype.showSection = function (id) {
 
         return this._showSection(id);
+    };
+
+    /**
+     * Disposition
+     * */
+    MetaDataEditor.prototype.dispose = function () {
+
+        return this._dispose();
     };
 
     //end API
@@ -164,7 +172,7 @@ define([
 
         this.config = this.initial.config || FenixMetadata;
 
-        this.nls = this.initial.nls || {};
+        this.nls = this.initial.nls || C.nls;
     };
 
     MetaDataEditor.prototype._attach = function () {
@@ -177,32 +185,9 @@ define([
 
     MetaDataEditor.prototype._render = function () {
 
-        this._renderRoot(this.config, ROOT);
+        this._renderSection(this.config, ROOT);
 
         log.info("[MDE] render success");
-
-    };
-
-    MetaDataEditor.prototype._renderRoot = function (section, id, parent) {
-
-        section.id = id;
-        section.parent = parent;
-        section.path = this.sections[parent] && Array.isArray(this.sections[parent].path) ? this.sections[parent].path.slice(0).concat(section.id) : [section.id];
-
-        this.sections[id] = section;
-
-        log.info("Render section [" + id + "] with parent [" + parent + "]");
-
-        section.el = this._attachSectionContent(section, id, parent); //TODO pluggable
-
-        section.index = this._attachSectionIndex(section, id, parent); //TODO pluggable
-
-        if (typeof section.sections === 'object') {
-            this._renderSections(section.sections);
-        } else {
-            section.isLeaf = true;
-        }
-
     };
 
     MetaDataEditor.prototype._renderSections = function (sections, parent) {
@@ -234,7 +219,7 @@ define([
         section.index = this._attachSectionIndex(section, id, parent); //TODO pluggable
 
         if (typeof section.sections === 'object') {
-            this._renderSections(section.sections, id);
+            this._renderSections(section.sections, id !== ROOT ? id : null);
         } else {
             section.isLeaf = true;
         }
@@ -316,15 +301,35 @@ define([
             log.warn("Abort because section does not contains any selectors: " + id);
         } else {
 
-            s.filter = new Filter({
-                el: s.el.find("[data-role='selectors']").first(),
-                cache: this.cache,
-                environment: this.environment,
-                selectors: s.selectors,
-                values: this._getInitialValues(s)
-            }).on("ready", function() {
-                s.initialized = true;
-            });
+            s.filter = {};
+
+            _.each(s.selectors, _.bind(function (c, id) {
+
+                //extend the selector type
+                s.mode = c.mode || "standard";
+
+                this._getSelectorRender(s, _.bind(function (Selector) {
+
+                    var selectors = {};
+                    selectors[id] = c;
+
+                    s.filter[id] = new Selector({
+                        el: s.el.find("[data-role='selectors']").first(),
+                        cache: this.cache,
+                        environment: this.environment,
+                        selectors: selectors,
+                        values: this._getInitialValues(id),
+                        lang: this.lang,
+                        nls: this.nls,
+                        id : this.id
+                    }).on("ready", function () {
+                        s.initialized = true;
+                    });
+
+                }, this));
+
+            }, this));
+
         }
 
         if (id === ROOT) {
@@ -338,18 +343,15 @@ define([
 
     };
 
-    MetaDataEditor.prototype._getInitialValues = function (s) {
+    MetaDataEditor.prototype._getInitialValues = function (id) {
 
-        var self = this,
-            result = {values: {}},
+        var result = {values: {}},
             found = false;
 
-        _.each(s.selectors, function (sel, id) {
-            if (self.model[id]) {
-                found = true;
-                result.values[id] = self.model[id];
-            }
-        });
+        if (this.model[id]) {
+            result.values[id] = this.model[id];
+            found = true;
+        }
 
         return found ? result : undefined;
     };
@@ -412,6 +414,15 @@ define([
         log.info("Events bind success");
     };
 
+    MetaDataEditor.prototype._unbindEventListeners = function () {
+
+        this.$index.find("." + this.sectionIndexClassName).off();
+
+        log.info("Events bind success");
+    };
+
+    // values
+
     MetaDataEditor.prototype._getValues = function () {
 
         var result = {
@@ -437,7 +448,7 @@ define([
 
         if (section.hasOwnProperty('filter')) {
 
-            var filter = section.filter.getValues();
+            var filter = this._getSelectorsValues(section);
             result.values = filter.values;
             result.labels = filter.labels;
             result.valid = result.valid && filter.valid;
@@ -458,6 +469,27 @@ define([
 
     };
 
+    MetaDataEditor.prototype._getSelectorsValues = function (section) {
+
+        var values = {
+            values: {},
+            labels: {},
+            valid: true
+        };
+
+        _.each(section.filter, _.bind(function (selector, id) {
+
+            var val = selector.getValues();
+            $.extend(true, values.values, val.values);
+            $.extend(true, values.labels, val.labels);
+            values.valid = val.valid && values.valid;
+
+        }));
+
+        return values
+
+    };
+
     MetaDataEditor.prototype._getSectionValues = function (section, result) {
 
         var values = {};
@@ -466,7 +498,7 @@ define([
 
         if (section.hasOwnProperty('filter')) {
 
-            var filter = section.filter.getValues();
+            var filter = this._getSelectorsValues(section);
             this._assign(result.values, path, filter.values);
             this._assign(result.labels, path, filter.labels);
             result.valid = result.valid && filter.valid;
@@ -544,6 +576,80 @@ define([
         }
 
         return this;
+    };
+
+    // disposition
+
+    MetaDataEditor.prototype._dispose = function () {
+
+        var root = this.sections[ROOT];
+
+        if (root.filter && typeof root.filter === "function") {
+            root.filter.dispose();
+        }
+
+        _.each(root.sections, _.bind(function (s) {
+            this._disposeSection(s);
+        }, this));
+
+        this._unbindEventListeners();
+
+        this.$el.empty();
+
+        log.info("Metadata [" + this.id + "] disposed successfully");
+        return this;
+    };
+
+    MetaDataEditor.prototype._disposeSection = function (section) {
+
+        if (section.filter && typeof section.filter === "function") {
+            section.filter.dispose();
+        }
+
+        _.each(section.sections, _.bind(function (s) {
+            this._disposeSection(s);
+        }, this));
+
+        log.info("Section [" + section.id + "] disposed");
+
+        return this;
+    };
+
+    // selectors plugin
+
+    MetaDataEditor.prototype._getSelectorRender = function (s, callback) {
+
+        return require([this._getSelectorScriptPath(s) + ".js"], callback);
+    };
+
+    MetaDataEditor.prototype._getSelectorScriptPath = function (s) {
+
+        var name = s.mode || "standard",
+            corePlugins = this.corePlugins,
+            registeredSelectors = $.extend(true, {}, this.pluginRegistry),
+            path,
+            conf,
+            isCore;
+
+        isCore = _.contains(corePlugins, name);
+
+        if (isCore) {
+            return codePluginsFolder + name;
+        }
+
+        conf = registeredSelectors[name];
+
+        if (!conf) {
+            log.error('Registration not found for "' + name + ' selector".');
+        }
+
+        if (conf.path) {
+            path = conf.path;
+        } else {
+            log.error('Impossible to find path configuration for "' + name + ' selector".');
+        }
+
+        return path;
     };
 
     return MetaDataEditor;

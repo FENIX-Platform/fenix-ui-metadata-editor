@@ -3,23 +3,28 @@ define(function () {
     return {
 
         template: {
-            title: "Identification"
+            title: "Root"
         },
 
         selectors: {
 
-            test: {
+            nls: {
+
+                mode : "nls",
+
                 selector: {
                     id: "textarea",
                     source: [{value: "Textarea", label: "Textarea"}]
                 },
+
                 template: {
                     description: "Textarea My custom description"
                 },
+
                 format: {
                     output: "string"
                 }
-            },
+            }
 
         },
 

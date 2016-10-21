@@ -36,6 +36,8 @@ define([
 
         this._renderMDE();
 
+        //this._renderNested();
+
         //this._toValues();
 
         //this._toMetadata();
@@ -93,11 +95,11 @@ define([
 
         $(s.VALUES).on("click", function () {
 
-            var data = mde.getValues(),
+            var data = mde.getValues("metadata"),
                 valid;
 
             log.warn("Values:");
-            log.info(data);
+            console.log(data);
 
             valid = validate(data);
 
@@ -106,6 +108,25 @@ define([
             if (!valid) {
                 log.error(validate.errors);
             }
+
+        });
+    };
+
+    Dev.prototype._renderNested = function () {
+
+        var mde = new MetaDataEditor({
+                el: s.MDE,
+                lang: lang,
+                config: Nested,
+                cache: cache,
+                environment: environment
+            });
+
+        $(s.VALUES).on("click", function () {
+
+            var data = mde.getValues();
+
+            console.log(data);
 
         });
     };

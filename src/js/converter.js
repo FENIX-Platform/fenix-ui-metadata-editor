@@ -126,7 +126,7 @@ define([
 
             if (isCode) {
                 return value.codes.map(function (v) {
-                    return  v.code
+                    return v.code
                 })
             }
 
@@ -165,7 +165,14 @@ define([
             return
         }
 
-        this._processSections(config, values, result);
+        //get root values
+        if (typeof config.selectors === 'object') {
+            this._processSelectors(config.selectors, values, result);
+        }
+
+        if (typeof config.sections === 'object') {
+            this._processSections(config.sections, values, result);
+        }
 
         log.info("Convert Questionnaire values to FENIX metadata: sucess");
 
@@ -239,31 +246,36 @@ define([
 
             var format = sel.format || {},
                 output = format.output || "",
-                key = path.concat(".").concat(id),
+                key = path ? path.concat(".").concat(id) : id,
                 value = this._getNestedProperty(key, values.values),
                 label = this._getNestedProperty(key, values.labels),
                 c;
+
+            if (!value || (Array.isArray(value) && value.length === 0)) {
+                log.warn(key + " has not value");
+                return;
+            }
 
             switch (output.toLowerCase()) {
 
                 case "label" :
                     c = {};
-                    c[this.lang] = value;
+                    c[this.lang] = value[0];
                     this._assign(result, key, c);
                     break;
 
                 case "string" :
-                    this._assign(result, key, value[0] ? value[0] : undefined);
+                    this._assign(result, key, Array.isArray(value) && value[0] ? value[0] : undefined);
                     break;
 
                 case "date" :
+                    console.log(value);
                     log.error("Date format to be implemented");
-                    alert("Date to be implemented");
                     break;
 
                 case "period" :
+                    console.log(value)
                     log.error("period format to be implemented");
-                    alert("period to be implemented");
                     break;
 
                 case "array<string>" :
@@ -274,11 +286,12 @@ define([
 
                 case "codes" :
 
-                    c = {codes: []};
+                    c = {};
 
                     var cl = sel.cl || {},
                         idCodelist = cl.uid || format.uid,
-                        version = cl.version || format.version;
+                        version = cl.version || format.version,
+                        codes = [];
 
                     if (!idCodelist) {
                         log.error("Impossible to find codelist uid configuration for selector: " + id);
@@ -288,7 +301,11 @@ define([
                     c.idCodelist = idCodelist;
                     c.version = version;
 
-                    c.codes = value;
+                    _.each(value, function (v) {
+                        codes.push({code: v});
+                    });
+
+                    c.codes = codes;
 
                     this._assign(result, key, c);
                     break;

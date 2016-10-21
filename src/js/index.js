@@ -16,9 +16,10 @@ define([
     'use strict';
 
     var s = {
-        INDEX: "[data-role='index']",
-        CONTENT: "[data-role='content']"
-    };
+            INDEX: "[data-role='index']",
+            CONTENT: "[data-role='content']"
+        },
+        ROOT = "root";
 
     function MetaDataEditor(obj) {
         log.info("[MDE] Meta Data Editor", obj);
@@ -100,7 +101,6 @@ define([
     MetaDataEditor.prototype.showSection = function (id) {
 
         return this._showSection(id);
-
     };
 
     //end API
@@ -141,7 +141,7 @@ define([
             this.$content = this.$el.append("<div data-role='content'></div>");
         }
 
-        this.initialSection = this.initial.initialSection || Object.keys(this.config)[0];
+        this.initialSection = this.initial.initialSection || ROOT;
 
         this.model = Converter.toValues({model: this.initial.model, lang: this.lang}) || {};
 
@@ -177,9 +177,31 @@ define([
 
     MetaDataEditor.prototype._render = function () {
 
-        this._renderSections(this.config);
+        this._renderRoot(this.config, ROOT);
 
         log.info("[MDE] render success");
+
+    };
+
+    MetaDataEditor.prototype._renderRoot = function (section, id, parent) {
+
+        section.id = id;
+        section.parent = parent;
+        section.path = this.sections[parent] && Array.isArray(this.sections[parent].path) ? this.sections[parent].path.slice(0).concat(section.id) : [section.id];
+
+        this.sections[id] = section;
+
+        log.info("Render section [" + id + "] with parent [" + parent + "]");
+
+        section.el = this._attachSectionContent(section, id, parent); //TODO pluggable
+
+        section.index = this._attachSectionIndex(section, id, parent); //TODO pluggable
+
+        if (typeof section.sections === 'object') {
+            this._renderSections(section.sections);
+        } else {
+            section.isLeaf = true;
+        }
 
     };
 
@@ -188,31 +210,34 @@ define([
         log.info(sections);
 
         _.each(sections, _.bind(function (s, id) {
-
-            if (this.sections.hasOwnProperty(id)) {
-                log.error("Duplicated section id found: " + id);
-                return;
-            }
-
-            s.id = id;
-            s.parent = parent;
-            s.path = this.sections[parent] && Array.isArray(this.sections[parent].path) ? this.sections[parent].path.slice(0).concat(s.id) : [s.id];
-
-            this.sections[id] = s;
-
-            log.info("Render section [" + id + "] with parent [" + parent + "]");
-
-            s.el = this._attachSectionContent(s, id, parent); //TODO pluggable
-
-            s.index = this._attachSectionIndex(s, id, parent); //TODO pluggable
-
-            if (typeof s.sections === 'object') {
-                this._renderSections(s.sections, id)
-            } else {
-                s.isLeaf = true;
-            }
-
+            this._renderSection(s, id, parent);
         }, this))
+    };
+
+    MetaDataEditor.prototype._renderSection = function (section, id, parent) {
+
+        if (this.sections.hasOwnProperty(id)) {
+            log.error("Duplicated section id found: " + id);
+            return;
+        }
+
+        section.id = id;
+        section.parent = parent;
+        section.path = this.sections[parent] && Array.isArray(this.sections[parent].path) ? this.sections[parent].path.slice(0).concat(section.id) : [section.id];
+
+        this.sections[id] = section;
+
+        log.info("Render section [" + id + "] with parent [" + parent + "]");
+
+        section.el = this._attachSectionContent(section, id, parent); //TODO pluggable
+
+        section.index = this._attachSectionIndex(section, id, parent); //TODO pluggable
+
+        if (typeof section.sections === 'object') {
+            this._renderSections(section.sections, id);
+        } else {
+            section.isLeaf = true;
+        }
     };
 
     MetaDataEditor.prototype._attachSectionContent = function (s, id, parent) {
@@ -297,23 +322,29 @@ define([
                 environment: this.environment,
                 selectors: s.selectors,
                 values: this._getInitialValues(s)
+            }).on("ready", function() {
+                s.initialized = true;
             });
+        }
+
+        if (id === ROOT) {
+            log.warn("Abort sections rendering because section is root");
+            return;
         }
 
         _.each(s.sections, _.bind(function (sec, id) {
             this._renderSelectors(sec, id)
         }, this));
 
-        s.initialized = true;
     };
 
     MetaDataEditor.prototype._getInitialValues = function (s) {
 
         var self = this,
-            result = {values : {}},
+            result = {values: {}},
             found = false;
 
-        _.each(s.selectors, function(sel, id) {
+        _.each(s.selectors, function (sel, id) {
             if (self.model[id]) {
                 found = true;
                 result.values[id] = self.model[id];
@@ -359,7 +390,7 @@ define([
         this.$content.find("[data-section='" + root + "']").find("[data-section]").addClass("active");
 
         if (!section.initialized) {
-            this._renderSelectors(this.sections[root], root);
+            this._renderSelectors(section, root);
         }
 
     };
@@ -390,7 +421,7 @@ define([
             errors: []
         };
 
-        this._getSectionsValues(this.config, result);
+        this._getRootValues(result);
 
         if (Array.isArray(result.errors) && result.errors.length === 0) {
             delete result.errors;
@@ -399,31 +430,58 @@ define([
         return result
     };
 
-    MetaDataEditor.prototype._getSectionsValues = function (sections, result) {
+    MetaDataEditor.prototype._getRootValues = function (result) {
+
+        var section = this.config,
+            values = {};
+
+        if (section.hasOwnProperty('filter')) {
+
+            var filter = section.filter.getValues();
+            result.values = filter.values;
+            result.labels = filter.labels;
+            result.valid = result.valid && filter.valid;
+
+            if (Array.isArray(filter.error)) {
+                result.error = result.error.concat(filter.error);
+            }
+        }
+
+        if (typeof section.sections === 'object') {
+
+            _.each(section.sections, _.bind(function (s) {
+                this._getSectionValues(s, result);
+            }, this));
+        }
+
+        return values;
+
+    };
+
+    MetaDataEditor.prototype._getSectionValues = function (section, result) {
 
         var values = {};
 
-        _.each(sections, _.bind(function (section) {
+        var path = section.path.join(".");
 
-            var path = section.path.join(".");
+        if (section.hasOwnProperty('filter')) {
 
-            if (section.hasOwnProperty('filter')) {
+            var filter = section.filter.getValues();
+            this._assign(result.values, path, filter.values);
+            this._assign(result.labels, path, filter.labels);
+            result.valid = result.valid && filter.valid;
 
-                var filter = section.filter.getValues();
-                this._assign(result.values, path, filter.values);
-                this._assign(result.labels, path, filter.labels);
-                result.valid = result.valid && filter.valid;
-
-                if (Array.isArray(filter.error)) {
-                    result.error = result.error.concat(filter.error);
-                }
+            if (Array.isArray(filter.error)) {
+                result.error = result.error.concat(filter.error);
             }
+        }
 
-            if (typeof section.sections === 'object') {
-                this._getSectionsValues(section.sections, result);
-            }
+        if (typeof section.sections === 'object') {
 
-        }, this));
+            _.each(section.sections, _.bind(function (s) {
+                this._getSectionValues(s, result);
+            }, this));
+        }
 
         return values
 
@@ -433,12 +491,16 @@ define([
 
     MetaDataEditor.prototype._format_plain = function (values) {
 
-        return Converter.toMetadata({
-            values : values,
-            config : this.config
-        });
+        return values;
     };
 
+    MetaDataEditor.prototype._format_metadata = function (values) {
+
+        return Converter.toMetadata({
+            values: values,
+            config: this.config
+        });
+    };
 
     // utils
 

@@ -351,7 +351,7 @@ define(
                         "valContacts": true
                     }
                 },
-                "content": {
+                "meContent": {
                     "title": "Content",
                     "description": "This section includes a summary of the content of the resource and the description of the geographical, time and sector coverage.",
                     "selectors": {
@@ -562,7 +562,7 @@ define(
                         }
                     }
                 },
-                "institutionalMandate": {
+                "meInstitutionalMandate": {
                     "title": "Institutionale Mandate",
                     "selectors": {
                         "legalActsAgreements": {
@@ -607,7 +607,7 @@ define(
                         }
                     }
                 },
-                "statistaicalProcessing": {
+                "meStatisticalProcessing": {
                     "title": "Statistical Processing",
                     "sections": {
                         "primaryDataCollection": {
@@ -988,7 +988,7 @@ define(
                         }
                     }
                 },
-                "dataQuality": {
+                "meDataQuality": {
                     "title": "Data Quality",
                     "description": "This section provides a description and evaluation of the data quality. It allows to describe the data quality assurance process, inclusive of data validation, completeness and accuracy standards. In addition an assessment of the comparability and intern coherence of the resource is considered a quality dimension.",
                     "selectors": {
@@ -1348,7 +1348,7 @@ define(
                         }
                     }
                 },
-                "accesibility": {
+                "meAccessibility": {
                     "title": "Accessibility",
                     "sections": {
                         "dataDissemination": {
@@ -1582,7 +1582,7 @@ define(
                     }
 
                 },
-                "maintenance": {
+                "meMaintenance": {
                     "title": "Maintenance",
                     "description": "This section provides information about the frequency of resource upgrade and metadata maintenance.",
                     "selectors": {

@@ -68,7 +68,6 @@ define([
         var forbidden = ["dsd"],
             result = _.omit(model, forbidden);
 
-
         return result;
 
     };

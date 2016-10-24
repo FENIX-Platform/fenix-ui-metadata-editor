@@ -35,9 +35,9 @@ define([
     Dev.prototype.start = function () {
         log.trace("Test started");
 
-        //this._renderMDE();
+        this._renderMDE();
 
-        this._renderNested();
+        //this._renderNested();
 
         //this._toValues();
 

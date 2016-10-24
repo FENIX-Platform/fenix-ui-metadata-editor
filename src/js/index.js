@@ -9,13 +9,13 @@ define([
     '../config/metadata',
     '../html/template.hbs',
     '../html/sectionContent.hbs',
-    '../html/sectionIndex.hbs'
-], function (log, $, _, Converter, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex) {
+    '../html/sectionIndex.hbs',
+    'fenix-ui-filter'
+], function (log, $, _, Converter, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex, Filter) {
 
     'use strict';
 
-    var codePluginsFolder = "./selectors/",
-        s = {
+    var s = {
             INDEX: "[data-role='index']",
             CONTENT: "[data-role='content']"
         },
@@ -161,6 +161,9 @@ define([
         this.channels = {};
 
         log.info("[MDE] variable init success");
+
+        //force to do not chunk codes
+        //return require(codePluginsFolder + "standard.js");
 
     };
 
@@ -308,25 +311,21 @@ define([
                 //extend the selector type
                 s.mode = c.mode || "standard";
 
-                this._getSelectorRender(s, _.bind(function (Selector) {
+                var selectors = {};
+                selectors[id] = c;
 
-                    var selectors = {};
-                    selectors[id] = c;
-
-                    s.filter[id] = new Selector({
-                        el: s.el.find("[data-role='selectors']").first(),
-                        cache: this.cache,
-                        environment: this.environment,
-                        selectors: selectors,
-                        values: this._getInitialValues(id),
-                        lang: this.lang,
-                        nls: this.nls,
-                        id : this.id
-                    }).on("ready", function () {
-                        s.initialized = true;
-                    });
-
-                }, this));
+                s.filter[id] = new Filter({
+                    el: s.el.find("[data-role='selectors']").first(),
+                    cache: this.cache,
+                    environment: this.environment,
+                    selectors: selectors,
+                    values: this._getInitialValues(id),
+                    lang: this.lang,
+                    nls: this.nls,
+                    id : this.id
+                }).on("ready", function () {
+                    s.initialized = true;
+                });
 
             }, this));
 
@@ -613,43 +612,6 @@ define([
         log.info("Section [" + section.id + "] disposed");
 
         return this;
-    };
-
-    // selectors plugin
-
-    MetaDataEditor.prototype._getSelectorRender = function (s, callback) {
-
-        return require([this._getSelectorScriptPath(s) + ".js"], callback);
-    };
-
-    MetaDataEditor.prototype._getSelectorScriptPath = function (s) {
-
-        var name = s.mode || "standard",
-            corePlugins = this.corePlugins,
-            registeredSelectors = $.extend(true, {}, this.pluginRegistry),
-            path,
-            conf,
-            isCore;
-
-        isCore = _.contains(corePlugins, name);
-
-        if (isCore) {
-            return codePluginsFolder + name;
-        }
-
-        conf = registeredSelectors[name];
-
-        if (!conf) {
-            log.error('Registration not found for "' + name + ' selector".');
-        }
-
-        if (conf.path) {
-            path = conf.path;
-        } else {
-            log.error('Impossible to find path configuration for "' + name + ' selector".');
-        }
-
-        return path;
     };
 
     return MetaDataEditor;

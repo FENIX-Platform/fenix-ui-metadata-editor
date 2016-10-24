@@ -6,7 +6,9 @@ define(function () {
 
         outputFormat: "metadata", // plain metadata
 
-        corePlugins : ['nls', 'incremental', 'standard'],
+        //corePlugins : ['nls', 'incremental', 'standard'],
+
+        nls: ["EN", "FR", "ES"],
 
         cache : false,
 
@@ -14,9 +16,7 @@ define(function () {
 
         sectionContentClassName : "content",
 
-        sectionIndexClassName : "index",
-
-        nls: ["EN", "FR", "ES"]
+        sectionIndexClassName : "index"
 
     }
 

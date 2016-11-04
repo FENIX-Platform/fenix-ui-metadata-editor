@@ -160,6 +160,9 @@ define([
 
         this.channels = {};
 
+        this.constraints = this.initial.constraints || C.constraints;
+        this.validators = $.extend(true, {}, this.validators, this.initial.validators);
+
         log.info("[MDE] variable init success");
 
         //force to do not chunk codes
@@ -322,7 +325,7 @@ define([
                     values: this._getInitialValues(id),
                     lang: this.lang,
                     nls: this.nls,
-                    id : this.id
+                    id: this.id
                 }).on("ready", function () {
                     s.initialized = true;
                 });
@@ -427,17 +430,97 @@ define([
         var result = {
             values: {},
             labels: {},
-            valid: true,
-            errors: []
+            valid: false
         };
 
         this._getRootValues(result);
 
-        if (Array.isArray(result.errors) && result.errors.length === 0) {
+        if (result.errors && Object.keys(result.errors).length === 0) {
             delete result.errors;
         }
 
+        //validate result but return it in any case
+        var valid = this._validateValues(result);
+
+        if (valid === true) {
+            result.valid = true;
+        } else {
+            result.errors = valid;
+        }
+
         return result
+    };
+
+    MetaDataEditor.prototype._validateValues = function (s) {
+
+        var values = process($.extend(true, {}, s.values)),
+            errors = {};
+
+        log.info("Selection constraints:");
+        log.info(this.constraints);
+        log.info("applied to:");
+        log.info(values);
+
+        _.each(this.constraints, _.bind(function (obj, key) {
+
+            _.each(obj, _.bind(function (params, fn) {
+
+                var validator = this.validators[fn],
+                    valid;
+
+                if (!$.isFunction(validator)) {
+                    log.error("'" + fn + "' is not a valid validator. In order to use it, please add it to configuration.");
+                    $.extend(true, errors[key], ["Unknown validator " + fn]);
+                    return;
+                }
+
+                valid = validator.call(this, this.getNestedProperty(key, values), values, params, key);
+
+                if (valid !== true) {
+                    errors[key] = valid;
+                }
+
+            }, this));
+
+        }, this));
+
+        return Object.keys(errors).length === 0 ? true : errors;
+
+        function process(v) {
+
+            var cleaned = {};
+
+            _.each(v, function (obj, key) {
+                cleaned[key] = Array.isArray(obj) ? cleanArray(obj) : cleanObject(obj);
+            });
+
+            return cleaned;
+
+            function cleanArray(actual) {
+
+                var newArray = [];
+                for (var i = 0; i < actual.length; i++) {
+                    if (actual[i] && actual[i] !== "") {
+
+                        newArray.push(actual[i]);
+                    }
+                }
+                return newArray;
+            }
+
+            function cleanObject(actual) {
+                var newObj = {};
+                _.each(actual, function (value, key) {
+                    newObj[key] = cleanArray(value);
+                });
+                return newObj;
+            }
+        }
+
+    };
+
+    MetaDataEditor.prototype._tagSelectors = function () {
+
     };
 
     MetaDataEditor.prototype._getRootValues = function (result) {
@@ -451,14 +534,11 @@ define([
             result.values = filter.values;
             result.labels = filter.labels;
             result.valid = result.valid && filter.valid;
+            $.extend(true, result.errors, filter.errors);
 
-            if (Array.isArray(filter.error)) {
-                result.error = result.error.concat(filter.error);
-            }
         }
 
         if (typeof section.sections === 'object') {
-
             _.each(section.sections, _.bind(function (s) {
                 this._getSectionValues(s, result);
             }, this));
@@ -501,10 +581,8 @@ define([
             this._assign(result.values, path, filter.values);
             this._assign(result.labels, path, filter.labels);
             result.valid = result.valid && filter.valid;
+            $.extend(true, result.errors, filter.errors);
 
-            if (Array.isArray(filter.error)) {
-                result.error = result.error.concat(filter.error);
-            }
         }
 
         if (typeof section.sections === 'object') {
@@ -526,6 +604,13 @@ define([
     };
 
     MetaDataEditor.prototype._format_metadata = function (values) {
+
+        if (values.valid !== true) {
+            return {
+                valid: false,
+                errors: values.errors
+            }
+        }
 
         return Converter.toMetadata({
             values: values,
@@ -552,7 +637,7 @@ define([
         }
     };
 
-    MetaDataEditor.prototype._getNestedProperty = function (path, obj) {
+    MetaDataEditor.prototype.getNestedProperty = function (path, obj) {
 
         var obj = $.extend(true, {}, obj),
             arr = path.split(".");

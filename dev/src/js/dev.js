@@ -143,8 +143,7 @@ define([
     Dev.prototype._importThirdPartyCss = function () {
 
         //Bootstrap
-        require("bootstrap-loader");
-
+        require('bootstrap/dist/css/bootstrap.css');
         //dropdown selector
         require("../../../node_modules/selectize/dist/css/selectize.bootstrap3.css");
         //tree selector

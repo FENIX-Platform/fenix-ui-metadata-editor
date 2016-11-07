@@ -58,7 +58,9 @@ define(
                     },
                     "format": {
                         "output" : "label"
-                    }
+                    },
+                    "constraints": { "presence" : true  }
+
                 },
                 "creationDate": {
                     "selector": {
@@ -77,7 +79,8 @@ define(
                     },
                     "format": {
                         "output" : "date"
-                    }
+                    },
+                    "constraints": { "presence" : true  }
                 },
                 "characterSet": {
                     "cl": IANA,
@@ -91,7 +94,8 @@ define(
                     },
                     "format": {
                         "output" : "codes"
-                    }
+                    },
+                    "constraints": { "presence" : true  }
                 },
                 "metadataStandardName": {
                     "selector": {
@@ -112,7 +116,8 @@ define(
                     },
                     "format": {
                         "output" : "string"
-                    }
+                    },
+                    "constraints": { "presence" : true  }
                 },
                 "language": {
                     "cl": Languages,
@@ -327,24 +332,91 @@ define(
                                 "output" : "string"
                             }
                         },
-                        "contactInfo": {
-                            "selector": {
-                                "id": "input", // INCREMENTAL
-                                "type": "text",
-                                "source": [
-                                    {
-                                        "value": "contactInfo",
-                                        "label": "This will be the incremental one"
-                                    }
-                                ]
-                            },
-                            "template": {
-                                "title": "contactInfo",
 
+                        "contactInfo": {
+                            "incremental": true,
+                            "selectors": {
+
+                                "phone": {
+                                    "selector": {
+                                        "id": "input",
+                                        "type": "text",
+                                        "source": [{ "value": "phone", "label": "Telephone"}]
+                                    },
+                                    "template": {
+                                        "title": "phone",
+                                        "description": "Telephone numbers at which the organization or individual may be contacted.",
+
+                                    },
+                                    "format": {
+                                        "output" : "string"
+                                    }
+                                },
+                                "address": {
+                                    "selector": {
+                                        "id": "input",
+                                        "type": "text",
+                                        "source": [{ "value": "address", "label": "Address"}]
+                                    },
+                                    "template": {
+                                        "title": "address",
+                                        "description": "Physical address at which the organization or individual may be contacted.",
+
+                                    },
+                                    "format": {
+                                        "output" : "string"
+                                    }
+                                },
+                                "emailAddress": {
+                                    "selector": {
+                                        "id": "input",
+                                        "type": "text",
+                                        "source": [{ "value": "emailAddress", "label": "E-mail address"}]
+                                    },
+                                    "template": {
+                                        "title": "emailAddress",
+                                        "description": "E-mail address at which the organization or individual may be contacted.",
+
+                                    },
+                                    "format": {
+                                        "output" : "string"
+                                    }
+                                },
+                                "hoursOfService": {
+                                    "selector": {
+                                        "id": "input",
+                                        "type": "text",
+                                        "source": [{ "value": "hoursOfService", "label": "Hour of service"}]
+                                    },
+                                    "template": {
+                                        "title": "hoursOfService",
+                                        "description": "Time period (including time zone) when individuals can contact the organization or individual.",
+
+                                    },
+                                    "format": {
+                                        "output" : "string"
+                                    }
+                                },
+                                "contactInstruction": {
+                                    "selector": {
+                                        "id": "input",
+                                        "type": "text",
+                                        "source": [{ "value": "contactInstruction", "label": "Instruction"}]
+                                    },
+                                    "template": {
+                                        "title": "contactInstruction",
+                                        "description": "Supplemental instructions on how or when to contact the individual or organization.",
+
+                                    },
+                                    "format": {
+                                        "output" : "string"
+                                    }
+                                }
                             },
                             "format": {
-                                "output" : "string" //array<string>
+                                "output" : "array<string>"
                             }
+
                         }
                     },
                     "validator": {

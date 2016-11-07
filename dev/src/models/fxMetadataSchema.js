@@ -1942,7 +1942,7 @@ define({
 
             "propertyOrder": 6,
 
-            "format": "date"
+            "format": "integer"
 
         },
 

@@ -332,7 +332,6 @@ define(
                                 "output" : "string"
                             }
                         },
-
                         "contactInfo": {
                             "incremental": true,
                             "selectors": {

@@ -18,11 +18,11 @@ define(function () {
 
         constraints : {
 
-            title : {
+            /*title : {
                 validoSeGliAltriEsistono : {
                     altri : "languageDetails"
                 }
-            }
+            }*/
 
         },
 

@@ -368,13 +368,17 @@ define([
     MetaDataEditor.prototype._showSection = function (id) {
         log.info("Show section: " + id);
 
-        var section = this.sections[id],
-            root = section.path[0];
+        var section = this.sections[id] || {},
+            root,
+            rootSection ;
 
         if (!section) {
             log.warn("Impossible to find section " + id);
             return;
         }
+
+        root = section.path[0];
+        rootSection = this.sections[root];
 
         if (this.currentSection === root) {
             log.warn("Abort show section. Section already active");
@@ -393,8 +397,10 @@ define([
         this.$content.find("[data-section='" + root + "']").addClass("active");
         this.$content.find("[data-section='" + root + "']").find("[data-section]").addClass("active");
 
-        if (!section.initialized) {
-            this._renderSelectors(section, root);
+        if (!rootSection.initialized) {
+            this._renderSelectors(rootSection, root);
+        } else {
+            log.warn("Section already initialized");
         }
 
     };
@@ -430,25 +436,16 @@ define([
         var result = {
             values: {},
             labels: {},
-            valid: false
+            errors: {},
+            valid: true
         };
 
         this._getRootValues(result);
 
-        if (result.errors && Object.keys(result.errors).length === 0) {
-            delete result.errors;
-        }
-
         //validate result but return it in any case
-        var valid = this._validateValues(result);
+        var s = this._validateValues(result);
 
-        if (valid === true) {
-            result.valid = true;
-        } else {
-            result.errors = valid;
-        }
-
-        return result
+        return s;
     };
 
     MetaDataEditor.prototype._validateValues = function (s) {
@@ -484,7 +481,11 @@ define([
 
         }, this));
 
-        return Object.keys(errors).length === 0 ? true : errors;
+        s.valid = s.valid && Object.keys(errors).length === 0;
+
+        $.extend(true, s.errors, errors);
+
+        return s;
 
         function process(v) {
 
@@ -553,15 +554,17 @@ define([
         var values = {
             values: {},
             labels: {},
+            errors: {},
             valid: true
         };
 
-        _.each(section.filter, _.bind(function (selector, id) {
+        _.each(section.filter, _.bind(function (selector) {
 
             var val = selector.getValues();
             $.extend(true, values.values, val.values);
             $.extend(true, values.labels, val.labels);
             values.valid = val.valid && values.valid;
+            $.extend(true, values.errors, val.errors);
 
         }));
 

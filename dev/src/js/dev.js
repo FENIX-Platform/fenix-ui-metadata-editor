@@ -27,7 +27,7 @@ define([
         this._importThirdPartyCss();
 
         // silent trace
-        log.setLevel('silent');
+        log.setLevel('trace');
 
         this.start();
     }

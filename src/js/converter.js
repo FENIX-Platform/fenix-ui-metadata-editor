@@ -1,8 +1,9 @@
 define([
     'loglevel',
     'jquery',
-    'underscore'
-], function (log, $, _) {
+    'underscore',
+    'moment'
+], function (log, $, _, Moment) {
 
     'use strict';
 
@@ -173,7 +174,7 @@ define([
             this._processSections(config.sections, values, result);
         }
 
-        log.info("Convert Questionnaire values to FENIX metadata: sucess");
+        log.info("Convert Questionnaire values to FENIX metadata: success");
 
         return result;
     };
@@ -268,19 +269,27 @@ define([
                     break;
 
                 case "date" :
-                    console.log(value);
-                    log.error("Date format to be implemented");
+
+                    this._assign(result, key, value[0] ? String(Moment(value[0]).unix() * 1000 ) : undefined);
                     break;
 
                 case "period" :
-                    console.log(value)
+
+                    var from = _.findWhere(value, {parent : "from"}) || {},
+                        to = _.findWhere(value, {parent : "to"}) || {},
+                        v = {};
+
+                    v.from = String(Moment(from.value).unix() * 1000);
+                    v.to = String(Moment(from.to).unix() * 1000);
                     log.error("period format to be implemented");
+
+                    this._assign(result, key, v);
+
                     break;
 
                 case "array<string>" :
 
-                    this._assign(result, key, c ? [c] : undefined);
-
+                    this._assign(result, key, value ? [value] : undefined);
                     break;
 
                 case "codes" :

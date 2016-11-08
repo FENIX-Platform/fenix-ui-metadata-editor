@@ -17,28 +17,30 @@ define(function () {
         sectionIndexClassName : "index",
 
         constraints : {
-
-            /*title : {
-                validoSeGliAltriEsistono : {
-                    altri : "languageDetails"
+            title : {
+                ifOtherExists : {
+                    others : "languageDetails"
                 }
-            }*/
+
+            }
 
         },
 
         validators : {
-            validoSeGliAltriEsistono :  function(value, values, params, key){
+            ifOtherExists :  function(value, values, params, key){
+                // value = obj, value of the caller
+                // values = obj, value of the all object
+                // params = obj, the object called
+                // key = string, the key of the caller
+                console.log("ifOtherExists", value, values, params, key);
 
-                var altri = params.altri,
-                    langValue = this.getNestedProperty(altri, values)
+                var others = params.others,
+                    langValue = this.getNestedProperty(others, values);
 
-                /*console.log(value)
-                console.log(values)
-                console.log(params)
-                console.log(this)
-                console.log(this.getNestedProperty(key, values));
-*/
-                return langValue.length === 0 ? ["test not passed"] : true; //return true or and array of errors
+                console.log(others, langValue);
+                //return langValue.length === 0 ? ["test not passed"] : true; //return true or and array of errors
+                return true;
+
             }
         }
     }

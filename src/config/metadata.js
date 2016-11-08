@@ -3,10 +3,10 @@ define(
 
         var IANA = {uid: 'IANAcharacterSet'},
             Role = {
-                "owner": "Owner",
-                "distributor": "Distributor",
-                "producer": "Producer",
-                "other": "Other"
+                "owner": { "value": "owner", "label": "Owner"  },
+                "distributor": { "value": "distributor", "label": "Distributor"  },
+                "producer": { "value": "producer", "label": "Producer"  },
+                "other": { "value": "other", "label": "Other"  }
             },
             GAUL = {uid: 'GAUL0', version: "2014"},
             Languages = {uid: 'ISO639-2', version: "1998"},
@@ -236,7 +236,8 @@ define(
                             },
                             "format": {
                                 "output" : "string"
-                            }
+                            },
+                            "constraints": { "presence" : true  }
                         },
                         "organizationUnit": {
                             "selector": {
@@ -413,7 +414,7 @@ define(
                                 }
                             },
                             "format": {
-                                "output" : "array<string>"
+                                "output" : "array"
                             }
 
                         }

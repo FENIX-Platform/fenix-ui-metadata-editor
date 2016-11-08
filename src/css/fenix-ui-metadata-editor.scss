@@ -2,16 +2,16 @@
 
   .content {
     display: none;
-    border-style: dashed;
+    //border-style: dashed;
 
     &.active {
       display: block;
-      background-color: red;
+      //background-color: red;
     }
   }
 
   .index.active {
-    background-color: red;
+    //background-color: red;
   }
 
 }

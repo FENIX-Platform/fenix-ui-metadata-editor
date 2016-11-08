@@ -15,6 +15,7 @@ define([
             MDE: "#mde",
             VALUES: "#get-values-btn",
             DISPOSE: "#dispose-btn",
+            ADD: "#add-btn",
         },
         cache = false,
         lang = "EN",
@@ -27,7 +28,7 @@ define([
         this._importThirdPartyCss();
 
         // silent trace
-        log.setLevel('trace');
+        log.setLevel('silent');
 
         this.start();
     }
@@ -75,7 +76,8 @@ define([
 
     Dev.prototype._renderMDE = function () {
 
-        var ajv = new Ajv({
+        var self =this,
+            ajv = new Ajv({
                 extendRefs: true,
                 allErrors: true
             }),
@@ -114,6 +116,17 @@ define([
 
         $(s.DISPOSE).on("click", function () {
             mde.dispose();
+        });
+
+        $(s.ADD).on("click", function () {
+
+            mde.dispose();
+            $(s.VALUES).off();
+            $(s.DISPOSE).off();
+            $(s.ADD).off();
+
+            self._renderMDE()
+
         });
     };
 

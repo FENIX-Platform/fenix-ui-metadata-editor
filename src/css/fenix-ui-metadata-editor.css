@@ -1,10 +1,6 @@
 [data-fenix="metadata-editor"] .content {
-  display: none;
-  border-style: dashed; }
+  display: none; }
   [data-fenix="metadata-editor"] .content.active {
-    display: block;
-    background-color: red; }
-[data-fenix="metadata-editor"] .index.active {
-  background-color: red; }
+    display: block; }
 
 /*# sourceMappingURL=fenix-ui-metadata-editor.css.map */

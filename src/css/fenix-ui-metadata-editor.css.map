@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAEE,uCAAS;EACP,OAAO,EAAE,IAAI;EACb,YAAY,EAAE,MAAM;EAEpB,8CAAS;IACP,OAAO,EAAE,KAAK;IACd,gBAAgB,EAAE,GAAG;AAIzB,4CAAc;EACZ,gBAAgB,EAAE,GAAG",
+"mappings": "AAEE,uCAAS;EACP,OAAO,EAAE,IAAI;EAGb,8CAAS;IACP,OAAO,EAAE,KAAK",
 "sources": ["fenix-ui-metadata-editor.scss"],
 "names": [],
 "file": "fenix-ui-metadata-editor.css"

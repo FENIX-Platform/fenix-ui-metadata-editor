@@ -177,6 +177,7 @@ define([
         this.$template.attr("data-fenix", "metadata-editor");
 
         this.config = this.initial.config || FenixMetadata;
+        console.log(this.config)
 
         this.nls = this.initial.nls || C.nls;
     };

@@ -177,7 +177,6 @@ define([
         this.$template.attr("data-fenix", "metadata-editor");
 
         this.config = this.initial.config || FenixMetadata;
-        console.log(this.config)
 
         this.nls = this.initial.nls || C.nls;
     };
@@ -217,8 +216,6 @@ define([
         section.parent = parent;
         section.path = this.sections[parent] && Array.isArray(this.sections[parent].path) ? this.sections[parent].path.slice(0).concat(section.id) : [section.id];
 
-        this.sections[id] = section;
-
         log.info("Render section [" + id + "] with parent [" + parent + "]");
 
         section.el = this._attachSectionContent(section, id, parent); //TODO pluggable
@@ -230,6 +227,8 @@ define([
         } else {
             section.isLeaf = true;
         }
+
+        this.sections[id] = $.extend(true, {}, section);
     };
 
     MetaDataEditor.prototype._attachSectionContent = function (s, id, parent) {
@@ -401,7 +400,7 @@ define([
         if (!rootSection.initialized) {
             this._renderSelectors(rootSection, root);
         } else {
-            log.warn("Section already initialized");
+            log.warn("Section is already initialized");
         }
 
     };
@@ -527,7 +526,7 @@ define([
 
     MetaDataEditor.prototype._getRootValues = function (result) {
 
-        var section = this.config,
+        var section = this.sections[ROOT],
             values = {};
 
         if (section.hasOwnProperty('filter')) {

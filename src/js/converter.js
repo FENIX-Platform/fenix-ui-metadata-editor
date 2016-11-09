@@ -94,7 +94,12 @@ define([
 
         var value = obj || {};
 
-        if (typeof value === "string" || typeof value === "number") {
+        if (typeof value === "number") {
+            // check if is a date and convert it
+            return [value];
+        }
+
+        if (typeof value === "string") {
             return [value];
         }
 
@@ -269,7 +274,6 @@ define([
                     break;
 
                 case "date" :
-
                     this._assign(result, key, value[0] ? String(Moment(value[0]).unix() * 1000 ) : undefined);
                     break;
 

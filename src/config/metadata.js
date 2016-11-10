@@ -86,6 +86,7 @@ define(
                     "cl": IANA,
                     "selector": {
                         "id": "dropdown",
+                        "default": ['106']
                     },
                     "template": {
                         "title": "Character-set",
@@ -95,6 +96,7 @@ define(
                     "format": {
                         "output" : "codes"
                     },
+
                     "constraints": { "presence" : true  }
                 },
                 "metadataStandardName": {

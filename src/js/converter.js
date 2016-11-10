@@ -95,8 +95,12 @@ define([
         var value = obj || {};
 
         if (typeof value === "number") {
-            // check if is a date and convert it
-            return [value];
+
+            if (isValidDate(value)) {
+                return [Moment(value,'x').toString()];
+            } else {
+                return [value];
+            }
         }
 
         if (typeof value === "string") {
@@ -134,10 +138,14 @@ define([
                     return v.code
                 })
             }
-
         }
 
         return false;
+
+        function isValidDate(str) {
+            var d = Moment(str,'x');
+            return String(str).length === 13 && d.isValid() ;
+        }
     };
 
     // Convert FENIX plain format to FENIX metadata

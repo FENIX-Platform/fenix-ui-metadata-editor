@@ -64,13 +64,7 @@ define(
                 },
                 "creationDate": {
                     "selector": {
-                        "id": "time",
-                        "source": [
-                            {
-                                "value": "creationdate",
-                                "label": "Creation Date"
-                            }
-                        ]
+                        "id": "time"
                     },
                     "template": {
                         "title": "Creation Date",

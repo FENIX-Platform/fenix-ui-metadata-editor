@@ -2,12 +2,12 @@ define(
     function () {
 
         var IANA = {uid: 'IANAcharacterSet'},
-            Role = {
-                "owner": { "value": "owner", "label": "Owner"  },
-                "distributor": { "value": "distributor", "label": "Distributor"  },
-                "producer": { "value": "producer", "label": "Producer"  },
-                "other": { "value": "other", "label": "Other"  }
-            },
+            Role = [
+                { "value": "owner", "label": "Owner" },
+                { "value": "distributor", "label": "Distributor" },
+                { "value": "producer", "label": "Producer" },
+                { "value": "other", "label": "Other" }
+            ],
             GAUL = {uid: 'GAUL0', version: "2014"},
             Languages = {uid: 'ISO639-2', version: "1998"},
             PeriodOfReference = {uid: 'FAO_Period', version: "1.0"},
@@ -93,33 +93,11 @@ define(
 
                     "constraints": { "presence" : true  }
                 },
-                "metadataStandardName": {
-                    "selector": {
-                        "id": "input",
-                        "type": "text",
-                        "default": "FENIX",
-                        "source": [
-                            {
-                                "value": "metadataStandardName",
-                                "label": "metadataStandardName"
-                            }
-                        ]
-                    },
-                    "template": {
-                        "title": "Used metadata standard",
-                        "description": "Name of the metadata standard specifications used. In FENIX framework this field would be pre-compiled by 'FENIX'.",
-
-                    },
-                    "format": {
-                        "output" : "string"
-                    },
-                    "constraints": { "presence" : true  }
-                },
                 "language": {
                     "cl": Languages,
-                    "default": 'eng',
                     "selector": {
-                        "id": "dropdown"
+                        "id": "dropdown",
+                        "default": ['eng']
                     },
                     "template": {
                         "title": "Language(s)",
@@ -147,8 +125,30 @@ define(
 
                     },
                     "format": {
-                        "output" : "string"
+                        "output" : "label"
                     }
+                },
+                "metadataStandardName": {
+                    "selector": {
+                        "id": "input",
+                        "type": "text",
+                        "default": "FENIX",
+                        "source": [
+                            {
+                                "value": "metadataStandardName",
+                                "label": "metadataStandardName"
+                            }
+                        ]
+                    },
+                    "template": {
+                        "title": "Used metadata standard",
+                        "description": "Name of the metadata standard specifications used. In FENIX framework this field would be pre-compiled by 'FENIX'.",
+
+                    },
+                    "format": {
+                        "output" : "string"
+                    },
+                    "constraints": { "presence" : true  }
                 },
                 "metadataStandardVersion": {
                     "selector": {
@@ -173,9 +173,9 @@ define(
                 },
                 "metadataLanguage": {
                     "cl": Languages,
-                    "default": 'eng',
                     "selector": {
-                        "id": "dropdown"
+                        "id": "dropdown",
+                        "default": ['eng']
                     },
                     "template": {
                         "title": "metadataLanguage",
@@ -205,227 +205,211 @@ define(
                     "format": {
                         "output" : "string"
                     }
-                }
-            },
-
-            "sections" : {
+                },
                 "contacts": {
-                    "title": "Contacts",
-                    "description": "Responsible party that could be identify as the data source. FENIX metadata contains more than one field of the type 'ResponsibleParty' addressed to report all the information necessary to contact party(ies) playing different roles in respect to the resource. In particular this field (belonging to the Identification entity) should report the party who owns authority on the resource.",
-                    "sections": {},
+
+                    "incremental": true,
+
                     "selectors": {
                         "organization": {
                             "selector": {
                                 "id": "input",
                                 "type": "text",
-                                "source": [
-                                    {
-                                        "value": "organization",
-                                        "label": "Organization"
-                                    }
-                                ]
+                                "source": [{"value": "organization", "label": "Organization"}]
                             },
                             "template": {
                                 "title": "Organization",
-                                "description": "Name of the responsible organization.",
+                                "description": "Name of the responsible organization."
 
                             },
                             "format": {
-                                "output" : "string"
-                            },
-                            "constraints": { "presence" : true  }
+                                "output" : "label"
+                            }
                         },
                         "organizationUnit": {
                             "selector": {
                                 "id": "input",
                                 "type": "text",
-                                "source": [
-                                    {
-                                        "value": "organizationUnit",
-                                        "label": "Organization unit/division"
-                                    }
-                                ]
+                                "source": [{"value": "organizationUnit", "label": "Organization unit/division"}]
+
                             },
                             "template": {
                                 "title": "Organization unit/division",
-                                "description": "Addressable subdivision of an organization.",
+                                "description": "Addressable subdivision of an organization."
 
                             },
                             "format": {
-                                "output" : "string"
+                                "output" : "label"
                             }
-                        },
-                        "pointOfContact": {
-                            "selector": {
-                                "id": "input",
-                                "type": "text",
-                                "source": [
-                                    {
-                                        "value": "pointOfContact",
-                                        "label": "Point of contact"
-                                    }
-                                ]
-                            },
-                            "template": {
-                                "title": "Point of contact",
-                                "description": "Responsible person-surname, given name, title separated by a delimiter. It contains information about the party who can be contacted for acquiring knowledge the resource.",
 
-                            },
-                            "format": {
-                                "output" : "string"
-                            }
                         },
                         "position": {
                             "selector": {
                                 "id": "input",
                                 "type": "text",
-                                "source": [
-                                    {
-                                        "value": "position",
-                                        "label": "Position"
-                                    }
-                                ]
+                                "source": [{"value": "organizationUnit", "label": "Position"}]
+
                             },
                             "template": {
                                 "title": "Position",
-                                "description": " Role or position of the responsible person.",
+                                "description": "Role or position of the responsible person."
 
                             },
                             "format": {
-                                "output" : "string"
+                                "output" : "label"
                             }
-                        },
-                        "role": {
-                            "selector": {
-                                "id": "dropdown",
-                                "enumeration": Role
-                            },
-                            "template": {
-                                "title": "Role",
-                                "description": "Function performed by the responsible party concerning the resource.",
 
-                            },
-                            "format": {
-                                "output" : "string"
-                            }
                         },
                         "specify": {
                             "selector": {
                                 "id": "input",
                                 "type": "text",
-                                "source": [
-                                    {
-                                        "value": "specify",
-                                        "label": "Specify"
-                                    }
-                                ]
+                                "source": [{"value": "specify", "label": "Specify"}]
+
                             },
                             "template": {
                                 "title": "Specify",
-                                "description": "Textual metadata element that allows to specify the role performed by the responsible party. This field is conditional to the element .",
+                                "description": "Textual metadata element that allows to specify the role performed by the responsible party. This field is conditional to the element \u003crole\u003e."
+
+                            },
+                            "format": {
+                                "output" : "label"
+                            }
+
+                        },
+                        "pointOfContact": {
+                            "selector": {
+                                "id": "input",
+                                "type": "text",
+                                "source": [{"value": "pointOfContact", "label": "Point of contact"}]
+
+                            },
+                            "template": {
+                                "title": "Point of contact",
+                                "description": "Responsible person-surname, given name, title separated by a delimiter. It contains information about the party who can be contacted for acquiring knowledge the resource."
 
                             },
                             "format": {
                                 "output" : "string"
                             }
+
                         },
-                        "contactInfo": {
-                            "incremental": true,
-                            "selectors": {
 
-                                "phone": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [{ "value": "phone", "label": "Telephone"}]
-                                    },
-                                    "template": {
-                                        "title": "phone",
-                                        "description": "Telephone numbers at which the organization or individual may be contacted.",
+                        "role": {
+                            "selector": {
+                                "id": "dropdown",
+                                source: Role
+                            },
+                            "template": {
+                                "title": "Role",
+                                "description": "Textual metadata element that allows to specify the role performed by the responsible party. This field is conditional to the element \u003crole\u003e."
 
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "address": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [{ "value": "address", "label": "Address"}]
-                                    },
-                                    "template": {
-                                        "title": "address",
-                                        "description": "Physical address at which the organization or individual may be contacted.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "emailAddress": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [{ "value": "emailAddress", "label": "E-mail address"}]
-                                    },
-                                    "template": {
-                                        "title": "emailAddress",
-                                        "description": "E-mail address at which the organization or individual may be contacted.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "hoursOfService": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [{ "value": "hoursOfService", "label": "Hour of service"}]
-                                    },
-                                    "template": {
-                                        "title": "hoursOfService",
-                                        "description": "Time period (including time zone) when individuals can contact the organization or individual.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "contactInstruction": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [{ "value": "contactInstruction", "label": "Instruction"}]
-                                    },
-                                    "template": {
-                                        "title": "contactInstruction",
-                                        "description": "Supplemental instructions on how or when to contact the individual or organization.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                }
                             },
                             "format": {
-                                "output" : "array"
+                                "output" : "label"
                             }
 
+                        },
+
+                        "phone": {
+                            "selector": {
+                                "id": "input",
+                                "type": "text",
+                                "source": [{ "value": "phone", "label": "Telephone"}]
+                            },
+                            "template": {
+                                "title": "Telephone",
+                                "description": "Telephone numbers at which the organization or individual may be contacted.",
+
+                            },
+                            "format": {
+                                "output" : "template",
+                                "path" : "contactInfo.phone"
+                            }
+                        },
+                        "address": {
+                            "selector": {
+                                "id": "input",
+                                "type": "text",
+                                "source": [{ "value": "address", "label": "Address"}]
+                            },
+                            "template": {
+                                "title": "Address",
+                                "description": "Physical address at which the organization or individual may be contacted.",
+
+                            },
+                            "format": {
+                                "output" : "template",
+                                "path" : "contactInfo.address"
+                            }
+                        },
+                        "emailAddress": {
+                            "selector": {
+                                "id": "input",
+                                "type": "text",
+                                "source": [{ "value": "emailAddress", "label": "E-mail address"}]
+                            },
+                            "template": {
+                                "title": "E-mail address",
+                                "description": "E-mail address at which the organization or individual may be contacted.",
+
+                            },
+                            "format": {
+                                "output" : "template",
+                                "path" : "contactInfo.emailAddress"
+                            }
+                        },
+                        "hoursOfService": {
+                            "selector": {
+                                "id": "input",
+                                "type": "text",
+                                "source": [{ "value": "hoursOfService", "label": "Hour of service"}]
+                            },
+                            "template": {
+                                "title": "Hour of service",
+                                "description": "Time period (including time zone) when individuals can contact the organization or individual.",
+
+                            },
+                            "format": {
+                                "output" : "template",
+                                "path" : "contactInfo.hoursOfService"
+                            }
+                        },
+                        "contactInstruction": {
+                            "selector": {
+                                "id": "input",
+                                "type": "text",
+                                "source": [{ "value": "contactInstruction", "label": "Instruction"}]
+                            },
+                            "template": {
+                                "title": "Instruction",
+                                "description": "Supplemental instructions on how or when to contact the individual or organization.",
+
+                            },
+                            "format": {
+                                "output" : "template",
+                                "path" : "contactInfo.contactInstruction"
+                            }
                         }
                     },
-                    "validator": {
-                        "valContacts": true
+
+                    format: {
+                        output: "array<contact>"
                     }
-                },
+
+                }
+            },
+
+            "sections" : {
+
                 "meContent": {
                     "title": "Content",
                     "description": "This section includes a summary of the content of the resource and the description of the geographical, time and sector coverage.",
                     "selectors": {
                         "keywords": {
+                            "incremental": true,
                             "selector": {
-                                "id": "input", // INCREMENTAL
+                                "id": "input",
                                 "type": "text",
                                 "source": [
                                     {
@@ -440,17 +424,17 @@ define(
 
                             },
                             "format": {
-                                "output" : "string" //array<string>
+                                "output" : "array<string>"
                             }
 
                         },
-                        "abstract": {
+                        "description": {
                             "selector": {
                                 "id": "input",
                                 "type": "text",
                                 "source": [
                                     {
-                                        "value": "abstract",
+                                        "value": "description",
                                         "label": "Abstract"
                                     }
                                 ]
@@ -461,7 +445,7 @@ define(
 
                             },
                             "format": {
-                                "output" : "string"
+                                "output" : "label"
                             }
 
                         },
@@ -481,13 +465,13 @@ define(
 
                             },
                             "format": {
-                                "output" : "string"
+                                "output" : "label"
                             }
 
                         }
                     },
                     "sections": {
-                        "referencePopulation": {
+                        "seReferencePopulation": {
                             "title": "Reference Population",
                             "selectors": {
                                 "statisticalPopulation": {
@@ -507,7 +491,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "statisticalUnit": {
@@ -527,7 +511,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "referencePeriod": {
@@ -562,10 +546,10 @@ define(
                                 "valReferencePopulation": true
                             }
                         },
-                        "coverage": {
+                        "seCoverage": {
                             "title": "Coverage",
                             "selectors": {
-                                "sector": {
+                                "coverageSectors": {
                                     "cl": CoverageSector,
                                     "selector": {
                                         "id": "dropdown"
@@ -579,9 +563,10 @@ define(
                                     }
                                 },
                                 "coverageSectorsDetails": {
-                                    "cl": CoverageSectorDetails,
                                     "selector": {
-                                        "id": "dropdown"
+                                        "id": "input",
+                                        "type": "text",
+                                        "source": [{ "value": "coverageSectorsDetails", "label": "Coverage Sector Details"}]
                                     },
                                     "template": {
                                         "title": "Coverage Sector Details",
@@ -589,7 +574,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "codes"
+                                        "output" : "label"
                                     }
                                 },
                                 "coverageGeographic": {
@@ -650,7 +635,7 @@ define(
 
                             },
                             "format": {
-                                "output" : "string"
+                                "output" : "label"
                             }
                         },
                         "institutionalMandateDataSharing": {
@@ -670,7 +655,7 @@ define(
 
                             },
                             "format": {
-                                "output" : "string"
+                                "output" : "label"
                             }
                         }
                     }
@@ -678,159 +663,188 @@ define(
                 "meStatisticalProcessing": {
                     "title": "Statistical Processing",
                     "sections": {
-                        "primaryDataCollection": {
-                            "title": "Primary Data Collection",
-                            "selectors": {
-                                "typeOfCollection": {
-                                    "cl": TypeOfCollection,
-                                    "selector": {
-                                        "id": "dropdown"
-                                    },
-                                    "template": {
-                                        "title": "Type of collection",
-                                        "description": "Coded element which specifies the type of data collection method (e.g. census, random sampling, etc.).",
+                        "seDataSource": {
+                            "title": "Data source",
+                            "template": {
+                                "title": "Data source",
+                                "description": "Process used to collect data. It includes a detailed description both of the primary data collection (e.g. type of collection, method to gather data from respondents, sampling procedures..) and the secondary data collection (information about data that have been already collected by another agency or institution).",
+                            },
+                            "sections":{
+                                "sePrimaryDataCollection": {
+                                    "title": "Primary Data Collection",
+                                    "selectors": {
+                                            "typeOfCollection": {
+                                                "cl": TypeOfCollection,
+                                                "selector": {
+                                                    "id": "dropdown"
+                                                },
+                                                "template": {
+                                                    "title": "Type of collection",
+                                                    "description": "Coded element which specifies the type of data collection method (e.g. census, random sampling, etc.).",
 
-                                    },
-                                    "format": {
-                                        "output" : "codes"
-                                    }
+                                                },
+                                                "format": {
+                                                    "output" : "codes"
+                                                }
+                                            },
+                                            "samplingProcedure": {
+                                                "selector": {
+                                                    "id": "input",
+                                                    "type": "text",
+                                                    "source": [
+                                                        {
+                                                            "value": "samplingProcedure",
+                                                            "label": "Sampling procedure"
+                                                        }
+                                                    ]
+                                                },
+                                                "template": {
+                                                    "title": "Sampling procedure",
+                                                    "description": "The type of sample design used to select the survey respondents to represent the population. It may refer to information on sample design, sample size, sample frame, sample updating etc.",
+
+                                                },
+                                                "format": {
+                                                    "output" : "label"
+                                                }
+                                            },
+                                            "dataCollection": {
+                                                "selector": {
+                                                    "id": "input",
+                                                    "type": "text",
+                                                    "source": [
+                                                        {
+                                                            "value": "dataCollection",
+                                                            "label": "Data collection"
+                                                        }
+                                                    ]
+                                                },
+                                                "template": {
+                                                    "title": "Data collection",
+                                                    "description": "Methods used to gather data from the respondents (e.g. postal survey, CAPI, on-line survey, face-to-face interviews etc.) and description of data collection methods. This metadata element also includes more precise information about the kind of questionnaire (structured, unstructured etc.) and if necessary somenoteworthy aspects of the data collection process.",
+
+                                                },
+                                                "format": {
+                                                    "output" : "label"
+                                                }
+                                            },
+                                            "collectionPeriodicity": {
+                                                "cl": PeriodicityDataCollection,
+                                                "selector": {
+                                                    "id": "dropdown"
+                                                },
+                                                "template": {
+                                                    "title": "Periodicity of data collection",
+                                                    "description": "Frequency with which the data are collected from the sources.",
+
+                                                },
+                                                "format": {
+                                                    "output" : "codes"
+                                                }
+                                            },
+                                            "organization": {
+                                                "selector": {
+                                                    "id": "input",
+                                                    "type": "text",
+                                                    "source": [
+                                                        {
+                                                            "value": "organization",
+                                                            "label": "Organization"
+                                                        }
+                                                    ]
+                                                },
+                                                "template": {
+                                                    "title": "Organization",
+                                                    "description": "Organization is mandatory when 'Other International Organizations' has been chosen in originOfCollectedData *** If the element \u003c\u003coriginOfCollectedData\u003e\u003e has been generally specified as \u0027other International Organizations\u0027 this element requests to report the exact source of the resource.",
+
+                                                },
+                                                "format": {
+                                                    "output" : "string"
+                                                }
+                                            },
+                                        }
                                 },
-                                "samplingProcedure": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "samplingProcedure",
-                                                "label": "Sampling procedure"
+                                "seSecondaryDataCollection": {
+                                    "title": "Secondary Data Collection",
+                                    "selectors": {
+                                        "originOfCollectedData": {
+                                            "cl": OriginOfCollectedData,
+                                            "selector": {
+                                                "id": "dropdown"
+                                            },
+                                            "template": {
+                                                "title": "Origin of collected data",
+                                                "description": "Coded element which allows to specify in a standard way the origin of the resource.",
+
+                                            },
+                                            "format": {
+                                                "output" : "codes"
                                             }
-                                        ]
-                                    },
-                                    "template": {
-                                        "title": "Sampling procedure",
-                                        "description": "The type of sample design used to select the survey respondents to represent the population. It may refer to information on sample design, sample size, sample frame, sample updating etc.",
+                                        },
+                                        "rawDataDescription": {
+                                            "selector": {
+                                                "id": "input",
+                                                "type": "text",
+                                                "source": [
+                                                    {
+                                                        "value": "rawDataDescription",
+                                                        "label": "Description of raw data"
+                                                    }
+                                                ]
+                                            },
+                                            "template": {
+                                                "title": "Description of raw data",
+                                                "description": "Characteristics and components of the raw statistical data used for compiling statistical aggregates. It indicates if data set is based on a survey or on administrative data source. If administrative registers are used, the description of registers should be given (source, year, primary purpose, potential deficiencies, etc. ).",
 
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "dataCollection": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "dataCollection",
-                                                "label": "Data collection"
+                                            },
+                                            "format": {
+                                                "output" : "label"
                                             }
-                                        ]
-                                    },
-                                    "template": {
-                                        "title": "Data collection",
-                                        "description": "Methods used to gather data from the respondents (e.g. postal survey, CAPI, on-line survey, face-to-face interviews etc.) and description of data collection methods. This metadata element also includes more precise information about the kind of questionnaire (structured, unstructured etc.) and if necessary somenoteworthy aspects of the data collection process.",
+                                        },
+                                        "organization": {
+                                            "selector": {
+                                                "id": "input",
+                                                "type": "text",
+                                                "source": [
+                                                    {
+                                                        "value": "organization",
+                                                        "label": "Organization"
+                                                    }
+                                                ]
+                                            },
+                                            "template": {
+                                                "title": "Organization",
+                                                "description": "If the element \u003c\u003coriginOfCollectedData\u003e\u003e has been generally specified as \u0027other International Organizations\u0027 this element requests to report the exact source of the resource.",
 
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "collectionPeriodicity": {
-                                    "cl": PeriodicityDataCollection,
-                                    "selector": {
-                                        "id": "dropdown"
-                                    },
-                                    "template": {
-                                        "title": "Periodicity of data collection",
-                                        "description": "Frequency with which the data are collected from the sources.",
-
-                                    },
-                                    "format": {
-                                        "output" : "codes"
-                                    }
-                                },
-                                "organization": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "organization",
-                                                "label": "Organization"
+                                            },
+                                            "format": {
+                                                "output" : "label"
                                             }
-                                        ]
-                                    },
-                                    "template": {
-                                        "title": "Organization",
-                                        "description": "Organization is mandatory when 'Other International Organizations' has been chosen in originOfCollectedData *** If the element \u003c\u003coriginOfCollectedData\u003e\u003e has been generally specified as \u0027other International Organizations\u0027 this element requests to report the exact source of the resource.",
+                                        },
+                                        "dataCollection": {
+                                            "selector": {
+                                                "id": "input",
+                                                "type": "text",
+                                                "source": [
+                                                    {
+                                                        "value": "dataCollection",
+                                                        "label": "Data collection"
+                                                    }
+                                                ]
+                                            },
+                                            "template": {
+                                                "title": "Data collection",
+                                                "description": "Data collection details.",
 
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                            }
-                        },
-                        "secondaryDataCollection": {
-                            "title": "Secondary Data Collection",
-                            "selectors": {
-                                "originOfCollectedData": {
-                                    "cl": OriginOfCollectedData,
-                                    "selector": {
-                                        "id": "dropdown"
-                                    },
-                                    "template": {
-                                        "title": "Origin of collected data",
-                                        "description": "Coded element which allows to specify in a standard way the origin of the resource.",
-
-                                    },
-                                    "format": {
-                                        "output" : "codes"
-                                    }
-                                },
-                                "rawDataDescription": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "rawDataDescription",
-                                                "label": "Description of raw data"
+                                            },
+                                            "format": {
+                                                "output" : "label"
                                             }
-                                        ]
-                                    },
-                                    "template": {
-                                        "title": "Description of raw data",
-                                        "description": "Characteristics and components of the raw statistical data used for compiling statistical aggregates. It indicates if data set is based on a survey or on administrative data source. If administrative registers are used, the description of registers should be given (source, year, primary purpose, potential deficiencies, etc. ).",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "dataCollection": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "dataCollection",
-                                                "label": "Data collection"
-                                            }
-                                        ]
-                                    },
-                                    "template": {
-                                        "title": "Data collection",
-                                        "description": "Data collection details.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
+                                        }
                                     }
                                 }
                             }
                         },
-                        "dataCompilation": {
+                        "seDataCompilation": {
                             "title": "Data Compilation",
                             "selectors": {
                                 "missingData": {
@@ -850,7 +864,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "weights": {
@@ -870,7 +884,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "aggregationProcessing": {
@@ -890,7 +904,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "aggregationFormula": {
@@ -944,7 +958,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "indexType": {
@@ -964,19 +978,12 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "basePeriod": {
                                     "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "basePeriod",
-                                                "label": "Base period"
-                                            }
-                                        ]
+                                        "id": "time"
                                     },
                                     "template": {
                                         "title": "Base period",
@@ -984,12 +991,12 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "date"
                                     }
                                 }
                             }
                         },
-                        "dataValidation": {
+                        "seDataValidation": {
                             "title": "Data Validation",
                             "selectors": {
                                 "dataValidationIntermediate": {
@@ -1009,7 +1016,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "dataValidationOutput": {
@@ -1029,7 +1036,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "dataValidationSource": {
@@ -1049,7 +1056,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 }
                             }
@@ -1077,7 +1084,7 @@ define(
 
                             },
                             "format": {
-                                "output" : "string"
+                                "output" : "label"
                             }
                         },
                         "qualityAssessment": {
@@ -1097,7 +1104,7 @@ define(
 
                             },
                             "format": {
-                                "output" : "string"
+                                "output" : "label"
                             }
                         },
                         "qualityAssurance": {
@@ -1117,12 +1124,12 @@ define(
 
                             },
                             "format": {
-                                "output" : "string"
+                                "output" : "label"
                             }
                         }
                     },
                     "sections": {
-                        "accuracy": {
+                        "seAccuracy": {
                             "title": "Accuracy",
                             "description": "Closeness of computations or estimates to the exact values that the statistics were intended to measure. Accuracy can contain either measures of numerical results of the methods for assessing the accuracy of data or qualitative assessment indicators. It may also be described in terms of the major sources of error that potentially cause inaccuracy (e.g. sampling, non-response, response error).",
                             "selectors": {
@@ -1143,7 +1150,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "accuracySampling": {
@@ -1163,12 +1170,32 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
+                                    }
+                                },
+                                "completeness": {
+                                    "selector": {
+                                        "id": "input",
+                                        "type": "text",
+                                        "source": [
+                                            {
+                                                "value": "completeness",
+                                                "label": "Completeness"
+                                            }
+                                        ]
+                                    },
+                                    "template": {
+                                        "title": "Completeness",
+                                        "description": "State of completeness of the resource.",
+
+                                    },
+                                    "format": {
+                                        "output" : "label"
                                     }
                                 }
                             }
                         },
-                        "dataRevision": {
+                        "seDataRevision": {
                             "title": "Data Revision",
                             "description": "This section describes the policy and practice for identifying the revision status of the data, as well as the availability of revision studies and analysis.",
                             "selectors": {
@@ -1189,7 +1216,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "revisionPractice": {
@@ -1209,100 +1236,12 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 }
                             }
                         },
-                        "relevance": {
-                            "title": "Relevance",
-                            "description": "Evaluation of data-quality through user satisfaction involving also information about the resource-completeness.",
-                            "selectors": {
-                                "userNeeds": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "userNeeds",
-                                                "label": "User needs"
-                                            }
-                                        ]
-                                    },
-                                    "template": {
-                                        "title": "User needs",
-                                        "description": "Classification of users with some indication of their importance, an indication of the uses for which they want the statistical outputs and as well users and uses given special considerations. Unmet user needs and the reasons for not meeting them should be included as well.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "userSatisfaction": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "userSatisfaction",
-                                                "label": "User satisfaction"
-                                            }
-                                        ]
-                                    },
-                                    "template": {
-                                        "title": "User satisfaction",
-                                        "description": "How the views and opinions of the users are collected. In addition the main results regarding the user satisfaction should be shown (in the form of a user satisfaction index if available) and the date of most recent user satisfaction survey.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "completeness": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "completeness",
-                                                "label": "Completeness"
-                                            }
-                                        ]
-                                    },
-                                    "template": {
-                                        "title": "Completeness",
-                                        "description": "State of completeness of the resource.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "completenessPercentage": {
-                                    "selector": {
-                                        "id": "range",
-                                        "config": {
-                                            "min": 0,
-                                            "max": 100,
-                                            "type": "single"
-                                        },
-                                        "source": [{
-                                            "value": "completenessPercentage",
-                                            "label": "Percentage of completeness"
-                                        }]
-                                    },
-                                    "template": {
-                                        "title": "Percentage of completeness",
-                                        "description": "Percentage of the state of completeness of the resource.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                }
-                            }
-                        },
-                        "compatibilityCoherence": {
+                        "seComparability": {
                             "title": "Comparability Coherence",
                             "description": "Degree of data comparability across the geographic areas or regions referenced by the resource. Data might be derived from surveys that in general are conducted by different statistical agencies. These surveys often refer to populations of different geographical areas, sometimes based on different methodologies.",
                             "selectors": {
@@ -1323,7 +1262,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "comparabilityTime": {
@@ -1343,7 +1282,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "coherenceIntern": {
@@ -1363,53 +1302,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
-                                    }
-                                }
-                            }
-                        },
-                        "timelinessAndPunctuality": {
-                            "title": "Timeliness and Punctuality",
-                            "description": "Evaluation of the timeliness of the resource dissemination with respect to the phenomenon it describes. In addition this section take in to account the punctuality of data dissemination.",
-                            "selectors": {
-                                "timeliness": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "timeliness",
-                                                "label": "Timeliness"
-                                            }
-                                        ]
-                                    },
-                                    "template": {
-                                        "title": "Timeliness",
-                                        "description": "It refers to the speed of data availability, length of time between data availability and the event or phenomenon they describe.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
-                                    }
-                                },
-                                "punctuality": {
-                                    "selector": {
-                                        "id": "input",
-                                        "type": "text",
-                                        "source": [
-                                            {
-                                                "value": "punctuality",
-                                                "label": "Punctuality"
-                                            }
-                                        ]
-                                    },
-                                    "template": {
-                                        "title": "Punctuality",
-                                        "description": "Time lag between the release date of data and the target date announced in some official release calendar.",
-
-                                    },
-                                    "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 }
                             }
@@ -1419,10 +1312,10 @@ define(
                 "meAccessibility": {
                     "title": "Accessibility",
                     "sections": {
-                        "dataDissemination": {
+                        "seDataDissemination": {
                             "title": "Data Dissemination",
                             "sections": {
-                                "distribution": {
+                                "seDistribution": {
                                     "title": "Distribution",
                                     "description": "This section reports the mode of distribution of the resource with a focus on how to access the resource, the supported formats.",
                                     "selectors": {
@@ -1447,8 +1340,9 @@ define(
                                             }
                                         },
                                         "disseminationFormat": {
+                                            "incremental": true,
                                             "selector": {
-                                                "id": "input",  // INCREMENTAL
+                                                "id": "input",
                                                 "type": "text",
                                                 "source": [
                                                     {
@@ -1463,12 +1357,12 @@ define(
 
                                             },
                                             "format": {
-                                                "output" : "string" //array<string>
+                                                "output" : "array<string>"
                                             }
                                         }
                                     }
                                 },
-                                "policy": {
+                                "seReleasePolicy": {
                                     "title": "Release Policy",
                                     "selectors": {
                                         "releaseCalendar": {
@@ -1488,7 +1382,7 @@ define(
 
                                             },
                                             "format": {
-                                                "output" : "string"
+                                                "output" : "label"
                                             }
                                         },
                                         "releaseCalendarAccess": {
@@ -1527,7 +1421,11 @@ define(
                                         },
                                         "embargoTime": {
                                             "selector": {
-                                                "id": "time"
+                                                "id": "range",
+                                                "format": "DD/MM/YYYY",
+                                                "config": {
+                                                    type: "double"
+                                                }
                                             },
                                             "template": {
                                                 "title": "Embargo time",
@@ -1535,14 +1433,14 @@ define(
 
                                             },
                                             "format": {
-                                                "output" : "date"
+                                                "output" : "period"
                                             }
                                         }
                                     }
                                 }
                             }
                         },
-                        "clarity": {
+                        "seClarity": {
                             "title": "Clarity",
                             "description": "This section gives information about the availability of additional information (documentation, further metadata, ... ) linked to the resource.",
                             "selectors": {
@@ -1563,7 +1461,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "metadataCompletenessRate": {
@@ -1587,7 +1485,7 @@ define(
                                 }
                             }
                         },
-                        "confidentiality": {
+                        "seConfidentiality": {
                             "title": "Confidentiality",
                             "description": "This section information on the level of confidentiality and the applied policy for releasing the resource. This metadata sub-entity concerns legislation (or any other formal provision) related to statistical confidentiality applied to the resource as well as the actual confidentiality data treatment applied (also with regard to the aggregated data disseminated).",
                             "selectors": {
@@ -1608,7 +1506,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "confidentialityDataTreatment": {
@@ -1628,7 +1526,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output" : "string"
+                                        "output" : "label"
                                     }
                                 },
                                 "confidentialityStatus": {
@@ -1671,12 +1569,12 @@ define(
 
                             },
                             "format": {
-                                "output" : "string"
+                                "output" : "label"
                             }
                         }
                     },
                     "sections": {
-                        "update": {
+                        "seUpdate": {
                             "title": "Update",
                             "description": "This section involves maintenance operations concerning the periodic update of the resource.",
                             "selectors": {
@@ -1709,7 +1607,7 @@ define(
                                 }
                             }
                         },
-                        "metadataMaintenance": {
+                        "seMetadataMaintenance": {
                             "title": "Metadata Maintenance",
                             "description": "This section involves maintenance operations concerning the periodic update of metadata to ensure that the resource is properly described.",
                             "selectors": {

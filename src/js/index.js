@@ -214,7 +214,11 @@ define([
 
         section.id = id;
         section.parent = parent;
-        section.path = this.sections[parent] && Array.isArray(this.sections[parent].path) ? this.sections[parent].path.slice(0).concat(section.id) : [section.id];
+        section.path =
+            this.sections[parent] && Array.isArray(this.sections[parent].path) ?
+                this.sections[parent].path.slice(0).concat(section.id) : [section.id];
+
+        this.sections[id] = section;
 
         log.info("Render section [" + id + "] with parent [" + parent + "]");
 
@@ -228,7 +232,6 @@ define([
             section.isLeaf = true;
         }
 
-        this.sections[id] = $.extend(true, {}, section);
     };
 
     MetaDataEditor.prototype._attachSectionContent = function (s, id, parent) {
@@ -314,10 +317,11 @@ define([
                 //extend the selector type
                 s.mode = c.mode || "standard";
 
-                var selectors = {};
+                var selectors = {},
+                    filter;
                 selectors[id] = c;
 
-                s.filter[id] = new Filter({
+                filter = new Filter({
                     el: s.el.find("[data-role='selectors']").first(),
                     cache: this.cache,
                     environment: this.environment,
@@ -326,9 +330,17 @@ define([
                     lang: this.lang,
                     nls: this.nls,
                     id: this.id
-                }).on("ready", function () {
+                });
+
+                filter.on("ready", function () {
                     s.initialized = true;
                 });
+
+                filter.on("click", _.bind(function (payload) {
+                    this._trigger("change", payload, s);
+                }, this));
+
+                s.filter[id] = filter;
 
             }, this));
 
@@ -370,7 +382,7 @@ define([
 
         var section = this.sections[id] || {},
             root,
-            rootSection ;
+            rootSection;
 
         if (!section) {
             log.warn("Impossible to find section " + id);

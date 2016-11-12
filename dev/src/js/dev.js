@@ -85,7 +85,8 @@ define([
             mde = new MetaDataEditor({
                 el: s.MDE,
                 lang: lang,
-                model: fxMetadata,
+                config: Nested,
+                //model: fxMetadata,
                 cache: cache,
                 environment: environment
             });

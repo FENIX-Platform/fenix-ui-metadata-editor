@@ -97,7 +97,7 @@ define([
         if (typeof value === "number") {
 
             if (isValidDate(value)) {
-                return [Moment(value,'x').toString()];
+                return [Moment(value, 'x').toString()];
             } else {
                 return [value];
             }
@@ -143,8 +143,8 @@ define([
         return false;
 
         function isValidDate(str) {
-            var d = Moment(str,'x');
-            return String(str).length === 13 && d.isValid() ;
+            var d = Moment(str, 'x');
+            return String(str).length === 13 && d.isValid();
         }
     };
 
@@ -282,13 +282,13 @@ define([
                     break;
 
                 case "date" :
-                    this._assign(result, key, value[0] ? String(Moment(value[0]).unix() * 1000 ) : undefined);
+                    this._assign(result, key, value[0] ? String(Moment(value[0]).unix() * 1000) : undefined);
                     break;
 
                 case "period" :
 
-                    var from = _.findWhere(value, {parent : "from"}) || {},
-                        to = _.findWhere(value, {parent : "to"}) || {},
+                    var from = _.findWhere(value, {parent: "from"}) || {},
+                        to = _.findWhere(value, {parent: "to"}) || {},
                         v = {};
 
                     v.from = String(Moment(from.value).unix() * 1000);
@@ -299,11 +299,31 @@ define([
 
                     break;
 
+                case "array" :
+
+                    this._assign(result, key, value);
+                    break;
+
                 case "array<string>" :
 
                     this._assign(result, key, value ? [value] : undefined);
                     break;
 
+                case "array<contact>" :
+
+                    value = value.map(function (o) {
+                        return {
+                            organization: o.organization,
+                            organizationUnit: o.organizationUnit,
+                            contactInfo: {
+                                phone: o.phone,
+                                address: o.address
+                            }
+                        }
+                    });
+
+                    this._assign(result, key, value ? value : undefined);
+                    break;
                 case "codes" :
 
                     c = {};

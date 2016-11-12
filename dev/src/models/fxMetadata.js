@@ -47,29 +47,17 @@ define({
         ],
         "idCodeList": "ISO639-2"
     },
-    "contacts": [
+    "contacts" : [
         {
-            "position": {
-                "EN": null
-            },
-            "organization": {
-                "EN": "Food and Agriculture Organization of United Nations"
-            },
-            "role": "distributor",
-            "specify": {
-                "EN": null
-            },
-            "contactInfo": {
-                "emailAddress": "GIS-Manager@fao.org",
-                "hoursOfService": {
-                    "EN": null
-                },
-                "contactInstruction": {
-                    "EN": null
-                }
-            },
-            "organizationUnit": {
-                "EN": "FAO GIS unit"
+            "organization" : { "EN" : "organization_1" },
+            "contactInfo" : {
+                "phone" : "2015201200"
+            }
+        },
+        {
+            "organization" : { "EN" : "organization_2" },
+            "contactInfo" : {
+                "phone" : "555555555"
             }
         }
     ],

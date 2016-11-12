@@ -206,7 +206,14 @@ define(
                         "output" : "string"
                     }
                 },
+
                 "contacts": {
+
+                    classNames : "test",
+
+                    template : {
+                        title : "Contacts"
+                    },
 
                     "incremental": true,
 

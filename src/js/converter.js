@@ -78,7 +78,7 @@ define([
         _.each(obj, _.bind(function (v, k) {
 
             var key = path ? path.concat(".").concat(k) : k,
-                value = this._getValue(v);
+                value = this._getValue(v, k);
 
             if (value) {
                 this._assign(result, key, value)
@@ -92,7 +92,8 @@ define([
 
     Converter.prototype._getValue = function (obj) {
 
-        var value = obj || {};
+        var self = this,
+            value = obj || {};
 
         if (typeof value === "number") {
 
@@ -111,6 +112,33 @@ define([
                 return typeof i === "string";
             })) {
             return obj;
+        }
+
+        if (Array.isArray(obj)) {
+
+            var r = [];
+
+            _.each(obj, function (a) {
+
+                var x = {};
+                _.each(a, function (value, key) {
+
+                    var v = self._getValue(value);
+
+                    if (v) {
+                        x[key] = v;
+                    } else {
+                        _.each(value, function( val, ke) {
+                            x[ke] = Array.isArray(val) ? val : [val];
+                        });
+                    }
+                });
+
+                r.push(x)
+            });
+
+            return r
+
         }
 
         if (typeof value === "object") {
@@ -146,6 +174,7 @@ define([
             var d = Moment(str, 'x');
             return String(str).length === 13 && d.isValid();
         }
+
     };
 
     // Convert FENIX plain format to FENIX metadata

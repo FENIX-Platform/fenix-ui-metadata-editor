@@ -1,13 +1,6 @@
 define(function () {
 
-    var Role = [
-            { "value": "owner", "label": "Owner" },
-            { "value": "distributor", "label": "Distributor" },
-            { "value": "producer", "label": "Producer" },
-            { "value": "other", "label": "Other" }
-        ];
-
-        return {
+    return {
 
         template: {
             title: "Contacts"
@@ -17,189 +10,56 @@ define(function () {
 
             contacts: {
 
-                "incremental": true,
+                incremental: true,
 
-                "selectors": {
-                    "organization": {
-                        "selector": {
-                            "id": "input",
-                            "type": "text",
-                            "source": [{"value": "organization", "label": "Organization"}]
-                        },
-                        "template": {
-                            "title": "Organization",
-                            "description": "Name of the responsible organization."
+                selectors: {
+                    organization: {
 
-                        },
-                        "format": {
-                            "output" : "label"
+                        selector: {
+                            id: "input",
+                            type: "text",
+                            source: [{value: "organization", label: "organization"}],
+                            default : ["FAO"]
                         }
                     },
-                    "organizationUnit": {
-                        "selector": {
-                            "id": "input",
-                            "type": "text",
-                            "source": [{"value": "organizationUnit", "label": "Organization unit/division"}]
+                    organizationUnit: {
+                        selector: {
+                            id: "input",
+                            type: "text",
+                            source: [{value: "organizationUnit", label: "organizationUnit"}],
+                            default : ["ESS"]
 
-                        },
-                        "template": {
-                            "title": "Organization unit/division",
-                            "description": "Addressable subdivision of an organization."
-
-                        },
-                        "format": {
-                            "output" : "label"
                         }
-
                     },
-                    "position": {
-                        "selector": {
-                            "id": "input",
-                            "type": "text",
-                            "source": [{"value": "organizationUnit", "label": "Position"}]
+
+                    phone:{
+                        selector : {
+                            id: "input",
+                            type: "text",
+                            source: [{value: "phone", label: "phone"}],
+                            default : ["066666"]
 
                         },
-                        "template": {
-                            "title": "Position",
-                            "description": "Role or position of the responsible person."
 
-                        },
-                        "format": {
-                            "output" : "label"
+                        format : {
+                            output: "template",
+                            path : "contactInfo.phone"
                         }
 
                     },
-                    "specify": {
-                        "selector": {
-                            "id": "input",
-                            "type": "text",
-                            "source": [{"value": "specify", "label": "Specify"}]
+                    address:{
+                        selector : {
+                            id: "input",
+                            type: "text",
+                            source: [{value: "address", label: "address"}],
+                            default : ["CARACALLA"]
 
                         },
-                        "template": {
-                            "title": "Specify",
-                            "description": "Textual metadata element that allows to specify the role performed by the responsible party. This field is conditional to the element \u003crole\u003e."
-
-                        },
-                        "format": {
-                            "output" : "label"
-                        }
-
-                    },
-                    "pointOfContact": {
-                        "selector": {
-                            "id": "input",
-                            "type": "text",
-                            "source": [{"value": "pointOfContact", "label": "Point of contact"}]
-
-                        },
-                        "template": {
-                            "title": "Point of contact",
-                            "description": "Responsible person-surname, given name, title separated by a delimiter. It contains information about the party who can be contacted for acquiring knowledge the resource."
-
-                        },
-                        "format": {
-                            "output" : "string"
-                        }
-
-                    },
-
-                    "role": {
-                        "selector": {
-                            "id": "dropdown",
-                            source: Role
-                        },
-                        "template": {
-                            "title": "Role",
-                            "description": "Textual metadata element that allows to specify the role performed by the responsible party. This field is conditional to the element \u003crole\u003e."
-
-                        },
-                        "format": {
-                            "output" : "label"
-                        }
-
-                    },
-
-                    "phone": {
-                        "selector": {
-                            "id": "input",
-                            "type": "text",
-                            "source": [{ "value": "phone", "label": "Telephone"}]
-                        },
-                        "template": {
-                            "title": "Telephone",
-                            "description": "Telephone numbers at which the organization or individual may be contacted.",
-
-                        },
-                        "format": {
-                            "output" : "template",
-                            "path" : "contactInfo.phone"
+                        format : {
+                            output: "template",
+                            path : "contactInfo.address"
                         }
                     },
-                    "address": {
-                        "selector": {
-                            "id": "input",
-                            "type": "text",
-                            "source": [{ "value": "address", "label": "Address"}]
-                        },
-                        "template": {
-                            "title": "Address",
-                            "description": "Physical address at which the organization or individual may be contacted.",
-
-                        },
-                        "format": {
-                            "output" : "template",
-                            "path" : "contactInfo.address"
-                        }
-                    },
-                    "emailAddress": {
-                        "selector": {
-                            "id": "input",
-                            "type": "text",
-                            "source": [{ "value": "emailAddress", "label": "E-mail address"}]
-                        },
-                        "template": {
-                            "title": "E-mail address",
-                            "description": "E-mail address at which the organization or individual may be contacted.",
-
-                        },
-                        "format": {
-                            "output" : "template",
-                            "path" : "contactInfo.emailAddress"
-                        }
-                    },
-                    "hoursOfService": {
-                        "selector": {
-                            "id": "input",
-                            "type": "text",
-                            "source": [{ "value": "hoursOfService", "label": "Hour of service"}]
-                        },
-                        "template": {
-                            "title": "Hour of service",
-                            "description": "Time period (including time zone) when individuals can contact the organization or individual.",
-
-                        },
-                        "format": {
-                            "output" : "template",
-                            "path" : "contactInfo.hoursOfService"
-                        }
-                    },
-                    "contactInstruction": {
-                        "selector": {
-                            "id": "input",
-                            "type": "text",
-                            "source": [{ "value": "contactInstruction", "label": "Instruction"}]
-                        },
-                        "template": {
-                            "title": "Instruction",
-                            "description": "Supplemental instructions on how or when to contact the individual or organization.",
-
-                        },
-                        "format": {
-                            "output" : "template",
-                            "path" : "contactInfo.contactInstruction"
-                        }
-                    }
                 },
 
                 format: {

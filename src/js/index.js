@@ -176,7 +176,7 @@ define([
 
         this.$template.attr("data-fenix", "metadata-editor");
 
-        this.config = this.initial.config || FenixMetadata;
+        this.config = !_.isEmpty(this.initial.config) ? this.initial.config : FenixMetadata;
 
         this.nls = this.initial.nls || C.nls;
     };
@@ -320,8 +320,6 @@ define([
                 var selectors = {},
                     filter;
                 selectors[id] = c;
-
-                console.log(JSON.stringify(selectors))
 
                 filter = new Filter({
                     el: s.el.find("[data-role='selectors']").first(),

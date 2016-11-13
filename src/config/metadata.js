@@ -62,6 +62,7 @@ define(
                     "constraints": { "presence" : true  }
 
                 },
+
                 "creationDate": {
                     "selector": {
                         "id": "time"
@@ -77,11 +78,14 @@ define(
                     "constraints": { "presence" : true  }
                 },
                 "characterSet": {
+
                     "cl": IANA,
+
                     "selector": {
                         "id": "dropdown",
                         "default": ['106']
                     },
+
                     "template": {
                         "title": "Character-set",
                         "description": "Full name of the character coding standard used by the resource.",
@@ -414,16 +418,20 @@ define(
                     "description": "This section includes a summary of the content of the resource and the description of the geographical, time and sector coverage.",
                     "selectors": {
                         "keywords": {
-                            "incremental": true,
                             "selector": {
-                                "id": "input",
-                                "type": "text",
-                                "source": [
-                                    {
-                                        "value": "keywords",
-                                        "label": "Keywords"
+                                "id": "dropdown",
+                                config : {
+                                    placeholder : "keywords",
+                                    delimiter: ',',
+                                    persist: false,
+                                    create: function(input) {
+                                        return {
+                                            value: input,
+                                            text: input
+                                        }
                                     }
-                                ]
+                                }
+
                             },
                             "template": {
                                 "title": "Keywords",
@@ -431,7 +439,7 @@ define(
 
                             },
                             "format": {
-                                "output" : "array<string>"
+                                "output" : "array"
                             }
 
                         },

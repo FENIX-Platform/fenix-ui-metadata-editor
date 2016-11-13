@@ -128,7 +128,7 @@ define([
                     if (v) {
                         x[key] = v;
                     } else {
-                        _.each(value, function( val, ke) {
+                        _.each(value, function (val, ke) {
                             x[ke] = Array.isArray(val) ? val : [val];
                         });
                     }
@@ -284,6 +284,8 @@ define([
 
     Converter.prototype._processSelectors = function (selectors, values, result, path) {
 
+        var self = this;
+
         _.each(selectors, _.bind(function (sel, id) {
 
             var format = sel.format || {},
@@ -341,12 +343,39 @@ define([
                 case "array<contact>" :
 
                     value = value.map(function (o) {
+
+                        var organization = {};
+                        organization[self.lang] = o.organization;
+
+                        var organizationUnit = {};
+                        organizationUnit[self.lang] = o.organizationUnit;
+
+                        var position = {};
+                        position[self.lang] = o.position;
+
+                        var specify = {};
+                        specify[self.lang] = o.specify;
+
+                        var hoursOfService = {};
+                        hoursOfService[self.lang] = o.hoursOfService;
+
+
+                        var contactInstruction = {};
+                        contactInstruction[self.lang] = o.contactInstruction;
+
                         return {
-                            organization: o.organization,
-                            organizationUnit: o.organizationUnit,
+                            organization: organization,
+                            organizationUnit: organizationUnit,
+                            pointOfContact: o.pointOfContact,
+                            position: position,
+                            role: Array.isArray(o.role) ? undefined : o.role,
+                            specify: specify,
                             contactInfo: {
                                 phone: o.phone,
-                                address: o.address
+                                address: o.address,
+                                emailAddress: o.emailAddress,
+                                hoursOfService: hoursOfService,
+                                contactInstruction: contactInstruction
                             }
                         }
                     });

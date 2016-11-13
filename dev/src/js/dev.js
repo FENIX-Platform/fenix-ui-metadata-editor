@@ -86,7 +86,7 @@ define([
                 el: s.MDE,
                 lang: lang,
                 //config: Nested,
-                model: fxMetadata,
+                //model: fxMetadata,
                 cache: cache,
                 environment: environment
             });

@@ -95,12 +95,12 @@ define([
         var self = this,
             value = obj || {};
 
-        if (typeof value === "number") {
+        if (!isNaN(parseInt(value))) {
 
             if (isValidDate(value)) {
                 return [Moment(value, 'x').toString()];
             } else {
-                return [value];
+                return [String(value)];
             }
         }
 
@@ -129,7 +129,18 @@ define([
                         x[key] = v;
                     } else {
                         _.each(value, function (val, ke) {
-                            x[ke] = Array.isArray(val) ? val : [val];
+
+                            x[ke] = [];
+
+                            var value = Array.isArray(val) ? val : [val];
+
+                            _.each(value, function (v) {
+                                if (v.hasOwnProperty(self.lang)) {
+                                    x[ke].push(v[self.lang]);
+                                } else {
+                                    x[ke].push(v)
+                                }
+                            })
                         });
                     }
                 });
@@ -146,7 +157,7 @@ define([
             //check if label
             var keys = Object.keys(value),
                 isLabel = false,
-                isCode = value.idCodeList && Array.isArray(value.codes),
+                isCode = !!value.idCodelist && Array.isArray(value.codes),
                 label = "";
 
             _.each(langs, _.bind(function (l) {

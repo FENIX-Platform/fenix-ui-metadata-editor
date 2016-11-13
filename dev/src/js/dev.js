@@ -6,8 +6,12 @@ define([
     '../config/nested',
     '../models/fxMetadata',
     '../models/fxMetadataSchema',
+    '../models/titleCreationDate',
+    '../models/firstSection',
+    '../models/firstSecondSections',
+    '../models/firstSecondThirdSection',
     'ajv'
-], function (log, $, MetaDataEditor, Converter, Nested, fxMetadata, schema, Ajv) {
+], function (log, $, MetaDataEditor, Converter, Nested, fxMetadata, schema, Model1, Model2, Model3, Model4, Ajv) {
 
     'use strict';
 
@@ -86,7 +90,7 @@ define([
                 el: s.MDE,
                 lang: lang,
                 //config: Nested,
-                //model: fxMetadata,
+                model: Model4,
                 cache: cache,
                 environment: environment
             });

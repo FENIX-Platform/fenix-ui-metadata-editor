@@ -153,6 +153,8 @@ define([
 
         this.model = Converter.toValues({model: this.initial.model, lang: this.lang}) || {};
 
+        console.log(this.model)
+
         this.environment = this.initial.environment;
         this.cache = this.initial.cache || C.cache;
 
@@ -164,9 +166,6 @@ define([
         this.validators = $.extend(true, {}, this.validators, this.initial.validators);
 
         log.info("[MDE] variable init success");
-
-        //force to do not chunk codes
-        //return require(codePluginsFolder + "standard.js");
 
     };
 
@@ -326,7 +325,7 @@ define([
                     cache: this.cache,
                     environment: this.environment,
                     selectors: selectors,
-                    values: this._getInitialValues(id),
+                    values: this._getInitialValues(id, s),
                     lang: this.lang,
                     nls: this.nls,
                     id: this.id
@@ -357,13 +356,25 @@ define([
 
     };
 
-    MetaDataEditor.prototype._getInitialValues = function (id) {
+    MetaDataEditor.prototype._getInitialValues = function (id, s) {
 
-        var result = {values: {}},
-            found = false;
+        var cleanPath = _.without(s.path || [], ROOT),
+            result = {values: {}},
+            found = false,
+            path;
 
-        if (this.model[id]) {
-            result.values[id] = this.model[id];
+        cleanPath.push(id);
+
+        path = cleanPath.join(".");
+
+        if (id === "referencePeriod") {
+            console.log(this.model)
+            console.log( this.getNestedProperty(path, this.model))
+            console.log(path)
+        }
+
+        if (this.getNestedProperty(path, this.model)) {
+            result.values[id] = this.getNestedProperty(path, this.model);
             found = true;
         }
 

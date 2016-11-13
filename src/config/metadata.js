@@ -213,7 +213,7 @@ define(
 
                 "contacts": {
 
-                    classNames : "test",
+                    classNames : "well",
 
                     template : {
                         title : "Contacts"

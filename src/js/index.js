@@ -191,7 +191,7 @@ define([
 
     MetaDataEditor.prototype._render = function () {
 
-        this._renderSection(this.config, ROOT);
+        this._renderSection($.extend(true, {}, this.config), ROOT);
 
         log.info("[MDE] render success");
     };
@@ -320,6 +320,8 @@ define([
                 var selectors = {},
                     filter;
                 selectors[id] = c;
+
+                console.log(JSON.stringify(selectors))
 
                 filter = new Filter({
                     el: s.el.find("[data-role='selectors']").first(),

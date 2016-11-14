@@ -10,8 +10,9 @@ define([
     '../models/firstSection',
     '../models/firstSecondSections',
     '../models/firstSecondThirdSection',
+    '../models/dropdown',
     'ajv'
-], function (log, $, MetaDataEditor, Converter, Nested, fxMetadata, schema, Model1, Model2, Model3, Model4, Ajv) {
+], function (log, $, MetaDataEditor, Converter, Nested, fxMetadata, schema, Model1, Model2, Model3, Model4, DropdownModel,  Ajv) {
 
     'use strict';
 
@@ -90,7 +91,7 @@ define([
                 el: s.MDE,
                 lang: lang,
                 //config: Nested,
-                model: Model4,
+                model: DropdownModel,
                 cache: cache,
                 environment: environment
             });

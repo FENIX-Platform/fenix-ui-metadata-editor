@@ -42,6 +42,10 @@ define([
 
             this._bindEventListeners();
 
+            if (this.affix) { //TODO
+                this._initAffix();
+            }
+
             this._showInitialSection();
 
             this.valid = true;
@@ -135,6 +139,15 @@ define([
         return errors.length > 0 ? errors : valid;
     };
 
+    MetaDataEditor.prototype._initAffix = function () {
+
+        this.$index.affix({
+            offset: {
+                top: this.$index.offset().top
+            }
+        });
+    };
+
     MetaDataEditor.prototype._initVariables = function () {
 
         //init index container
@@ -152,8 +165,6 @@ define([
         this.initialSection = this.initial.initialSection || ROOT;
 
         this.model = Converter.toValues({model: this.initial.model, lang: this.lang}) || {};
-
-        console.log(this.model)
 
         this.environment = this.initial.environment;
         this.cache = this.initial.cache || C.cache;
@@ -366,12 +377,6 @@ define([
         cleanPath.push(id);
 
         path = cleanPath.join(".");
-
-        if (id === "referencePeriod") {
-            console.log(this.model)
-            console.log( this.getNestedProperty(path, this.model))
-            console.log(path)
-        }
 
         if (this.getNestedProperty(path, this.model)) {
             result.values[id] = this.getNestedProperty(path, this.model);

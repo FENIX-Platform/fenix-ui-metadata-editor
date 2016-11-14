@@ -80,6 +80,7 @@ define([
             var key = path ? path.concat(".").concat(k) : k,
                 value = this._getValue(v, k);
 
+
             if (value) {
                 this._assign(result, key, value)
             } else {
@@ -157,7 +158,7 @@ define([
             //check if label
             var keys = Object.keys(value),
                 isLabel = false,
-                isCode = !!value.idCodelist && Array.isArray(value.codes),
+                isCode = !!value.idCodeList && Array.isArray(value.codes),
                 label = "";
 
             _.each(langs, _.bind(function (l) {
@@ -398,16 +399,16 @@ define([
                     c = {};
 
                     var cl = sel.cl || {},
-                        idCodelist = cl.uid || format.uid,
+                        idCodeList = cl.uid || format.uid,
                         version = cl.version || format.version,
                         codes = [];
 
-                    if (!idCodelist) {
+                    if (!idCodeList) {
                         log.error("Impossible to find codelist uid configuration for selector: " + id);
                         return;
                     }
 
-                    c.idCodelist = idCodelist;
+                    c.idCodeList = idCodeList;
                     c.version = version;
 
                     _.each(value, function (v) {

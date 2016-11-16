@@ -40,6 +40,29 @@ define(
             },
 
             "selectors": {
+/*
+                "uid": {
+                    "selector": {
+                        "id": "input",
+                        "type": "text",
+                        "source": [
+                            {
+                                "value": "uid",
+                                "label": "Uid"
+                            }
+                        ],
+                        config : {
+                            readonly : true
+                        }
+                    },
+                    "template": {
+                        "title": "Uid",
+                    },
+                    "format": {
+                        "output": "string"
+                    }
+                },*/
+
                 "title": {
                     "selector": {
                         "id": "input",
@@ -271,23 +294,6 @@ define(
                             }
 
                         },
-                        "specify": {
-                            "selector": {
-                                "id": "input",
-                                "type": "text",
-                                "source": [{"value": "specify", "label": "Specify"}]
-
-                            },
-                            "template": {
-                                "title": "Specify",
-                                "description": "Textual metadata element that allows to specify the role performed by the responsible party. This field is conditional to the element \u003crole\u003e."
-
-                            },
-                            "format": {
-                                "output": "label"
-                            }
-
-                        },
                         "pointOfContact": {
                             "selector": {
                                 "id": "input",
@@ -309,7 +315,10 @@ define(
                         "role": {
                             "selector": {
                                 "id": "dropdown",
-                                source: Role
+                                source: Role,
+                                config : {
+                                    maxItems : 1
+                                }
                             },
                             "template": {
                                 "title": "Role",
@@ -319,6 +328,29 @@ define(
                             "format": {
                                 "output": "label"
                             }
+
+                        },
+
+                        "specify": {
+                            "selector": {
+                                "id": "input",
+                                "type": "text",
+                                "source": [{"value": "specify", "label": "Specify"}],
+                                config : {
+                                    readonly : true
+                                }
+
+                            },
+                            "template": {
+                                "title": "Specify",
+                                "description": "Textual metadata element that allows to specify the role performed by the responsible party. This field is conditional to the element \u003crole\u003e."
+                            },
+                            "format": {
+                                "output": "label"
+                            },
+                            dependencies: {
+                                role : [{id : "readOnlyIfNotValue", event: "select", args : {value : "other"}}]
+                            },
 
                         },
 

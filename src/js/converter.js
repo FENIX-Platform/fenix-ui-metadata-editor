@@ -80,7 +80,6 @@ define([
             var key = path ? path.concat(".").concat(k) : k,
                 value = this._getValue(v, k);
 
-
             if (value) {
                 this._assign(result, key, value)
             } else {
@@ -122,6 +121,7 @@ define([
             _.each(obj, function (a) {
 
                 var x = {};
+
                 _.each(a, function (value, key) {
 
                     var v = self._getValue(value);
@@ -159,7 +159,7 @@ define([
             var keys = Object.keys(value),
                 isLabel = false,
                 isCode = !!value.idCodeList && Array.isArray(value.codes),
-                label = "";
+                label;
 
             _.each(langs, _.bind(function (l) {
                 isLabel = isLabel || _.contains(keys, l);
@@ -354,6 +354,8 @@ define([
 
                 case "array<contact>" :
 
+                    console.log("1")
+
                     value = value.map(function (o) {
 
                         var organization = {};
@@ -370,7 +372,6 @@ define([
 
                         var hoursOfService = {};
                         hoursOfService[self.lang] = o.hoursOfService;
-
 
                         var contactInstruction = {};
                         contactInstruction[self.lang] = o.contactInstruction;
@@ -391,6 +392,9 @@ define([
                             }
                         }
                     });
+
+                    console.log("Value 1")
+                    console.log(JSON.stringify(value))
 
                     this._assign(result, key, value ? value : undefined);
                     break;

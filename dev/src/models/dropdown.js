@@ -1,74 +1,191 @@
 module.exports = {
-    "title": {"EN": "Mio 6sssasdsa"},
+    "title": {
+        "EN": "Disponibilité Alimentaires en kg/capita/yr"
+    },
     "dsd": {
+        "contextSystem": "cstat_cmr",
         "datasources": ["D3S"],
-        "contextSystem": "fenix_develop",
         "columns": [{
             "dataType": "year",
-            "title": {"FR": "y", "EN": "y"},
+            "title": {
+                "FR": "Année",
+                "EN": "Year"
+            },
             "subject": "time",
             "key": true,
             "id": "DIMENSION0"
         }, {
             "dataType": "code",
-            "title": {"FR": "i", "EN": "i"},
-            "domain": {"codes": [{"idCodeList": "CountrySTAT_Indicators"}]},
+            "title": {
+                "FR": "IIndicateur",
+                "EN": "Indicator"
+            },
+            "domain": {
+                "codes": [{
+                    "idCodeList": "CountrySTAT_Indicators"
+                }]
+            },
             "subject": "indicator",
             "key": true,
             "id": "DIMENSION1"
         }, {
             "dataType": "code",
-            "title": {"FR": "it", "EN": "it"},
-            "domain": {"codes": [{"version": "2.1", "idCodeList": "CPC"}]},
+            "title": {
+                "FR": "Produit",
+                "EN": "Product"
+            },
+            "domain": {
+                "codes": [{
+                    "version": "2.1",
+                    "idCodeList": "CPC"
+                }]
+            },
             "subject": "item",
             "key": true,
             "id": "DIMENSION2"
         }, {
             "dataType": "number",
-            "title": {"FR": "v", "EN": "v"},
+            "title": {
+                "FR": "Valeur",
+                "EN": "Value"
+            },
             "subject": "value",
             "key": false,
             "id": "VALUE0"
         }, {
             "dataType": "code",
-            "title": {"FR": "u", "EN": "u"},
-            "domain": {"codes": [{"idCodeList": "CountrySTAT_UM"}]},
+            "title": {
+                "FR": "Um",
+                "EN": "Um"
+            },
+            "domain": {
+                "codes": [{
+                    "idCodeList": "CountrySTAT_UM"
+                }]
+            },
             "subject": "um",
             "key": false,
             "id": "OTHER0"
         }, {
             "dataType": "code",
-            "title": {"FR": "f", "EN": "f"},
-            "domain": {"codes": [{"idCodeList": "Flag"}]},
+            "title": {
+                "FR": "Flag",
+                "EN": "Flag"
+            },
+            "domain": {
+                "codes": [{
+                    "idCodeList": "Flag"
+                }]
+            },
             "subject": "flag",
             "key": false,
             "id": "OTHER1"
-        }],
-        "rid": "63_1824"
+        }]
     },
     "meContent": {
-        "description": {"EN": ""},
+        "description": {
+            "EN": ""
+        },
         "resourceRepresentationType": "dataset",
-        "keywords": ["key works"],
-        "statisticalConceptsDefinitions": {"EN": ""},
+        "keywords": ["Disponibilité alimentaire"],
+        "statisticalConceptsDefinitions": {
+            "EN": ""
+        },
         "seReferencePopulation": {
-            "statisticalPopulation": {"EN": "ad"},
-            "statisticalUnit": {"EN": "asd"},
-            "referencePeriod": {"version": "1.0", "codes": [{"code": "14"}]},
-            "referenceArea": {"version": "1.0", "codes": [{"code": "ADM1"}]}
+            "statisticalPopulation": {
+                "EN": ""
+            },
+            "statisticalUnit": {
+                "EN": ""
+            },
+            "referencePeriod": {
+                "version": "1.0",
+                "codes": [{
+                    "code": "9"
+                }],
+                "idCodeList": "FAO_Period"
+            },
+            "referenceArea": {
+                "version": "1.0",
+                "codes": [{
+                    "code": "ADM0"
+                }],
+                "idCodeList": "GAUL_ReferenceArea"
+            }
         },
         "seCoverage": {
-            "coverageSectorsDetails": {"EN": "sdsd"},
-            "coverageTime": {"from": -3600000, "to": 1478991600000}
+            "coverageSectors": {
+                "codes": [{
+                    "code": "FA"
+                }],
+                "idCodeList": "CSTAT_Core"
+            },
+            "coverageSectorsDetails": {
+                "EN": ""
+            },
+            "coverageTime": {
+                "from": -3600000,
+                "to": 1479078000000
+            },
+            "coverageGeographic": {
+                "version": "2014",
+                "codes": [{
+                    "code": "45"
+                }],
+                "idCodeList": "GAUL0"
+            }
         }
     },
-    "meMaintenance": {"seUpdate": {"updateDate": 1479054685789}},
-    "languageDetails": {"EN": ""},
-    "characterSet": {"codes": [{"code": "106"}]},
-    "metadataStandardName": "FENIX",
+    "characterSet": {
+        "codes": [{
+            "code": "106"
+        }],
+        "idCodeList": "IANAcharacterSet"
+    },
     "metadataStandardVersion": "1.0",
-    "metadataLanguage": {"version": "1998", "codes": [{"code": "eng"}]},
-    "language": {"version": "1998", "codes": [{"code": "eng"}]},
-    "uid": "D3S_24906039283704624878537791166568519458",
-    "creationDate": 1479054240000
+    "metadataLanguage": {
+        "version": "1998",
+        "codes": [{
+            "code": "fre"
+        }],
+        "idCodeList": "ISO639-2"
+    },
+    "contacts": [{
+        "organization": {
+            "EN": "MINADER/DESA"
+        },
+        "position": {
+            "EN": ""
+        },
+        "contactInfo": {
+            "role" : "owner",
+            "phone": "+237 77 85 96 98",
+            "emailAddress": "ndjajar@yahoo.fr",
+            "hoursOfService": {
+                "EN": ""
+            },
+            "contactInstruction": {
+                "EN": ""
+            },
+            "address": ""
+        },
+        "pointOfContact": "NDJE-AYEHA Jacques Robert",
+        "specify": {
+            "EN": ""
+        },
+        "organizationUnit": {
+            "EN": ""
+        }
+    }],
+    "meMaintenance": {
+        "seUpdate": {}
+    },
+    "language": {
+        "version": "1998",
+        "codes": [{
+            "code": "fre"
+        }],
+        "idCodeList": "ISO639-2"
+    }
 }
+

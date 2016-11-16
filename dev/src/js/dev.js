@@ -20,10 +20,10 @@ define([
             MDE: "#mde",
             VALUES: "#get-values-btn",
             DISPOSE: "#dispose-btn",
-            ADD: "#add-btn",
+            ADD: "#add-btn"
         },
         cache = false,
-        lang = "EN",
+        lang = "FR",
         environment = "develop"; //develop production
 
     function Dev() {
@@ -108,7 +108,6 @@ define([
                 valid;
 
             log.warn("Values:");
-            console.log(data);
 
             valid = validate(data);
 
@@ -126,12 +125,14 @@ define([
 
         $(s.ADD).on("click", function () {
 
-            mde.dispose();
+            mde.setValues(DropdownModel);
+
+           /* mde.dispose();
             $(s.VALUES).off();
             $(s.DISPOSE).off();
             $(s.ADD).off();
 
-            self._renderMDE()
+            self._renderMDE()*/
 
         });
     };

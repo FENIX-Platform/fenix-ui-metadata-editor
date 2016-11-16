@@ -4,6 +4,8 @@ define(function () {
 
     return {
 
+        affix : false,
+
         outputFormat: "metadata", // plain metadata
 
         nls: ["EN", "FR", "ES"],

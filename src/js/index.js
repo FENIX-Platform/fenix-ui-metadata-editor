@@ -42,7 +42,7 @@ define([
 
             this._bindEventListeners();
 
-            if (this.affix) { //TODO
+            if (this.affix) {
                 this._initAffix();
             }
 
@@ -84,6 +84,52 @@ define([
     MetaDataEditor.prototype.setValues = function (model) {
 
         return this._setValues(model);
+    };
+
+    /**
+     * Set model
+     */
+    MetaDataEditor.prototype._setValues = function (model) {
+
+        this.model = Converter.toValues({model: model, lang: this.lang}) || {};
+
+        this._setValuesToSection(ROOT);
+
+
+    };
+
+    MetaDataEditor.prototype._setValuesToSection = function (s) {
+
+        var section = this.sections[s],
+            values = {};
+
+        if (!section || !section.initialized) {
+            log.warn(section + " is not initialized. Abort set values");
+            return;
+        }
+
+        if (section.hasOwnProperty('filter')) {
+
+            _.each(section.filter, _.bind(function(f, name) {
+
+                var values = this._getInitialValues(name, s);
+
+                if  (values) {
+                    f.setValues(values)
+                }
+
+            }, this));
+
+        }
+
+        if (typeof section.sections === 'object') {
+            _.each(section.sections, _.bind(function (s, name) {
+                this._setValuesToSection(name);
+            }, this));
+        }
+
+        return values;
+
     };
 
     /**
@@ -175,6 +221,9 @@ define([
 
         this.constraints = this.initial.constraints || C.constraints;
         this.validators = $.extend(true, {}, this.validators, this.initial.validators);
+
+        this.lang = this.initial.lang || C.lang;
+        this.affix = this.initial.affix || C.affix;
 
         log.info("[MDE] variable init success");
 
@@ -378,10 +427,19 @@ define([
 
         path = cleanPath.join(".");
 
-        if (this.getNestedProperty(path, this.model)) {
-            result.values[id] = this.getNestedProperty(path, this.model);
+        var value = this.getNestedProperty(path, this.model);
+
+        if (id === "contacts") {
+            console.log(JSON.stringify(value))
+            console.log(path)
+            console.log(this.model)
+        }
+
+        if (value) {
+            result.values[id] = value;
             found = true;
         }
+
 
         return found ? result : undefined;
     };

@@ -1,14 +1,15 @@
 module.exports = {
+    "uid" : "my uid",
     "title": {
-        "EN": "Disponibilité Alimentaires en kg/capita/yr"
+        "EN": "Population par residence"
     },
     "dsd": {
-        "contextSystem": "cstat_cmr",
+        "contextSystem": "cstat_cog",
         "datasources": ["D3S"],
         "columns": [{
             "dataType": "year",
             "title": {
-                "FR": "Année",
+                "FR": "Annee",
                 "EN": "Year"
             },
             "subject": "time",
@@ -17,7 +18,7 @@ module.exports = {
         }, {
             "dataType": "code",
             "title": {
-                "FR": "IIndicateur",
+                "FR": "Indicateur",
                 "EN": "Indicator"
             },
             "domain": {
@@ -31,16 +32,15 @@ module.exports = {
         }, {
             "dataType": "code",
             "title": {
-                "FR": "Produit",
-                "EN": "Product"
+                "FR": "Residence",
+                "EN": "Residence"
             },
             "domain": {
                 "codes": [{
-                    "version": "2.1",
-                    "idCodeList": "CPC"
+                    "idCodeList": "CountrySTAT_Residence"
                 }]
             },
-            "subject": "item",
+            "subject": "residence",
             "key": true,
             "id": "DIMENSION2"
         }, {
@@ -55,20 +55,6 @@ module.exports = {
         }, {
             "dataType": "code",
             "title": {
-                "FR": "Um",
-                "EN": "Um"
-            },
-            "domain": {
-                "codes": [{
-                    "idCodeList": "CountrySTAT_UM"
-                }]
-            },
-            "subject": "um",
-            "key": false,
-            "id": "OTHER0"
-        }, {
-            "dataType": "code",
-            "title": {
                 "FR": "Flag",
                 "EN": "Flag"
             },
@@ -79,6 +65,20 @@ module.exports = {
             },
             "subject": "flag",
             "key": false,
+            "id": "OTHER0"
+        }, {
+            "dataType": "code",
+            "title": {
+                "FR": "Unitè",
+                "EN": "Unit"
+            },
+            "domain": {
+                "codes": [{
+                    "idCodeList": "CountrySTAT_UM"
+                }]
+            },
+            "subject": "um",
+            "key": false,
             "id": "OTHER1"
         }]
     },
@@ -87,7 +87,7 @@ module.exports = {
             "EN": ""
         },
         "resourceRepresentationType": "dataset",
-        "keywords": ["Disponibilité alimentaire"],
+        "keywords": [""],
         "statisticalConceptsDefinitions": {
             "EN": ""
         },
@@ -116,7 +116,7 @@ module.exports = {
         "seCoverage": {
             "coverageSectors": {
                 "codes": [{
-                    "code": "FA"
+                    "code": "POP"
                 }],
                 "idCodeList": "CSTAT_Core"
             },
@@ -125,12 +125,12 @@ module.exports = {
             },
             "coverageTime": {
                 "from": -3600000,
-                "to": 1479078000000
+                "to": 1478991600000
             },
             "coverageGeographic": {
                 "version": "2014",
                 "codes": [{
-                    "code": "45"
+                    "code": "59"
                 }],
                 "idCodeList": "GAUL0"
             }
@@ -146,21 +146,21 @@ module.exports = {
     "metadataLanguage": {
         "version": "1998",
         "codes": [{
-            "code": "fre"
+            "code": "eng"
         }],
         "idCodeList": "ISO639-2"
     },
     "contacts": [{
         "organization": {
-            "EN": "MINADER/DESA"
+            "EN": "Institut National de la Statistique"
         },
         "position": {
             "EN": ""
         },
+        "role": "owner",
         "contactInfo": {
-            "role" : "owner",
-            "phone": "+237 77 85 96 98",
-            "emailAddress": "ndjajar@yahoo.fr",
+            "phone": "",
+            "emailAddress": "philippetsemi@yahoo.fr",
             "hoursOfService": {
                 "EN": ""
             },
@@ -169,7 +169,7 @@ module.exports = {
             },
             "address": ""
         },
-        "pointOfContact": "NDJE-AYEHA Jacques Robert",
+        "pointOfContact": "Philippe Tsemi",
         "specify": {
             "EN": ""
         },
@@ -183,7 +183,7 @@ module.exports = {
     "language": {
         "version": "1998",
         "codes": [{
-            "code": "fre"
+            "code": "eng"
         }],
         "idCodeList": "ISO639-2"
     }

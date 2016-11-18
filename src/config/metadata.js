@@ -2,12 +2,9 @@ define(
     function () {
 
         var IANA = {uid: 'IANAcharacterSet'},
-            Role = [
-                {"value": "owner", "label": "Owner"},
-                {"value": "distributor", "label": "Distributor"},
-                {"value": "producer", "label": "Producer"},
-                {"value": "other", "label": "Other"}
-            ],
+            ROLE = {
+                uid: "ResponsiblePartyRole"
+            },
             GAUL = {uid: 'GAUL0', version: "2014"},
             Languages = {uid: 'ISO639-2', version: "1998"},
             PeriodOfReference = {uid: 'FAO_Period', version: "1.0"},
@@ -40,7 +37,6 @@ define(
             },
 
             "selectors": {
-/*
                 "uid": {
                     "selector": {
                         "id": "input",
@@ -51,8 +47,8 @@ define(
                                 "label": "Uid"
                             }
                         ],
-                        config : {
-                            readonly : true
+                        config: {
+                            readonly: true
                         }
                     },
                     "template": {
@@ -61,7 +57,7 @@ define(
                     "format": {
                         "output": "string"
                     }
-                },*/
+                },
 
                 "title": {
                     "selector": {
@@ -313,11 +309,12 @@ define(
                         },
 
                         "role": {
+                            enumeration : ROLE,
+
                             "selector": {
                                 "id": "dropdown",
-                                source: Role,
-                                config : {
-                                    maxItems : 1
+                                config: {
+                                    maxItems: 1
                                 }
                             },
                             "template": {
@@ -336,8 +333,8 @@ define(
                                 "id": "input",
                                 "type": "text",
                                 "source": [{"value": "specify", "label": "Specify"}],
-                                config : {
-                                    readonly : true
+                                config: {
+                                    readonly: true
                                 }
 
                             },
@@ -349,7 +346,7 @@ define(
                                 "output": "label"
                             },
                             dependencies: {
-                                role : [{id : "readOnlyIfNotValue", event: "select", args : {value : "other"}}]
+                                role: [{id: "readOnlyIfNotValue", event: "select", args: {value: "other"}}]
                             },
 
                         },
@@ -1379,7 +1376,7 @@ define(
                                             }
                                         },
                                         "disseminationFormat": {
-                                            "incremental": true,
+
                                             "selector": {
                                                 "id": "input",
                                                 "type": "text",
@@ -1396,7 +1393,7 @@ define(
 
                                             },
                                             "format": {
-                                                "output": "array<string>"
+                                                "output": "string"
                                             }
                                         }
                                     }
@@ -1511,15 +1508,15 @@ define(
                                             "min": 0,
                                             "max": 100,
                                             "type": "single"
-                                        },
-                                        "template": {
-                                            "title": "Metadata completeness rate",
-                                            "description": "The percentage of completeness of metadata offers a numerical evaluation of the extent to which the resource is documented.",
-
-                                        },
-                                        "format": {
-                                            "output": "string"
                                         }
+                                    },
+                                    "format": {
+                                        "output": "string"
+                                    },
+                                    "template": {
+                                        "title": "Metadata completeness rate",
+                                        "description": "The percentage of completeness of metadata offers a numerical evaluation of the extent to which the resource is documented.",
+
                                     }
                                 }
                             }

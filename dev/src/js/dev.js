@@ -23,7 +23,7 @@ define([
             ADD: "#add-btn"
         },
         cache = false,
-        lang = "FR",
+        lang = "EN",
         environment = "develop"; //develop production
 
     function Dev() {
@@ -91,7 +91,7 @@ define([
                 el: s.MDE,
                 lang: lang,
                 //config: Nested,
-                model: DropdownModel,
+                //model: DropdownModel,
                 cache: cache,
                 environment: environment
             });
@@ -108,6 +108,7 @@ define([
                 valid;
 
             log.warn("Values:");
+            console.log(data);
 
             valid = validate(data);
 

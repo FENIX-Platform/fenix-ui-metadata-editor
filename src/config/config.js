@@ -28,6 +28,10 @@ define(function () {
 
         },
 
+        hasErrorParentClassName : "has-error-parent",
+
+        hasErrorClassName : "has-error",
+
         validators : {
             ifOtherExists :  function(value, values, params, key){
                 // value = obj, value of the caller

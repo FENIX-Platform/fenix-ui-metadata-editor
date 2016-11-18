@@ -95,7 +95,6 @@ define([
 
         this._setValuesToSection(ROOT);
 
-
     };
 
     MetaDataEditor.prototype._setValuesToSection = function (s) {
@@ -110,11 +109,11 @@ define([
 
         if (section.hasOwnProperty('filter')) {
 
-            _.each(section.filter, _.bind(function(f, name) {
+            _.each(section.filter, _.bind(function (f, name) {
 
-                var values = this._getInitialValues(name, s);
+                var values = this._getInitialValues(name, section);
 
-                if  (values) {
+                if (values) {
                     f.setValues(values)
                 }
 
@@ -285,6 +284,8 @@ define([
 
         section.index = this._attachSectionIndex(section, id, parent); //TODO pluggable
 
+        this._renderSelectors(section, section.id);
+
         if (typeof section.sections === 'object') {
             this._renderSections(section.sections, id !== ROOT ? id : null);
         } else {
@@ -410,10 +411,6 @@ define([
             return;
         }
 
-        _.each(s.sections, _.bind(function (sec, id) {
-            this._renderSelectors(sec, id)
-        }, this));
-
     };
 
     MetaDataEditor.prototype._getInitialValues = function (id, s) {
@@ -429,17 +426,10 @@ define([
 
         var value = this.getNestedProperty(path, this.model);
 
-        if (id === "contacts") {
-            console.log(JSON.stringify(value))
-            console.log(path)
-            console.log(this.model)
-        }
-
         if (value) {
             result.values[id] = value;
             found = true;
         }
-
 
         return found ? result : undefined;
     };
@@ -483,12 +473,6 @@ define([
         this.$content.find("[data-section='" + root + "']").addClass("active");
         this.$content.find("[data-section='" + root + "']").find("[data-section]").addClass("active");
 
-        if (!rootSection.initialized) {
-            this._renderSelectors(rootSection, root);
-        } else {
-            log.warn("Section is already initialized");
-        }
-
     };
 
     MetaDataEditor.prototype._bindEventListeners = function () {
@@ -526,12 +510,21 @@ define([
             valid: true
         };
 
+        this._untagSectionsWithErrors();
+
         this._getRootValues(result);
 
-        //validate result but return it in any case
-        var s = this._validateValues(result);
+        if (result.valid === true) {
+            //validate result but return it in any case
+            var s = this._validateValues(result);
 
-        return s;
+            return s;
+        } else {
+
+            this._tagSectionsWithErrors(result.errors);
+
+            return result;
+        }
     };
 
     MetaDataEditor.prototype._validateValues = function (s) {
@@ -606,8 +599,31 @@ define([
 
     };
 
-    MetaDataEditor.prototype._tagSelectors = function () {
+    MetaDataEditor.prototype._tagSectionsWithErrors = function (errors) {
 
+        _.each(errors, _.bind(function (value, path) {
+
+            var split = path.split(".") || [],
+                parents;
+
+            split.pop();
+
+            parents = split.slice(0, split.length - 1);
+
+            _.each(parents, _.bind(function (p) {
+                this.$index.find("[data-section='" + p + "']").addClass(C.hasErrorParentClassName)
+            }, this));
+
+            this.$index.find("[data-section='" + split[split.length - 1] + "']").addClass(C.hasErrorClassName)
+
+        }, this));
+
+    };
+
+    MetaDataEditor.prototype._untagSectionsWithErrors = function () {
+
+        this.$index.find("[data-section]").removeClass(C.hasErrorClassName);
+        this.$index.find("[data-section]").removeClass(C.hasErrorParentClassName);
     };
 
     MetaDataEditor.prototype._getRootValues = function (result) {
@@ -621,8 +637,9 @@ define([
             result.values = filter.values;
             result.labels = filter.labels;
             result.valid = result.valid && filter.valid;
-            $.extend(true, result.errors, filter.errors);
-
+            _.each(filter.errors, function (value, key) {
+                result.errors[ROOT+"."+key] = value
+            });
         }
 
         if (typeof section.sections === 'object') {
@@ -670,7 +687,9 @@ define([
             this._assign(result.values, path, filter.values);
             this._assign(result.labels, path, filter.labels);
             result.valid = result.valid && filter.valid;
-            $.extend(true, result.errors, filter.errors);
+            _.each(filter.errors, function (value, key) {
+                result.errors[section.path.join(".") + "." + key] = value
+            });
 
         }
 

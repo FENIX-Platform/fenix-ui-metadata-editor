@@ -95,8 +95,8 @@ define([
         var self = this,
             value = obj || {};
 
+        //parse number and dates
         if (!isNaN(parseInt(value))) {
-
             if (isValidDate(value)) {
                 return [Moment(value, 'x').toString()];
             } else {
@@ -104,45 +104,50 @@ define([
             }
         }
 
+        //parse string
         if (typeof value === "string") {
             return [value];
         }
 
+        // array of string
         if (Array.isArray(obj) && obj.every(function (i) {
                 return typeof i === "string";
             })) {
             return obj;
         }
 
+        //parse arrays
         if (Array.isArray(obj)) {
 
             var r = [];
 
+            // for each object of the array
             _.each(obj, function (a) {
 
                 var x = {};
 
+                //for each key of the object
                 _.each(a, function (value, key) {
 
-                    var v = self._getValue(value);
+                    x[key] = {};
 
-                    if (v) {
-                        x[key] = v;
+                    var z = self._getValue(value);
+
+                    if (z) {
+                        x[key] = z;
                     } else {
-                        _.each(value, function (val, ke) {
 
-                            x[ke] = [];
+                        _.each(value, function (v, k) {
 
-                            var value = Array.isArray(val) ? val : [val];
+                            var p = self._getValue(v);
 
-                            _.each(value, function (v) {
-                                if (v.hasOwnProperty(self.lang)) {
-                                    x[ke].push(v[self.lang]);
-                                } else {
-                                    x[ke].push(v)
-                                }
-                            })
-                        });
+                            if (p) {
+                                x[k] = p;
+
+                            } else {
+                                self._processObject(v, x[key], k)
+                            }
+                        })
                     }
                 });
 
@@ -153,31 +158,9 @@ define([
 
         }
 
+        //parse objects
         if (typeof value === "object") {
-
-            //check if label
-            var keys = Object.keys(value),
-                isLabel = false,
-                isCode = !!value.idCodeList && Array.isArray(value.codes),
-                label;
-
-            _.each(langs, _.bind(function (l) {
-                isLabel = isLabel || _.contains(keys, l);
-                if (l === this.lang) {
-                    label = value[l];
-                }
-            }, this));
-
-            if (isLabel) {
-                label = label ? label : value[keys[0]];
-                return label ? [label] : undefined;
-            }
-
-            if (isCode) {
-                return value.codes.map(function (v) {
-                    return v.code
-                })
-            }
+            return getValueFromObject(value);
         }
 
         return false;
@@ -185,6 +168,36 @@ define([
         function isValidDate(str) {
             var d = Moment(str, 'x');
             return String(str).length === 13 && d.isValid();
+        }
+
+        function getValueFromObject(obj) {
+
+            //check if label
+            var result,
+                keys = Object.keys(obj),
+                isLabel = false,
+                isCode = !!obj.idCodeList && Array.isArray(obj.codes),
+                label;
+
+            _.each(langs, _.bind(function (l) {
+                isLabel = isLabel || _.contains(keys, l);
+                if (l === self.lang.toUpperCase()) {
+                    label = value[l];
+                }
+            }, this));
+
+            if (isLabel) {
+                label = label ? label : obj[keys[0]];
+                result = label ? [label] : [];
+            }
+
+            if (isCode) {
+                result = value.codes.map(function (v) {
+                    return v.code
+                })
+            }
+
+            return result;
         }
 
     };
@@ -336,7 +349,6 @@ define([
 
                     v.from = String(Moment(from.value).unix() * 1000);
                     v.to = String(Moment(from.to).unix() * 1000);
-                    log.error("period format to be implemented");
 
                     this._assign(result, key, v);
 
@@ -353,8 +365,6 @@ define([
                     break;
 
                 case "array<contact>" :
-
-                    console.log("1")
 
                     value = value.map(function (o) {
 
@@ -392,9 +402,6 @@ define([
                             }
                         }
                     });
-
-                    console.log("Value 1")
-                    console.log(JSON.stringify(value))
 
                     this._assign(result, key, value ? value : undefined);
                     break;

@@ -222,6 +222,9 @@ define([
         this.validators = $.extend(true, {}, this.validators, this.initial.validators);
 
         this.lang = this.initial.lang || C.lang;
+        this.labels = this.initial.labels;
+        this.descriptions = this.initial.descriptions;
+
         this.affix = this.initial.affix || C.affix;
 
         log.info("[MDE] variable init success");
@@ -296,6 +299,9 @@ define([
 
     MetaDataEditor.prototype._attachSectionContent = function (s, id, parent) {
 
+        if (this.labels) s.title = this.labels[this.lang.toLowerCase()][this._findMEPath(s)];
+        if (this.descriptions) s.description = this.descriptions[this.lang.toLowerCase()][this._findMEPath(s)];
+
         var $parentEl = this.$content.find("[data-section='" + parent + "']"),
             template = s.template || {},
             $template = $(template.contentTemplate || sectionContent($.extend(true, {}, s, template)));
@@ -324,7 +330,17 @@ define([
 
     };
 
+    MetaDataEditor.prototype._findMEPath = function (element) {
+        var identifier = "";
+        if (element.path) identifier = element.path.join('.');
+
+        return identifier;
+    };
+
+
     MetaDataEditor.prototype._attachSectionIndex = function (s, id, parent) {
+
+        if (this.labels) s.title = this.labels[this.lang.toLowerCase()][this._findMEPath(s)];
 
         var $parentEl = this.$index.find("[data-section='" + parent + "']"),
             template = s.template || {},
@@ -380,6 +396,14 @@ define([
                 var selectors = {},
                     filter;
                 selectors[id] = c;
+
+                var i18nTitle = (this.labels) ? this.labels[this.lang.toLowerCase()][this._findMEPath(s)+"."+id] : selectors[id]['template']['title'],
+                    i18nDescription = (this.descriptions) ? this.descriptions[this.lang.toLowerCase()][this._findMEPath(s)+"."+id] : selectors[id]['template']['description'];
+
+                 selectors[id]['template'] = {
+                     title: i18nTitle,
+                     description: i18nDescription
+                 };
 
                 filter = new Filter({
                     el: s.el.find("[data-role='selectors']").first(),

@@ -11,8 +11,10 @@ define([
     '../models/firstSecondSections',
     '../models/firstSecondThirdSection',
     '../models/dropdown',
-    'ajv'
-], function (log, $, MetaDataEditor, Converter, Nested, fxMetadata, schema, Model1, Model2, Model3, Model4, DropdownModel,  Ajv) {
+    'ajv',
+    '../nls/labels',
+    '../nls/descriptions',
+], function (log, $, MetaDataEditor, Converter, Nested, fxMetadata, schema, Model1, Model2, Model3, Model4, DropdownModel,  Ajv, i18nLabels, i18nDesc) {
 
     'use strict';
 
@@ -93,7 +95,9 @@ define([
                 //config: Nested,
                 //model: DropdownModel,
                 cache: cache,
-                environment: environment
+                environment: environment,
+                labels: i18nLabels,
+                descriptions: i18nDesc
             });
 
         log.warn("Compile FENIX metadata schema: start");

@@ -1,5 +1,6 @@
 module.exports = {
     "uid" : "my uid",
+    "creationDate": "1479752460000",
     "title": {
         "EN": "Population par residence"
     },

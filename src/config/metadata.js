@@ -2,9 +2,7 @@ define(
     function () {
 
         var IANA = {uid: 'IANAcharacterSet'},
-            ROLE = {
-                uid: "ResponsiblePartyRole"
-            },
+            ROLE = { uid: "ResponsiblePartyRole" },
             GAUL = {uid: 'GAUL0', version: "2014"},
             Languages = {uid: 'ISO639-2', version: "1998"},
             PeriodOfReference = {uid: 'FAO_Period', version: "1.0"},
@@ -16,18 +14,8 @@ define(
             DisseminationPeriodicy = {uid: 'FAO_Period', version: "1.0"},
             PeriodicityDataCollection = {uid: 'FAO_Period', version: "1.0"},
             UpdatePeriodicity = {uid: 'FAO_Period', version: "1.0"},
-            CoverageSectorDetails = {uid: 'CRS_purpose_codes'},
             CoverageSector = {uid: 'CRS_purpose_codes'}; // CSTAT_Core
 
-        /*
-         {
-         "eng": "English",
-         "fre": "French",
-         "por": "Portuguese",
-         "spa": "Spanish",
-         "ara": "Arabic"
-         }
-         */
 
         return {
 
@@ -701,10 +689,6 @@ define(
                     "sections": {
                         "seDataSource": {
                             "title": "Data source",
-                            "template": {
-                                "title": "Data source",
-                                "description": "Process used to collect data. It includes a detailed description both of the primary data collection (e.g. type of collection, method to gather data from respondents, sampling procedures..) and the secondary data collection (information about data that have been already collected by another agency or institution).",
-                            },
                             "sections": {
                                 "sePrimaryDataCollection": {
                                     "title": "Primary Data Collection",

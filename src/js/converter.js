@@ -327,6 +327,10 @@ define([
 
             switch (output.toLowerCase()) {
 
+                case "boolean" :
+                    this._assign(result, key, ((value[0] + '').toLowerCase() === 'true'));
+                    break;
+
                 case "label" :
                     c = {};
                     c[this.lang] = value[0];

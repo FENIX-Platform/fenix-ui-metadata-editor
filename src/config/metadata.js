@@ -552,7 +552,8 @@ define(
                                 "referenceArea": {
                                     "cl": AreaOfReference,
                                     "selector": {
-                                        "id": "dropdown"
+                                        "id": "dropdown",
+                                        sort: false
                                     },
                                     "template": {
                                         "title": "Area of reference",

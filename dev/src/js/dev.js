@@ -1,6 +1,7 @@
 define([
     'loglevel',
     'jquery',
+    'underscore',
     '../../../src/js/index',
     '../../../src/js/converter',
     '../config/nested',
@@ -12,9 +13,9 @@ define([
     '../models/firstSecondThirdSection',
     '../models/dropdown',
     'ajv',
-    '../nls/labels',
-    '../nls/descriptions',
-], function (log, $, MetaDataEditor, Converter, Nested, fxMetadata, schema, Model1, Model2, Model3, Model4, DropdownModel,  Ajv, i18nLabels, i18nDesc) {
+    '../nls/titles',
+    '../nls/descriptions'
+], function (log, $, _, MetaDataEditor, Converter, Nested, fxMetadata, schema, Model1, Model2, Model3, Model4, DropdownModel,  Ajv, i18nTitles, i18nDesc) {
 
     'use strict';
 
@@ -25,7 +26,7 @@ define([
             ADD: "#add-btn"
         },
         cache = false,
-        lang = "EN",
+        lang = "FR",
         environment = "develop"; //develop production
 
     function Dev() {
@@ -83,6 +84,14 @@ define([
 
     Dev.prototype._renderMDE = function () {
 
+        _.each(i18nTitles, function(value, key){
+            i18nTitles[key] = "MY CUSTOM " + value;
+        });
+
+        _.each(i18nDesc, function(value, key){
+            i18nDesc[key] = "MY CUSTOM " + value;
+        });
+
         var self =this,
             ajv = new Ajv({
                 extendRefs: true,
@@ -96,8 +105,8 @@ define([
                 //model: DropdownModel,
                 cache: cache,
                 environment: environment,
-                labels: i18nLabels,
-                descriptions: i18nDesc
+                //titles: i18nTitles,
+                //descriptions: i18nDesc
             });
 
         log.warn("Compile FENIX metadata schema: start");

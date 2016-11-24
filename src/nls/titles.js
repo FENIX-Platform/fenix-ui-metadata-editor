@@ -1,7 +1,7 @@
 
 define([
-        "./en/labels",
-        "./fr/labels"
+        "./en/titles",
+        "./fr/titles"
     ],
     function (i18nEn,i18nFr) {
 

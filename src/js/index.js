@@ -10,8 +10,10 @@ define([
     '../html/template.hbs',
     '../html/sectionContent.hbs',
     '../html/sectionIndex.hbs',
+    '../nls/titles',
+    '../nls/descriptions',
     'fenix-ui-filter'
-], function (log, $, _, Converter, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex, Filter) {
+], function (log, $, _, Converter, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex, TitlesI18n, DescriptionsI18n, Filter) {
 
     'use strict';
 
@@ -222,8 +224,8 @@ define([
         this.validators = $.extend(true, {}, this.validators, this.initial.validators);
 
         this.lang = this.initial.lang || C.lang;
-        this.labels = this.initial.labels;
-        this.descriptions = this.initial.descriptions;
+        this.titles = this.initial.titles || TitlesI18n[this.lang.toLowerCase()];
+        this.descriptions = this.initial.descriptions || DescriptionsI18n[this.lang.toLowerCase()];
 
         this.affix = this.initial.affix || C.affix;
 
@@ -299,8 +301,8 @@ define([
 
     MetaDataEditor.prototype._attachSectionContent = function (s, id, parent) {
 
-        if (this.labels) s.title = this.labels[this.lang.toLowerCase()][this._findMEPath(s)];
-        if (this.descriptions) s.description = this.descriptions[this.lang.toLowerCase()][this._findMEPath(s)];
+        if (this.titles) s.title = this.titles[this._findMEPath(s)];
+        if (this.descriptions) s.description = this.descriptions[this._findMEPath(s)];
 
         var $parentEl = this.$content.find("[data-section='" + parent + "']"),
             template = s.template || {},
@@ -340,7 +342,9 @@ define([
 
     MetaDataEditor.prototype._attachSectionIndex = function (s, id, parent) {
 
-        if (this.labels) s.title = this.labels[this.lang.toLowerCase()][this._findMEPath(s)];
+        if (this.titles) {
+            s.title = this.titles[this._findMEPath(s)]
+        }
 
         var $parentEl = this.$index.find("[data-section='" + parent + "']"),
             template = s.template || {},
@@ -395,15 +399,18 @@ define([
 
                 var selectors = {},
                     filter;
+
                 selectors[id] = c;
 
-                var i18nTitle = (this.labels) ? this.labels[this.lang.toLowerCase()][this._findMEPath(s)+"."+id] : selectors[id]['template']['title'],
-                    i18nDescription = (this.descriptions) ? this.descriptions[this.lang.toLowerCase()][this._findMEPath(s)+"."+id] : selectors[id]['template']['description'];
+                if (!selectors[id]['template']) {
+                    selectors[id]['template'] = {};
+                }
 
-                 selectors[id]['template'] = {
-                     title: i18nTitle,
-                     description: i18nDescription
-                 };
+                $.extend(true, selectors[id].template, {
+                    title: selectors[id].template.title ? selectors[id].template.title : this.titles[this._findMEPath(s) + "." + id],
+                    description: selectors[id].template.description ? selectors[id].template.description : this.descriptions[this._findMEPath(s) + "." + id]
+                });
+
 
                 filter = new Filter({
                     el: s.el.find("[data-role='selectors']").first(),
@@ -662,7 +669,7 @@ define([
             result.labels = filter.labels;
             result.valid = result.valid && filter.valid;
             _.each(filter.errors, function (value, key) {
-                result.errors[ROOT+"."+key] = value
+                result.errors[ROOT + "." + key] = value
             });
         }
 

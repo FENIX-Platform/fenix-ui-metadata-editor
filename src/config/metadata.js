@@ -450,9 +450,6 @@ define(
                                         "output": "codes"
                                     }
                                 }
-                            },
-                            "validator": {
-                                "valReferencePopulation": true
                             }
                         },
                         "seCoverage": {
@@ -505,9 +502,6 @@ define(
                                         "output": "period"
                                     }
                                 }
-                            },
-                            "validator": {
-                                "valCoverage": true
                             }
                         }
                     }
@@ -1110,7 +1104,7 @@ define(
                                             },
 
                                             "format": {
-                                                "output": "string"
+                                                "output": "array"
                                             }
                                         }
                                     }

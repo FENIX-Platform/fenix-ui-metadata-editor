@@ -335,10 +335,8 @@ define([
     MetaDataEditor.prototype._findMEPath = function (element) {
         var identifier = "";
         if (element.path) identifier = element.path.join('.');
-
         return identifier;
     };
-
 
     MetaDataEditor.prototype._attachSectionIndex = function (s, id, parent) {
 
@@ -410,6 +408,19 @@ define([
                     title: selectors[id].template.title ? selectors[id].template.title : this.titles[this._findMEPath(s) + "." + id],
                     description: selectors[id].template.description ? selectors[id].template.description : this.descriptions[this._findMEPath(s) + "." + id]
                 });
+
+                if (selectors[id].hasOwnProperty("selectors")) {
+
+                    _.each(selectors[id].selectors, _.bind(function(sec, x) {
+                        if (!sec.template) sec.template = {};
+                        $.extend(true,sec.template, {
+                            title: sec.template.title ? sec.template.title : this.titles[this._findMEPath(s) + "." + id + "." + x],
+                            description: sec.template.description ? sec.template.description : this.descriptions[this._findMEPath(s) + "." + id + "." + x]
+                        });
+
+                    }, this))
+
+                }
 
 
                 filter = new Filter({

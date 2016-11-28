@@ -44,6 +44,8 @@ define(function () {
         "meContent.seCoverage.coverageSectorsDetails": "Textual element delimiting the statistical results with regard to the main sectors covered.",
         "meContent.seCoverage.coverageGeographic": "Geographical coverage represented by the resource. It is highly recommended to make reference to officially recognized or easily identifiable macro-areas (e.g. South Saharan Africa, North America, OECD member countries..).",
         "meContent.seCoverage.coverageTime": "Information about the time period for which data are available. It requests to report the time window of reference (reporting the starting date and the ending date) even if it presents some lacks.",
+        "meContent.seCoverage.coverageTime.from": "",
+        "meContent.seCoverage.coverageTime.to": "",
 
         "meInstitutionalMandate": "",
         "meInstitutionalMandate.legalActsAgreements": "References (citations or website link) to legal acts or other formal or informal agreements that assign responsibility as well as authority to an agency for the collection, processing, and dissemination of the resource.",

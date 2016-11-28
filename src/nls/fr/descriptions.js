@@ -44,6 +44,9 @@ define(function () {
         "meContent.seCoverage.coverageSectorsDetails": "Elément textuel qui délimite les résultats en ce qui concerne les principaux secteurs couverts.",
         "meContent.seCoverage.coverageGeographic": "Couverture géographique représentée par la ressource. Il est fortement recommandé de faire référence à des macro-zones officiellement reconnues ou facilement identifiables (par exemple l'Afrique subsaharienne, l'Amérique du Nord, les pays membres de l'OECD).",
         "meContent.seCoverage.coverageTime": "Informations sur la période pour laquelle les données sont disponibles. Il demande de rapporter la fenêtre de temps de référence (en rapportant la date de début et la date de fin) même si il présent quelques manques.",
+        "meContent.seCoverage.coverageTime.from": "",
+        "meContent.seCoverage.coverageTime.to": "",
+
 
         "meInstitutionalMandate": "",
         "meInstitutionalMandate.legalActsAgreements": "Références (citations ou liens de site web) aux actes juridiques ou aux accords formels ou informels qui assignent la responsabilité ainsi que l'autorité à une agence pour la collecte, le traitement et la diffusion de la ressource.",

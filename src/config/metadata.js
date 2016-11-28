@@ -76,7 +76,6 @@ define(
                 "characterSet": {
 
                     "cl": IANA,
-
                     "selector": {
                         "id": "dropdown",
                         "default": ['106']
@@ -490,17 +489,35 @@ define(
                                     }
                                 },
                                 "coverageTime": {
-                                    "selector": {
-                                        "id": "range",
-                                        "format": "DD/MM/YYYY",
-                                        "config": {
-                                            type: "double"
-                                        }
+
+                                    //incremental : true,
+
+                                    //initialAmount : 1,
+
+                                    template: {
+                                        title: "Time"
                                     },
 
                                     "format": {
                                         "output": "period"
+                                    },
+
+                                    selectors: {
+                                        from: {
+                                            classNames: "col-xs-6",
+                                            selector: {
+                                                id: "time"
+                                            }
+
+                                        },
+                                        to: {
+                                            classNames: "col-xs-6",
+                                            selector: {
+                                                id: "time"
+                                            }
+                                        }
                                     }
+
                                 }
                             }
                         }
@@ -1155,16 +1172,22 @@ define(
                                             }
                                         },
                                         "embargoTime": {
-                                            "selector": {
-                                                "id": "range",
-                                                "format": "DD/MM/YYYY",
-                                                "config": {
-                                                    type: "double"
-                                                }
-                                            },
-
                                             "format": {
                                                 "output": "period"
+                                            },
+                                            "selectors": {
+                                                "from": {
+                                                    "classNames": "col-xs-6",
+                                                    "selector": {
+                                                        "id": "time"
+                                                    }
+                                                },
+                                                "to": {
+                                                    "classNames": "col-xs-6",
+                                                    "selector": {
+                                                        "id": "time"
+                                                    }
+                                                }
                                             }
                                         }
                                     }

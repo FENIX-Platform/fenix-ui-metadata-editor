@@ -44,6 +44,9 @@ define(function () {
         "meContent.seCoverage.coverageSectorsDetails": "Coverage Sector Details",
         "meContent.seCoverage.coverageGeographic": "Geographic extent",
         "meContent.seCoverage.coverageTime": "Coverage period",
+        "meContent.seCoverage.coverageTime.from": "From",
+        "meContent.seCoverage.coverageTime.to": "To",
+
 
         "meInstitutionalMandate": "Institutionale Mandate",
         "meInstitutionalMandate.legalActsAgreements": "Legal acts/agreements",

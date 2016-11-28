@@ -559,12 +559,9 @@ define([
         if (result.valid === true) {
             //validate result but return it in any case
             var s = this._validateValues(result);
-
             return s;
         } else {
-
             this._tagSectionsWithErrors(result.errors);
-
             return result;
         }
     };
@@ -655,6 +652,7 @@ define([
             _.each(parents, _.bind(function (p) {
                 this.$index.find("[data-section='" + p + "']").addClass(C.hasErrorParentClassName)
             }, this));
+
 
             this.$index.find("[data-section='" + split[split.length - 1] + "']").addClass(C.hasErrorClassName)
 

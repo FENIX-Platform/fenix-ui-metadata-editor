@@ -490,18 +490,9 @@ define(
                                 },
                                 "coverageTime": {
 
-                                    //incremental : true,
-
-                                    //initialAmount : 1,
-
-                                    template: {
-                                        title: "Time"
-                                    },
-
                                     "format": {
                                         "output": "period"
                                     },
-
                                     selectors: {
                                         from: {
                                             classNames: "col-xs-6",

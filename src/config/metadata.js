@@ -361,7 +361,7 @@ define(
                         "description": {
                             "selector": {
                                 "id": "input",
-                                "type": "text",
+                                "type": "textarea",
                                 "source": [
                                     {
                                         "value": "description",

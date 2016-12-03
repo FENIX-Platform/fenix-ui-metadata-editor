@@ -1,6 +1,23 @@
 @import 'utils/fx-utils';
 
+@import 'themes/fx-bootstrap-queries';
+@import 'themes/fx-variables';
+@import 'themes/fx-material-theme-light';
+
+@import 'base/fx-buttons';
+@import 'base/fx-fonts-import';
+@import 'base/fx-icons';
+@import 'base/fx-radio-checkbox';
+@import 'base/fx-typography';
+@import 'base/fx-fixed-height';
+
 [data-fenix="metadata-editor"] {
+
+
+
+
+
+
 
 
   li[data-section]{
@@ -69,3 +86,8 @@
     }
   }
 }
+
+
+
+
+

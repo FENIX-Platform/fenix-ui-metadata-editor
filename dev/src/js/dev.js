@@ -5,6 +5,7 @@ define([
     '../../../src/js/index',
     '../../../src/js/converter',
     '../config/nested',
+    '../config/gift_metadata',
     '../models/fxMetadata',
     '../models/fxMetadataSchema',
     '../models/titleCreationDate',
@@ -15,7 +16,7 @@ define([
     'ajv',
     '../nls/titles',
     '../nls/descriptions'
-], function (log, $, _, MetaDataEditor, Converter, Nested, fxMetadata, schema, Model1, Model2, Model3, Model4, DropdownModel,  Ajv, i18nTitles, i18nDesc) {
+], function (log, $, _, MetaDataEditor, Converter, Nested, GIFT, fxMetadata, schema, Model1, Model2, Model3, Model4, DropdownModel,  Ajv, i18nTitles, i18nDesc) {
 
     'use strict';
 
@@ -26,8 +27,8 @@ define([
             ADD: "#add-btn"
         },
         cache = false,
-        lang = "FR",
-        environment = "develop"; //develop production
+        lang = "EN",
+        environment = "production"; //develop production
 
     function Dev() {
 
@@ -83,7 +84,7 @@ define([
     };
 
     Dev.prototype._renderMDE = function () {
-
+/*
         _.each(i18nTitles, function(value, key){
             i18nTitles[key] = "MY CUSTOM " + value;
         });
@@ -91,7 +92,7 @@ define([
         _.each(i18nDesc, function(value, key){
             i18nDesc[key] = "MY CUSTOM " + value;
         });
-
+*/
         var self =this,
             ajv = new Ajv({
                 extendRefs: true,
@@ -101,7 +102,7 @@ define([
             mde = new MetaDataEditor({
                 el: s.MDE,
                 lang: lang,
-                //config: Nested,
+                config: GIFT,
                 //model: DropdownModel,
                 cache: cache,
                 environment: environment,
@@ -111,7 +112,7 @@ define([
 
         log.warn("Compile FENIX metadata schema: start");
 
-        validate = ajv.compile(schema);
+        //validate = ajv.compile(schema);
 
         log.warn("Compile FENIX metadata schema: success");
 
@@ -122,7 +123,7 @@ define([
 
             log.warn("Values:");
             console.log(data);
-
+/*
             valid = validate(data);
 
             log.warn("Valid FENIX metadata? " + valid);
@@ -130,6 +131,7 @@ define([
             if (!valid) {
                 log.error(validate.errors);
             }
+            */
 
         });
 

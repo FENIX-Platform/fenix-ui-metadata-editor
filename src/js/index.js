@@ -556,6 +556,8 @@ define([
 
         this._getRootValues(result);
 
+        console.log(result);
+
         if (result.valid === true) {
             //validate result but return it in any case
             var s = this._validateValues(result);

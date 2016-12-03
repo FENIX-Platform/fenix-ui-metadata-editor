@@ -102,7 +102,7 @@ define([
             mde = new MetaDataEditor({
                 el: s.MDE,
                 lang: lang,
-                config: GIFT,
+                //config: GIFT,
                 //model: DropdownModel,
                 cache: cache,
                 environment: environment,

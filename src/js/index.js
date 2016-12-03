@@ -390,13 +390,13 @@ define([
 
             s.filter = {};
 
+            var selectors = {},
+                filter;
+
             _.each(s.selectors, _.bind(function (c, id) {
 
                 //extend the selector type
                 s.mode = c.mode || "standard";
-
-                var selectors = {},
-                    filter;
 
                 selectors[id] = c;
 
@@ -411,9 +411,9 @@ define([
 
                 if (selectors[id].hasOwnProperty("selectors")) {
 
-                    _.each(selectors[id].selectors, _.bind(function(sec, x) {
+                    _.each(selectors[id].selectors, _.bind(function (sec, x) {
                         if (!sec.template) sec.template = {};
-                        $.extend(true,sec.template, {
+                        $.extend(true, sec.template, {
                             title: sec.template.title ? sec.template.title : this.titles[this._findMEPath(s) + "." + id + "." + x],
                             description: sec.template.description ? sec.template.description : this.descriptions[this._findMEPath(s) + "." + id + "." + x]
                         });
@@ -422,35 +422,33 @@ define([
 
                 }
 
-
-                filter = new Filter({
-                    el: s.el.find("[data-role='selectors']").first(),
-                    cache: this.cache,
-                    environment: this.environment,
-                    selectors: selectors,
-                    values: this._getInitialValues(id, s),
-                    lang: this.lang,
-                    nls: this.nls,
-                    id: this.id
-                });
-
-                filter.on("ready", function () {
-                    s.initialized = true;
-                });
-
-                filter.on("click", _.bind(function (payload) {
-                    this._trigger("change", payload, s);
-                }, this));
-
-                s.filter[id] = filter;
-
             }, this));
+
+            filter = new Filter({
+                el: s.el.find("[data-role='selectors']").first(),
+                cache: this.cache,
+                environment: this.environment,
+                selectors: selectors,
+                values: this._getInitialValues(id, s),
+                lang: this.lang,
+                nls: this.nls,
+                id: this.id
+            });
+
+            filter.on("ready", function () {
+                s.initialized = true;
+            });
+
+            filter.on("click", _.bind(function (payload) {
+                this._trigger("change", payload, s);
+            }, this));
+
+            s.filter = filter;
 
         }
 
         if (id === ROOT) {
             log.warn("Abort sections rendering because section is root");
-            return;
         }
 
     };
@@ -703,15 +701,11 @@ define([
             valid: true
         };
 
-        _.each(section.filter, _.bind(function (selector) {
-
-            var val = selector.getValues();
-            $.extend(true, values.values, val.values);
-            $.extend(true, values.labels, val.labels);
-            values.valid = val.valid && values.valid;
-            $.extend(true, values.errors, val.errors);
-
-        }));
+        var val = section.filter.getValues();
+        $.extend(true, values.values, val.values);
+        $.extend(true, values.labels, val.labels);
+        values.valid = val.valid && values.valid;
+        $.extend(true, values.errors, val.errors);
 
         return values
 

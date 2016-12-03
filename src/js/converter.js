@@ -214,6 +214,7 @@ define([
             valid;
 
         this.lang = config.lang || lang;
+        this.converters = obj.converters|| {};
 
         //check valid values
         valid = this._isValidValues(values);
@@ -314,7 +315,8 @@ define([
         _.each(selectors, _.bind(function (sel, id) {
 
             var format = sel.format || {},
-                output = format.output || "",
+                outputRaw = format.output || "",
+                output = outputRaw.toLowerCase(),
                 key = path ? path.concat(".").concat(id) : id,
                 value = this._getNestedProperty(key, values.values),
                 label = this._getNestedProperty(key, values.labels),
@@ -325,7 +327,12 @@ define([
                 return;
             }
 
-            switch (output.toLowerCase()) {
+            if (this.converters.hasOwnProperty(output) && typeof this.converters[output] === "function" ){
+                this.converters[output].call(this, key, value, label, result, selectors, id, path);
+                return;
+            }
+
+            switch (output) {
 
                 case "boolean" :
                     this._assign(result, key, ((value[0] + '').toLowerCase() === 'true'));
@@ -367,6 +374,21 @@ define([
 
                     this._assign(result, key, value ? [value] : undefined);
                     break;
+
+           /*     case "array<label>" :
+
+                    var outs = [];
+
+                    _.each(value, function(valy){
+                        c = {};
+                        outs.push(c[this.lang] = valy);
+                    })
+
+                    console.log(c);
+
+                    this._assign(result, key, outs );
+
+                    break;*/
 
                 case "array<contact>" :
 
@@ -454,7 +476,7 @@ define([
                     _.each(value, function (v) {
                         var element = {};
                         element[self.lang] = label[Object.keys(label)[0]];
-                        codes.push({code: v, title: element});
+                        codes.push({code: v, label: element});
                     });
 
                     c.codes = codes;

@@ -239,6 +239,8 @@ define([
         this.config = !_.isEmpty(this.initial.config) ? this.initial.config : FenixMetadata;
 
         this.nls = this.initial.nls || C.nls;
+        this.converters = this.initial.converters || {};
+
     };
 
     MetaDataEditor.prototype._attach = function () {
@@ -556,7 +558,7 @@ define([
 
         this._getRootValues(result);
 
-        console.log(result);
+        //console.log(result);
 
         if (result.valid === true) {
             //validate result but return it in any case
@@ -760,7 +762,8 @@ define([
 
         return Converter.toMetadata({
             values: values,
-            config: this.config
+            config: this.config,
+            converters : this.converters
         });
     };
 

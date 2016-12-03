@@ -109,6 +109,94 @@ define([
                 config: GIFT,
                 cache: cache,
                 environment: environment,
+                converters: {
+                    "array<resource>" : function( key, value, label, result, selectors, id, path) {
+
+                        console.log('documents', value);
+
+                        value = value.map(function (o) {
+
+                            var codes = o['ResourceType'];
+                            if (!Array.isArray(codes)) codes = [codes];
+                            var labels = label['ResourceType'];
+                            var ResourceType = null;
+
+                            if (codes && codes.length > 0) {
+                                ResourceType = {
+                                    idCodeList : "GIFT_ResourceType",
+                                    codes: []
+                                };
+
+                                $.each(codes, function(key,code){
+                                    ResourceType.codes.push({
+                                        "code" : code,
+                                        "label" : {
+                                            "EN" : labels[code]
+                                        }
+                                    });
+                                });
+
+
+                            }
+                            var ResourceDetails = {};
+                            ResourceDetails["EN"] = o.ResourceDetails;
+
+                            var ResourceCite = {};
+                            ResourceCite["EN"] = o.ResourceCite;
+
+                            var ResourceLink = {};
+                            ResourceLink["EN"] = o.ResourceLink;
+
+                            return {
+                                ResourceType : ResourceType,
+                                ResourceDetails: ResourceDetails,
+                                ResourceCite: ResourceCite,
+                                ResourceLink: ResourceLink
+                            }
+                        });
+
+                        this._assign(result, key, value ? value : undefined);
+                    },
+                    "array<label>" : function( key, value, label, result, selectors, id, path){
+                        value = value.map(function (o) {
+                            var ogg = {};
+                            $.each(o, function(key, value){
+                                var list = {};
+                                list["EN"] = value;
+                                ogg[key] = list;
+                            });
+                            return ogg;
+                        });
+                        this._assign(result, key, value ? value : undefined);
+                    },
+                    "array<yesno>" : function( key, value, label, result, selectors, id, path){
+                        var c = {};
+                        var empty = true;
+
+                        $.each(value, function(key, v){
+                            if (v[0]) {
+                                empty = false;
+                                c[key] = {
+                                    idCodeList: "YesNo",
+                                    codes: [{
+                                        code: v[0],
+                                        label: {"EN": label[key][v[0]]}
+                                    }]
+                                };
+                            }
+                        });
+                        if (!empty) this._assign(result, key, c);
+                    },
+                    "array<number>" : function( key, value, label, result, selectors, id, path){
+                        var ogg = {};
+                        var empty = true;
+                        $.each(value, function (ch, o) {
+                            empty = false;
+                            ogg[ch] = Number(o[0]);
+                        });
+                        this._assign(result, key, !empty ? ogg : undefined);
+                    }
+                }
                 //titles: i18nTitles,
                 //descriptions: i18nDesc
             });

@@ -2,6 +2,7 @@ define(
     function () {
 
         var IANA = {uid: 'IANAcharacterSet'},
+            ROLE = {uid: "ResponsiblePartyRole"},
             GAUL = {uid: 'GAUL0', version: "2014"},
             Languages = {uid: 'GIFT_ISO639-2', version: "1998"},
             TypeOfCollection = {uid: 'GIFT_TypeOfCollection'},
@@ -312,16 +313,17 @@ define(
 
                         },
                         "role": {
+                            enumeration: ROLE,
                             "selector": {
-                                "id": "input",
-                                "type": "text",
-                                "source": [{"value": "role", "label": "Function/Role"}]
+                                "id": "dropdown",
+                                config: {
+                                    maxItems: 1
+                                }
                             },
                             "template": {
                                 "title": "Function/Role",
                                 "hideDescription": true,
                                 "footer": "Specify what is the Contact Person's function performed concerning the dataset"
-
                             },
                             "format": {
                                 "output": "label"
@@ -743,7 +745,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output": "codes"
+                                        "output": "label"
                                     }
                                 }
                             }
@@ -828,8 +830,7 @@ define(
                                             "cl": GIFT_TypeOfResource,
                                             "selector": {
                                                 "id": "dropdown",
-                                                "sort": false,
-                                                "config": {"maxItems": 1}
+                                                "sort": false
                                             },
                                             "template": {
                                                 "title": "Type of resource",
@@ -912,11 +913,11 @@ define(
                                                 "output": "label"
                                             }
                                         }
+                                    },
+                                    "format": {
+                                        "output": "array<resource>"
                                     }
                                 }
-                            },
-                            "format": {
-                                "output": "array"
                             }
                         },
                         "SurveyInformation": {
@@ -1242,7 +1243,7 @@ define(
                                         }
                                     },
                                     format: {
-                                        output: "array"
+                                        output: "array<label>"
                                     }
 
                                 },
@@ -1299,7 +1300,7 @@ define(
                                         }
                                     },
                                     format: {
-                                        output: "array"
+                                        output: "array<label>"
                                     }
 
                                 },
@@ -1465,7 +1466,7 @@ define(
                                         "title": "Under-/over-reporting at individual level",
                                     },
                                     "format": {
-                                        "output": "array"
+                                        "output": "array<number>"
                                     },
                                     selectors: {
                                         "underReporting": {
@@ -1505,7 +1506,7 @@ define(
                                         "title": "Under-/over-reporting at group level",
                                     },
                                     "format": {
-                                        "output": "array"
+                                        "output": "array<yesno>"
                                     },
                                     selectors: {
                                         "underReporting": {
@@ -1617,7 +1618,6 @@ define(
                                     "template": {
                                         "title": "Food coverage - details",
                                         "footer": "Specify which foods or food groups (if any) were not covered by the study",
-
                                     },
                                     "format": {
                                         "output": "label"
@@ -1633,7 +1633,6 @@ define(
                                     "template": {
                                         "title": "Quantification of drinking water",
                                         "footer": "Provide information whether or not water drunk by the respondents has been quantified in the study",
-
                                     },
                                     "format": {
                                         "output": "codes:extended"
@@ -1651,7 +1650,6 @@ define(
                                     "template": {
                                         "title": "Information on supplement intakes",
                                         "footer": "Provide information whether or not the information on the use/consumption of dietary supplements has been collected",
-
                                     },
                                     "format": {
                                         "output": "codes:extended"
@@ -1990,6 +1988,9 @@ define(
                                                 "output": "codes:extended"
                                             }
                                         }
+                                    },
+                                    format: {
+                                        output: "array<yesno>"
                                     }
                                 },
                                 "OtherVariablesAvailability": {
@@ -2039,6 +2040,9 @@ define(
                                                 "output": "codes:extended"
                                             }
                                         }
+                                    },
+                                    format: {
+                                        output: "array<yesno>"
                                     }
                                 }
                             }

@@ -105,26 +105,23 @@ define([
             values = {};
 
         if (!section || !section.initialized) {
-            log.warn(section + " is not initialized. Abort set values");
+
+            console.log(s + " is not initialized. Abort set values");
+            log.warn(s + " is not initialized. Abort set values");
             return;
         }
 
-        if (section.hasOwnProperty('filter')) {
+        if (section.hasOwnProperty('selectors')) {
 
-            _.each(section.filter, _.bind(function (f, name) {
-
-                var values = this._getInitialValues(name, section);
-
-                if (values) {
-                    f.setValues(values)
-                }
-
-            }, this));
+            var values = this._getInitialValues(section.selectors, section);
+            if (values) {
+                section.filter.setValues(values)
+            }
 
         }
 
         if (typeof section.sections === 'object') {
-            _.each(section.sections, _.bind(function (s, name) {
+            _.each(section.sections, _.bind(function (sec, name) {
                 this._setValuesToSection(name);
             }, this));
         }
@@ -289,7 +286,11 @@ define([
 
         section.index = this._attachSectionIndex(section, id, parent); //TODO pluggable
 
-        this._renderSelectors(section, section.id);
+        if(!section.selectors) {
+            section.initialized = true;
+        } else {
+            this._renderSelectors(section, section.id);
+        }
 
         if (typeof section.sections === 'object') {
             this._renderSections(section.sections, id !== ROOT ? id : null);
@@ -380,12 +381,12 @@ define([
 
     };
 
-    MetaDataEditor.prototype._renderSelectors = function (s, id) {
-        log.info("Render section's selectors: " + id);
+    MetaDataEditor.prototype._renderSelectors = function (s, sectionId) {
+        log.info("Render section's selectors: " + sectionId);
         log.info(s);
 
         if (!s.selectors) {
-            log.warn("Abort because section does not contains any selectors: " + id);
+            log.warn("Abort because section does not contains any selectors: " + sectionId);
         } else {
 
             s.filter = {};
@@ -429,7 +430,7 @@ define([
                 cache: this.cache,
                 environment: this.environment,
                 selectors: selectors,
-                values: this._getInitialValues(id, s),
+                values: this._getInitialValues(selectors, s),
                 lang: this.lang,
                 nls: this.nls,
                 id: this.id
@@ -447,29 +448,30 @@ define([
 
         }
 
-        if (id === ROOT) {
-            log.warn("Abort sections rendering because section is root");
-        }
-
     };
 
-    MetaDataEditor.prototype._getInitialValues = function (id, s) {
+    MetaDataEditor.prototype._getInitialValues = function (selectors, s) {
 
-        var cleanPath = _.without(s.path || [], ROOT),
-            result = {values: {}},
+        var result = {values: {}},
             found = false,
             path;
 
-        cleanPath.push(id);
+        _.each(selectors, _.bind(function (value, id) {
 
-        path = cleanPath.join(".");
+            var cleanPath = _.without(s.path || [], ROOT);
+            cleanPath.push(id);
 
-        var value = this.getNestedProperty(path, this.model);
+            path = cleanPath.join(".");
 
-        if (value) {
-            result.values[id] = value;
-            found = true;
-        }
+            var value = this.getNestedProperty(path, this.model);
+
+            if (value) {
+                result.values[id] = value;
+                found = true;
+            }
+
+
+        }, this));
 
         return found ? result : undefined;
     };

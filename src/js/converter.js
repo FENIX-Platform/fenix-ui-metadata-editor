@@ -435,6 +435,37 @@ define([
                     this._assign(result, key, c);
                     break;
 
+                case "codes:extended" :
+                    c = {};
+
+                    var cl = sel.cl || {},
+                        idCodeList = cl.uid || format.uid,
+                        version = cl.version || format.version,
+                        codes = [];
+
+                    if (!idCodeList) {
+                        log.error("Impossible to find codelist uid configuration for selector: " + id);
+                        return;
+                    }
+
+                    c.idCodeList = idCodeList;
+                    c.version = version;
+
+                    _.each(value, function (v) {
+                        var element = {};
+                        element[self.lang] = label[Object.keys(label)[0]];
+                        codes.push({code: v, title: element});
+                    });
+
+                    c.codes = codes;
+
+                    this._assign(result, key, c);
+                    break;
+
+                case "number" :
+                    this._assign(result, key, Array.isArray(value) && value[0] ? Number(value[0]) : undefined);
+                    break;
+
                 default :
                     log.error("'" + id + "' in '" + key + "' has not a valid format configuration. Please check questionnaire configuration");
             }

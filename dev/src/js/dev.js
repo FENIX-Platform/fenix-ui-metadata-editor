@@ -13,10 +13,11 @@ define([
     '../models/firstSecondSections',
     '../models/firstSecondThirdSection',
     '../models/dropdown',
+    '../models/gift',
     'ajv',
     '../nls/titles',
     '../nls/descriptions'
-], function (log, $, _, MetaDataEditor, Converter, Nested, GIFT, fxMetadata, schema, Model1, Model2, Model3, Model4, DropdownModel,  Ajv, i18nTitles, i18nDesc) {
+], function (log, $, _, MetaDataEditor, Converter, Nested, GIFT, fxMetadata, schema, Model1, Model2, Model3, Model4, DropdownModel, GiftModel, Ajv, i18nTitles, i18nDesc) {
 
     'use strict';
 
@@ -84,16 +85,18 @@ define([
     };
 
     Dev.prototype._renderMDE = function () {
-/*
-        _.each(i18nTitles, function(value, key){
-            i18nTitles[key] = "MY CUSTOM " + value;
-        });
+        /*
+         _.each(i18nTitles, function(value, key){
+         i18nTitles[key] = "MY CUSTOM " + value;
+         });
 
-        _.each(i18nDesc, function(value, key){
-            i18nDesc[key] = "MY CUSTOM " + value;
-        });
-*/
-        var self =this,
+         _.each(i18nDesc, function(value, key){
+         i18nDesc[key] = "MY CUSTOM " + value;
+         });
+         */
+
+
+        var self = this,
             ajv = new Ajv({
                 extendRefs: true,
                 allErrors: true
@@ -102,8 +105,8 @@ define([
             mde = new MetaDataEditor({
                 el: s.MDE,
                 lang: lang,
-                //config: GIFT,
-                //model: DropdownModel,
+                //model : GiftModel,
+                config: GIFT,
                 cache: cache,
                 environment: environment,
                 //titles: i18nTitles,
@@ -122,16 +125,16 @@ define([
                 valid;
 
             log.warn("Values:");
-            console.log(data);
-/*
-            valid = validate(data);
+            console.log(JSON.stringify(data));
+            /*
+             valid = validate(data);
 
-            log.warn("Valid FENIX metadata? " + valid);
+             log.warn("Valid FENIX metadata? " + valid);
 
-            if (!valid) {
-                log.error(validate.errors);
-            }
-            */
+             if (!valid) {
+             log.error(validate.errors);
+             }
+             */
 
         });
 
@@ -141,14 +144,14 @@ define([
 
         $(s.ADD).on("click", function () {
 
-            mde.setValues(DropdownModel);
+            mde.setValues(GiftModel.metadata ?GiftModel.metadata : GiftModel );
 
-           /* mde.dispose();
-            $(s.VALUES).off();
-            $(s.DISPOSE).off();
-            $(s.ADD).off();
+            /* mde.dispose();
+             $(s.VALUES).off();
+             $(s.DISPOSE).off();
+             $(s.ADD).off();
 
-            self._renderMDE()*/
+             self._renderMDE()*/
 
         });
     };

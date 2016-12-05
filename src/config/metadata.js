@@ -611,23 +611,7 @@ define(
                                             "format": {
                                                 "output": "codes"
                                             }
-                                        },
-                                        "organization": {
-                                            "selector": {
-                                                "id": "input",
-                                                "type": "text",
-                                                "source": [
-                                                    {
-                                                        "value": "organization",
-                                                        "label": "Organization"
-                                                    }
-                                                ]
-                                            },
-
-                                            "format": {
-                                                "output": "string"
-                                            }
-                                        },
+                                        }
                                     }
                                 },
                                 "seSecondaryDataCollection": {

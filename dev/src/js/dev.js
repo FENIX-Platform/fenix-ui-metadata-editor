@@ -106,7 +106,7 @@ define([
                 el: s.MDE,
                 lang: lang,
                 //model : GiftModel,
-                config: GIFT,
+                //config: GIFT,
                 cache: cache,
                 environment: environment,
                 converters: {

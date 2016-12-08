@@ -353,13 +353,17 @@ define([
                     break;
 
                 case "period" :
-
+/*
                     var from = _.findWhere(value, {parent: "from"}) || {},
                         to = _.findWhere(value, {parent: "to"}) || {},
                         v = {};
+*/
+                    var from = value.from[0],
+                        to = value.to[0],
+                        v = {};
 
-                    v.from = String(Moment(from.value).unix() * 1000);
-                    v.to = String(Moment(from.to).unix() * 1000);
+                    v.from = String(Moment(from).unix() * 1000);
+                    v.to = String(Moment(to).unix() * 1000);
 
                     this._assign(result, key, v);
 
@@ -375,20 +379,6 @@ define([
                     this._assign(result, key, value ? [value] : undefined);
                     break;
 
-           /*     case "array<label>" :
-
-                    var outs = [];
-
-                    _.each(value, function(valy){
-                        c = {};
-                        outs.push(c[this.lang] = valy);
-                    })
-
-                    console.log(c);
-
-                    this._assign(result, key, outs );
-
-                    break;*/
 
                 case "array<contact>" :
 

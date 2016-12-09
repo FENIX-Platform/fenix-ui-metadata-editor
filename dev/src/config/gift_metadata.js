@@ -824,14 +824,14 @@ define(
                                                 //"config": {"readonly": true}
                                             },
                                             /*
-                                            "dependencies": {
-                                                "ResourceType": [{
-                                                    event: 'select',
-                                                    id: 'readOnlyIfNotValue',
-                                                    args: {value: "5"}
-                                                }]
-                                            },
-                                            */
+                                             "dependencies": {
+                                             "ResourceType": [{
+                                             event: 'select',
+                                             id: 'readOnlyIfNotValue',
+                                             args: {value: "5"}
+                                             }]
+                                             },
+                                             */
                                             "template": {
                                                 "title": "Type of resource - details",
                                                 "hideDescription": true,
@@ -1143,7 +1143,7 @@ define(
                                         "footer": "Name the method used in selecting the sample for the study.",
                                     },
                                     "format": {
-                                        "output": "codes"
+                                        "output": "codes:extended"
                                     },
                                     "constraints": {"presence": true}
                                 },
@@ -1221,7 +1221,7 @@ define(
 
                                     },
                                     "format": {
-                                        "output": "codes"
+                                        "output": "codes:extended"
                                     },
                                     "constraints": {"presence": true}
                                 },
@@ -1283,14 +1283,14 @@ define(
                                         "output": "number"
                                     },
                                     /*
-                                    "dependencies": {
-                                        "statisticalPopulation": [{
-                                            event: 'select',
-                                            id: 'readOnlyIfNotValue',
-                                            args: {value: "2"}
-                                        }]
-                                    }
-                                    */
+                                     "dependencies": {
+                                     "statisticalPopulation": [{
+                                     event: 'select',
+                                     id: 'readOnlyIfNotValue',
+                                     args: {value: "2"}
+                                     }]
+                                     }
+                                     */
                                 },
                                 "PurposedlyGroups": {
 
@@ -1844,22 +1844,22 @@ define(
 
                                     classNames: "well",
 
-                                    //disabled : true,
+                                    disabled: true,
 
                                     "template": {
                                         "title": "Macronutrients and dietary components available in the dataset - details",
                                         "hideDescription": true,
                                         "footer": "List additional macronutrients and dietary components reported here above as 'other'",
                                     },
-                                    /*
-                                     dependencies: {
-                                     MacroDietaryComponents: [{
-                                     id: "enableIfValue",
-                                     event: "select",
-                                     args: {value: "9"}
-                                     }]
-                                     },
-                                     */
+
+                                    dependencies: {
+                                        MacroDietaryComponents: [{
+                                            id: "enableIfValue",
+                                            event: "select",
+                                            args: {value: "9"}
+                                        }]
+                                    },
+
                                     "incremental": true,
 
                                     "selectors": {
@@ -1903,22 +1903,22 @@ define(
 
                                     classNames: "well",
 
-                                    //disabled : true,
+                                    disabled: true,
 
                                     "template": {
                                         "title": "Micronutrients and minerals available in the dataset - details",
                                         "hideDescription": true,
                                         "footer": "List additional micronutrients reported here above as 'other'",
                                     },
-                                    /*
-                                     dependencies: {
-                                     MicroDietaryComponents: [{
-                                     id: "enableIfValue",
-                                     event: "select",
-                                     args: {value: "13"}
-                                     }]
-                                     },
-                                     */
+
+                                    dependencies: {
+                                        MicroDietaryComponents: [{
+                                            id: "enableIfValue",
+                                            event: "select",
+                                            args: {value: "13"}
+                                        }]
+                                    },
+
                                     "incremental": true,
 
                                     "selectors": {

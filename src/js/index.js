@@ -94,9 +94,7 @@ define([
     MetaDataEditor.prototype._setValues = function (model) {
 
         this.model = Converter.toValues({model: model, lang: this.lang}) || {};
-
         this._setValuesToSection(ROOT);
-
     };
 
     MetaDataEditor.prototype._setValuesToSection = function (s) {
@@ -112,12 +110,8 @@ define([
         }
 
         if (section.hasOwnProperty('selectors')) {
-
             var values = this._getInitialValues(section.selectors, section);
-            if (values) {
-                section.filter.setValues(values)
-            }
-
+            if (values) section.filter.setValues(values);
         }
 
         if (typeof section.sections === 'object') {

@@ -432,9 +432,20 @@ define(
                     "description": "This section includes a summary of the content of the resource and the description of the geographical, time and sector coverage.",
                     "selectors": {
                         "keywords": {
-                            "selector": {
-                                "id": "input",
-                                "type": "text"
+                            selector: {
+                                id: "dropdown",
+                                default: ["DZA", "ZAF", "Daniele"],
+                                config: {
+                                    plugins: ['remove_button'],
+                                    delimiter: ',',
+                                    persist: false,
+                                    create: function (input) {
+                                        return {
+                                            value: input,
+                                            text: input
+                                        }
+                                    }
+                                }
                             },
                             "template": {
                                 "title": "Keywords",

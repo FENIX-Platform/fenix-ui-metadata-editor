@@ -12,8 +12,9 @@ define([
     '../html/sectionIndex.hbs',
     '../nls/titles',
     '../nls/descriptions',
+    '../nls/errors',
     'fenix-ui-filter'
-], function (log, $, _, Converter, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex, TitlesI18n, DescriptionsI18n, Filter) {
+], function (log, $, _, Converter, ERR, EVT, C, FenixMetadata, template, sectionContent, sectionIndex, TitlesI18n, DescriptionsI18n, ErrorsI18n, Filter) {
 
     'use strict';
 
@@ -24,6 +25,7 @@ define([
         ROOT = "root";
 
     function MetaDataEditor(obj) {
+
         log.info("[MDE] Meta Data Editor", obj);
 
         require("../css/fenix-ui-metadata-editor.css");
@@ -217,6 +219,7 @@ define([
         this.lang = this.initial.lang || C.lang;
         this.titles = this.initial.titles || TitlesI18n[this.lang.toLowerCase()];
         this.descriptions = this.initial.descriptions || DescriptionsI18n[this.lang.toLowerCase()];
+        this.errors = this.initial.errors || ErrorsI18n[this.lang.toLowerCase()];
 
         this.affix = this.initial.affix || C.affix;
 
@@ -255,7 +258,6 @@ define([
     MetaDataEditor.prototype._renderSections = function (sections, parent) {
         log.info("[MDE] Render sections:");
         log.info(sections);
-
         _.each(sections, _.bind(function (s, id) {
             this._renderSection(s, id, parent);
         }, this))
@@ -300,6 +302,7 @@ define([
 
         if (this.titles) s.title = this.titles[this._findMEPath(s)];
         if (this.descriptions) s.description = this.descriptions[this._findMEPath(s)];
+        //if (this.errors)
 
         var $parentEl = this.$content.find("[data-section='" + parent + "']"),
             template = s.template || {},
@@ -397,9 +400,14 @@ define([
 
                 selectors[id] = c;
 
-                if (!selectors[id]['template']) {
-                    selectors[id]['template'] = {};
+                if (c.constraints) {
+                    _.each(c.constraints, _.bind(function (idx, item) {
+                        var opt = { "message" : ErrorsI18n[this.lang.toLowerCase()][item] };
+                        if (ErrorsI18n[this.lang.toLowerCase()][item]) c.constraints[item] = opt;
+                    }, this));
                 }
+
+                if (!selectors[id]['template'])  selectors[id]['template'] = {};
 
                 $.extend(true, selectors[id].template, {
                     title: selectors[id].template.title ? selectors[id].template.title : this.titles[this._findMEPath(s) + "." + id],
@@ -552,8 +560,6 @@ define([
 
         this._getRootValues(result);
 
-        //console.log(result);
-
         if (result.valid === true) {
             //validate result but return it in any case
             var s = this._validateValues(result);
@@ -565,6 +571,8 @@ define([
     };
 
     MetaDataEditor.prototype._validateValues = function (s) {
+
+        alert('_validateValues');
 
         var values = process($.extend(true, {}, s.values)),
             errors = {};

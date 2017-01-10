@@ -105,7 +105,6 @@ define([
             values = {};
 
         if (!section || !section.initialized) {
-
             console.log(s + " is not initialized. Abort set values");
             log.warn(s + " is not initialized. Abort set values");
             return;
@@ -571,8 +570,6 @@ define([
     };
 
     MetaDataEditor.prototype._validateValues = function (s) {
-
-        alert('_validateValues');
 
         var values = process($.extend(true, {}, s.values)),
             errors = {};

@@ -14,7 +14,7 @@ define(
             DisseminationPeriodicy = {uid: 'FAO_Period', version: "1.0"},
             PeriodicityDataCollection = {uid: 'FAO_Period', version: "1.0"},
             UpdatePeriodicity = {uid: 'FAO_Period', version: "1.0"},
-            CoverageSector = {uid: 'CRS_purpose_codes'}; // CSTAT_Core
+            CoverageSector = {uid: 'CRS_purpose_codes'};
 
 
         return {
@@ -349,8 +349,18 @@ define(
                     "selectors": {
                         "keywords": {
                             "selector": {
-                                "id": "input",
-                                type: "text"
+                                id: "dropdown",
+                                config: {
+                                    plugins: ['remove_button'],
+                                    delimiter: ',',
+                                    persist: false,
+                                    create: function (input) {
+                                        return {
+                                            value: input,
+                                            text: input
+                                        }
+                                    }
+                                }
                             },
 
                             "format": {

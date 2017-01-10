@@ -434,7 +434,6 @@ define(
                         "keywords": {
                             selector: {
                                 id: "dropdown",
-                                default: ["DZA", "ZAF", "Daniele"],
                                 config: {
                                     plugins: ['remove_button'],
                                     delimiter: ',',

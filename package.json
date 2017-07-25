@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-metadata-editor",
-  "version": "2.0.0-beta.57",
+  "version": "2.0.0-beta.58",
   "description": "FENIX Metadata Editor",
   "main": "dist/fenix-ui-metadata-editor.min.js",
   "scripts": {
@@ -21,8 +21,8 @@
   "homepage": "https://github.com/FENIX-Platform/fenix-ui-metadata-editor#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "fenix-ui-filter": "^3.0.0-beta.80",
-    "fenix-ui-filter-utils": "^1.0.0-beta.14",
+    "fenix-ui-filter": "^3.0.0-beta.92",
+    "fenix-ui-filter-utils": "^1.0.0-beta.18",
     "jquery": "^3.1.0",
     "loglevel": "^1.4.1",
     "moment": "^2.15.2",

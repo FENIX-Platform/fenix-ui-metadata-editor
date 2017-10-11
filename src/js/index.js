@@ -556,7 +556,6 @@ define([
         };
 
         this._untagSectionsWithErrors();
-
         this._getRootValues(result);
 
         if (result.valid === true) {
@@ -567,6 +566,8 @@ define([
             this._tagSectionsWithErrors(result.errors);
             return result;
         }
+
+
     };
 
     MetaDataEditor.prototype._validateValues = function (s) {

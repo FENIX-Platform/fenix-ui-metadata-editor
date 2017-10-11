@@ -105,7 +105,7 @@ define([
             mde = new MetaDataEditor({
                 el: s.MDE,
                 lang: lang,
-                //model : GiftModel,
+                model : GiftModel,
                 config: GIFT,
                 cache: cache,
                 environment: environment,
@@ -212,7 +212,7 @@ define([
             var data = mde.getValues(),
                 valid;
 
-            log.warn("Values:");
+            console.log("Values:");
             console.log(JSON.stringify(data));
             /*
              valid = validate(data);

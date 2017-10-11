@@ -465,7 +465,7 @@ define([
 
                     _.each(value, function (v) {
                         var element = {};
-                        element[self.lang] = label[Object.keys(label)[0]];
+                        element[self.lang] = label[v]; //label[Object.keys(label)[0]]; << This brokes GIFT. It should be fine for everything but, just in case...
                         codes.push({code: v, label: element});
                     });
 

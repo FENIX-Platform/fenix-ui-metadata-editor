@@ -502,6 +502,9 @@ define([
         rootSection = this.sections[root];
 
         if (this.currentSection === root) {
+            //Scroll to the clicked section
+            var aTag = this.$content.find("[data-section='" + id + "']");
+            $('html,body').animate({scrollTop: aTag.offset().top},'slow');
             log.warn("Abort show section. Section already active");
             return;
         }
@@ -518,6 +521,9 @@ define([
         this.$content.find("[data-section='" + root + "']").addClass("active");
         this.$content.find("[data-section='" + root + "']").find("[data-section]").addClass("active");
 
+        //Scroll to the clicked section
+        var aTag = this.$content.find("[data-section='" + id + "']");
+        $('html,body').animate({scrollTop: aTag.offset().top},'slow');
     };
 
     MetaDataEditor.prototype._bindEventListeners = function () {

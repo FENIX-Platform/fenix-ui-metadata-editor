@@ -417,6 +417,14 @@ define([
 
                     _.each(selectors[id].selectors, _.bind(function (sec, x) {
                         if (!sec.template) sec.template = {};
+
+                        if (sec.constraints) {
+                            _.each(sec.constraints, _.bind(function (idx, item) {
+                                var opt = { "message" : ErrorsI18n[this.lang.toLowerCase()][item] };
+                                if (ErrorsI18n[this.lang.toLowerCase()][item]) sec.constraints[item] = opt;
+                            }, this));
+                        }
+
                         $.extend(true, sec.template, {
                             title: sec.template.title ? sec.template.title : this.titles[this._findMEPath(s) + "." + id + "." + x],
                             description: sec.template.description ? sec.template.description : this.descriptions[this._findMEPath(s) + "." + id + "." + x]

@@ -206,6 +206,7 @@ define([
         this.model = Converter.toValues({model: this.initial.model, lang: this.lang}) || {};
 
         this.environment = this.initial.environment;
+        this.serviceProvider = this.initial.serviceProvider;
         this.cache = this.initial.cache || C.cache;
 
         this.sections = {};
@@ -440,6 +441,7 @@ define([
                 el: s.el.find("[data-role='selectors']").first(),
                 cache: this.cache,
                 environment: this.environment,
+                serviceProvider: this.serviceProvider,
                 selectors: selectors,
                 values: this._getInitialValues(selectors, s),
                 lang: this.lang,
